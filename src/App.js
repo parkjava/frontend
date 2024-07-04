@@ -8,7 +8,7 @@ export default function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/.js</code> and save to reload.ddd test test12312331214124412ㅇㅇㅇㅇ동민컴퓨터ddd choiyoungwonㅎㅇㅎㅇ
-          수정 테스트
+          수정 테스트 현준컴 테스트
         </p>
         <a
           className="App-link"
