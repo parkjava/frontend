@@ -6,8 +6,8 @@ export default function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ병합 테스트 합니다@ㄴㄴ
-        </p>
+        <p>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ병합 테스트 합니다@ㄴㄴEdit
+          <code>src/.js</code> </p>
         <a
           className="App-link"
           href="https://reactjs.org"
