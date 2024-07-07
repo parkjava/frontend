@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function MainPage() {
   return (
     <>
-      <div>
+      <div>z
         <p>메인페이지입니다.</p>
         <Link to="/login">로그인</Link>
         <Link to="/notice">공지사항</Link>
