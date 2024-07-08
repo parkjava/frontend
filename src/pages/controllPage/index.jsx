@@ -14,7 +14,7 @@ const Index = () => {
     useEffect(() => {
 
         const rosInstance = new ROSLIB.Ros({
-            url: 'ws://192.168.137.6:9090',
+            url: 'ws://192.168.0.12:9090',
         });
 
         rosInstance.on('connection', () => {
