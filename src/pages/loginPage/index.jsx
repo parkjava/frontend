@@ -1,5 +1,5 @@
-import LoginNavbar from './components/loginNavbar';
 import LoginCard from './components/loginCard';
+import LoginNavbar from './components/loginNavbar';
 import LoginTitle from './components/loginTitle';
 
 function LoginPage() {
@@ -10,6 +10,7 @@ function LoginPage() {
         <LoginTitle />
         <LoginCard/>
       </div>
+  
     </>
   );
 }
