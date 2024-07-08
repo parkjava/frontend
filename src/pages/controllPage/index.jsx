@@ -8,13 +8,14 @@ const Index = () => {
     const [ledBlue, setLedBlue] = useState('');
     const [ledGreen, setLedGreen] = useState('');
     const [buzzer, setBuzzer] = useState('');
-    const [connectionStatus, setConnectionStatus] = useState('Disconnected');
+    const [connectionStatus, setConnectionStatus] = useState('Wait...');
 
 
     useEffect(() => {
 
         const rosInstance = new ROSLIB.Ros({
-            url: 'ws://192.168.0.12:9090',
+            // url: 'ws://192.168.137.6:9090', 핫스팟일 때
+            url : 'ws://192.168.0.12:9090'
         });
 
         rosInstance.on('connection', () => {
