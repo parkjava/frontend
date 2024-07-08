@@ -2,8 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import MainPage from "./pages//mainPage/index";
 import LoginPage from "./pages/loginPage/index";
 import NoticePage from "./pages/noticePage/index";
-
-
+import "./App.css"
 export default function App() {
   return (
     <Routes>

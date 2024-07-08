@@ -1,16 +1,16 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
+import Footer from "../../components/footer"
 
-// App.jsx
 function MainPage() {
   return (
     <>
-      <div>z
-        <p>메인페이지입니다.</p>
+      <div>
+        <h1>PARK JAVA</h1>
         <Link to="/login">로그인</Link>
         <Link to="/notice">공지사항</Link>
       </div>
+      <Footer />
     </>
   );
 }
