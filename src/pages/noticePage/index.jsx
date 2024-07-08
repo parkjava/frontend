@@ -1,10 +1,15 @@
-// App.jsx
+import MainNavbar from './components/noticeNavbar'
+import NoticeTable from './components/noticeTable'
+import NoticeTitle from './components/noticeTitle'
 
-export default function noticePage() {
+
+export default function NoticePage() {
   return (
     <>
       <div>
-        공지사항페이지입니다.
+        <MainNavbar/>
+        <NoticeTitle/>
+        <NoticeTable/>
       </div>
     </>
   );
