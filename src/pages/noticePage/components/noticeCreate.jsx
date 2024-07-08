@@ -5,7 +5,7 @@ export default function NoiceCreate () {
 
     return (<>
         <Container className="d-flex justify-content-end ">
-            <Link to="#공지사항작성">
+            <Link to="/noticecreate">
                 <Button variant="primary" type="submit" name="noticecreate">
                     공지사항작성
                 </Button>

@@ -1,4 +1,5 @@
 import { Table, Container } from 'react-bootstrap';
+import {Link} from 'react-router-dom'
 
 
 export default function NoticeTable() {
@@ -16,7 +17,7 @@ export default function NoticeTable() {
             <tbody>
                 <tr>
                 <td>1</td>
-                <td>Mark</td>
+                <td><Link to='/noticedetail'>예시</Link></td>
                 <td>240404</td>
                 <td>@mdo</td>
                 </tr>
