@@ -11,7 +11,7 @@ function MainPage() {
         <Link to="/admin">관리자 페이지</Link>
         <Link to="/carcheck">차량 조회</Link>
           <Link to="/Patrol">단속내역</Link>
-
+        <Link to="/user">사용자</Link>
       </div>
     </>
   );

@@ -8,7 +8,6 @@ function NoticeCreatePage() {
   return (
     <>
       <div>
-        <MainNavbar/>
         <NoticeTitle/>
         <NoticeTable/>
       </div>

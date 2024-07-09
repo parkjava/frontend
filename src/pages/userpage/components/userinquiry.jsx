@@ -1,30 +1,30 @@
-import { Table, Container, Form,  Button } from 'react-bootstrap';
+import {Container, Table, Form,  Button} from 'react-bootstrap';
 import {useState} from 'react'
 import {Link} from 'react-router-dom'
 
-
-export default function NoticeTable() {
-    
-    const [noticeText, setNoticeText] = useState({
+export default function UserInquiry () {
+    const [userinquiry, setuserinquiry] = useState({
         title:'',
         detail:''
     });
     
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setNoticeText({
-            ...noticeText,
+        setuserinquiry({
+            ...userinquiry,
             [name]: value
         });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        alert("제목:" + JSON.stringify((noticeText.title),null,2) + "내용: " + JSON.stringify((noticeText.detail),null,2));
+        alert("제목:" + JSON.stringify((userinquiry.title),null,2) + "내용: " + JSON.stringify((userinquiry.detail),null,2));
     };
     
-    return (<>
+
+    return (
         <Container>
+            <h1>문의 내용 작성</h1>
             <Form onSubmit={handleSubmit}>
                 <Table>
                     <thead>
@@ -35,7 +35,7 @@ export default function NoticeTable() {
                                     type="text"
                                     placeholder="제목 입력"
                                     name='title'
-                                    value={noticeText.title}
+                                    value={userinquiry.title}
                                     onChange={handleInputChange}
                                     style={{border: 'none'}}
                                 />
@@ -51,19 +51,12 @@ export default function NoticeTable() {
                                     rows={15}
                                     placeholder="내용 입력"
                                     name='detail'
-                                    value={noticeText.detail}
+                                    value={userinquiry.detail}
                                     onChange={handleInputChange}
                                     style={{ border: 'none', resize: 'none' }}
                                 />
                             </td>
                         </tr>
-                        {/* <tr>
-                            <td>
-                                <Form.Group controlId="formFileMultiple" className="mb-3">
-                                    <Form.Control type="file" multiple />
-                                </Form.Group>
-                            </td>
-                        </tr> */}
                     </tbody>
                 </Table>
                 <div className='d-flex justify-content-end'>
@@ -72,7 +65,7 @@ export default function NoticeTable() {
                     </Button>
                 </div>
             </Form>
-            <div><Link to={'/notice'}>목록으로</Link></div>
+            <div><Link to={'/user'}>사용자</Link></div>
         </Container>
-        </>)
+    )
 }

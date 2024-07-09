@@ -8,7 +8,6 @@ export default function NoticeDetailPage() {
   return (
     <>
       <div>
-        <MainNavbar/>
         <NoticeTitle/>
         <NoticeTable/>
       </div>
