@@ -9,7 +9,6 @@ export default function NoticePage() {
   return (
     <>
       <div>
-        <MainNavbar/>
         <NoticeTitle/>
         <NoticeSearch/>
         <NoticeTable/>
