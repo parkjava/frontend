@@ -13,6 +13,7 @@ import CarDetailPage from "./pages/carDetail/index"
 import PatrolDetails from "./pages/PatrolDetail";
 import NoticeUser from "./pages/userpage/noticepage/components/noticeUser";
 import Info from "./pages/userpage/infopage/components/projectinfo"
+import Test from "./pages/testPage/app"
 import React from "react";
 
 
@@ -34,6 +35,7 @@ export default function App() {
                     <Route path="/Patrol/PatrolDetail/1" element={<PatrolDetails/>}/>
                     <Route path="/noticeUser" element={<NoticeUser/>}/>
                     <Route path="/info" element={<Info/>}/>
+                    <Route path="/test" element={<Test/>}/>
 
                 </Routes>
             </div>
