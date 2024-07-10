@@ -41,13 +41,28 @@ export default function Header() {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link to="/controll" className="nav-link">
-                                    Controll
+                                <Link to="/admin/control" className="nav-link">
+                                    관제
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/notice" className="nav-link">
-                                    Notice
+                                <Link to="/admin/patrollist" className="nav-link">
+                                    순찰내역
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/admin/penaltyList" className="nav-link">
+                                    단속차량내역
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/admin/noticelist" className="nav-link">
+                                    공지사항
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/admin/inquiryList" className="nav-link">
+                                    문의확인
                                 </Link>
                             </li>
                             {isLoggedIn ? (

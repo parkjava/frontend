@@ -1,10 +1,12 @@
-import AdminPage from "./components/adminPage";
+import {Link} from "react-router-dom";
 
 export default function Index() {
     return (
         <>
             <div>
-                <AdminPage />
+                <Link to={'/main'}>User</Link>
+                <br/>
+                <Link to={'/admin'}>Admin</Link>
             </div>
         </>
     );

@@ -16,7 +16,8 @@ import PenaltyListPage from "./pages/adminPage/penalty/index";
 import PenaltyDetailPage from "./pages/adminPage/penalty/detail/index"
 import PatrolListPage from "./pages/adminPage/patrol/index";
 import PatrolDetailPage from "./pages/adminPage/patrol/detail/index";
-import ControlPage from "./pages/adminPage/controll/index";
+import ControlPage from "./pages/adminPage/control/index";
+import InquiryPage from "./pages/adminPage/inquiry/index";
 
 /*-------------------------------------------------------------*/
 
@@ -24,6 +25,7 @@ import ControlPage from "./pages/adminPage/controll/index";
 import MainPage from "./pages/mainPage/index";
 import MainNoticePage from "./pages/mainPage/notice/index";
 import MainInfoPage from "./pages/mainPage/projectInfo/index"
+import MainInquiryPage from "./pages/mainPage/inquiry/index";
 /*-------------------------------------------------------------*/
 
 export default function App() {
@@ -35,9 +37,9 @@ export default function App() {
                     <Route path="/test" element={<Test/>}/>
                     {/*-------------------------------------------------------------*/}
                     {/* 관리자 전용 페이지*/}
-                    <Route path="/" element={<LoginPage/>}/> {/* 관리자 로그인*/}
-                    <Route path="/admin" element={<AdminPage/>}/> {/* 관리자 메인 페이지*/}
-                    <Route path="/admin/controll" element={<ControlPage/>}/>  {/* 관제페이지*/}
+                    <Route path="/" element={<AdminPage/>}/> {/* 관리자 로그인*/}
+                    <Route path="/admin" element={<LoginPage/>}/> {/* 관리자 메인 페이지*/}
+                    <Route path="/admin/control" element={<ControlPage/>}/>  {/* 관제페이지*/}
                     <Route path="/admin/noticelist" element={<NoticePage/>}/> {/* 관리자 공지사항*/}
                     <Route path="/admin/notice/create" element={<NoticeCreatePage/>} /> {/* 관리자 공지사항 작성*/}
                     <Route path="/admin/notice/:noticeIndex" element={<NoticeDetailPage/>} /> {/* 관리자 공지사항 상세 */}
@@ -45,11 +47,13 @@ export default function App() {
                     <Route path="/admin/penaltylist/:penaltyIndex" element={<PenaltyDetailPage/>}/>{/* 단속차량조회 상세 */}
                     <Route path="/admin/patrollist" element={<PatrolListPage/>}/> {/* 순찰일지 조회*/}
                     <Route path="/admin/patrollist/:patrolIndex" element={<PatrolDetailPage/>}/> {/* 순찰일지 상세*/}
+                    <Route path="/admin/inquirylist" element={<InquiryPage/>}/>
                     {/*-------------------------------------------------------------*/}
                     {/* 사용자 전용 페이지 */}
                     <Route path="/main" element={<MainPage/>}/> {/* 사용자 메인 페이지*/}
                     <Route path="/main/noticelist" element={<MainNoticePage/>}/>{/* 사용자 공지사항 */}
-                    <Route path="/main/projectinfo" element={<MainInfoPage/>}/> {/* 프로젝트 소개 */}
+                    <Route path="/main/info" element={<MainInfoPage/>}/> {/* 프로젝트 소개 */}
+                    <Route path="/main/inquiry" element={<MainInquiryPage/>}/>
                     {/*-------------------------------------------------------------*/}
                 </Routes>
             </div>
