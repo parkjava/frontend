@@ -1,10 +1,10 @@
 import React from 'react';
-import {Navbar, Container, Nav, Carousel, P, Image} from 'react-bootstrap';
+import {Navbar, Container, Nav, Carousel} from 'react-bootstrap';
 
 export default function Info(){
     return(
         <>
-            <Navbar bg="light" data-bs-theme="light">
+            <Navbar className='infoNav' bg="light" data-bs-theme="light">
                 <Container>
                     <Navbar.Brand href="#home">Park java</Navbar.Brand>
                     <Nav className="me-auto">
@@ -33,7 +33,7 @@ export default function Info(){
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="holder.js/800x400?text=Second slide&bg=eee"
+                            src="holder.js/800x400?text=Second slide&bg=eee"//로봇이 찍은 사진 연결
                             alt="Second slide"
                         />
                         <Carousel.Caption>
