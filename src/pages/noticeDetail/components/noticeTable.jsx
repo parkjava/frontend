@@ -1,38 +1,35 @@
-import { Table, Container, Form,  Button } from 'react-bootstrap';
-import {useState} from 'react'
-import {Link} from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { Container, Card } from 'react-bootstrap';
 
+export default function NoticeDetail() {
+    const { noticeIndex } = useParams();
+    const [notice, setNotice] = useState(null);
 
-export default function NoticeTable() {
-    
-    
-    return (<>
+    useEffect(() => {
+        fetch(`http://localhost:8080/api/notice/${noticeIndex}`)
+            .then(response => response.json())
+            .then(data => setNotice(data))
+            .catch(error => console.error('Error fetching notice detail:', error));
+    }, [noticeIndex]);
+
+    if (!notice) {
+        return <Container>Loading...</Container>;
+    }
+
+    return (
         <Container>
-            <Form>
-                <Table striped bordered hover variant="light">
-                    <thead>
-                        <tr>
-                            <th>
-                                제목
-                            </th>
-                            <th>
-                                작성자
-                            </th>
-                            <th>
-                                작성날짜
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td colSpan={3}>
-                                내용
-                            </td>
-                        </tr>
-                    </tbody>
-                </Table>
-            </Form>
-            <div><Link to={'/notice'}>목록으로</Link></div>
+            <Card>
+                <Card.Header>{notice.noticeTitle}</Card.Header>
+                <Card.Body>
+                    <Card.Text>
+                        {notice.noticeContent}
+                    </Card.Text>
+                    <Card.Footer>
+                        작성자: {notice.userName} | 게시일: {new Date(notice.createDate).toLocaleDateString()}
+                    </Card.Footer>
+                </Card.Body>
+            </Card>
         </Container>
-        </>)
+    );
 }

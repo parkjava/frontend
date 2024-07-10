@@ -25,7 +25,7 @@ export default function App() {
                     <Route path="/" element={<MainPage/>}/>
                     <Route path="/notice" element={<NoticePage/>}/>
                     <Route path="/noticecreate" element={<NoticeCreatePage/>} />
-                    <Route path="/noticedetail" element={<NoticeDetailPage/>} />
+                    <Route path="/noticedetail/:noticeIndex" element={<NoticeDetailPage/>} />
                     <Route path="/login" element={<LoginPage/>}/>
                     <Route path="/admin" element={<AdminPage/>}/>
                     <Route path="/controll" element={<ControlPage/>}/>
@@ -36,6 +36,7 @@ export default function App() {
                     <Route path="/noticeUser" element={<NoticeUser/>}/>
                     <Route path="/info" element={<Info/>}/>
                     <Route path="/test" element={<Test/>}/>
+
 
                 </Routes>
             </div>

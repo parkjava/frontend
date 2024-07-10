@@ -1,40 +1,41 @@
 import { Table, Container } from 'react-bootstrap';
 import {Link} from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+
 
 
 export default function NoticeTable() {
-    return (<>
+    const [notices, setNotices] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:8080/api/notice')
+            .then(response => response.json())
+            .then(data => setNotices(data))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+
+    return (
         <Container>
             <Table striped bordered hover variant="light">
                 <thead>
                 <tr>
-                <th>NO</th>
-                <th>제목</th>
-                <th>게시일</th>
-                <th>작성자</th>
+                    <th>NO</th>
+                    <th>제목</th>
+                    <th>게시일</th>
+                    <th>작성자</th>
                 </tr>
-            </thead>
-            <tbody>
-                <tr>
-                <td>1</td>
-                <td><Link to='/noticedetail'>예시</Link></td>
-                <td>240404</td>
-                <td>@mdo</td>
-                </tr>
-                <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>240404</td>
-                <td>@fat</td>
-                </tr>
-                <tr>
-                <td>3</td>
-                <td>Larry the Bird</td>
-                <td>240404</td>
-                <td>@twitter</td>
-                </tr>
+                </thead>
+                <tbody>
+                {notices.map(notice => (
+                    <tr key={notice.noticeIndex}>
+                        <td>{notice.noticeIndex}</td>
+                        <td><Link to={`/noticedetail/${notice.noticeIndex}`}>{notice.noticeTitle}</Link></td>
+                        <td>{new Date(notice.createDate).toLocaleDateString()}</td>
+                        <td>{notice.userName}</td>
+                    </tr>
+                ))}
                 </tbody>
             </Table>
         </Container>
-        </>)
+    );
 }
