@@ -4,7 +4,7 @@ import NoticeTable from './components/noticeTable'
 
 
 
-export default function NoticeDetailPage() {
+export default function Index() {
   return (
     <>
       <div>

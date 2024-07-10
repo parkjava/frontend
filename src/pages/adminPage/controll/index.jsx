@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import ROSLIB from 'roslib'; // eslint-disable-next-line
 
 
-const Index = () => {
+export default function Index()  {
     const [ros, setRos] = useState(null);
     const [voltage, setVoltage] = useState('');
     const [ledBlue, setLedBlue] = useState('');
@@ -136,4 +136,4 @@ const Index = () => {
     );
 };
 
-export default Index;
+

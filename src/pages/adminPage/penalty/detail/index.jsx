@@ -1,7 +1,7 @@
 import React from 'react';
 import {Carousel} from 'react-bootstrap';
 
-export default function CheckDetails() {
+export default function Index() {
     return (
         <Carousel data-bs-theme="dark">
             <Carousel.Item>

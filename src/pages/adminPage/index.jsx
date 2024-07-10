@@ -1,6 +1,6 @@
 import AdminPage from "./components/adminPage";
 
-export default function index() {
+export default function Index() {
     return (
         <>
             <div>
@@ -9,4 +9,3 @@ export default function index() {
         </>
     );
 }
-

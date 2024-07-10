@@ -1,19 +1,12 @@
 import React from 'react';
 import PatrolLog from './components/Patrol';
-// import CheckDetails from "../carDetail";
 
-
-
-function PatrolLogs() {
+export default function Index() {
     return (
         <>
             <div>
-
-                <PatrolLog />
-                {/*<CheckDetails />*/}
-
+                <PatrolLog/>
             </div>
         </>
     );
 }
-export default PatrolLogs;

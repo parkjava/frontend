@@ -1,7 +1,7 @@
 import LoginCard from './components/loginCard';
 import LoginTitle from './components/loginTitle';
 
-function LoginPage() {
+export default function Index() {
   return (
     <>
       <div>
@@ -13,4 +13,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+

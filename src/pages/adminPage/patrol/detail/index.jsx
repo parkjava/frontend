@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form} from 'react-bootstrap';
 
-export default function PatrolDetails() {
+export default function Index() {
     return (
         <div>
             <Form.Label htmlFor="inputPassword5">제목</Form.Label>

@@ -4,7 +4,7 @@ import NoticeSearch from './components/noticeSearch'
 import NoticeCreate from './components/noticeCreate'
 
 
-export default function NoticePage() {
+export default function Index() {
   return (
     <>
       <div>
