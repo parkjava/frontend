@@ -29,7 +29,6 @@ export default function NoticeTable() {
             userIndex: noticeText.userIndex,
             userName: noticeText.name,
             createDate: noticeText.date,
-            updateDate: noticeText.date,
         };
 
         fetch('http://localhost:8080/api/notice/create', {
@@ -126,7 +125,7 @@ export default function NoticeTable() {
                 </Table>
                 <div className="d-flex justify-content-end">
                     <Button variant="primary" type="submit" style={{ width: '100px' }}>
-                        작성dd
+                        작성
                     </Button>
                 </div>
             </Form>

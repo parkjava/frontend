@@ -28,6 +28,7 @@ export default function NoticeDetail() {
                     <Card.Footer>
                         작성자: {notice.userName} | 게시일: {new Date(notice.createDate).toLocaleDateString()}
                     </Card.Footer>
+                    {notice.noticeView}
                 </Card.Body>
             </Card>
         </Container>

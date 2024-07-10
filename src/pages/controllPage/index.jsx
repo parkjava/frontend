@@ -9,13 +9,14 @@ const Index = () => {
     const [ledGreen, setLedGreen] = useState('');
     const [buzzer, setBuzzer] = useState('');
     const [connectionStatus, setConnectionStatus] = useState('Wait...');
+    const [imgSrc, setImgSrc] = useState('');
 
 
     useEffect(() => {
 
         const rosInstance = new ROSLIB.Ros({
             // url: 'ws://192.168.137.6:9090', 핫스팟일 때
-            url : 'ws://192.168.0.12:9090'
+            url: 'ws://192.168.0.12:9090'
         });
 
         rosInstance.on('connection', () => {
@@ -41,9 +42,22 @@ const Index = () => {
             messageType: 'jetbotmini_msgs/Battery',
         });
 
-        batteryLevelListener.subscribe((message) => {
-            setVoltage(message.Voltage);
+        batteryLevelListener.subscribe((msg) => {
+            setVoltage(msg.Voltage);
         });
+
+        const cameraListener = new ROSLIB.Topic({
+            ros: rosInstance,
+            name: '/image',
+            messageType: 'sensor_msgs/Image',
+        });
+
+        cameraListener.subscribe((msg) => {
+            setImgSrc(msg.Image);
+
+        });
+
+
 
         return () => {
             batteryLevelListener.unsubscribe();
@@ -104,6 +118,7 @@ const Index = () => {
     return (
         <div>
             <h1>ROS 관제 페이지</h1>
+            <img src={imgSrc} alt='ros' style={{border: "1px solid black", width: "720", height: "480"}}/>
             <h2>연결 상태 : {connectionStatus}</h2>
             <div>
                 <h3>배터리 : <span id="voltage">{voltagePercentage}%</span></h3>
