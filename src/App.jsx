@@ -12,8 +12,8 @@ import AdminPage from "./pages/adminPage/index";
 import NoticePage from "./pages/adminPage/notice/index";
 import NoticeCreatePage from "./pages/adminPage/notice/create/index";
 import NoticeDetailPage from "./pages/adminPage/notice/detail/index";
-import PenaltyListPage from "./pages/adminPage/car/index";
-import PenaltyDetailPage from "./pages/adminPage/car/detail/index"
+import PenaltyListPage from "./pages/adminPage/penalty/index";
+import PenaltyDetailPage from "./pages/adminPage/penalty/detail/index"
 import PatrolListPage from "./pages/adminPage/patrol/index";
 import PatrolDetailPage from "./pages/adminPage/patrol/detail/index";
 import ControlPage from "./pages/adminPage/controll/index";
