@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 export default function CarCheck(){
     return (
         <Container>
-            <p> 차량 조회 목록</p>
+            <p>단속 차량 목록</p>
             <Table striped bordered hover variant="dark">
                 <thead>
                 <tr>
