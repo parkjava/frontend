@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 
 export default function NoticeTable() {
     const [notices, setNotices] = useState([]);
-
+    
     useEffect(() => {
         fetch('http://localhost:8080/api/notice')
             .then(response => response.json())
@@ -32,6 +32,7 @@ export default function NoticeTable() {
                         <td><Link to={`/noticedetail/${notice.noticeIndex}`}>{notice.noticeTitle}</Link></td>
                         <td>{new Date(notice.createDate).toLocaleDateString()}</td>
                         <td>{notice.userName}</td>
+
                     </tr>
                 ))}
                 </tbody>
