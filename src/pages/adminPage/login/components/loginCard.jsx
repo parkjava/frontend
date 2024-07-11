@@ -8,13 +8,13 @@ function LoginCard() {
     password: '',
   });
   const [error, setError] = useState('');
-  const [users, setUsers] = useState([]);
+  const [admin, setAdmin] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/users')
+    fetch('http://localhost:8080/api/admin')
         .then((response) => response.json())
-        .then((data) => setUsers(data))
+        .then((data) => setAdmin(data))
         .catch((error) => console.error('Error fetching users:', error));
   }, []);
 
@@ -25,11 +25,10 @@ function LoginCard() {
     });
   };
 
-  const handleLoginSuccess = (user) => {
+  const handleLoginSuccess = (admin) => {
     // 세션에 사용자 정보 저장
     const session = {
-      id: user.userId,
-      name: user.userName,
+      name: admin.adminName,
       // 기타 필요한 정보 추가 가능
     };
     setSessionCookie(session); // 쿠키에 세션 저장
@@ -45,11 +44,11 @@ function LoginCard() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const user = users.find((u) => u.userId === values.id && u.userPw === values.password);
+    const admins = admin.find((a) => a.adminId === values.id && a.adminPassword === values.password);
 
-    if (user) {
-      alert(`${user.userName}님 환영합니다!`);
-      handleLoginSuccess(user); // 로그인 성공 처리 함수 호출
+    if (admins) {
+      alert(`${admins.adminName}님 환영합니다!`);
+      handleLoginSuccess(admins); // 로그인 성공 처리 함수 호출
     } else {
       setError('아이디 또는 비밀번호가 올바르지 않습니다.');
     }

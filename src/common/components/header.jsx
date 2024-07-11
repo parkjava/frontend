@@ -20,9 +20,8 @@ export default function Header() {
         // 세션 쿠키 삭제
         document.cookie = 'session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         // 기타 로그아웃 처리 (예: 리다이렉트 등)
-        navigate('/admin'); // 로그인 페이지로 이동
+        navigate('/login'); // 로그인 페이지로 이동
     };
-
 
     return (
         <>
@@ -30,11 +29,33 @@ export default function Header() {
                 <Container>
                     <Navbar.Brand href="/">
                         <b>ParkJava</b>
-
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li className="nav-item">
+                                <Link to="/main/info" className="nav-link">
+                                    프로젝트소개
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/main/creator" className="nav-link">
+                                    만든이
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/main/notice" className="nav-link">
+                                    유저공지사항
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/main/inquiry" className="nav-link">
+                                    문의하기
+                                </Link>
+                            </li>
+                            <li className="nav-item nav-link">
+                                <b>&#60;-- 유저전용 | 관리자전용 --&#62;</b>
+                            </li>
                             <li className="nav-item">
                                 <Link to="/admin/control" className="nav-link">
                                     관제
@@ -61,21 +82,21 @@ export default function Header() {
                                 </Link>
                             </li>
                             <li>
-                                <TbLogout onClick={handleLogout} />
+                                <TbLogout onClick={handleLogout}/>
 
-                            {/*{isLoggedIn ? (*/}
-                            {/*    <li className="nav-item">*/}
-                            {/*        <span className="nav-link" style={{ cursor: 'pointer' }} onClick={handleLogout}>*/}
-                            {/*            로그아웃*/}
-                            {/*        </span>*/}
-                            {/*    </li>*/}
-                            {/*) : (*/}
-                            {/*    <li className="nav-item">*/}
-                            {/*        <Link to="/admin" className="nav-link" onClick={handleLogin}>*/}
-                            {/*            로그인*/}
-                            {/*        </Link>*/}
-                            {/*    </li>*/}
-                            {/*)}*/}
+                                {/*{isLoggedIn ? (*/}
+                                {/*    <li className="nav-item">*/}
+                                {/*        <span className="nav-link" style={{ cursor: 'pointer' }} onClick={handleLogout}>*/}
+                                {/*            로그아웃*/}
+                                {/*        </span>*/}
+                                {/*    </li>*/}
+                                {/*) : (*/}
+                                {/*    <li className="nav-item">*/}
+                                {/*        <Link to="/admin" className="nav-link" onClick={handleLogin}>*/}
+                                {/*            로그인*/}
+                                {/*        </Link>*/}
+                                {/*    </li>*/}
+                                {/*)}*/}
                             </li>
                         </ul>
                     </Navbar.Collapse>

@@ -41,7 +41,7 @@ export default function App() {
                     {/*-------------------------------------------------------------*/}
                     {/* 관리자 전용 페이지*/}
                     <Route path="/" element={<AdminPage/>}/> {/* 관리자 로그인*/}
-                    <Route path="/admin" element={<LoginPage/>}/> {/* 관리자 메인 페이지*/}
+                    <Route path="/login" element={<LoginPage/>}/> {/* 관리자 메인 페이지*/}
                     <Route path="/admin/control" element={<ControlPage/>}/>  {/* 관제페이지*/}
                     <Route path="/admin/notice" element={<NoticePage/>}/> {/* 관리자 공지사항*/}
                     <Route path="/admin/notice/create" element={<NoticeCreatePage/>} /> {/* 관리자 공지사항 작성*/}
