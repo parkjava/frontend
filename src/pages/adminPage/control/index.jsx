@@ -16,7 +16,7 @@ export default function Index()  {
 
         const rosInstance = new ROSLIB.Ros({
             // url: 'ws://192.168.137.6:9090', 핫스팟일 때
-            url: 'ws://192.168.0.12:9090'
+            url: 'ws://192.168.137.6:9090'
         });
 
         rosInstance.on('connection', () => {
@@ -118,7 +118,7 @@ export default function Index()  {
     return (
         <div>
             <h1>ROS 관제 페이지</h1>
-            <img src={imgSrc} alt='ros' style={{border: "1px solid black", width: "720", height: "480"}}/>
+            <img src='http://192.168.137.6:8080/stream?topic=/csi_cam_0/image_raw' alt='ros' style={{border: "1px solid black", width: "720", height: "480"}}/>
             <h2>연결 상태 : {connectionStatus}</h2>
             <div>
                 <h3>배터리 : <span id="voltage">{voltagePercentage}%</span></h3>
