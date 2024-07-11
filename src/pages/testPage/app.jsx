@@ -5,10 +5,11 @@ function App() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:8080/api/test');
+                const response = await fetch('http://localhost:8080/api/test/1');
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
