@@ -36,7 +36,7 @@ function LoginCard() {
     const user = users.find((u) => u.userId === values.id && u.userPw === values.password);
 
     if (user) {
-      alert('로그인 성공!');
+      alert(user.userName+"님 환영합니다!");
       handleLoginSuccess(user); // 로그인 성공 처리 함수 호출
     } else {
       setError('아이디 또는 비밀번호가 올바르지 않습니다.');
