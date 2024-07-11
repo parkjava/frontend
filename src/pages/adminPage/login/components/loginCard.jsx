@@ -26,8 +26,20 @@ function LoginCard() {
   };
 
   const handleLoginSuccess = (user) => {
-    localStorage.setItem('user', JSON.stringify(user)); // 로그인 성공 후 사용자 정보를 로컬 스토리지에 저장
+    // 세션에 사용자 정보 저장
+    const session = {
+      id: user.userId,
+      name: user.userName,
+      // 기타 필요한 정보 추가 가능
+    };
+    setSessionCookie(session); // 쿠키에 세션 저장
     navigate('/'); // 홈페이지 또는 로그인 후 이동할 페이지로 이동
+  };
+
+  const setSessionCookie = (session) => {
+    const expires = new Date();
+    expires.setDate(expires.getDate() + 7); // 7일 동안 유지
+    document.cookie = `session=${JSON.stringify(session)}; expires=${expires.toUTCString()}; path=/`;
   };
 
   const handleSubmit = (e) => {
@@ -36,7 +48,7 @@ function LoginCard() {
     const user = users.find((u) => u.userId === values.id && u.userPw === values.password);
 
     if (user) {
-      alert(user.userName+"님 환영합니다!");
+      alert(`${user.userName}님 환영합니다!`);
       handleLoginSuccess(user); // 로그인 성공 처리 함수 호출
     } else {
       setError('아이디 또는 비밀번호가 올바르지 않습니다.');

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,6 +11,7 @@ export default function Index() {
         phone: '',
         date: '',
     });
+    const [isFormValid, setIsFormValid] = useState(false);
 
     const navigate = useNavigate();
 
@@ -21,6 +22,12 @@ export default function Index() {
             [name]: value,
         });
     };
+
+    useEffect(() => {
+        // 모든 필드가 입력되었는지 확인
+        const allFieldsFilled = Object.values(inquiryText).every(field => field !== '');
+        setIsFormValid(allFieldsFilled);
+    }, [inquiryText]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -49,7 +56,7 @@ export default function Index() {
             .then((data) => {
                 setInquiryText({
                     title: '',
-                    detail: '',
+                    content: '',
                     name: '',
                     email: '',
                     phone: '',
@@ -129,7 +136,7 @@ export default function Index() {
                     />
                 </Form.Group>
 
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" disabled={!isFormValid}>
                     등록하기
                 </Button>
             </Form>
