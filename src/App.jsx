@@ -18,6 +18,7 @@ import PatrolListPage from "./pages/adminPage/patrol/index";
 import PatrolDetailPage from "./pages/adminPage/patrol/detail/index";
 import ControlPage from "./pages/adminPage/control/index";
 import InquiryPage from "./pages/adminPage/inquiry/index";
+import InquiryDetailPage from "./pages/adminPage/inquiry/deatail/index"
 
 /*-------------------------------------------------------------*/
 
@@ -48,6 +49,7 @@ export default function App() {
                     <Route path="/admin/patrollist" element={<PatrolListPage/>}/> {/* 순찰일지 조회*/}
                     <Route path="/admin/patrollist/:patrolIndex" element={<PatrolDetailPage/>}/> {/* 순찰일지 상세*/}
                     <Route path="/admin/inquirylist" element={<InquiryPage/>}/>
+                    <Route path="/admin/inquirylist/:inquiryIndex" element={<InquiryDetailPage/>}/>
                     {/*-------------------------------------------------------------*/}
                     {/* 사용자 전용 페이지 */}
                     <Route path="/main" element={<MainPage/>}/> {/* 사용자 메인 페이지*/}
