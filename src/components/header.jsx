@@ -32,7 +32,8 @@ export default function Header() {
 
     return (
         <>
-            <Navbar bg="light" expand="lg">
+
+            <Navbar bg="light" expand="lg" >
                 <Container>
                     <Navbar.Brand href="/">
                         <b>ParkJava</b>
@@ -46,38 +47,38 @@ export default function Header() {
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/admin/patrollist" className="nav-link">
+                                <Link to="/admin/patrol" className="nav-link">
                                     순찰내역
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/admin/penaltyList" className="nav-link">
+                                <Link to="/admin/penalty" className="nav-link">
                                     단속차량내역
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/admin/noticelist" className="nav-link">
+                                <Link to="/admin/notice" className="nav-link">
                                     공지사항
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/admin/inquiryList" className="nav-link">
+                                <Link to="/admin/inquiry" className="nav-link">
                                     문의확인
                                 </Link>
                             </li>
-                            {isLoggedIn ? (
-                                <li className="nav-item">
-                                    <Link to="/" onClick={handleLogout} className="nav-link login">
-                                        Login
-                                    </Link>
-                                </li>
-                            ) : (
-                                <li className="nav-item">
-                                    <Link to="/login" className="nav-link logout" onClick={handleLogin}>
-                                        Logout
-                                    </Link>
-                                </li>
-                            )}
+                            {/*{isLoggedIn ? (*/}
+                            {/*    <li className="nav-item">*/}
+                            {/*        <Link to="/admin" onClick={handleLogout} className="nav-link ">*/}
+                            {/*            Logout*/}
+                            {/*        </Link>*/}
+                            {/*    </li>*/}
+                            {/*) : (*/}
+                            {/*    <li className="nav-item">*/}
+                            {/*        <Link to="/admin" className="nav-link" onClick={handleLogin}>*/}
+                            {/*            Login*/}
+                            {/*        </Link>*/}
+                            {/*    </li>*/}
+                            {/*)}*/}
                         </ul>
                     </Navbar.Collapse>
                 </Container>

@@ -26,7 +26,7 @@ export default function Index() {
                         {inquiry.inquiryContent}
                     </Card.Text>
                     <Card.Footer>
-                        작성자: {inquiry.userName} | 게시일: {new Date(inquiry.createDate).toLocaleDateString()}
+                        작성자: {inquiry.inquiryWriter} | 게시일: {new Date(inquiry.inquiryDate).toLocaleDateString()}
                     </Card.Footer>
                 </Card.Body>
             </Card>

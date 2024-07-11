@@ -32,7 +32,7 @@ export default function NoticeTable() {
                             {notice.noticeIndex}
                         </td>
                         <td>
-                            <Link to={`/notice/${notice.noticeIndex}`}>{notice.noticeTitle}
+                            <Link to={`/admin/notice/${notice.noticeIndex}`}>{notice.noticeTitle}
                             </Link>
                         </td>
                         <td>

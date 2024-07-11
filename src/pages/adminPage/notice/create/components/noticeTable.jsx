@@ -90,7 +90,7 @@ export default function NoticeTable() {
                     name: '',
                     date: '',
                 });
-                navigate('/admin/noticelist'); // 작성 후 목록 페이지로 리디렉션
+                navigate('/admin/notice'); // 작성 후 목록 페이지로 리디렉션
             })
             .catch((error) => console.error('Error saving data:', error));
     };

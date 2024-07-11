@@ -31,7 +31,7 @@ export default function Index() {
                             {inquiry.inquiryIndex}
                         </td>
                         <td>
-                            <Link to={`/admin/inquirylist/${inquiry.inquiryIndex}`}>{inquiry.inquiryTitle}
+                            <Link to={`/admin/inquiry/${inquiry.inquiryIndex}`}>{inquiry.inquiryTitle}
                             </Link>
                         </td>
                         <td>
