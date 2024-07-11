@@ -7,8 +7,9 @@ export default function Index() {
       <div>
         <LoginTitle />
         <LoginCard/>
+
       </div>
-  
+
     </>
   );
 }

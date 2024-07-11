@@ -1,4 +1,4 @@
-import { Table, Container, Form, Button } from 'react-bootstrap';
+import { Table, Container, Form, Button, Alert } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -10,45 +10,33 @@ export default function NoticeTable() {
         name: '',
         date: '',
     });
-
+    const [errors, setErrors] = useState({});
+    const [showAlert, setShowAlert] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-        // 'user' 키로 localStorage에서 데이터를 가져옵니다.
-    const user = localStorage.getItem('user');
-    
-    // 'user' 데이터가 존재하는지 확인합니다.
-    if (user) {
-        try {
-            // JSON 문자열을 객체로 변환합니다.
-            const userData = JSON.parse(user);
-            
-            // userData 객체에서 userIndex와 userName을 추출합니다.
-            const { userIndex, userName } = userData;
-            
-            // 상태를 업데이트하여 userIndex와 name 필드에 저장합니다.
-            setNoticeText((prevState) => ({
-                ...prevState,           // 기존 상태를 복사합니다.
-                userIndex: userIndex.toString(), // userIndex를 문자열로 변환하여 설정합니다.
-                name: userName,         // userName을 설정합니다.
-            }));
-        } catch (error) {
-            // JSON 파싱 중에 오류가 발생하면 오류를 콘솔에 출력합니다.
-            console.error('Error parsing user data:', error);
+        const user = sessionStorage.getItem('user');
+        if (user) {
+            try {
+                const userData = JSON.parse(user);
+                const { userIndex, userName } = userData;
+                setNoticeText((prevState) => ({
+                    ...prevState,
+                    userIndex: userIndex.toString(),
+                    name: userName,
+                }));
+            } catch (error) {
+                console.error('Error parsing user data:', error);
+            }
         }
-    }
 
-    // 현재 날짜를 YYYY-MM-DD 형식으로 가져옵니다.
-    const today = new Date();
-    const formattedDate = today.toISOString().split('T')[0];
-
-    // 상태를 업데이트하여 date 필드에 현재 날짜를 설정합니다.
-    setNoticeText((prevState) => ({
-        ...prevState,
-        date: formattedDate,
-    }));
-
-}, []); // 빈 배열을 전달하여 컴포넌트가 마운트될 때 한 번만 실행됩니다.
+        const today = new Date();
+        const formattedDate = today.toISOString().split('T')[0];
+        setNoticeText((prevState) => ({
+            ...prevState,
+            date: formattedDate,
+        }));
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -58,15 +46,32 @@ export default function NoticeTable() {
         });
     };
 
+    const validateForm = () => {
+        const newErrors = {};
+        if (!noticeText.title) newErrors.title = '제목을 입력해주세요';
+        if (!noticeText.detail) newErrors.detail = '내용을 입력해주세요';
+        if (!noticeText.userIndex) newErrors.userIndex = '유저 인덱스를 입력해주세요';
+        if (!noticeText.name) newErrors.name = '이름을 입력해주세요';
+        if (!noticeText.date) newErrors.date = '작성일을 선택해주세요';
+        return newErrors;
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        const formErrors = validateForm();
+        if (Object.keys(formErrors).length > 0) {
+            setErrors(formErrors);
+            setShowAlert(true);
+            return;
+        }
+
         const newNotice = {
             noticeTitle: noticeText.title,
             noticeContent: noticeText.detail,
             userIndex: noticeText.userIndex,
             userName: noticeText.name,
             createDate: noticeText.date,
-            noticeView : 0
+            noticeView: 0,
         };
 
         fetch('http://localhost:8080/api/notice/create', {
@@ -90,7 +95,7 @@ export default function NoticeTable() {
                     name: '',
                     date: '',
                 });
-                navigate('/admin/notice'); // 작성 후 목록 페이지로 리디렉션
+                navigate('/admin/notice');
             })
             .catch((error) => console.error('Error saving data:', error));
     };
@@ -130,7 +135,7 @@ export default function NoticeTable() {
                         <th>
                             <Form.Control
                                 type="number"
-                                placeholder="유저인덱스 입력"
+                                placeholder="유저 인덱스 입력"
                                 name="userIndex"
                                 value={noticeText.userIndex}
                                 onChange={handleInputChange}
@@ -140,8 +145,8 @@ export default function NoticeTable() {
                     <tr>
                         <th>
                             <Form.Control
-                                type="name"
-                                placeholder="유저이름 입력"
+                                type="text"
+                                placeholder="유저 이름 입력"
                                 name="name"
                                 value={noticeText.name}
                                 onChange={handleInputChange}
@@ -161,14 +166,26 @@ export default function NoticeTable() {
                     </tr>
                     </tbody>
                 </Table>
+                {showAlert && (
+                    <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
+                        {Object.values(errors).map((error, index) => (
+                            <p key={index}>{error}</p>
+                        ))}
+                    </Alert>
+                )}
                 <div className="d-flex justify-content-end">
-                    <Button variant="primary" type="submit" style={{ width: '100px' }}>
+                    <Button
+                        variant="primary"
+                        type="submit"
+                        style={{ width: '100px' }}
+                        disabled={!noticeText.title || !noticeText.detail || !noticeText.userIndex || !noticeText.name || !noticeText.date}
+                    >
                         작성
                     </Button>
                 </div>
             </Form>
             <div>
-                <Link to={'/notice'}>목록으로</Link>
+                <Link to={'/admin/notice'}>목록으로</Link>
             </div>
         </Container>
     );

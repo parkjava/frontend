@@ -9,7 +9,7 @@ export default function Index() {
     <>
       <div>
         <NoticeTitle/>
-        <NoticeSearch/>
+        {/*<NoticeSearch/>*/}
         <NoticeTable/>
         <NoticeCreate/>
       </div>
