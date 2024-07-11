@@ -1,12 +1,10 @@
-import {Link} from "react-router-dom";
+import React from 'react';
 
 export default function Index() {
     return (
         <>
             <div>
-                <Link to={'/main'}>User</Link>
-                <br/>
-                <Link to={'/admin'}>Admin</Link>
+                여기는 관리자 전용 페이지
             </div>
         </>
     );

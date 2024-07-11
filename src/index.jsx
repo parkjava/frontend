@@ -4,8 +4,8 @@ import ReactDOM from "react-dom/client";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from "./components/header";
-import Footer from "./components/footer";
+import Header from "./common/components/header";
+import Footer from "./common/components/footer";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
