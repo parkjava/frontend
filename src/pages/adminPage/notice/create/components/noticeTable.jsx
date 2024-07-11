@@ -185,7 +185,7 @@ export default function NoticeTable() {
                 </div>
             </Form>
             <div>
-                <Link to={'/notice'}>목록으로</Link>
+                <Link to={'/admin/notice'}>목록으로</Link>
             </div>
         </Container>
     );
