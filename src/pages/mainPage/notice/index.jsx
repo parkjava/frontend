@@ -1,66 +1,53 @@
-import React from 'react';
-import {Form} from "react-bootstrap";
-import {CiSearch} from "react-icons/ci";
+import {Table, Container} from 'react-bootstrap';
+import {Link} from 'react-router-dom'
+import React, {useState, useEffect} from 'react';
 
 
 export default function Index() {
+    const [notices, setNotices] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:8080/api/notice')
+            .then(response => response.json())
+            .then(data => setNotices(data))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+
     return (
-        <>
-            <div>
-                <h1>공지사항</h1>
-                <div>
-                    <Form.Select aria-label="Default select example">
-                        <option>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                    </Form.Select>
-                    <input type={'text'} placeholder={'검색어를 입력하세요'}></input>
-                    <CiSearch/>
-                </div>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>글번호</th>
-                        <th>제목</th>
-                        <th>등록일</th>
-                        <th>조회수</th>
+        <Container>
+            <Table striped bordered hover variant="light">
+                <thead>
+                <tr>
+                    <th>NO</th>
+                    <th>제목</th>
+                    <th>게시일</th>
+                    <th>작성자</th>
+                    <th>조회수</th>
+                </tr>
+                </thead>
+                <tbody>
+                {notices.map(notice => (
+                    <tr key={notice.noticeIndex}>
+                        <td>
+                            {notice.noticeIndex}
+                        </td>
+                        <td>
+                            <Link to={`/admin/notice/${notice.noticeIndex}`}>{notice.noticeTitle}
+                            </Link>
+                        </td>
+                        <td>
+                            {new Date(notice.createDate).toLocaleDateString()}
+                        </td>
+                        <td>
+                            {notice.userName}
+                        </td>
+                        <td>
+                            {notice.noticeView}
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>첫번째 게시글입니다.</td>
-                        <td>2020-10-25</td>
-                        <td>6</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>두번째 게시글입니다.</td>
-                        <td>2020-10-25</td>
-                        <td>5</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>세번째 게시글입니다.</td>
-                        <td>2020-10-25</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>네번째 게시글입니다.</td>
-                        <td>2020-10-25</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>다섯번째 게시글입니다.</td>
-                        <td>2020-10-25</td>
-                        <td>4</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </>
+                ))}
+                </tbody>
+            </Table>
+        </Container>
     );
 }
-

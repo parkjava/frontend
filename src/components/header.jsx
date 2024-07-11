@@ -32,7 +32,8 @@ export default function Header() {
 
     return (
         <>
-            <Navbar bg="light" expand="lg">
+
+            <Navbar bg="light" expand="lg" >
                 <Container>
                     <Navbar.Brand href="/">
                         <b>ParkJava</b>

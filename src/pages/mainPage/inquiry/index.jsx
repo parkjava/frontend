@@ -55,7 +55,7 @@ export default function Index() {
                     phone: '',
                     date: '',
                 });
-                navigate('/admin/inquiryList'); // 작성 후 목록 페이지로 리디렉션
+                navigate('/admin/inquiry'); // 작성 후 목록 페이지로 리디렉션
             })
             .catch((error) => console.error('Error saving data:', error));
     };
