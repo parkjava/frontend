@@ -28,6 +28,7 @@ function LoginCard() {
   const handleLoginSuccess = (admin) => {
     // 세션에 사용자 정보 저장
     const session = {
+      index : admin.adminIndex,
       name: admin.adminName,
       // 기타 필요한 정보 추가 가능
     };
@@ -37,7 +38,7 @@ function LoginCard() {
 
   const setSessionCookie = (session) => {
     const expires = new Date();
-    expires.setDate(expires.getDate() + 7); // 7일 동안 유지
+    expires.setDate(expires.getDate() + 1); // 1일 동안 유지
     document.cookie = `session=${JSON.stringify(session)}; expires=${expires.toUTCString()}; path=/`;
   };
 

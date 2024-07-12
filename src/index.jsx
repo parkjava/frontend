@@ -6,11 +6,14 @@ import App from "./App.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from "./common/components/header";
 import Footer from "./common/components/footer";
+import {CookiesProvider} from "react-cookie";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <BrowserRouter>
-        <Header/>
-        <App/>
-        <Footer/>
-    </BrowserRouter>
+    <CookiesProvider>
+        <BrowserRouter>
+            <Header/>
+            <App/>
+            <Footer/>
+        </BrowserRouter>
+    </CookiesProvider>
 );
