@@ -4,7 +4,7 @@ import { Container, Card } from 'react-bootstrap';
 
 export default function NoticeDetail() {
     const { noticeIndex } = useParams();
-    const [notice, setNotice] = useState(null);
+    const [notice, setNotice] = useState();
 
     useEffect(() => {
         fetch(`http://localhost:8080/api/notice/${noticeIndex}`)

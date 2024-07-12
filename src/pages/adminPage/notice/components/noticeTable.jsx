@@ -141,7 +141,7 @@ export default function NoticeTable() {
                             <tr key={notice.noticeIndex}>
                                 <td>{notice.noticeIndex}</td>
                                 <td>
-                                    <Link to={`/admin/notice/${notice.noticeIndex}`}/>{notice.noticeTitle}</td>
+                                    <Link to={`/admin/notice/${notice.noticeIndex}`}>{notice.noticeTitle}</Link></td>
                                 <td>{new Date(notice.createDate).toLocaleDateString()}</td>
                                 <td>{notice.adminName}</td>
                                 <td>{notice.noticeView}</td>
