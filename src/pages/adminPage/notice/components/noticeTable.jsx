@@ -36,7 +36,7 @@ export default function NoticeTable() {
                 return response.json();
             })
             .then(data => {
-                setSearchResults(data);
+                    setSearchResults(data);
             })
             .catch(error => console.error('Error searching notices:', error));
     };
@@ -99,7 +99,7 @@ export default function NoticeTable() {
                             <Link to={`/admin/notice/${notice.noticeIndex}`}>{notice.noticeTitle}</Link>
                         </td>
                         <td>{new Date(notice.createDate).toLocaleDateString()}</td>
-                        <td>{notice.userName}</td>
+                        <td>{notice.adminName}</td>
                         <td>{notice.noticeView}</td>
                     </tr>
                 ))}
