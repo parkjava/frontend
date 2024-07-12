@@ -1,12 +1,23 @@
+import React, { useState, useEffect } from 'react';
 import { Table, Container, Form, Button, Alert } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+
+const setCookie = (name, value) => {
+    cookies.set(name, value, { path: '/' });
+}
+
+const getCookie = (name) => {
+    return cookies.get(name);
+}
 
 export default function NoticeTable() {
     const [noticeText, setNoticeText] = useState({
         title: '',
-        detail: '',
-        userIndex: '',
+        content: '',
+        adminIndex: '',
         name: '',
         date: '',
     });
@@ -15,18 +26,17 @@ export default function NoticeTable() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const user = sessionStorage.getItem('user');
-        if (user) {
+        const admin = getCookie('session');
+        if (admin) {
             try {
-                const userData = JSON.parse(user);
-                const { userIndex, userName } = userData;
+                const { index, name } = admin;  // admin이 이미 객체라고 가정
                 setNoticeText((prevState) => ({
                     ...prevState,
-                    userIndex: userIndex.toString(),
-                    name: userName,
+                    adminIndex: index.toString(),
+                    name: name.toString(),
                 }));
             } catch (error) {
-                console.error('Error parsing user data:', error);
+                console.error('Error parsing admin data:', error);
             }
         }
 
@@ -49,10 +59,8 @@ export default function NoticeTable() {
     const validateForm = () => {
         const newErrors = {};
         if (!noticeText.title) newErrors.title = '제목을 입력해주세요';
-        if (!noticeText.detail) newErrors.detail = '내용을 입력해주세요';
-        if (!noticeText.userIndex) newErrors.userIndex = '유저 인덱스를 입력해주세요';
-        if (!noticeText.name) newErrors.name = '이름을 입력해주세요';
-        if (!noticeText.date) newErrors.date = '작성일을 선택해주세요';
+        if (!noticeText.content) newErrors.content = '내용을 입력해주세요';
+        // if (!noticeText.date) newErrors.date = '작성일을 선택해주세요';
         return newErrors;
     };
 
@@ -67,9 +75,9 @@ export default function NoticeTable() {
 
         const newNotice = {
             noticeTitle: noticeText.title,
-            noticeContent: noticeText.detail,
-            userIndex: noticeText.userIndex,
-            userName: noticeText.name,
+            noticeContent: noticeText.content,
+            adminIndex: noticeText.adminIndex,
+            adminName: noticeText.name,
             createDate: noticeText.date,
             noticeView: 0,
         };
@@ -90,8 +98,8 @@ export default function NoticeTable() {
             .then((data) => {
                 setNoticeText({
                     title: '',
-                    detail: '',
-                    userIndex: '',
+                    content: '',
+                    adminIndex: '',
                     name: '',
                     date: '',
                 });
@@ -124,46 +132,48 @@ export default function NoticeTable() {
                                 as="textarea"
                                 rows={15}
                                 placeholder="내용 입력"
-                                name="detail"
-                                value={noticeText.detail}
+                                name="content"
+                                value={noticeText.content}
                                 onChange={handleInputChange}
                                 style={{ border: 'none', resize: 'none' }}
                             />
                         </td>
                     </tr>
-                    <tr>
-                        <th>
-                            <Form.Control
-                                type="number"
-                                placeholder="유저 인덱스 입력"
-                                name="userIndex"
-                                value={noticeText.userIndex}
-                                onChange={handleInputChange}
-                            />
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <Form.Control
-                                type="text"
-                                placeholder="유저 이름 입력"
-                                name="name"
-                                value={noticeText.name}
-                                onChange={handleInputChange}
-                            />
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <Form.Control
-                                type="date"
-                                placeholder="작성일 입력"
-                                name="date"
-                                value={noticeText.date}
-                                onChange={handleInputChange}
-                            />
-                        </th>
-                    </tr>
+                    {/*<tr>*/}
+                    {/*    <th>*/}
+                    {/*        <Form.Control*/}
+                    {/*            type="number"*/}
+                    {/*            placeholder="유저 인덱스 입력"*/}
+                    {/*            name="adminIndex"*/}
+                    {/*            value={noticeText.adminIndex}*/}
+                    {/*            onChange={handleInputChange}*/}
+                    {/*            readOnly*/}
+                    {/*        />*/}
+                    {/*    </th>*/}
+                    {/*</tr>*/}
+                    {/*<tr>*/}
+                    {/*    <th>*/}
+                    {/*        <Form.Control*/}
+                    {/*            type="text"*/}
+                    {/*            placeholder="유저 이름 입력"*/}
+                    {/*            name="name"*/}
+                    {/*            value={noticeText.name}*/}
+                    {/*            onChange={handleInputChange}*/}
+                    {/*            readOnly*/}
+                    {/*        />*/}
+                    {/*    </th>*/}
+                    {/*</tr>*/}
+                    {/*<tr>*/}
+                    {/*    <th>*/}
+                    {/*        <Form.Control*/}
+                    {/*            type="date"*/}
+                    {/*            placeholder="작성일 입력"*/}
+                    {/*            name="date"*/}
+                    {/*            value={noticeText.date}*/}
+                    {/*            onChange={handleInputChange}*/}
+                    {/*        />*/}
+                    {/*    </th>*/}
+                    {/*</tr>*/}
                     </tbody>
                 </Table>
                 {showAlert && (
@@ -178,7 +188,7 @@ export default function NoticeTable() {
                         variant="primary"
                         type="submit"
                         style={{ width: '100px' }}
-                        disabled={!noticeText.title || !noticeText.detail || !noticeText.userIndex || !noticeText.name || !noticeText.date}
+                        disabled={!noticeText.title || !noticeText.content}
                     >
                         작성
                     </Button>
