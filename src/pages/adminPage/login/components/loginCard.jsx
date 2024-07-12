@@ -47,7 +47,7 @@ function LoginCard() {
     const admins = admin.find((a) => a.adminId === values.id && a.adminPassword === values.password);
 
     if (admins) {
-      alert(`${admins.adminName}님 환영합니다!`);
+      alert(`${admins.userName}님 환영합니다!`);
       handleLoginSuccess(admins); // 로그인 성공 처리 함수 호출
     } else {
       setError('아이디 또는 비밀번호가 올바르지 않습니다.');
