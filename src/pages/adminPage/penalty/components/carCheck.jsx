@@ -37,9 +37,9 @@ export default function CarCheck(){
 
         let url = '';
         if (searchOption === 'title') {
-            url = `http://localhost:8080/api/penalty/${penaltyTitle}`;
+            url = `http://localhost:8080/api/penalty/number/${penaltyTitle}`;
         } else if (searchOption === 'date') {
-            url = `http://localhost:8080/api/penalty/${penaltyTitle}`;
+            url = `http://localhost:8080/api/penalty/date/${penaltyTitle}`;
         }
 
         axios.get(url)
@@ -113,9 +113,8 @@ export default function CarCheck(){
                 <thead>
                 <tr>
                     <th>NO</th>
-                    <th>carImageUrl</th>
                     <th>차량 번호</th>
-                    <th>penaltyCash</th>
+                    <th>과태료</th>
                     <th>날짜</th>
                 </tr>
                 </thead>
@@ -124,8 +123,7 @@ export default function CarCheck(){
                 {sortedPenalty.map(penalty => (
                             <tr key={penalty.penaltyIndex}>
                                 <td>{penalty.penaltyIndex}</td>
-                                <td>{penalty.carImageUrl}</td>
-                                <td>{penalty.penaltyCarNumber}</td>
+                                <td><Link to={`/admin/penalty/${penalty.penaltyIndex}`}>{penalty.penaltyCarNumber}</Link></td>
                                 <td>{penalty.penaltyCash}</td>
                                 <td>{new Date(penalty.penaltyDate).toLocaleDateString()}</td>
                             </tr>
