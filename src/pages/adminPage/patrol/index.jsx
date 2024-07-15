@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {Table, Container, Button} from 'react-bootstrap';
 import axios from 'axios';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 
-export default function NoticeList() {
+export default function PetrolList() {
     const [patrols, setPatrols] = useState([]);
     const navigate = useNavigate();
 
@@ -48,7 +48,7 @@ export default function NoticeList() {
                         <td>{patrol.patrolIndex}</td>
                         <td>{patrol.adminName}</td>
                         <td>{patrol.patrolArea}</td>
-                        <td>{patrol.patrolSummary}</td>
+                        <td><Link to={`/admin/patrol/${patrol.patrolIndex}`}>{patrol.patrolSummary}</Link></td>
                         <td>{patrol.createDate}</td>
                     </tr>
                 ))}
