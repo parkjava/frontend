@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Index() {
     const [inquiryText, setInquiryText] = useState({
@@ -15,6 +16,21 @@ export default function Index() {
 
     const navigate = useNavigate();
 
+    
+    useEffect(() => {
+        // 모든 필드가 입력되었는지 확인
+        const allFieldsFilled = Object.values(inquiryText).every(field => field !== '');
+        setIsFormValid(allFieldsFilled);
+    }, [inquiryText]);
+
+    useEffect(() => {
+        const currentDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD 형식으로 날짜 설정
+        setInquiryText(prevState => ({
+            ...prevState,
+            date: currentDate,
+        }));
+    }, []);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setInquiryText({
@@ -22,12 +38,6 @@ export default function Index() {
             [name]: value,
         });
     };
-
-    useEffect(() => {
-        // 모든 필드가 입력되었는지 확인
-        const allFieldsFilled = Object.values(inquiryText).every(field => field !== '');
-        setIsFormValid(allFieldsFilled);
-    }, [inquiryText]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -40,29 +50,17 @@ export default function Index() {
             inquiryDate: inquiryText.date,
         };
 
-        fetch('http://localhost:8080/api/inquiry/create', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newInquiry),
-        })
+        axios.post('http://localhost:8080/api/inquiry/create', newInquiry)
             .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then((data) => {
+                navigate('/main'); // 작성 후 목록 페이지로 리디렉션
                 setInquiryText({
                     title: '',
                     content: '',
                     name: '',
                     email: '',
                     phone: '',
-                    date: '',
+                    date: '', // 성공적으로 등록 후 초기화
                 });
-                navigate('/main'); // 작성 후 목록 페이지로 리디렉션
             })
             .catch((error) => console.error('Error saving data:', error));
     };
