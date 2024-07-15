@@ -32,13 +32,14 @@ import MainPage from "./pages/mainPage/index";
 import MainProjectInfoPage from "./pages/mainPage/projectInfo/index"
 import MainCreatorIngoPage from "./pages/mainPage/creator/index";
 import MainNoticePage from "./pages/mainPage/notice/index";
+import MainNoticeDetailPage from "./pages/mainPage/notice/detail/index";
 import MainInquiryPage from "./pages/mainPage/inquiry/index";
+
 /*-------------------------------------------------------------*/
 
 export default function App() {
     return (
         <>
-            <div style={{height:'100%'}}>
                 <Routes>
                     {/* 테스트 페이지 */}
                     <Route path="/test" element={<Test/>}/>
@@ -56,7 +57,7 @@ export default function App() {
                     <Route path="/admin/patrol" element={<PatrolListPage/>}/> {/* 순찰일지 조회*/}
                     <Route path="/admin/patrol/create" element={<PatrolCreatePage/>} /> {/* 순찰일지 작성*/}
                     <Route path="/admin/patrol/:patrolIndex" element={<PatrolDetailPage/>}/> {/* 순찰일지 상세*/}
-                    <Route path="/admin/patrol/update/:patrolIndex" element={<PatrolUpdatePage/>}/> {/* 순찰일지 수정*/}
+                    <Route path="/admin/patrol/update/:patrolIndex" element={<PatrolUpdatePage/>}/>
                     <Route path="/admin/inquiry" element={<InquiryPage/>}/>
                     <Route path="/admin/inquiry/:inquiryIndex" element={<InquiryDetailPage/>}/>
                     <Route path="/admin/inquiry/update/:inquiryIndex" element={<InquiryEdit />} />
@@ -65,13 +66,12 @@ export default function App() {
                     {/* 사용자 전용 페이지 */}
                     <Route path="/main" element={<MainPage/>}/> {/* 사용자 메인 페이지*/}
                     <Route path="/main/notice" element={<MainNoticePage/>}/>{/* 사용자 공지사항 */}
-                    <Route path="/main/notice/:noticeIndex" element={<MainNoticePage/>}/>{/* 사용자 공지사항 */}
+                    <Route path="/main/notice/:noticeIndex" element={<MainNoticeDetailPage/>}/>{/* 사용자 공지사항 디테일 */}
                     <Route path="/main/info" element={<MainProjectInfoPage/>}/> {/* 프로젝트 소개 */}
                     <Route path="/main/creator" element={<MainCreatorIngoPage/>}/>
                     <Route path="/main/inquiry" element={<MainInquiryPage/>}/> {/* 문의 등록 페이지*/}
                     {/*-------------------------------------------------------------*/}
                 </Routes>
-            </div>
         </>
     );
 }

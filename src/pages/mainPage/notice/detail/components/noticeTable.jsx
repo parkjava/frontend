@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {useParams, useNavigate} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {Container, Card} from 'react-bootstrap';
 import axios from "axios";
-import Button from 'react-bootstrap/Button';
 
 export default function NoticeDetail() {
     const {noticeIndex} = useParams();
