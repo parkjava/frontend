@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Form, Button } from 'react-bootstrap';
+import axios from 'axios';
 
 const subareasByArea = {
     동구: ['중앙동', '신암동', '신천동'],
@@ -22,17 +23,17 @@ export default function PatrolUpdatePage() {
     const [subareas, setSubareas] = useState([]); // 중분류 상태 추가
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/patrol/${patrolIndex}`)
-            .then(response => response.json())
-            .then(data => {
+        axios.get(`http://localhost:8080/api/patrol/${patrolIndex}`)
+            .then(response => {
+                const data = response.data;
                 const [patrolArea, subarea] = data.patrolArea.split('/');
                 setPatrol({
                     patrolArea,
                     subarea,
                     patrolSummary: data.patrolSummary,
                     adminName: data.adminName,
-                    createDate: data.createDate,
-                })
+                    createDate: data.updateDate,
+                });
                 setSubareas(subareasByArea[patrolArea] || []); // 선택된 대분류에 따른 중분류 설정
             })
             .catch(error => console.error('Error fetching patrol detail:', error));
@@ -61,18 +62,9 @@ export default function PatrolUpdatePage() {
             ...patrol,
             patrolArea: `${patrol.patrolArea}/${patrol.subarea}`,
         };
-        fetch(`http://localhost:8080/api/patrol/update/${patrolIndex}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(updatedPatrol),
-        })
+        axios.put(`http://localhost:8080/api/patrol/update/${patrolIndex}`, updatedPatrol)
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                navigate('/admin/patrol');
+                navigate(`/admin/patrol/${patrolIndex}`);
             })
             .catch(error => console.error('Error updating patrol:', error));
     };
@@ -80,7 +72,7 @@ export default function PatrolUpdatePage() {
     return (
         <Container>
             <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="patrolArea">
+                <Form.Group controlId="patrolArea">
                     <Form.Label>관할 지역</Form.Label>
                     <Form.Select
                         aria-label="Select patrol area"
