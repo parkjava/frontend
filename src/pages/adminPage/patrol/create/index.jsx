@@ -102,7 +102,7 @@ export default function PatrolTable() {
             return;
         }
 
-        const newNotice = {
+        const newPetrol = {
             patrolArea: patrol.area +'/'+patrol.subarea,
             patrolSummary: patrol.summary,
             adminIndex: patrol.adminIndex,
@@ -116,7 +116,7 @@ export default function PatrolTable() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(newNotice),
+            body: JSON.stringify(newPetrol),
         })
             .then((response) => {
                 if (!response.ok) {
