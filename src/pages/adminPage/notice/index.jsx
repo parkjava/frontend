@@ -3,6 +3,7 @@ import NoticeTitle from './components/noticeTitle'
 import NoticeCreate from './components/noticeCreate'
 
 
+
 export default function Index() {
   return (
     <>
@@ -10,6 +11,7 @@ export default function Index() {
         <NoticeTitle/>
         <NoticeTable/>
         <NoticeCreate/>
+
       </div>
     </>
   );
