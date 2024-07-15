@@ -32,7 +32,7 @@ export default function Index() {
                             {notice.noticeIndex}
                         </td>
                         <td>
-                            <Link to={`/admin/notice/${notice.noticeIndex}`}>{notice.noticeTitle}
+                            <Link to={`/main/notice/${notice.noticeIndex}`}>{notice.noticeTitle}
                             </Link>
                         </td>
                         <td>

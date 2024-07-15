@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-
-
 export default function CarCheck(){
     const [penalties, setPenalties] = useState([]);
     const [penaltyTitle, setPenaltyTitle] = useState('');
@@ -72,6 +70,10 @@ export default function CarCheck(){
         setSearchOption(option); // 검색 옵션 변경
     };
 
+    const formatNumber = (number) => {
+        return new Intl.NumberFormat('ko-KR').format(number);
+    };
+
     const sortedPenalty = [...(searchResults.length > 0 ? searchResults : penalties)];
 
     const searchOptionLabel = searchOption === 'title' ? '차량 번호' : '날짜';
@@ -109,28 +111,28 @@ export default function CarCheck(){
             {noResultsMessage ? (
                 <Alert variant="warning">{noResultsMessage}</Alert>
             ) : (
-            <Table striped bordered hover variant="dark">
-                <thead>
-                <tr>
-                    <th>NO</th>
-                    <th>차량 번호</th>
-                    <th>과태료</th>
-                    <th>날짜</th>
-                </tr>
-                </thead>
-                <tbody>
+                <Table striped bordered hover variant="dark">
+                    <thead>
+                    <tr>
+                        <th>NO</th>
+                        <th>차량 번호</th>
+                        <th>과태료</th>
+                        <th>날짜</th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
-                {sortedPenalty.map(penalty => (
-                            <tr key={penalty.penaltyIndex}>
-                                <td>{penalty.penaltyIndex}</td>
-                                <td><Link to={`/admin/penalty/${penalty.penaltyIndex}`}>{penalty.penaltyCarNumber}</Link></td>
-                                <td>{penalty.penaltyCash}</td>
-                                <td>{new Date(penalty.penaltyDate).toLocaleDateString()}</td>
-                            </tr>
-                        ))}
+                    {sortedPenalty.map(penalty => (
+                        <tr key={penalty.penaltyIndex}>
+                            <td>{penalty.penaltyIndex}</td>
+                            <td><Link to={`/admin/penalty/${penalty.penaltyIndex}`}>{penalty.penaltyCarNumber}</Link></td>
+                            <td>{formatNumber(penalty.penaltyCash)}</td>
+                            <td>{new Date(penalty.penaltyDate).toLocaleDateString()}</td>
+                        </tr>
+                    ))}
 
-                </tbody>
-            </Table>
+                    </tbody>
+                </Table>
             )}
             <Pagination>
                 <Pagination.First/>
@@ -151,5 +153,5 @@ export default function CarCheck(){
             </Pagination>
         </Container>
 
-        )
-    }
+    )
+}
