@@ -15,7 +15,7 @@ export default function PatrolDetail() {
     }, [patrolIndex]);
 
     const handleEdit = () => {
-        navigate(`/admin/patrol/create`);
+        navigate(`/admin/patrol/update/${patrolIndex}`);
     };
 
     const handleDelete = () => {

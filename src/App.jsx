@@ -17,6 +17,7 @@ import PenaltyListPage from "./pages/adminPage/penalty/index";
 import PenaltyDetailPage from "./pages/adminPage/penalty/detail/index"
 import PatrolListPage from "./pages/adminPage/patrol/index";
 import PatrolCreatePage from "./pages/adminPage/patrol/create/index";
+import PatrolUpdatePage from "./pages/adminPage/patrol/detail/update";
 import PatrolDetailPage from "./pages/adminPage/patrol/detail/index";
 import ControlPage from "./pages/adminPage/control/index";
 import InquiryPage from "./pages/adminPage/inquiry/index";
@@ -55,6 +56,7 @@ export default function App() {
                     <Route path="/admin/patrol" element={<PatrolListPage/>}/> {/* 순찰일지 조회*/}
                     <Route path="/admin/patrol/create" element={<PatrolCreatePage/>} /> {/* 순찰일지 작성*/}
                     <Route path="/admin/patrol/:patrolIndex" element={<PatrolDetailPage/>}/> {/* 순찰일지 상세*/}
+                    <Route path="/admin/patrol/update/:patrolIndex" element={<PatrolUpdatePage/>}/> {/* 순찰일지 수정*/}
                     <Route path="/admin/inquiry" element={<InquiryPage/>}/>
                     <Route path="/admin/inquiry/:inquiryIndex" element={<InquiryDetailPage/>}/>
                     <Route path="/admin/inquiry/update/:inquiryIndex" element={<InquiryEdit />} />
