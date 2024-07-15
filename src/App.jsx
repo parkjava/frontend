@@ -65,6 +65,7 @@ export default function App() {
                     {/* 사용자 전용 페이지 */}
                     <Route path="/main" element={<MainPage/>}/> {/* 사용자 메인 페이지*/}
                     <Route path="/main/notice" element={<MainNoticePage/>}/>{/* 사용자 공지사항 */}
+                    <Route path="/main/notice/:noticeIndex" element={<MainNoticePage/>}/>{/* 사용자 공지사항 */}
                     <Route path="/main/info" element={<MainProjectInfoPage/>}/> {/* 프로젝트 소개 */}
                     <Route path="/main/creator" element={<MainCreatorIngoPage/>}/>
                     <Route path="/main/inquiry" element={<MainInquiryPage/>}/> {/* 문의 등록 페이지*/}
