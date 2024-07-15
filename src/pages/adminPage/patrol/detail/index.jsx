@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Card, Button } from 'react-bootstrap';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { Container, Card, Button, Col, Row } from 'react-bootstrap';
 
 export default function PatrolDetail() {
     const { patrolIndex } = useParams();
@@ -44,12 +44,19 @@ export default function PatrolDetail() {
                         {patrol.patrolSummary}
                     </Card.Text>
                     <Card.Footer>
-                    작성자: {patrol.adminName} | 게시일: {new Date(patrol.createDate).toLocaleDateString()}
+                    작성자: {patrol.adminName} | 수정일: {new Date(patrol.updateDate).toLocaleDateString()}
                     </Card.Footer>
                 </Card.Body>
             </Card>
-            <Button variant="primary" onClick={handleEdit}>수정</Button>
-            <Button variant="danger" onClick={handleDelete}>삭제</Button>
+            <Row className="mt-3">
+                <Col md={6} className="text-md-end">
+                    <Button variant="primary" onClick={handleEdit} className="w-30">수정</Button>
+                </Col>
+                <Col md={6} className="text-md-start mt-2 mt-md-0">
+                    <Button variant="danger" onClick={handleDelete} className="w-30">삭제</Button>
+                </Col>
+            </Row>
+            <div className='d-flex pt-3'><Link to={'../admin/patrol'} >목록으로</Link></div>
         </Container>
     );
 }
