@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Row, Col, Button } from 'react-bootstrap';
+import { Form, Row, Col, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -13,10 +13,10 @@ export default function Index() {
         date: '',
     });
     const [isFormValid, setIsFormValid] = useState(false);
+    const [showMessage, setShowMessage] = useState(false); // 상태 추가
 
     const navigate = useNavigate();
 
-    
     useEffect(() => {
         // 모든 필드가 입력되었는지 확인
         const allFieldsFilled = Object.values(inquiryText).every(field => field !== '');
@@ -52,7 +52,6 @@ export default function Index() {
 
         axios.post('http://localhost:8080/api/inquiry/create', newInquiry)
             .then((response) => {
-                navigate('/main'); // 작성 후 목록 페이지로 리디렉션
                 setInquiryText({
                     title: '',
                     content: '',
@@ -61,6 +60,11 @@ export default function Index() {
                     phone: '',
                     date: '', // 성공적으로 등록 후 초기화
                 });
+                setShowMessage(true); // 메시지 표시
+                setTimeout(() => {
+                    setShowMessage(false);
+                    navigate('/main'); // 3초 후 목록 페이지로 리디렉션
+                }, 3000);
             })
             .catch((error) => console.error('Error saving data:', error));
     };
@@ -138,6 +142,12 @@ export default function Index() {
                     등록하기
                 </Button>
             </Form>
+
+            {showMessage && (
+                <Alert variant="success" className="mt-3">
+                    문의가 완료되었습니다
+                </Alert>
+            )}
         </>
     );
 }
