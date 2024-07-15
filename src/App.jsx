@@ -38,7 +38,7 @@ import MainInquiryPage from "./pages/mainPage/inquiry/index";
 export default function App() {
     return (
         <>
-            <div style={{height:'100vh'}}>
+            <div style={{height:'100%'}}>
                 <Routes>
                     {/* 테스트 페이지 */}
                     <Route path="/test" element={<Test/>}/>
