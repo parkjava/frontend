@@ -40,6 +40,7 @@ import MainInquiryPage from "./pages/mainPage/inquiry/index";
 export default function App() {
     return (
         <>
+            <div className={'font'}>
                 <Routes>
                     {/* 테스트 페이지 */}
                     <Route path="/test" element={<Test/>}/>
@@ -72,6 +73,7 @@ export default function App() {
                     <Route path="/main/inquiry" element={<MainInquiryPage/>}/> {/* 문의 등록 페이지*/}
                     {/*-------------------------------------------------------------*/}
                 </Routes>
+            </div>
         </>
     );
 }
