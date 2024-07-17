@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
-import {Container, Card} from 'react-bootstrap';
+import {Table, Container, Card} from 'react-bootstrap';
 import axios from "axios";
 import Button from 'react-bootstrap/Button';
 
@@ -36,18 +36,36 @@ export default function NoticeDetail() {
 
     return (
         <Container>
-            <Card>
-                <Card.Header>{notice.noticeTitle}</Card.Header>
-                <Card.Body>
-                    <Card.Text>
-                        {notice.noticeContent}
-                    </Card.Text>
-                    <Card.Footer>
-                        작성자: {notice.adminName} | 게시일: {new Date(notice.createDate).toLocaleDateString('ko-KR')}
-                    </Card.Footer>
-                    {notice.noticeView}
-                </Card.Body>
-            </Card>
+            <Table striped="columns"  bordered >
+                <thead>
+                    <tr>
+                        <th style={{width:'80px'}}>제목</th>
+                        <th style={{width:'300px'}}>
+                            {notice.noticeTitle}
+                        </th>
+                        <th style={{width:'80px'}}>작성자</th>
+                        <th style={{width:'300px'}}>
+                            {notice.adminName}
+                        </th>
+                        <th style={{width:'80px'}}>작성일</th>
+                        <th style={{width:'300px'}}>
+                            {new Date(notice.createDate).toLocaleDateString('ko-KR')}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colSpan={6}>
+                            <Card.Text>
+                                {notice.noticeContent}                                
+                            </Card.Text>
+                            <Card.Footer>
+                                조회수: {notice.noticeView}
+                            </Card.Footer>
+                        </td>
+                    </tr>
+                </tbody>
+            </Table>
             <Button variant="info" onClick={handleUpdate}>수정</Button>{' '}
             <Button variant="danger" onClick={handleDelete}>삭제</Button>{' '}
         </Container>

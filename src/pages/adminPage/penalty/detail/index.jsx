@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import Image from 'react-bootstrap/Image';
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
-import {Card, Container} from "react-bootstrap";
+import {Table, Card, Container} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
 
@@ -41,19 +41,33 @@ export default function Index() {
 
     return (
         <Container>
-            <Card>
-                <Card.Header>{penalty.penaltyCarNumber}</Card.Header>
-                <Card.Body>
-                    <Card.Text>
-                        <Image src={penalty.penaltyImageUrl}/>
-                        <td>{formatNumber(penalty.penaltyCash)}</td>
-                    </Card.Text>
-                    <Card.Footer>
-                        단속일: {new Date(penalty.penaltyDate).toLocaleDateString('ko-KR')}
-                    </Card.Footer>
-                    {penalty.penaltyView}
-                </Card.Body>
-            </Card>
+            <Table striped="columns"  bordered >
+                <thead>
+                    <tr>
+                        <th rowSpan={2} style={{width:'60px', verticalAlign: 'middle', textAlign: 'center'}}>제목</th>
+                        <th rowSpan={2} style={{width:'300px', verticalAlign: 'middle', textAlign: 'center'}}>
+                            {penalty.penaltyCarNumber}
+                        </th>
+                        <th style={{width:'60px', verticalAlign: 'middle', textAlign: 'center'}}>단속일자</th>
+                        <th style={{width:'300px'}}>
+                            {new Date(penalty.penaltyDate).toLocaleDateString('ko-KR')} 
+                        </th>
+                    </tr>
+                    <tr>
+                        <th style={{width:'60px', verticalAlign: 'middle', textAlign: 'center'}}>과태료</th>
+                        <th>{formatNumber(penalty.penaltyCash)}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colSpan={4}>
+                            <Card.Text style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <Image style={{width: '500px', height: '500px'}} src={penalty.penaltyImageUrl}/>                            
+                            </Card.Text>
+                        </td>
+                    </tr>
+                </tbody>
+            </Table>
             <Button variant="info" onClick={handleBack}>목록으로</Button>{' '}
             {/*<Button variant="danger" onClick={handleDelete}>삭제</Button>{' '}*/}
         </Container>

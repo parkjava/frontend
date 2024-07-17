@@ -1,24 +1,31 @@
-import { Table, Container, Form, Button, Dropdown, Alert } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import { Table, Container, Form, Button, Dropdown, Alert, Pagination } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-
-export default function NoticeTable() {
+export default function NoticePagination() {
     const [notices, setNotices] = useState([]);
     const [noticeTitle, setNoticeTitle] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const [searchOption, setSearchOption] = useState('title'); // 검색 옵션 상태 추가
-
-    const [noResultsMessage, setNoResultsMessage] = useState(''); // 검색 결과가 없을 때 메시지 상태 추가
-    const [sortConfig, setSortConfig] = useState({ key: '', direction: '' }); // 정렬 설정 상태 추가
+    const [searchOption, setSearchOption] = useState('title');
+    const [noResultsMessage, setNoResultsMessage] = useState('');
+    const [sortConfig, setSortConfig] = useState({ key: '', direction: '' });
+    const [limit, setLimit] = useState(10);
+    const [offset, setOffset] = useState(0);
+    const [total, setTotal] = useState(0);
 
     useEffect(() => {
-        // axios를 사용하여 공지사항 데이터를 가져옵니다.
-        axios.get('http://localhost:8080/api/notice')
-            .then(response => setNotices(response.data))
+        fetchNotices();
+    }, [offset, limit]);
+
+    const fetchNotices = () => {
+        axios.get(`http://localhost:8080/api/notice/paginate/${limit}/${offset}`)
+            .then(response => {
+                setNotices(response.data); // 전체 공지사항 목록
+                setTotal(response.data.length); // 전체 공지사항 개수
+            })
             .catch(error => console.error('데이터 가져오기 오류:', error));
-    }, []);
+    };
 
     const handleInputChange = (e) => {
         setNoticeTitle(e.target.value);
@@ -43,11 +50,10 @@ export default function NoticeTable() {
             url = `http://localhost:8080/api/notice/name/${noticeTitle}`;
         }
 
-        // axios를 사용하여 검색 요청을 보냅니다.
         axios.get(url)
             .then(response => {
                 if (response.data.length === 0) {
-                    setNoResultsMessage(' 일치하는 검색결과가 없습니다.');
+                    setNoResultsMessage('일치하는 검색 결과가 없습니다.');
                     setSearchResults([]);
                 } else {
                     setNoResultsMessage('');
@@ -55,23 +61,14 @@ export default function NoticeTable() {
                 }
             })
             .catch(error => {
-                if (error.response) {
-                    // 서버가 응답했지만, 상태 코드가 범위 밖일 경우
-                    console.error('공지사항 검색 오류:', error.response.status, error.response.data);
-                } else if (error.request) {
-                    // 요청이 이루어졌으나 응답이 없을 경우
-                    console.error('공지사항 검색 오류: 응답 없음');
-                } else {
-                    // 요청 설정 중에 오류가 발생했을 경우
-                    console.error('공지사항 검색 오류:', error.message);
-                }
-                setNoResultsMessage('데이터에 없는 검색어입니다');
+                console.error('공지사항 검색 오류:', error);
+                setNoResultsMessage('데이터에 없는 검색어입니다.');
                 setSearchResults([]);
             });
     };
 
     const handleSearchOptionSelect = (option) => {
-        setSearchOption(option); // 검색 옵션 변경
+        setSearchOption(option);
     };
 
     const handleSort = (key) => {
@@ -80,6 +77,11 @@ export default function NoticeTable() {
             direction = 'descending';
         }
         setSortConfig({ key, direction });
+    };
+
+    // 페이지 변환 변수
+    const handlePageChange = (pageNumber) => {
+        setOffset((pageNumber - 1) * limit);
     };
 
     const sortedNotices = [...(searchResults.length > 0 ? searchResults : notices)];
@@ -97,13 +99,15 @@ export default function NoticeTable() {
     }
 
     const searchOptionLabel = searchOption === 'title' ? '제목' : '작성자';
+    const totalPages = Math.ceil(total / limit);
+    const currentPage = Math.floor(offset / limit) + 1;
 
     return (
         <Container>
             <Container className="d-flex justify-content-end align-items-center">
                 <Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">
                     <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                        검색 옵션: {searchOptionLabel}
+                        검색 옵션: {searchOptionLabel === 'title' ? '제목' : '작성자'}
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
@@ -143,7 +147,8 @@ export default function NoticeTable() {
                             <tr key={notice.noticeIndex}>
                                 <td>{notice.noticeIndex}</td>
                                 <td>
-                                    <Link to={`/admin/notice/${notice.noticeIndex}`}>{notice.noticeTitle}</Link></td>
+                                    <Link to={`/admin/notice/${notice.noticeIndex}`}>{notice.noticeTitle}</Link>
+                                </td>
                                 <td>{new Date(notice.createDate).toLocaleDateString()}</td>
                                 <td>{notice.adminName}</td>
                                 <td>{notice.noticeView}</td>
@@ -152,6 +157,21 @@ export default function NoticeTable() {
                     </tbody>
                 </Table>
             )}
+            <Pagination className="justify-content-center">
+                <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
+                <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
+                {[...Array(totalPages)].map((_, index) => (
+                    <Pagination.Item
+                        key={index}
+                        active={index + 1 === currentPage}
+                        onClick={() => handlePageChange(index + 1)}
+                    >
+                        {index + 1}
+                    </Pagination.Item>
+                ))}
+                <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} />
+                <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
+            </Pagination>
         </Container>
     );
 }
