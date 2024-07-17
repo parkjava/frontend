@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { Container, Navbar, Button } from 'react-bootstrap';
+import React from 'react';
+import { Container, Navbar} from 'react-bootstrap';
 import {Link, useNavigate} from 'react-router-dom';
 import { TbLogout } from "react-icons/tb";
+import '../../static/header.css'
 
 
 
 export default function Header() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리하는 상태 변수
+    // const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리하는 상태 변수
     const navigate = useNavigate();
 
     // 예시: 로그인 상태를 설정하는 함수

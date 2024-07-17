@@ -1,0 +1,32 @@
+/* footer CSS */
+
+.Footertable{
+    background-color: black;
+    color: white;
+    text-align: center;
+    position:relative;
+    bottom:0;
+
+}
+
+.F-title{
+    font-family: 'Courier New', Courier, monospace;
+}
+.F-h5{
+    font-weight: 900;
+}
+.hr{
+    border: 0;
+    height: 2px;
+    background-color: white;
+
+}
+
+.F-value{
+    font-family: 'Courier New', Courier, monospace;
+}
+.icon{
+    text-align: left;
+
+
+}

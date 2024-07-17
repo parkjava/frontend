@@ -1,9 +1,9 @@
 import React from "react";
 import {Card, Image} from 'react-bootstrap';
-import zeroone from '../../../static/zeroone.png'
-import hyunjun from '../../../static/hyunjun.png'
-import dongmin from '../../../static/dongmin.jpg'
-import hakgyun from '../../../static/hakgyun.png'
+import zeroone from '../../../static/images/zeroone.png'
+import hyunjun from '../../../static/images/hyunjun.png'
+import dongmin from '../../../static/images/dongmin.jpg'
+import hakgyun from '../../../static/images/hakgyun.png'
 
 export default function index(){
     return <>

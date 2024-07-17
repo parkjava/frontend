@@ -1,6 +1,6 @@
 import React from 'react';
-import {Carousel, Image} from 'react-bootstrap';
-import summerImg from '../../../static/summer.jpg'
+import {Image} from 'react-bootstrap';
+import summerImg from '../../../static/images/summer.jpg'
 
 export default function Index(){
     return (
