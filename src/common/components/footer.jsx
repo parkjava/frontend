@@ -1,6 +1,7 @@
 import React from 'react';
+import "../../static/footer.css"
 
-function Footer() {
+export default function Footer() {
   return (
     <div className='Footertable'>
       <hr />
@@ -43,4 +44,3 @@ function Footer() {
   );
 }
 
-export default Footer;

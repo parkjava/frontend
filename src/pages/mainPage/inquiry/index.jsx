@@ -70,7 +70,7 @@ export default function Index() {
     };
 
     return (
-        <>
+        <Form style={{border:'1px,solid,black'}} className={'inquiryadd'}>
             <Form onSubmit={handleSubmit}>
                 <Row className="mb-3">
                     <Form.Group as={Col} controlId="formGridTitle">
@@ -148,6 +148,6 @@ export default function Index() {
                     문의가 완료되었습니다
                 </Alert>
             )}
-        </>
+        </Form>
     );
 }
