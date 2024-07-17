@@ -3,8 +3,9 @@ import {useParams, useNavigate} from 'react-router-dom';
 import {Table, Container, Card} from 'react-bootstrap';
 import axios from "axios";
 import Button from 'react-bootstrap/Button';
+import '../../../../../static/common.css'
 
-export default function NoticeDetail() {
+export default function NoticeTable() {
     const {noticeIndex} = useParams();
     const navigate = useNavigate();
     const [notice, setNotice] = useState();
