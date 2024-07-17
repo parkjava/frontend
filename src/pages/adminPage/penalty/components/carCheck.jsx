@@ -2,9 +2,8 @@ import { Table, Container, Form, Button, Dropdown, Alert } from 'react-bootstrap
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import PaginatedItems from './pagination';
 
-export default function CarCheck() {
+export default function CarCheck(){
     const [penalties, setPenalties] = useState([]);
     const [penaltyTitle, setPenaltyTitle] = useState('');
     const [searchResults, setSearchResults] = useState([]);
@@ -71,6 +70,10 @@ export default function CarCheck() {
         setSearchOption(option); // 검색 옵션 변경
     };
 
+    const formatNumber = (number) => {
+        return new Intl.NumberFormat('ko-KR').format(number);
+    };
+
     const sortedPenalty = [...(searchResults.length > 0 ? searchResults : penalties)];
 
     const searchOptionLabel = searchOption === 'title' ? '차량 번호' : '날짜';
@@ -108,8 +111,47 @@ export default function CarCheck() {
             {noResultsMessage ? (
                 <Alert variant="warning">{noResultsMessage}</Alert>
             ) : (
-                <PaginatedItems items={sortedPenalty} itemsPerPage={5} />
+                <Table striped bordered hover variant="dark">
+                    <thead>
+                    <tr>
+                        <th>NO</th>
+                        <th>차량 번호</th>
+                        <th>과태료</th>
+                        <th>날짜</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {sortedPenalty.map(penalty => (
+                        <tr key={penalty.penaltyIndex}>
+                            <td>{penalty.penaltyIndex}</td>
+                            <td><Link to={`/admin/penalty/${penalty.penaltyIndex}`}>{penalty.penaltyCarNumber}</Link></td>
+                            <td>{formatNumber(penalty.penaltyCash)}</td>
+                            <td>{new Date(penalty.penaltyDate).toLocaleDateString()}</td>
+                        </tr>
+                    ))}
+
+                    </tbody>
+                </Table>
             )}
+            <Pagination>
+                <Pagination.First/>
+                <Pagination.Prev/>
+                <Pagination.Item>{1}</Pagination.Item>
+                <Pagination.Ellipsis />
+
+                <Pagination.Item>{10}</Pagination.Item>
+                <Pagination.Item>{11}</Pagination.Item>
+                <Pagination.Item>{12}</Pagination.Item>
+                <Pagination.Item>{13}</Pagination.Item>
+                <Pagination.Item>{14}</Pagination.Item>
+
+                <Pagination.Ellipsis />
+                <Pagination.Item>{20}</Pagination.Item>
+                <Pagination.Next />
+                <Pagination.Last />
+            </Pagination>
         </Container>
-    );
+
+    )
 }

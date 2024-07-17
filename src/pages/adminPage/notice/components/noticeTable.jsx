@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
 export default function NoticeTable() {
     const [notices, setNotices] = useState([]);
     const [noticeTitle, setNoticeTitle] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [searchOption, setSearchOption] = useState('title'); // 검색 옵션 상태 추가
-    
+
     const [noResultsMessage, setNoResultsMessage] = useState(''); // 검색 결과가 없을 때 메시지 상태 추가
     const [sortConfig, setSortConfig] = useState({ key: '', direction: '' }); // 정렬 설정 상태 추가
 
