@@ -37,38 +37,41 @@ export default function NoticeTable() {
 
     return (
         <Container>
-            <Table striped="columns"  bordered >
+            <Table striped="columns" bordered>
                 <thead>
-                    <tr>
-                        <th style={{width:'80px'}}>제목</th>
-                        <th style={{width:'300px'}}>
-                            {notice.noticeTitle}
-                        </th>
-                        <th style={{width:'80px'}}>작성자</th>
-                        <th style={{width:'300px'}}>
-                            {notice.adminName}
-                        </th>
-                        <th style={{width:'80px'}}>작성일</th>
-                        <th style={{width:'300px'}}>
-                            {new Date(notice.createDate).toLocaleDateString('ko-KR')}
-                        </th>
-                    </tr>
+                <tr>
+                    <th style={{width: '80px'}}>제목</th>
+                    <th style={{width: '300px'}}>
+                        {notice.noticeTitle}
+                    </th>
+                    <th style={{width: '80px'}}>작성자</th>
+                    <th style={{width: '300px'}}>
+                        {notice.adminName}
+                    </th>
+                    <th style={{width: '80px'}}>작성일</th>
+                    <th style={{width: '300px'}}>
+                        {new Date(notice.createDate).toLocaleDateString('ko-KR')}
+                    </th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td colSpan={6}>
-                            <Card.Text>
-                                {notice.noticeContent}                                
-                            </Card.Text>
-                            <Card.Footer>
-                                조회수: {notice.noticeView}
-                            </Card.Footer>
-                        </td>
-                    </tr>
+                <tr>
+                    <td colSpan={6}>
+                        <Card.Text>
+                            {notice.noticeContent}
+                        </Card.Text>
+                        <Card.Footer>
+                            조회수: {notice.noticeView}
+                        </Card.Footer>
+                    </td>
+                </tr>
                 </tbody>
             </Table>
-            <Button variant="info" onClick={handleUpdate}>수정</Button>{' '}
-            <Button variant="danger" onClick={handleDelete}>삭제</Button>{' '}
+            <Button variant={"link"}>목록으로</Button>
+            <div>
+                <Button variant="info" onClick={handleUpdate}>수정</Button>{' '}
+                <Button variant="danger" onClick={handleDelete}>삭제</Button>{' '}
+            </div>
         </Container>
     );
 }

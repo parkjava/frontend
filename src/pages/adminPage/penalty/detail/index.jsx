@@ -73,14 +73,14 @@ export default function Index() {
                     <tr>
                         <td colSpan={4} className="text-center">
                             {prevIndex >= 0 && ( // 이전 글 링크를 조건에 따라 렌더링
-                                <span style={{marginRight: '20px'}}>
+                                <p style={{marginRight: '20px'}}>
                                     <Link to={`/admin/penalty/${prevIndex}`}>이전 글</Link>
-                                </span>
+                                </p>
                             )}
                             {nextIndex < penalties.length && ( // 다음 글 링크를 조건에 따라 렌더링
-                                <span>
+                                <p>
                                     <Link to={`/admin/penalty/${nextIndex}`}>다음 글</Link>
-                                </span>
+                                </p>
                             )}
                         </td>
                     </tr>
