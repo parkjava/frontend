@@ -1,5 +1,5 @@
 /* 공통 css 파일 */
-
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
 /* 1. 어느 부분에서 사용된 class인지?
 
 2.
@@ -9,6 +9,7 @@
 } 
     
 */
+
 
 /* 페널티 상세 */
 thead > tr > th {
@@ -33,4 +34,146 @@ thead > tr > th {
     height: 50px;
     bottom: 10px;
     
+}
+
+/* 만든이 페이지(조원소개)*/
+.createH1{
+    font-family: "Nanum Pen Script", cursive !important;
+    font-weight: 600;
+    font-style: italic;
+    font-size: 80px;
+}
+.creates{
+    width: 90%;
+    margin: 0 auto;
+}
+
+.infoLeft{
+    font-family: "Nanum Pen Script", cursive !important;
+    font-weight: 600;
+    font-style: italic;
+    display: flex;
+    margin-bottom : 30px;
+    align-items: center;
+    justify-content: start;
+    /*background: linear-gradient(#e66465, #9198e5);
+
+    /*background-color: rgba(179, 252, 252, 0.75);*/
+}
+
+.infoCard{
+    text-align: center;
+    margin: 10px;
+}
+.infoRight{
+    /*background-color: #ffd8d8;*/
+    font-family: "Nanum Pen Script", cursive !important;
+    font-weight: 600;
+    font-style: italic;
+    display: flex;
+    margin-bottom : 30px;
+    align-items: center;
+    justify-content: end;
+    color: #ffffff;
+}
+.createInfo{
+    font-size: 30px;
+}
+/*!*.card-body {*!*/
+/*   */
+/*}*/
+
+
+/*테스트용 css*/
+body, ul, h2, p{
+    margin: 0;
+    padding: 0;
+}
+li{
+    list-style-type: none;
+}
+body{
+    background-color: #111;
+    color: #999;
+}
+.wrapper{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+.team{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.teamItem{
+    flex-basis: 300px;
+    flex-shrink: 0;
+    margin: 0 10px;
+    transition: all .4s;
+}
+.teamItem img{
+    width: 100%;
+}
+.teamItem:hover{
+    flex-basis: 200px;
+    margin: 0 20px;
+}
+
+.profile:before{
+    content: ' ';
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,0.95+100 */
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.95) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 200px;
+}
+.profile{
+    background-color: #222;
+    position: relative;
+    overflow: hidden;
+}
+.profile_green{
+    color: #81F781;
+}
+.profile_orange{
+    color: #FAAC58;
+}
+.profile_yellow{
+    color: #F3F781;
+}
+.profile_blue{
+    color: #2E64FE;
+}
+.profileContents{
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+.profileContents h2{
+    font-size: 20px;
+}
+.profileContents h2 span{
+    display: block;
+    font-size: 12px;
+}
+.profileContents p{
+    color: white;
+    font-size: 10px;
+    min-width: 150px;
+    max-height: 0;
+    overflow: hidden;
+    line-height: 1.2;
+    transition: all .4s;
+    transition-delay: .8s;
+}
+.teamItem:hover .profileContents p{
+    max-height: 6em;
+    opacity: 1;
+    margin-top: 0.2em;
 }
