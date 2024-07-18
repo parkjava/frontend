@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Container, Form, Button, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
@@ -82,20 +83,12 @@ export default function NoticeTable() {
             noticeView: 0,
         };
 
-        fetch('http://localhost:8080/api/notice/create', {
-            method: 'POST',
+        axios.post('http://localhost:8080/api/notice/create', newNotice, {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(newNotice),
         })
             .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then((data) => {
                 setNoticeText({
                     title: '',
                     content: '',
