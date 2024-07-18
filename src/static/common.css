@@ -109,13 +109,16 @@ body{
     align-items: center;
 }
 .teamItem{
+    height: 50%;
     flex-basis: 300px;
-    flex-shrink: 0;
+    flex-shrink: 0.8;
+    flex-grow: 0;
     margin: 0 10px;
-    transition: all .4s;
+    transition: flex-basis .4s;
 }
 .teamItem img{
     width: 100%;
+    height: 500px;
 }
 .teamItem:hover{
     flex-basis: 200px;
@@ -160,12 +163,12 @@ body{
 }
 .profileContents h2 span{
     display: block;
-    font-size: 12px;
+    font-size: 30px;
 }
 .profileContents p{
     color: white;
-    font-size: 10px;
-    min-width: 150px;
+    font-size: 20px;
+    min-width: 250px;
     max-height: 0;
     overflow: hidden;
     line-height: 1.2;

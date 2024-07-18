@@ -8,6 +8,7 @@ import "../../../static/common.css"
 
 export default function index() {
     return <body>
+    <h1>Project 4 O.O.B</h1>
     <div className={'wrapper'}>
         <ul className={'team'}>
             <li className={'teamItem'}>
