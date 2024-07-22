@@ -163,7 +163,7 @@ export default function CarCheck(){
                     </tbody>
                 </Table>
             )}
-
+            
             <Pagination
                 postsPerPage={postsPerPage}
                 totalPosts={penalties.length}

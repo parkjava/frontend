@@ -1,10 +1,19 @@
-import {Table, Container} from 'react-bootstrap';
+import {Table, Container, Dropdown} from 'react-bootstrap';
 import {Link} from 'react-router-dom'
 import React, {useState, useEffect} from 'react';
+import Pagination from './components/pagination'
 
 
 export default function Index() {
     const [inquiry, setInquiry] = useState([]);
+
+    const [postsPerPage, setPostsPerPage] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [searchResults, setSearchResults] = useState([]);
+
+    const indexOfLast = currentPage * postsPerPage;
+    const indexOfFirst = indexOfLast - postsPerPage;
+    const currentPosts = searchResults.length > 0 ? searchResults.slice(indexOfFirst, indexOfLast) : inquiry.slice(indexOfFirst, indexOfLast);
 
     useEffect(() => {
         fetch('http://localhost:8080/api/inquiry')
@@ -13,8 +22,31 @@ export default function Index() {
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
+    const handlePenaltyCount = (option) => {
+        if ( option === 'ten') {
+            setPostsPerPage(10);
+        } else if (option === 'fifteen') {
+            setPostsPerPage(15);
+        }
+    }
+
+    const postsPerPageLabel = postsPerPage === 10 ? '10개' : '15개';
+
     return (
         <Container>
+            <Container className="d-flex justify-content-end align-items-center pb-2">
+                <Dropdown onSelect={handlePenaltyCount}>
+                    <Dropdown.Toggle>
+                        데이터 개수: {postsPerPageLabel}
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                        <Dropdown.Item eventKey="ten">10개</Dropdown.Item>
+                        <Dropdown.Item eventKey="fifteen">15개</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+            </Container>
+
             <Table striped bordered hover variant="light">
                 <thead>
                 <tr>
@@ -25,7 +57,7 @@ export default function Index() {
                 </tr>
                 </thead>
                 <tbody>
-                {inquiry.map(inquiry => (
+                {currentPosts.map(inquiry => (
                     <tr key={inquiry.inquiryIndex}>
                         <td>
                             {inquiry.inquiryIndex}
@@ -45,6 +77,11 @@ export default function Index() {
                 ))}
                 </tbody>
             </Table>
+
+            <Pagination
+                postsPerPage={postsPerPage}
+                totalPosts={inquiry.length}
+                paginate={setCurrentPage}></Pagination>
         </Container>
     );
 }
