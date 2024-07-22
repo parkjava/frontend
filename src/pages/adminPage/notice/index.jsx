@@ -1,6 +1,6 @@
 import NoticeTitle from './components/noticeTitle'
 import NoticeCreate from './components/noticeCreate'
-import NoticePagination from './components/noticePagination';
+import NoticeTable from './components/noticeTable';
 
 
 
@@ -9,7 +9,7 @@ export default function Index() {
     <>
       <div>
         <NoticeTitle/>
-        <NoticePagination/>
+        <NoticeTable/>
         <NoticeCreate/>
 
       </div>

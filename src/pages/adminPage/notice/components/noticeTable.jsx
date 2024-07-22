@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Container, Form, Button, Dropdown, Alert, Pagination } from 'react-bootstrap';
+import { Table, Container, Form, Button, Dropdown, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Pagination from './pagination';
 
 export default function NoticePagination() {
     const [notices, setNotices] = useState([]);
@@ -10,19 +11,22 @@ export default function NoticePagination() {
     const [searchOption, setSearchOption] = useState('title');
     const [noResultsMessage, setNoResultsMessage] = useState('');
     const [sortConfig, setSortConfig] = useState({ key: '', direction: '' });
-    const [limit, setLimit] = useState(10);
-    const [offset, setOffset] = useState(0);
-    const [total, setTotal] = useState(0);
+
+    const [postsPerPage, setPostsPerPage] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const indexOfLast = currentPage * postsPerPage;
+    const indexOfFirst = indexOfLast - postsPerPage;
+    const currentPosts = searchResults.length > 0 ? searchResults.slice(indexOfFirst, indexOfLast) : notices.slice(indexOfFirst, indexOfLast);
 
     useEffect(() => {
         fetchNotices();
-    }, [offset, limit]);
+    },);
 
     const fetchNotices = () => {
-        axios.get(`http://localhost:8080/api/notice/paginate/${limit}/${offset}`)
+        axios.get(`http://localhost:8080/api/notice`)
             .then(response => {
                 setNotices(response.data); // 전체 공지사항 목록
-                setTotal(response.data.length); // 전체 공지사항 개수
             })
             .catch(error => console.error('데이터 가져오기 오류:', error));
     };
@@ -71,17 +75,20 @@ export default function NoticePagination() {
         setSearchOption(option);
     };
 
+    const handleNoticeCount = (option) => {
+        if ( option === 'ten') {
+            setPostsPerPage(10);
+        } else if (option === 'fifteen') {
+            setPostsPerPage(15);
+        }
+    }
+
     const handleSort = (key) => {
         let direction = 'ascending';
         if (sortConfig.key === key && sortConfig.direction === 'ascending') {
             direction = 'descending';
         }
         setSortConfig({ key, direction });
-    };
-
-    // 페이지 변환 변수
-    const handlePageChange = (pageNumber) => {
-        setOffset((pageNumber - 1) * limit);
     };
 
     const sortedNotices = [...(searchResults.length > 0 ? searchResults : notices)];
@@ -99,11 +106,23 @@ export default function NoticePagination() {
     }
 
     const searchOptionLabel = searchOption === 'title' ? '제목' : '작성자';
-    const totalPages = Math.ceil(total / limit);
-    const currentPage = Math.floor(offset / limit) + 1;
+    const postsPerPageLabel = postsPerPage === 10 ? '10개' : '15개';
 
     return (
         <Container>
+            <Container className="d-flex justify-content-end align-items-center pb-2">
+                <Dropdown onSelect={handleNoticeCount}>
+                    <Dropdown.Toggle>
+                        데이터 개수: {postsPerPageLabel}
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                        <Dropdown.Item eventKey="ten">10개</Dropdown.Item>
+                        <Dropdown.Item eventKey="fifteen">15개</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+            </Container>
+
             <Container className="d-flex justify-content-end align-items-center">
                 <Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">
                     <Dropdown.Toggle variant="secondary" id="dropdown-basic">
@@ -143,7 +162,7 @@ export default function NoticePagination() {
                         </tr>
                     </thead>
                     <tbody>
-                        {sortedNotices.map(notice => (
+                        {currentPosts.map(notice => (
                             <tr key={notice.noticeIndex}>
                                 <td>{notice.noticeIndex}</td>
                                 <td>
@@ -157,21 +176,11 @@ export default function NoticePagination() {
                     </tbody>
                 </Table>
             )}
-            <Pagination className="justify-content-center">
-                <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
-                <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
-                {[...Array(totalPages)].map((_, index) => (
-                    <Pagination.Item
-                        key={index}
-                        active={index + 1 === currentPage}
-                        onClick={() => handlePageChange(index + 1)}
-                    >
-                        {index + 1}
-                    </Pagination.Item>
-                ))}
-                <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} />
-                <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
-            </Pagination>
-        </Container>
+        
+            <Pagination
+                postsPerPage={postsPerPage}
+                totalPosts={notices.length}
+                paginate={setCurrentPage}></Pagination>
+            </Container>
     );
 }
