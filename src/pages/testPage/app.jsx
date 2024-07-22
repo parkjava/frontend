@@ -1,26 +1,43 @@
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import {useNavigate} from "react-router-dom";
 
-const App = () => {
+export default function App() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [response, setResponse] = useState(null);
+    const [formattedResponse, setFormattedResponse] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (response) {
+            setFormattedResponse(JSON.stringify(response, null, 2));
+            const {grantType, accessToken} = response;
+            // cookie 저장
+            Cookies.set('Authorization', grantType + " " + accessToken, {expires: 1})
+        }
+    }, [response]);
 
     const handleSignIn = async () => {
         try {
             const res = await axios.post('http://localhost:8080/members/signIn', {
                 username,
                 password
-            });
+            },{});
             setResponse(res.data);
         } catch (error) {
             console.error('Error signing in:', error);
-            setResponse({ error: 'Failed to sign in' });
+            setResponse({error: 'Failed to sign in'});
         }
     };
+    const handleSignOut = () => {
+        Cookies.remove('Authorization');
+        navigate('/')
+    }
 
     return (
-        <div style={{height:'100vh'}}>
+        <div style={{height: '100vh'}}>
             <h1>Sign In</h1>
             <div>
                 <label>
@@ -43,19 +60,17 @@ const App = () => {
                 </label>
             </div>
             <button onClick={handleSignIn}>Sign In</button>
-
-            {response && (
+            <button onClick={handleSignOut}> Sign Out</button>
+            {formattedResponse && (
                 <div>
                     <h2>Response</h2>
                     {response.error ? (
                         <p>{response.error}</p>
                     ) : (
-                        <pre>{JSON.stringify(response, null, 2)}</pre>
+                        <pre>{formattedResponse}</pre>
                     )}
                 </div>
             )}
         </div>
     );
-};
-
-export default App;
+}

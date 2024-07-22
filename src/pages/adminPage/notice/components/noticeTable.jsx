@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Container, Form, Button, Dropdown, Alert } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {Table, Container, Form, Button, Dropdown, Alert} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Pagination from './pagination';
 
@@ -10,7 +10,7 @@ export default function NoticePagination() {
     const [searchResults, setSearchResults] = useState([]);
     const [searchOption, setSearchOption] = useState('title');
     const [noResultsMessage, setNoResultsMessage] = useState('');
-    const [sortConfig, setSortConfig] = useState({ key: '', direction: '' });
+    const [sortConfig, setSortConfig] = useState({key: '', direction: ''});
 
     const [postsPerPage, setPostsPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
@@ -19,17 +19,15 @@ export default function NoticePagination() {
     const indexOfFirst = indexOfLast - postsPerPage;
     const currentPosts = searchResults.length > 0 ? searchResults.slice(indexOfFirst, indexOfLast) : notices.slice(indexOfFirst, indexOfLast);
 
-    useEffect(() => {
-        fetchNotices();
-    },);
 
-    const fetchNotices = () => {
+    useEffect(() => {
         axios.get(`http://localhost:8080/api/notice`)
             .then(response => {
                 setNotices(response.data); // 전체 공지사항 목록
-            })
+
+            },)
             .catch(error => console.error('데이터 가져오기 오류:', error));
-    };
+    }, []);
 
     const handleInputChange = (e) => {
         setNoticeTitle(e.target.value);
@@ -76,7 +74,7 @@ export default function NoticePagination() {
     };
 
     const handleNoticeCount = (option) => {
-        if ( option === 'ten') {
+        if (option === 'ten') {
             setPostsPerPage(10);
         } else if (option === 'fifteen') {
             setPostsPerPage(15);
@@ -88,7 +86,7 @@ export default function NoticePagination() {
         if (sortConfig.key === key && sortConfig.direction === 'ascending') {
             direction = 'descending';
         }
-        setSortConfig({ key, direction });
+        setSortConfig({key, direction});
     };
 
     const sortedNotices = [...(searchResults.length > 0 ? searchResults : notices)];
@@ -118,7 +116,9 @@ export default function NoticePagination() {
 
                     <Dropdown.Menu>
                         <Dropdown.Item eventKey="ten">10개</Dropdown.Item>
-                        <Dropdown.Item eventKey="fifteen">15개</Dropdown.Item>
+                        <Dropdown.Item eventKey="thirty">30개</Dropdown.Item>
+                        <Dropdown.Item eventKey="fifty">50개</Dropdown.Item>
+
                     </Dropdown.Menu>
                 </Dropdown>
             </Container>
@@ -134,7 +134,7 @@ export default function NoticePagination() {
                         <Dropdown.Item eventKey="admin">작성자</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
-                <Form onSubmit={handleSubmit} className="d-flex pb-2" style={{ width: '300px' }}>
+                <Form onSubmit={handleSubmit} className="d-flex pb-2" style={{width: '300px'}}>
                     <Form.Control
                         type="text"
                         placeholder="검색"
@@ -143,7 +143,7 @@ export default function NoticePagination() {
                         onChange={handleInputChange}
                         className="me-2"
                     />
-                    <Button variant="primary" type="submit" className="" style={{ width: '100px' }}>
+                    <Button variant="primary" type="submit" className="" style={{width: '100px'}}>
                         검색
                     </Button>
                 </Form>
@@ -153,34 +153,34 @@ export default function NoticePagination() {
             ) : (
                 <Table striped bordered hover variant="light">
                     <thead>
-                        <tr>
-                            <th onClick={() => handleSort('noticeIndex')}>NO</th>
-                            <th onClick={() => handleSort('noticeTitle')}>제목</th>
-                            <th onClick={() => handleSort('createDate')}>게시일</th>
-                            <th onClick={() => handleSort('adminName')}>작성자</th>
-                            <th onClick={() => handleSort('noticeView')}>조회수</th>
-                        </tr>
+                    <tr>
+                        <th onClick={() => handleSort('noticeIndex')}>NO</th>
+                        <th onClick={() => handleSort('noticeTitle')}>제목</th>
+                        <th onClick={() => handleSort('createDate')}>게시일</th>
+                        <th onClick={() => handleSort('adminName')}>작성자</th>
+                        <th onClick={() => handleSort('noticeView')}>조회수</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        {currentPosts.map(notice => (
-                            <tr key={notice.noticeIndex}>
-                                <td>{notice.noticeIndex}</td>
-                                <td>
-                                    <Link to={`/admin/notice/${notice.noticeIndex}`}>{notice.noticeTitle}</Link>
-                                </td>
-                                <td>{new Date(notice.createDate).toLocaleDateString()}</td>
-                                <td>{notice.adminName}</td>
-                                <td>{notice.noticeView}</td>
-                            </tr>
-                        ))}
+                    {currentPosts.map(notice => (
+                        <tr key={notice.noticeIndex}>
+                            <td>{notice.noticeIndex}</td>
+                            <td>
+                                <Link to={`/admin/notice/${notice.noticeIndex}`}>{notice.noticeTitle}</Link>
+                            </td>
+                            <td>{new Date(notice.createDate).toLocaleDateString()}</td>
+                            <td>{notice.adminName}</td>
+                            <td>{notice.noticeView}</td>
+                        </tr>
+                    ))}
                     </tbody>
                 </Table>
             )}
-        
+
             <Pagination
                 postsPerPage={postsPerPage}
                 totalPosts={notices.length}
                 paginate={setCurrentPage}></Pagination>
-            </Container>
+        </Container>
     );
 }
