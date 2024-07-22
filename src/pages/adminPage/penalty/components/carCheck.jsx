@@ -1,7 +1,8 @@
-import { Table, Container, Form, Button, Dropdown, Alert, Pagination } from 'react-bootstrap';
+import { Table, Container, Form, Button, Dropdown, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Pagination from "./pagination"
 
 export default function CarCheck(){
     const [penalties, setPenalties] = useState([]);
@@ -9,6 +10,13 @@ export default function CarCheck(){
     const [searchResults, setSearchResults] = useState([]);
     const [searchOption, setSearchOption] = useState('title'); // 검색 옵션 상태 추가
     const [noResultsMessage, setNoResultsMessage] = useState(''); // 검색 결과가 없을 때 메시지 상태 추가
+    
+    const [postsPerPage, setPostsPerPage] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const indexOfLast = currentPage * postsPerPage;
+    const indexOfFirst = indexOfLast - postsPerPage;
+    const currentPosts = searchResults.length > 0 ? searchResults.slice(indexOfFirst, indexOfLast) : penalties.slice(indexOfFirst, indexOfLast);
 
     useEffect(() => {
         // axios를 사용하여 공지사항 데이터를 가져옵니다.
@@ -24,7 +32,7 @@ export default function CarCheck(){
             setNoResultsMessage('');
         }
     };
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         if (penaltyTitle.trim() === '') {
@@ -70,17 +78,38 @@ export default function CarCheck(){
         setSearchOption(option); // 검색 옵션 변경
     };
 
+    const handlePenaltyCount = (option) => {
+        if ( option === 'ten') {
+            setPostsPerPage(10);
+        } else if (option === 'fifteen') {
+            setPostsPerPage(15);
+        }
+    }
+
     const formatNumber = (number) => {
         return new Intl.NumberFormat('ko-KR').format(number);
     };
 
-    const sortedPenalty = [...(searchResults.length > 0 ? searchResults : penalties)];
+    // const sortedPenalty = [...(searchResults.length > 0 ? searchResults : penalties)];
 
     const searchOptionLabel = searchOption === 'title' ? '차량 번호' : '날짜';
+    const postsPerPageLabel = postsPerPage === 10 ? '10개' : '15개';
 
     return (
         <Container>
             <p>단속 차량 목록</p>
+            <Container className="d-flex justify-content-end align-items-center pb-2">
+                <Dropdown onSelect={handlePenaltyCount}>
+                    <Dropdown.Toggle>
+                        데이터 개수: {postsPerPageLabel}
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                        <Dropdown.Item eventKey="ten">10개</Dropdown.Item>
+                        <Dropdown.Item eventKey="fifteen">15개</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+            </Container>
 
             <Container className="d-flex justify-content-end align-items-center">
                 <Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">
@@ -113,16 +142,16 @@ export default function CarCheck(){
             ) : (
                 <Table striped bordered hover variant="dark">
                     <thead>
-                    <tr>
-                        <th>NO</th>
-                        <th>차량 번호</th>
-                        <th>과태료</th>
-                        <th>날짜</th>
-                    </tr>
+                        <tr>
+                            <th>NO</th>
+                            <th>차량 번호</th>
+                            <th>과태료</th>
+                            <th>날짜</th>
+                        </tr>
                     </thead>
                     <tbody>
 
-                    {sortedPenalty.map(penalty => (
+                    {currentPosts.map(penalty => (
                         <tr key={penalty.penaltyIndex}>
                             <td>{penalty.penaltyIndex}</td>
                             <td><Link to={`/admin/penalty/${penalty.penaltyIndex}`}>{penalty.penaltyCarNumber}</Link></td>
@@ -134,7 +163,13 @@ export default function CarCheck(){
                     </tbody>
                 </Table>
             )}
-            <Pagination>
+
+            <Pagination
+                postsPerPage={postsPerPage}
+                totalPosts={penalties.length}
+                paginate={setCurrentPage}></Pagination>
+
+            {/* <Pagination>
                 <Pagination.First/>
                 <Pagination.Prev/>
                 <Pagination.Item>{1}</Pagination.Item>
@@ -150,7 +185,7 @@ export default function CarCheck(){
                 <Pagination.Item>{20}</Pagination.Item>
                 <Pagination.Next />
                 <Pagination.Last />
-            </Pagination>
+            </Pagination> */}
         </Container>
 
     )
