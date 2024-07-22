@@ -1,11 +1,20 @@
 import React, {useState, useEffect} from 'react';
-import {Table, Container, Button} from 'react-bootstrap';
+import {Table, Container, Button, Dropdown} from 'react-bootstrap';
 import axios from 'axios';
 import {useNavigate, Link} from 'react-router-dom';
+import Pagination from './components/pagination'
 
 export default function PetrolList() {
     const [patrols, setPatrols] = useState([]);
     const navigate = useNavigate();
+    const [searchResults, setSearchResults] = useState([]);
+
+    const [postsPerPage, setPostsPerPage] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const indexOfLast = currentPage * postsPerPage;
+    const indexOfFirst = indexOfLast - postsPerPage;
+    const currentPosts = searchResults.length > 0 ? searchResults.slice(indexOfFirst, indexOfLast) : patrols.slice(indexOfFirst, indexOfLast);
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/patrol') // 실제 API 엔드포인트를 여기에 입력하세요.
@@ -24,6 +33,16 @@ export default function PetrolList() {
         navigate('/admin/patrol/create'); // 작성하기 버튼 클릭 시 페이지 이동
     };
 
+    const handlePenaltyCount = (option) => {
+        if ( option === 'ten') {
+            setPostsPerPage(10);
+        } else if (option === 'fifteen') {
+            setPostsPerPage(15);
+        }
+    }
+
+    const postsPerPageLabel = postsPerPage === 10 ? '10개' : '15개';
+
     return (
         <Container>
             <div className="d-flex justify-content-between align-items-center mb-3">
@@ -32,6 +51,19 @@ export default function PetrolList() {
                     작성하기
                 </Button>
             </div>
+            <Container className="d-flex justify-content-end align-items-center pb-2">
+                <Dropdown onSelect={handlePenaltyCount}>
+                    <Dropdown.Toggle>
+                        데이터 개수: {postsPerPageLabel}
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                        <Dropdown.Item eventKey="ten">10개</Dropdown.Item>
+                        <Dropdown.Item eventKey="fifteen">15개</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+            </Container>
+
             <Table striped bordered hover>
                 <thead>
                 <tr>
@@ -43,7 +75,7 @@ export default function PetrolList() {
                 </tr>
                 </thead>
                 <tbody>
-                {patrols.map((patrol) => (
+                {currentPosts.map((patrol) => (
                     <tr key={patrol.patrolIndex}>
                         <td>{patrol.patrolIndex}</td>
                         <td>{patrol.adminName}</td>
@@ -54,6 +86,12 @@ export default function PetrolList() {
                 ))}
                 </tbody>
             </Table>
+
+            <Pagination
+                postsPerPage={postsPerPage}
+                totalPosts={patrols.length}
+                paginate={setCurrentPage}></Pagination>
+
         </Container>
     );
 }
