@@ -22,7 +22,16 @@ export default function index() {
                     <Image src={hakgyun} style={{backgroundColor:'#58FAAC'}}/>
                     <div className={'profileContents'}>
                         <h2>5hakGyun<span>I'm a Tree</span></h2>
-                        <p>I'm Groot!!!!!!!</p>
+
+                        <p>
+                            1I'm Groot!!!!!!!<br/>
+                            2I'm Groot!!!!!!!<br/>
+                            3I'm Groot!!!!!!!<br/>
+                            4I'm Groot!!!!!!!<br/>
+                            5I'm Groot!!!!!!!<br/>
+                            6I'm Groot!!!!!!!<br/>
+                        </p>
+
                     </div>
                 </div>
             </li>
@@ -59,7 +68,7 @@ export default function index() {
         </ul>
 
         <div className={'create-text'}>
-            Making....ing....
+            Making....
         </div>
     </div>
     </>

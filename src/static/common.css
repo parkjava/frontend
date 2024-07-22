@@ -108,7 +108,7 @@ li{
     list-style-type: none;
 }
 body{
-    background-color: #111;
+
     color: #999;
 }
 .createTitle{
@@ -120,6 +120,7 @@ body{
     color: #45a3ff;
 }
 .wrapper{
+    background: linear-gradient(to bottom, #eaf4ff 5%, #ffffff 40%);
     display: flex;
     height: 100vh;
     justify-content: center;
@@ -131,7 +132,6 @@ body{
     align-items: center;
 }
 .teamItem{
-    height: 800px;
     width: 100%;
     flex-basis: 300px;
     flex-shrink: 0.8;
@@ -187,7 +187,7 @@ body{
     min-width: 250px;
     max-height: 0;
     overflow: hidden;
-    line-height: 1.2;
+    line-height: 1;
     transition: all .5s;
     transition-delay: .5s;
 }
@@ -209,17 +209,25 @@ body{
     font-weight: 400;
     font-style: normal;
     font-size: 60px;
+    text-shadow:  0 4px 8px rgba(0, 0, 0, 0.2);
 }
 .projectInfo{
     align-items: center;
     text-align: center;
     overflow: hidden;
-    background-color: rgba(169, 169, 169, 0.07);
+    background-image: url("./images/logo-1-transformed.png");
+    background-size: 300px;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /*background: linear-gradient(to bottom, #efeaff 1%, #ffffff 30%);*/
     color: #45a3ff;
+
 
 }
 .metal_image {
     transition: transform 3s ease 1s;
+
 }
 
 .metal_image.animate {
@@ -230,6 +238,7 @@ body{
     transition: transform 3s ease 1s, font-size 3s ease 1s;
     transform: translateX(0);
     font-size: 0px;
+    text-shadow:  0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .p-info.animate {
@@ -243,12 +252,44 @@ body{
 .img2.animate{
     transform: translateX(-1200px);
 }
+
 .p-info2{
     transition: transform 3s ease 1s, font-size 3s ease 1s;
     transform: translateX(0);
     font-size: 0;
+    text-shadow:  0 4px 8px rgba(0, 0, 0, 0.2);
 }
 .p-info2.animate{
     transform: translate(200px, 300px);
     font-size: 50px;
+}
+
+
+/* 문의하기 페이지 */
+.inquiryForm{
+    font-family: "Jua", sans-serif;
+    margin:20px 400px 20px 750px;
+    background: linear-gradient(to bottom, #EFF2FB 5%, #ffffff 40%);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    width: 100%;
+}
+.inquiryTitle{
+
+    text-align: center;
+    font-size: 40px;
+}
+.inquiryIndex{
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 60px 20px 60px 20px;
+}
+.formLabel{
+    font-size: 25px;
+}
+.buttonContainer{
+    display: flex;
+    justify-content: flex-end;
 }
