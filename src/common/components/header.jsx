@@ -1,8 +1,9 @@
 import React from 'react';
-import { Container, Navbar} from 'react-bootstrap';
+import {Container, Image, Navbar} from 'react-bootstrap';
 import {Link, useNavigate} from 'react-router-dom';
 import { TbLogout } from "react-icons/tb";
 import '../../static/header.css'
+import logo from '../../static/images/parkjavalogo.png'
 
 
 
@@ -29,7 +30,7 @@ export default function Header() {
             <Navbar bg="light" expand="lg">
                 <Container>
                     <Navbar.Brand href="/">
-                        <b>ParkJava</b>
+                        <Image className={'headerLogo'} src={logo} ></Image>
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
