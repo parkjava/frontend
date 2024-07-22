@@ -15,7 +15,17 @@
 */
 
 
-/* 페널티 상세 */
+/* 페널티 */
+
+/* 요소 */
+.pagination {
+    position: relative;
+    bottom: 10px;
+    left: 45%;
+    margin-top: 100px;
+}
+
+/* 상세 */
 thead > tr > th {
     vertical-align: middle;
     text-align: center;
