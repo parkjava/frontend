@@ -5,7 +5,7 @@ import axios from 'axios';
 import Pagination from './pagination';
 import Cookies from "js-cookie";
 
-export default function NoticePagination() {
+export default function NoticeTable() {
     const [notices, setNotices] = useState([]);
     const [noticeTitle, setNoticeTitle] = useState('');
     const [searchResults, setSearchResults] = useState([]);
