@@ -5,7 +5,7 @@ export default function Footer() {
     return (
         <div className={'footer'}>
             <div className={'footerTitle'}>
-                    Hello, We are Project Team OOB
+                    Hello, We are Team OOB
             </div>
             <div className='footerValue'>
                 <p>
