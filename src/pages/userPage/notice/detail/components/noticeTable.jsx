@@ -9,7 +9,7 @@ export default function NoticeDetail() {
 
     useEffect(() => {
         // axios를 사용하여 공지사항 데이터를 가져옵니다.
-        axios.get(`http://localhost:8080/api/notice/${noticeIndex}`)
+        axios.get(`http://localhost:8080/user/api/notice/${noticeIndex}`)
             .then(response => setNotice(response.data))
             .catch(error => console.error('데이터 가져오기 오류:', error));
     }, [noticeIndex]);

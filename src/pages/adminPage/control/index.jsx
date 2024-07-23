@@ -9,14 +9,12 @@ export default function Index()  {
     const [ledGreen, setLedGreen] = useState('');
     const [buzzer, setBuzzer] = useState('');
     const [connectionStatus, setConnectionStatus] = useState('Wait...');
-    const [imgSrc, setImgSrc] = useState('');
-
 
     useEffect(() => {
 
         const rosInstance = new ROSLIB.Ros({
             // url: 'ws://192.168.137.6:9090', 핫스팟일 때
-            url: 'ws://192.168.0.12:9090'
+            url: 'ws://192.168.137.6:9090'
         });
 
         rosInstance.on('connection', () => {
@@ -46,16 +44,6 @@ export default function Index()  {
             setVoltage(msg.Voltage);
         });
 
-        const cameraListener = new ROSLIB.Topic({
-            ros: rosInstance,
-            name: '/image',
-            messageType: 'sensor_msgs/Image',
-        });
-
-        cameraListener.subscribe((msg) => {
-            setImgSrc(msg.Image);
-
-        });
 
 
 

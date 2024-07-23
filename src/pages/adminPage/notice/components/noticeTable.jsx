@@ -3,6 +3,7 @@ import {Table, Container, Form, Button, Dropdown, Alert} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Pagination from './pagination';
+import Cookies from "js-cookie";
 
 export default function NoticePagination() {
     const [notices, setNotices] = useState([]);
@@ -21,7 +22,11 @@ export default function NoticePagination() {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/notice`)
+        axios.get(`http://localhost:8080/api/notice`,{
+            headers:{
+                'Authorization': Cookies.get('Authorization') // 쿠키를 요청 헤더에 포함
+            }
+        })
             .then(response => {
                 setNotices(response.data); // 전체 공지사항 목록
 
@@ -76,8 +81,10 @@ export default function NoticePagination() {
     const handleNoticeCount = (option) => {
         if (option === 'ten') {
             setPostsPerPage(10);
-        } else if (option === 'fifteen') {
-            setPostsPerPage(15);
+        } else if (option === 'thirty') {
+            setPostsPerPage(30);
+        } else if (option === 'fifty'){
+            setPostsPerPage(50);
         }
     }
 
@@ -104,14 +111,14 @@ export default function NoticePagination() {
     }
 
     const searchOptionLabel = searchOption === 'title' ? '제목' : '작성자';
-    const postsPerPageLabel = postsPerPage === 10 ? '10개' : '15개';
+
 
     return (
         <Container>
             <Container className="d-flex justify-content-end align-items-center pb-2">
                 <Dropdown onSelect={handleNoticeCount}>
                     <Dropdown.Toggle>
-                        데이터 개수: {postsPerPageLabel}
+                        데이터 개수: {postsPerPage}
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
@@ -176,7 +183,6 @@ export default function NoticePagination() {
                     </tbody>
                 </Table>
             )}
-
             <Pagination
                 postsPerPage={postsPerPage}
                 totalPosts={notices.length}

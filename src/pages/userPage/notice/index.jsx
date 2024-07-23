@@ -7,7 +7,7 @@ export default function Index() {
     const [notices, setNotices] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/notice')
+        fetch('http://localhost:8080/user/api/notice')
             .then(response => response.json())
             .then(data => setNotices(data))
             .catch(error => console.error('Error fetching data:', error));
@@ -32,7 +32,7 @@ export default function Index() {
                             {notice.noticeIndex}
                         </td>
                         <td>
-                            <Link to={`/main/notice/${notice.noticeIndex}`}>{notice.noticeTitle}
+                            <Link to={`/user/notice/${notice.noticeIndex}`}>{notice.noticeTitle}
                             </Link>
                         </td>
                         <td>
