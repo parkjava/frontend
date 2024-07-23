@@ -50,7 +50,7 @@ export default function Index() {
             inquiryDate: inquiryText.date,
         };
 
-        axios.post('http://localhost:8080/api/inquiry/create', newInquiry)
+        axios.post('http://localhost:8080/user/api/inquiry/create', newInquiry)
             .then((response) => {
                 setInquiryText({
                     title: '',
@@ -63,7 +63,7 @@ export default function Index() {
                 setShowMessage(true); // 메시지 표시
                 setTimeout(() => {
                     setShowMessage(false);
-                    navigate('/main'); // 3초 후 목록 페이지로 리디렉션
+                    navigate('/user'); // 3초 후 목록 페이지로 리디렉션
                 }, 3000);
             })
             .catch((error) => console.error('Error saving data:', error));

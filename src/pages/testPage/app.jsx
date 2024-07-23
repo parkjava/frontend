@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function App() {
     const [username, setUsername] = useState('');
@@ -13,9 +13,6 @@ export default function App() {
     useEffect(() => {
         if (response) {
             setFormattedResponse(JSON.stringify(response, null, 2));
-            const {grantType, accessToken} = response;
-            // cookie 저장
-            Cookies.set('Authorization', grantType + " " + accessToken, {expires: 1})
         }
     }, [response]);
 
@@ -24,20 +21,37 @@ export default function App() {
             const res = await axios.post('http://localhost:8080/members/signIn', {
                 username,
                 password
-            },{});
+            });
+
             setResponse(res.data);
+            Cookies.set("Authorization", `${res.data.grantType} ${res.data.accessToken}`, { expires: 1 });
         } catch (error) {
             console.error('Error signing in:', error);
-            setResponse({error: 'Failed to sign in'});
+            setResponse({ error: 'Failed to sign in' });
         }
     };
+
     const handleSignOut = () => {
         Cookies.remove('Authorization');
-        navigate('/')
-    }
+        navigate('/');
+    };
+
+    const handleRequestWithCookie = async () => {
+        try {
+            const res = await axios.get('http://localhost:8080/api/penalty', {
+                headers: {
+                    'Authorization': Cookies.get('Authorization') // 쿠키를 요청 헤더에 포함
+                }
+            });
+            setResponse(res.data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setResponse({ error: 'Failed to fetch data' });
+        }
+    };
 
     return (
-        <div style={{height: '100vh'}}>
+        <div style={{ height: '100vh' }}>
             <h1>Sign In</h1>
             <div>
                 <label>
@@ -60,7 +74,8 @@ export default function App() {
                 </label>
             </div>
             <button onClick={handleSignIn}>Sign In</button>
-            <button onClick={handleSignOut}> Sign Out</button>
+            <button onClick={handleSignOut}>Sign Out</button>
+            <button onClick={handleRequestWithCookie}>Request with Cookie</button>
             {formattedResponse && (
                 <div>
                     <h2>Response</h2>

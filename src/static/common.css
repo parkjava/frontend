@@ -3,17 +3,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Jua&family=Orbit&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Orbit&display=swap');
 
+/*
 
-/* 1. 어느 부분에서 사용된 class인지?
-
+1. 어느 부분에서 사용된 클래스인지?
 2.
-
 .class {
     속성
-} 
-    
+}
+
 */
 
+/* 공통 */
+a {
+    text-decoration: none !important;
+    color: #222222 !important;
+}
 
 /* 페널티 */
 
@@ -114,7 +118,6 @@ li {
 }
 
 body {
-
     color: #999;
 }
 
@@ -321,4 +324,121 @@ body {
 .buttonContainer {
     display: flex;
     justify-content: flex-end;
+}
+
+/* 메인 페이지 */
+
+.mainContainer {
+    background-color: #f9f9f9;
+    height: 100vh;
+}
+
+.mainGroup {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+}
+
+.welcome {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+    font-size: 70px;
+    color: #515151;
+}
+
+.mainImg {
+    margin: 40px;
+}
+
+
+.mainItem {
+    margin: 20px 30px 30px 30px;
+    background-color: white;
+}
+
+.mainItem p {
+    font-size: 70px;
+}
+
+.groupChild1 {
+    font-size: 28px;
+    padding: 100px 120px 100px 120px;
+    border: 1px solid #ff5900;
+    border-radius: 8px;
+}
+
+.groupChild1:hover {
+    padding: 100px 170px 100px 170px;
+    background-color: rgb(255, 174, 97);
+    transition: 0.5s;
+    color: white;
+}
+
+.groupChild1:not(:hover) {
+    transition: .5s;
+}
+
+.groupChild2 {
+    font-size: 28px;
+    padding: 100px 120px 100px 120px;
+    border: 1px solid #0017ff;
+    border-radius: 8px;
+}
+
+.groupChild2:hover {
+    padding: 100px 170px 100px 170px;
+    background-color: rgb(111, 175, 248);
+    transition: 0.5s;
+    color: white;
+}
+
+.groupChild2:not(:hover) {
+    transition: .5s;
+}
+
+.descriptionArea{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.descriptionSpace{
+    width: 80px;
+}
+.userDescription {
+    max-width: 390px;
+}
+
+.adminDescription {
+    max-width: 390px;
+}
+/* pagination */
+.paginationGroup{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.paginationGroup span{
+    color: #2f34ff;
+    margin: 1.5px;
+    padding: 3px 8px 3px 8px;
+    border: 1px solid #777777;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.paginationGroup span:hover{
+    color: #f4f4f4;
+    margin: 1.5px;
+    padding: 5px 10px 5px 10px;
+    transition: .3s;
+    background-color: #2f34ff;
+}
+.paginationGroup span:not(:hover) {
+    transition: .3s;
 }
