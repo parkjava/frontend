@@ -2,9 +2,8 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import {useNavigate} from "react-router-dom";
-import {Button, Form, Image} from 'react-bootstrap'
-import Logo from '../../../static/images/loginLogo.png'
-// import axiosInstance from '../../../common/components/axiosinstance';
+import {Button, Form, Image} from 'react-bootstrap';
+import Logo from '../../../static/images/loginLogo.png';
 
 export default function App() {
     const navigate = useNavigate();
@@ -13,78 +12,71 @@ export default function App() {
     const [password, setPassword] = useState('');
     const [isLogin, setIsLogin] = useState('');
 
-    const handleSignIn = async () => {
+    const handleSignIn = async (e) => {
+        e.preventDefault();  // Prevent default form submission
         try {
             const res = await axios.post('http://localhost:8080/members/signIn', {
                 username,
                 password
             });
             Cookies.set("Authorization", `${res.data.grantType} ${res.data.accessToken}`, {expires: 1});
-            alert("로그인에 성공하였습니다.")
-            navigate('/admin')
-
+            alert("로그인에 성공하였습니다.");
+            navigate('/admin');
         } catch (error) {
-            alert("로그인에 실패하였습니다.")
-            navigate('')
+            alert("로그인에 실패하였습니다.");
+            navigate('');
         }
-
     };
 
-    const handleSignOut = () => {
-        if (Cookies.get("Authorization") != null) {
-            alert('로그아웃 되었습니다');
-            Cookies.remove('Authorization');
-        } else {
-            alert('로그인 정보가 없습니다.')
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleSignIn(e);
         }
-        navigate('/')
     };
 
     useEffect(() => {
         const loginInfo = Cookies.get("Authorization");
         if (loginInfo != null) {
-            return setIsLogin(true);
-        } else if (loginInfo == null) {
-            return setIsLogin(false);
+            setIsLogin(true);
+        } else {
+            setIsLogin(false);
         }
     }, []);
 
-    return (<>
-        {isLogin === false ?
-            <div style={{height: '80vh'}}>
-                <div className={'loginContainer'}>
-                    <div className={'loginGroup'}>
-                        <Image src={Logo} width={355}/>
-
-                        <div className={'loginArea'}>
-                            <Form.Control className={'loginInput'}
-                                          type="text"
-                                          value={username}
-                                          placeholder={'ID'}
-                                          onChange={(e) => setUsername(e.target.value)}
-                            />
+    return (
+        <>
+            {isLogin === false ?
+                <div style={{height: '80vh'}}>
+                    <div className={'loginContainer'}>
+                        <div className={'loginGroup'}>
+                            <Image src={Logo} width={355}/>
+                            <div className={'loginArea'}>
+                                <Form.Control className={'loginInput'}
+                                              type="text"
+                                              value={username}
+                                              placeholder={'ID'}
+                                              onChange={(e) => setUsername(e.target.value)}
+                                              onKeyPress={handleKeyPress}
+                                />
+                            </div>
+                            <div className={'loginArea'}>
+                                <Form.Control className={'loginInput'}
+                                              type="password"
+                                              value={password}
+                                              placeholder={'Password'}
+                                              onChange={(e) => setPassword(e.target.value)}
+                                              onKeyPress={handleKeyPress}
+                                />
+                            </div>
+                            <Button type={'submit'} className={'loginBtn'}
+                                    onClick={handleSignIn}>
+                                로그인
+                            </Button>
                         </div>
-                        <div className={'loginArea'}>
-                            <Form.Control className={'loginInput'}
-                                          type="password"
-                                          value={password}
-                                          placeholder={'Password'}
-                                          onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </div>
-                        <Button type={'submit'} className={'loginBtn'}
-                                onClick={handleSignIn}>
-                            로그인
-                        </Button>
                     </div>
-                </div>
-            </div> :
-            <Button type={'submit'} className={'loginBtn btn-danger'}
-                    onClick={handleSignOut}>
-                로그아웃
-            </Button>
-        }
-
-
-    </>);
+                </div> :
+                navigate('/admin')
+            }
+        </>
+    );
 }
