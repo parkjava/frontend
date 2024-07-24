@@ -1,104 +1,74 @@
 import React from "react";
+import {Image, Container} from 'react-bootstrap';
+import zeroone from '../../../static/images/zeroone.png'
+import hyunjun from '../../../static/images/hyunjun.png'
+import dongmin from '../../../static/images/dongmin.png'
+import hakgyun from '../../../static/images/hakgyun.png'
 import "../../../static/common.css"
-import Test from './tespage'
+
+import { FaHeart } from "react-icons/fa";
+import { FaDiamond } from "react-icons/fa6";
+import { FaClover } from "react-icons/fa6";
+import { ImSpades } from "react-icons/im";
 
 export default function index() {
-    return <>
-        <Test/>
-    </>
+    return <Container className={'projectInfoContainer'}>
+
+        <div className={'wrapper'}>
+            <h1 className={'createTitle'}>ProjectGroup - 4 O.O.B</h1>
+            <ul className={'team'}>
+                <li className={'teamItem'}>
+                    <ImSpades/>
+                    <div className={'profile profile_green'}>
+                        <Image src={hakgyun} style={{backgroundColor: '#58FAAC'}}/>
+                        <div className={'profileContents'}>
+                            <h2>5hakGyun<span>I'm a Tree</span></h2>
+
+                            <p>
+                                1I'm Groot!!!!!!!<br/>
+                                2I'm Groot!!!!!!!<br/>
+                                3I'm Groot!!!!!!!<br/>
+                                4I'm Groot!!!!!!!<br/>
+                                5I'm Groot!!!!!!!<br/>
+                                6I'm Groot!!!!!!!<br/>
+                            </p>
+
+                        </div>
+                    </div>
+                </li>
+                <li className={'teamItem'}>
+                    <FaClover/>
+                    <div className={'profile profile_orange'}>
+                        <Image src={dongmin} style={{backgroundColor: "orange"}}/>
+                        <div className={'profileContents'}>
+                            <h2>LeeDongMin<span>SoloPlayer</span></h2>
+                            <p>I'm sole</p>
+                        </div>
+                    </div>
+                </li>
+                <li className={'teamItem'}>
+                    <FaDiamond/>
+                    <div className={'profile profile_yellow'}>
+                        <Image src={hyunjun} style={{backgroundColor: '#ffe229'}}/>
+                        <div className={'profileContents'}>
+                            <h2>ParkHyunJun<span>LongLegs</span></h2>
+                            <p>Shit!!! ROS....</p>
+                        </div>
+                    </div>
+                </li>
+                <li className={'teamItem'}>
+                    <FaHeart/>
+                    <div className={'profile profile_blue'}>
+                        <Image src={zeroone} style={{backgroundColor: '#1f4dff'}}/>
+                        <div className={'profileContents'}>
+                            <h2>ChoiYoungWon<span>Leader</span></h2>
+                            <p>help....im heavy...</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </Container>
+
+
 }
-    // return <div className={'creates'}>
-    //     <h1 className={'createH1'} style={{textAlign: 'center', margin: '50px 0 50px 0',fontFamily: 'MoveSans-Bold, sans-serif'}}>프로젝트 4조 -OOB-</h1>
-    //     <div className={'infoLeft'} style={{backgroundColor: '#81F781',borderRadius:'10px'}}>
-    //         <div className={'infoCard'}>
-    //             <Card>
-    //                 <Card.Body className={'card-body'} style={{backgroundColor: '#ffffff'}}>
-    //                     <Image style={{width: '16rem'}} src={hakgyun}/>
-    //                     <Card.Title style={{color: '#81F781', marginTop: '10px', fontSize: '50px'}}>오학균</Card.Title>
-    //                     <Card.Text style={{color: '#2E9AFE',fontSize: '25px'}}>
-    //                         #노친네
-    //                         #통나무
-    //                         #ㅅㅂ 정신적 지주
-    //                     </Card.Text>
-    //                 </Card.Body>
-    //             </Card>
-    //         </div>
-    //         <div className={'createInfo'}>
-    //             <p>나이 : 34(현정부나이)</p>
-    //             <p>성격 : 차분함, 긍정적</p>
-    //             <p>mbti : ISFP</p>
-    //             <p>취미 : 게임, 유튜브시청</p>
-    //             <p>담당업무 :</p>
-    //         </div>
-    //     </div>
-    //     <div className={'infoRight'} style={{backgroundColor: '#FAAC58',borderRadius:'10px'}}>
-    //         <div className={'createInfo'}>
-    //             <p>mbti</p>
-    //             <p>성격</p>
-    //             <p>mbti</p>
-    //             <p>성격</p>
-    //             <p>담당업무 :</p>
-    //         </div>
-    //         <div className={'infoCard'}>
-    //             <Card style={{width: '18rem'}}>
-    //                 <Card.Body className={'card-body'} style={{backgroundColor: '#FFFFFF'}}>
-    //                     <Image style={{width: '16rem', float: 'right'}} src={dongmin}/>
-    //                     <Card.Title style={{color: '#FAAC58', marginTop: '10px', fontSize: '50px'}}>이동민</Card.Title>
-    //                     <Card.Text style={{color: '#2E9AFE',fontSize: '25px'}}>
-    //                         #독고다이
-    //                         #안경잽이
-    //                         #혼자서도 잘해요
-    //                     </Card.Text>
-    //
-    //                 </Card.Body>
-    //             </Card>
-    //         </div>
-    //     </div>
-    //     <div className={'infoLeft'} style={{backgroundColor: '#F3F781',borderRadius:'10px'}}>
-    //         <div className={'infoCard'}>
-    //             <Card style={{width: '18rem'}}>
-    //                 <Card.Body className={'card-body'} style={{backgroundColor: '#ffffff'}}>
-    //                     <Image style={{width: '16rem'}} src={hyunjun}/>
-    //                     <Card.Title style={{color: '#F3F781', marginTop: '10px', fontSize: '50px'}}>박현준</Card.Title>
-    //                     <Card.Text style={{color: '#2E9AFE',fontSize: '25px'}}>
-    //                         #지각왕
-    //                         #긴다리
-    //                         #초슬림
-    //                     </Card.Text>
-    //
-    //                 </Card.Body>
-    //             </Card>
-    //         </div>
-    //         <div className={'createInfo'}>
-    //             <p>mbti</p>
-    //             <p>성격</p>
-    //             <p>mbti</p>
-    //             <p>성격</p>
-    //             <p>담당업무 :</p>
-    //         </div>
-    //     </div>
-    //     <div className={'infoRight'} style={{backgroundColor: '#2E64FE',borderRadius:'10px'}}>
-    //         <div className={'createInfo'}>
-    //             <p>mbti</p>
-    //             <p>성격</p>
-    //             <p>mbti</p>
-    //             <p>성격</p>
-    //             <p>담당업무 :</p>
-    //         </div>
-    //         <div className={'infoCard'}>
-    //             <Card style={{width: '18rem'}}>
-    //                 <Card.Body className={'card-body'} style={{backgroundColor: '#FFFFFF'}}>
-    //                     <Image style={{width: '16rem'}} src={zeroone}/>
-    //                     <Card.Title style={{color: '#2E64FE', marginTop: '10px', fontSize: '50px'}}>최영원</Card.Title>
-    //                     <Card.Text style={{color: '#2E9AFE',fontSize: '25px'}}>
-    //                         #조장
-    //                         #만능
-    //                         #통나무짊어진놈
-    //                     </Card.Text>
-    //
-    //                 </Card.Body>
-    //             </Card>
-    //         </div>
-    //     </div>
-    // </div>
-// }
