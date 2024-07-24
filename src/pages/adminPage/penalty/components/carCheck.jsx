@@ -2,7 +2,8 @@ import { Table, Container, Form, Button, Dropdown, Alert } from 'react-bootstrap
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Pagination from "./pagination"
+import Pagination from "../../../../common/components/pagination2"
+import Cookies from "js-cookie";
 
 export default function CarCheck(){
     const [penalties, setPenalties] = useState([]);
@@ -20,7 +21,11 @@ export default function CarCheck(){
 
     useEffect(() => {
         // axios를 사용하여 공지사항 데이터를 가져옵니다.
-        axios.get('http://localhost:8080/api/penalty')
+        axios.get('http://localhost:8080/api/penalty',{
+            headers:{
+                'Authorization': Cookies.get('Authorization') // 쿠키를 요청 헤더에 포함
+            }
+        })
             .then(response => setPenalties(response.data))
             .catch(error => console.error('데이터 가져오기 오류:', error));
     }, []);
@@ -140,7 +145,7 @@ export default function CarCheck(){
             {noResultsMessage ? (
                 <Alert variant="warning">{noResultsMessage}</Alert>
             ) : (
-                <Table striped bordered hover variant="dark">
+                <Table striped bordered hover variant="light">
                     <thead>
                         <tr>
                             <th>NO</th>

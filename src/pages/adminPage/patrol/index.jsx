@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {Table, Container, Button, Dropdown} from 'react-bootstrap';
 import axios from 'axios';
 import {useNavigate, Link} from 'react-router-dom';
-import Pagination from './components/pagination'
+import Pagination from '../../../common/components/pagination2'
+import axiosInstance from '../../../common/components/axiosinstance';
 
 export default function PetrolList() {
     const [patrols, setPatrols] = useState([]);
@@ -16,18 +17,19 @@ export default function PetrolList() {
     const indexOfFirst = indexOfLast - postsPerPage;
     const currentPosts = searchResults.length > 0 ? searchResults.slice(indexOfFirst, indexOfLast) : patrols.slice(indexOfFirst, indexOfLast);
 
-    useEffect(() => {
-        axios.get('http://localhost:8080/api/patrol') // 실제 API 엔드포인트를 여기에 입력하세요.
-            .then(response => {
-                setPatrols(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
+    function patrolApi() {
+        axiosInstance
+          .get('/api/patrol')
+          .then((res) => {
+            console.log('Fetched notices:', res);
+            setPatrols(res)
+          })
+          .catch((err) => console.log(err));
+      }
 
-        // 예제 데이터를 사용 (이제 실제 데이터 사용으로 교체)
-        // setPatrols(mockData);
-    }, []);
+      useEffect(() => {
+        patrolApi();
+      }, []);
 
     const handleCreateClick = () => {
         navigate('/admin/patrol/create'); // 작성하기 버튼 클릭 시 페이지 이동
