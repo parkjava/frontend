@@ -1,7 +1,6 @@
-import React from 'react'
 import {Link} from "react-router-dom";
 import '../static/common.css';
-import MainImage from '../static/images/character.png'
+import MainImage from "../static/images/character.png";
 import {Image} from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -10,12 +9,13 @@ export default function Index() {
     return <>
         <div className={'mainContainer'}>
             <div className={'welcome'}>
-                <p><Image src={MainImage}
-                          className={'mainImg'}
-                          width={140}
-                          height={140}/></p>
-                <spanx>WELCOME&nbsp;</spanx>
-                <FontAwesomeIcon icon="fa-solid fa-arrow-right-from-bracket" />
+                <p>
+                    <Image src={MainImage}
+                           className={'mainImg'}
+                           width={140}
+                           height={140}/>
+                </p>
+                <span>WELCOME&nbsp;</span>
                 <span>ParkJAVA</span>
             </div>
             <div className={'descriptionArea'}>

@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {Table, Container, Button, Dropdown} from 'react-bootstrap';
-import axios from 'axios';
 import {useNavigate, Link} from 'react-router-dom';
 import Pagination from '../../../common/components/pagination2'
 import axiosInstance from '../../../common/components/axiosinstance';
