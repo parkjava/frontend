@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {Card, Container} from "react-bootstrap";
-import {useParams} from "react-router-dom";
+import {Button, Container, Table} from "react-bootstrap";
+import {Link, useParams} from "react-router-dom";
 import axios from "axios";
 
 
 export default function Index() {
     const {noticeIndex} = useParams();
     const [notice, setNotice] = useState();
+
 
     useEffect(() => {
         // axios를 사용하여 공지사항 데이터를 가져옵니다.
@@ -21,24 +22,43 @@ export default function Index() {
     }
 
     return (
-      <>
-          <Container className="d-flex justify-content-center p-5">
-              <h1>공지사항</h1>
-          </Container>
-          <Container>
-              <Card>
-                  <Card.Header>{notice.noticeTitle}</Card.Header>
-                  <Card.Body>
-                      <Card.Text>
-                          {notice.noticeContent}
-                      </Card.Text>
-                      <Card.Footer>
-                          작성자: {notice.adminName} | 게시일: {new Date(notice.createDate).toLocaleDateString('ko-KR')}
-                      </Card.Footer>
-                      {notice.noticeView}
-                  </Card.Body>
-              </Card>
-          </Container>
-      </>
+        <Container className='detailContainer' style={{height: '100vh',borderRadius: '20px'}}>
+            <Table striped="columns" bordered>
+                <thead>
+                <tr>
+                    <th rowSpan={2} style={{width: '60px', verticalAlign: 'middle'}}>제목</th>
+                    <th rowSpan={2} style={{width: '300px', verticalAlign: 'middle'}}>
+                        {notice.noticeTitle}
+                    </th>
+                    <th colSpan={2} style={{width: '60px'}}>일자</th>
+                    <th colSpan={4} style={{width: '300px'}}>
+                        {new Date(notice.createDate).toLocaleDateString('ko-KR')}
+                    </th>
+                </tr>
+                <tr>
+                    <th colSpan={2} style={{width: '60px'}}>작성자</th>
+                    <th colSpan={2}>{notice.adminName}</th>
+                    <th style={{width: '120px'}}>조회수</th>
+                    <th>{notice.noticeView}</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td colSpan={8} style={{height: '600px'}}>
+                        {notice.noticeContent}
+                    </td>
+                </tr>
+
+                </tbody>
+            </Table>
+            <div className={'noticeDetailBtn'}>
+            <Button className='noticeListBtn' variant="info"><Link to={'../user/notice'}>목록으로</Link></Button>
+            {/* <Button className='documentButton' variant="info" onClick={handleBack}>목록으로</Button> */}
+            {/*<Button variant="danger" onClick={handleDelete}>삭제</Button>{' '}*/}
+            </div>
+        </Container>
+
+
     );
 }

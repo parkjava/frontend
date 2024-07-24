@@ -168,7 +168,7 @@ li {
 }
 
 body {
-    color: #999;
+    color: #d2edff;
 }
 
 .createTitle {
@@ -183,7 +183,7 @@ body {
 }
 
 .wrapper {
-    background: linear-gradient(to bottom, #eaf4ff 5%, #ffffff 40%);
+    background-image: linear-gradient(to right bottom, #ffffff 10%, #f8f6ff, #bddfff, #b0d9ff, #e8dafd );
     display: flex;
     height: 100vh;
     justify-content: center;
@@ -271,8 +271,8 @@ body {
 .create-logo {
     text-align: center;
     position: absolute;
-    top: 800px;
-    height: 150px;
+    top: 900px;
+    height: 100px;
 
 }
 
@@ -342,39 +342,6 @@ body {
     font-size: 50px;
 }
 
-
-/* 문의하기 페이지 */
-.inquiryForm {
-    font-family: "Jua", sans-serif;
-    margin: 20px 400px 20px 750px;
-    background: linear-gradient(to bottom, #EFF2FB 5%, #ffffff 40%);
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 600px;
-    width: 100%;
-}
-
-.inquiryTitle {
-
-    text-align: center;
-    font-size: 40px;
-}
-
-.inquiryIndex {
-    margin-left: 20px;
-    margin-right: 20px;
-    padding: 60px 20px 60px 20px;
-}
-
-.formLabel {
-    font-size: 25px;
-}
-
-.buttonContainer {
-    display: flex;
-    justify-content: flex-end;
-}
 
 /* 메인 페이지 */
 
@@ -493,3 +460,102 @@ body {
     transition: .3s;
 }
 
+/* 유저 문의(모달) */
+.btnWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 5rem;
+}
+
+.modalOpenButton{
+
+    margin-top: auto;
+}
+
+.modalContainer {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+}
+.modalCloseBtn{
+    width: 80px;
+    margin-left: auto;
+}
+.card1, .card2{
+    background-image: linear-gradient(to right bottom, #ffffff, #f8f6ff, #f2edff, #ede4fe, #e8dafd);
+    position: fixed;
+    width: 400px !important;
+    height: 500px!important;
+    margin: auto;
+    border-radius: 20px!important;
+    font-family: "Jua", sans-serif;
+.modalContent{
+    width: 100vh;
+}
+.cardBody{
+   margin: auto;
+    bottom: 100px !important;
+}
+.cardImages{
+    width: 200px;
+    height: 300px;
+    margin: auto;
+}
+
+}
+.cards{
+    text-align: center;
+    height: 100vh;
+    display: flex;
+
+}
+
+/* 문의하기 폼 */
+.inquiryForm {
+    font-family: "Jua", sans-serif;
+    margin: 20px 400px 20px 500px;
+    background-image: linear-gradient(to right bottom, #ffffff, #c3e3ff 30%, #bfdfff, #efeaff, #cae4ff);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    width: 100%;
+}
+
+
+.inquiryIndex {
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 60px 20px 60px 20px;
+}
+
+.formLabel {
+    font-size: 25px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* 유저 공지사항 페이지*/
+.d-flex pb-2{
+    background-color: #b0d9ff!important;
+}
+
+/* 유저 공지사항 상세페이지*/
+.noticeListBtn{
+    height: 40px;
+    width: 100px;
+}
+.noticeDetailBtn{
+    margin-top: auto;
+}
+.detailContainer{
+}

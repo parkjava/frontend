@@ -173,7 +173,7 @@ export default function Index() {
                         <tr key={notice.noticeIndex}>
                             <td>{notice.noticeIndex}</td>
                             <td>
-                                <Link to={`/admin/notice/${notice.noticeIndex}`}>{notice.noticeTitle}</Link>
+                                <Link to={`/user/notice/${notice.noticeIndex}`}>{notice.noticeTitle}</Link>
                             </td>
                             <td>{new Date(notice.createDate).toLocaleDateString()}</td>
                             <td>{notice.adminName}</td>
