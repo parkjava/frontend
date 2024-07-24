@@ -4,7 +4,6 @@ import zeroone from '../../../static/images/zeroone.png'
 import hyunjun from '../../../static/images/hyunjun.png'
 import dongmin from '../../../static/images/dongmin.png'
 import hakgyun from '../../../static/images/hakgyun.png'
-import logo from '../../../static/images/parkjavalogo.png'
 import "../../../static/common.css"
 
 import { FaHeart } from "react-icons/fa";
@@ -69,8 +68,6 @@ export default function index() {
                 </li>
             </ul>
 
-            <Image src={logo} className={'create-logo'}>
-            </Image>
         </div>
     </Container>
 

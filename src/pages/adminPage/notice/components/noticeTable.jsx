@@ -2,8 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {Table, Container, Form, Button, Dropdown, Alert} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import Pagination from './pagination';
-import Cookies from "js-cookie";
+import Pagination from '../../../../common/components/pagination2';
+import axiosInstance from '../../../../common/components/axiosinstance';
 
 export default function NoticeTable() {
     const [notices, setNotices] = useState([]);
@@ -21,18 +21,20 @@ export default function NoticeTable() {
     const currentPosts = searchResults.length > 0 ? searchResults.slice(indexOfFirst, indexOfLast) : notices.slice(indexOfFirst, indexOfLast);
 
 
-    useEffect(() => {
-        axios.get(`http://localhost:8080/api/notice`,{
-            headers:{
-                'Authorization': Cookies.get('Authorization') // 쿠키를 요청 헤더에 포함
-            }
-        })
-            .then(response => {
-                setNotices(response.data); // 전체 공지사항 목록
 
-            },)
-            .catch(error => console.error('데이터 가져오기 오류:', error));
-    }, []);
+    function noticeApi() {
+        axiosInstance
+          .get('/api/notice')
+          .then((res) => {
+            console.log('Fetched notices:', res);
+            setNotices(res)
+          })
+          .catch((err) => console.log(err));
+      }
+
+      useEffect(() => {
+        noticeApi();
+      }, []);
 
     const handleInputChange = (e) => {
         setNoticeTitle(e.target.value);
