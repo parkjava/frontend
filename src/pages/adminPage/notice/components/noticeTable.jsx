@@ -19,17 +19,14 @@ export default function NoticePagination() {
     const indexOfFirst = indexOfLast - postsPerPage;
     const currentPosts = searchResults.length > 0 ? searchResults.slice(indexOfFirst, indexOfLast) : notices.slice(indexOfFirst, indexOfLast);
 
-    useEffect(() => {
-        fetchNotices();
-    },);
 
-    const fetchNotices = () => {
+    useEffect (() => {
         axios.get(`http://localhost:8080/api/notice`)
             .then(response => {
                 setNotices(response.data); // 전체 공지사항 목록
             })
             .catch(error => console.error('데이터 가져오기 오류:', error));
-    };
+    }, [])
 
     const handleInputChange = (e) => {
         setNoticeTitle(e.target.value);
