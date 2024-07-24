@@ -498,3 +498,14 @@ body {
 .d-flex pb-2{
     background-color: #b0d9ff!important;
 }
+
+/* 유저 공지사항 상세페이지*/
+.noticeListBtn{
+    height: 40px;
+    width: 100px;
+}
+.noticeDetailBtn{
+    margin-top: auto;
+}
+.detailContainer{
+}
