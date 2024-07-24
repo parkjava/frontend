@@ -3,17 +3,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Jua&family=Orbit&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Orbit&display=swap');
 
+/*
 
-/* 1. 어느 부분에서 사용된 class인지?
-
+1. 어느 부분에서 사용된 클래스인지?
 2.
-
 .class {
     속성
-} 
-    
+}
+
 */
 
+/* 공통 */
+a {
+    text-decoration: none !important;
+    color: #222222 !important;
+}
 
 /* 페널티 */
 
@@ -47,27 +51,28 @@ thead > tr > th {
     width: 100px;
     height: 50px;
     bottom: 10px;
-    
+
 }
 
 /* 만든이 페이지(조원소개)*/
-.createH1{
+.createH1 {
     font-family: "Nanum Pen Script", cursive !important;
     font-weight: 600;
     font-style: italic;
     font-size: 80px;
 }
-.creates{
+
+.creates {
     width: 90%;
     margin: 0 auto;
 }
 
-.infoLeft{
+.infoLeft {
     font-family: "Nanum Pen Script", cursive !important;
     font-weight: 600;
     font-style: italic;
     display: flex;
-    margin-bottom : 30px;
+    margin-bottom: 30px;
     align-items: center;
     justify-content: start;
     /*background: linear-gradient(#e66465, #9198e5);
@@ -75,24 +80,27 @@ thead > tr > th {
     /*background-color: rgba(179, 252, 252, 0.75);*/
 }
 
-.infoCard{
+.infoCard {
     text-align: center;
     margin: 10px;
 }
-.infoRight{
+
+.infoRight {
     /*background-color: #ffd8d8;*/
     font-family: "Nanum Pen Script", cursive !important;
     font-weight: 600;
     font-style: italic;
     display: flex;
-    margin-bottom : 30px;
+    margin-bottom: 30px;
     align-items: center;
     justify-content: end;
     color: #ffffff;
 }
-.createInfo{
+
+.createInfo {
     font-size: 30px;
 }
+
 /*!*.card-body {*!*/
 /*   */
 /*}*/
@@ -100,38 +108,45 @@ thead > tr > th {
 
 /*만든이 페이지 css*/
 
-body, ul, h2, p{
+body, ul, h2, p {
     margin: 0;
     padding: 0;
 }
-li{
+
+li {
     list-style-type: none;
 }
-body{
-    background-color: #111;
+
+body {
     color: #999;
 }
-.createTitle{
+
+.createTitle {
     text-align: center;
+    position: absolute;
     font-size: 60px;
     font-family: "Jua", sans-serif;
     font-weight: 400;
     font-style: normal;
     color: #45a3ff;
+    top: 100px;
 }
-.wrapper{
+
+.wrapper {
+    background: linear-gradient(to bottom, #eaf4ff 5%, #ffffff 40%);
     display: flex;
     height: 100vh;
     justify-content: center;
     align-items: center;
 }
-.team{
+
+.team {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.teamItem{
-    height: 800px;
+
+.teamItem {
     width: 100%;
     flex-basis: 300px;
     flex-shrink: 0.8;
@@ -139,34 +154,37 @@ body{
     margin: 0 10px;
     transition: flex-basis .4s;
 }
-.teamItem img{
+
+.teamItem img {
     width: 100%;
     height: 100%;
     /*background-color: #ff0000;*/
 }
-.teamItem:hover{
+
+.teamItem:hover {
     flex-basis: 500px;
     margin: 0 20px;
 }
 
-.profile:before{
+.profile:before {
     content: ' ';
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,0.95+100 */
-    background: linear-gradient(rgba(0,0,0,0) 100%, rgba(189, 189, 189, 0.95) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: linear-gradient(rgba(0, 0, 0, 0) 100%, rgba(189, 189, 189, 0.95) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
     height: 200px;
 }
-.profile{
+
+.profile {
     background-color: #222;
     position: relative;
     overflow: hidden;
-    color : white;
+    color: white;
 }
 
-.profileContents{
+.profileContents {
     margin-left: 10px;
     position: absolute;
     left: 0;
@@ -174,52 +192,67 @@ body{
     font-weight: bold;
 }
 
-.profileContents h2{
+.profileContents h2 {
     font-size: 20px;
 }
-.profileContents h2 span{
+
+.profileContents h2 span {
     display: block;
     font-size: 30px;
 }
-.profileContents p{
+
+.profileContents p {
     color: white;
     font-size: 20px;
     min-width: 250px;
     max-height: 0;
     overflow: hidden;
-    line-height: 1.2;
+    line-height: 1;
     transition: all .5s;
     transition-delay: .5s;
 }
-.teamItem:hover .profileContents p{
+
+.teamItem:hover .profileContents p {
     max-height: 6em;
     opacity: 1;
     margin-top: 0.2em;
 }
-.create-text{
+
+.create-logo {
     text-align: center;
     position: absolute;
-    top: 900px;
-    font-size: 100px;
+    top: 800px;
+    height: 150px;
+
 }
 
 /* 프로젝트 소개 페이지 */
-.projectTitle{
+.projectTitle {
     font-family: "Orbit", sans-serif;
     font-weight: 400;
     font-style: normal;
     font-size: 60px;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-.projectInfo{
+
+.projectInfo {
     align-items: center;
     text-align: center;
     overflow: hidden;
-    background-color: rgba(169, 169, 169, 0.07);
+    background-image: url("./images/logo-1-transformed.png");
+    background-size: 300px;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /*background: linear-gradient(to bottom, #efeaff 1%, #ffffff 30%);*/
     color: #45a3ff;
 
+
 }
+
 .metal_image {
     transition: transform 3s ease 1s;
+
 }
 
 .metal_image.animate {
@@ -230,25 +263,182 @@ body{
     transition: transform 3s ease 1s, font-size 3s ease 1s;
     transform: translateX(0);
     font-size: 0px;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .p-info.animate {
     transform: translate(-200px, -300px);
     font-size: 50px;
 }
-.img2{
+
+.img2 {
     text-align: right;
     transition: transform 3s ease 1s;
 }
-.img2.animate{
+
+.img2.animate {
     transform: translateX(-1200px);
 }
-.p-info2{
+
+.p-info2 {
     transition: transform 3s ease 1s, font-size 3s ease 1s;
     transform: translateX(0);
     font-size: 0;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-.p-info2.animate{
+
+.p-info2.animate {
     transform: translate(200px, 300px);
     font-size: 50px;
+}
+
+
+/* 문의하기 페이지 */
+.inquiryForm {
+    font-family: "Jua", sans-serif;
+    margin: 20px 400px 20px 750px;
+    background: linear-gradient(to bottom, #EFF2FB 5%, #ffffff 40%);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    width: 100%;
+}
+
+.inquiryTitle {
+
+    text-align: center;
+    font-size: 40px;
+}
+
+.inquiryIndex {
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 60px 20px 60px 20px;
+}
+
+.formLabel {
+    font-size: 25px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* 메인 페이지 */
+
+.mainContainer {
+    background-color: #f9f9f9;
+    height: 100vh;
+}
+
+.mainGroup {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+}
+
+.welcome {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+    font-size: 70px;
+    color: #515151;
+}
+
+.mainImg {
+    margin: 40px;
+}
+
+
+.mainItem {
+    margin: 20px 30px 30px 30px;
+    background-color: white;
+}
+
+.mainItem p {
+    font-size: 70px;
+}
+
+.groupChild1 {
+    font-size: 28px;
+    padding: 100px 120px 100px 120px;
+    border: 1px solid #ff5900;
+    border-radius: 8px;
+}
+
+.groupChild1:hover {
+    padding: 100px 170px 100px 170px;
+    background-color: rgb(255, 174, 97);
+    transition: 0.5s;
+    color: white;
+}
+
+.groupChild1:not(:hover) {
+    transition: .5s;
+}
+
+.groupChild2 {
+    font-size: 28px;
+    padding: 100px 120px 100px 120px;
+    border: 1px solid #0017ff;
+    border-radius: 8px;
+}
+
+.groupChild2:hover {
+    padding: 100px 170px 100px 170px;
+    background-color: rgb(111, 175, 248);
+    transition: 0.5s;
+    color: white;
+}
+
+.groupChild2:not(:hover) {
+    transition: .5s;
+}
+
+.descriptionArea{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.descriptionSpace{
+    width: 80px;
+}
+.userDescription {
+    max-width: 390px;
+}
+
+.adminDescription {
+    max-width: 390px;
+}
+/* pagination */
+.paginationGroup{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.paginationGroup span{
+    color: #2f34ff;
+    margin: 1.5px;
+    padding: 3px 8px 3px 8px;
+    border: 1px solid #777777;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.paginationGroup span:hover{
+    color: #f4f4f4;
+    margin: 1.5px;
+    padding: 5px 10px 5px 10px;
+    transition: .3s;
+    background-color: #2f34ff;
+}
+.paginationGroup span:not(:hover) {
+    transition: .3s;
 }

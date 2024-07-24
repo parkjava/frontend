@@ -1,32 +1,37 @@
 import React, {useEffect, useState} from 'react';
 import Image from 'react-bootstrap/Image';
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import axios from "axios";
-import {Button, Table, Card, Container} from "react-bootstrap";
+import {Table, Card, Container} from "react-bootstrap";
+import Cookies from "js-cookie";
 
 export default function Index() {
     const {penaltyIndex} = useParams();
-    const navigate = useNavigate();
     const [penalty, setPenalty] = useState();
     const [penalties, setPenalties] = useState([]); // 전체 penalty 목록을 저장하기 위한 상태 추가
 
     useEffect(() => {
         // 전체 penalty 목록을 가져옵니다.
-        axios.get('http://localhost:8080/api/penalty')
+        axios.get('http://localhost:8080/api/penalty',{
+            headers: {
+                'Authorization': Cookies.get('Authorization') // 쿠키를 요청 헤더에 포함
+            }
+        })
             .then(response => setPenalties(response.data))
             .catch(error => console.error('전체 데이터 가져오기 오류:', error));
     }, []);
 
     useEffect(() => {
         // 개별 penalty 데이터를 가져옵니다.
-        axios.get(`http://localhost:8080/api/penalty/${penaltyIndex}`)
+        axios.get(`http://localhost:8080/api/penalty/${penaltyIndex}`,{
+            headers: {
+                'Authorization': Cookies.get('Authorization') // 쿠키를 요청 헤더에 포함
+            }})
             .then(response => setPenalty(response.data))
             .catch(error => console.error('데이터 가져오기 오류:', error));
     }, [penaltyIndex]);
 
-    const handleBack = () => {
-        navigate(`/admin/penalty`);
-    };
+
     const formatNumber = (number) => {
         return new Intl.NumberFormat('ko-KR').format(number);
     };

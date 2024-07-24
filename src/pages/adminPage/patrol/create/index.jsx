@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Container, Form, Button, Alert } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {Table, Container, Form, Button, Alert} from 'react-bootstrap';
+import {Link, useNavigate} from 'react-router-dom';
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
 const setCookie = (name, value) => {
-    cookies.set(name, value, { path: '/' });
+    cookies.set(name, value, {path: '/'});
 }
 
 const getCookie = (name) => {
@@ -40,7 +40,7 @@ export default function PatrolTable() {
         const admin = getCookie('session');
         if (admin) {
             try {
-                const { index, name } = admin;  // admin이 이미 객체라고 가정
+                const {index, name} = admin;  // admin이 이미 객체라고 가정
                 setPatrol((prevState) => ({
                     ...prevState,
                     adminIndex: index.toString(),
@@ -79,7 +79,7 @@ export default function PatrolTable() {
     }, [patrol.area]);
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setPatrol({
             ...patrol,
             [name]: value,
@@ -103,7 +103,7 @@ export default function PatrolTable() {
         }
 
         const newPetrol = {
-            patrolArea: patrol.area +'/'+patrol.subarea,
+            patrolArea: patrol.area + '/' + patrol.subarea,
             patrolSummary: patrol.summary,
             adminIndex: patrol.adminIndex,
             adminName: patrol.name,
@@ -186,7 +186,7 @@ export default function PatrolTable() {
                                 name="summary"
                                 value={patrol.summary}
                                 onChange={handleInputChange}
-                                style={{ border: 'none', resize: 'none' }}
+                                style={{border: 'none', resize: 'none'}}
                             />
                         </td>
                     </tr>
@@ -203,7 +203,7 @@ export default function PatrolTable() {
                     <Button
                         variant="primary"
                         type="submit"
-                        style={{ width: '100px' }}
+                        style={{width: '100px'}}
                         disabled={!patrol.area || !patrol.subarea || !patrol.summary} // 중분류 추가
                     >
                         작성

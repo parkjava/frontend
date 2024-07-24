@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import '../../../../static/common.css'
+import '../../static/common.css'
 
 const Pagination = ({postsPerPage, totalPosts, paginate}) => {
     const [currentPage, setCurrentPage] = useState(1);

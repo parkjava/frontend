@@ -2,10 +2,10 @@ import React, {useState, useEffect} from 'react';
 import {Table, Container, Form, Button, Dropdown, Alert} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import Pagination from './pagination';
+import Pagination from '../../../common/components/pagination';
 import Cookies from "js-cookie";
 
-export default function NoticeTable() {
+export default function Index() {
     const [notices, setNotices] = useState([]);
     const [noticeTitle, setNoticeTitle] = useState('');
     const [searchResults, setSearchResults] = useState([]);
@@ -22,7 +22,7 @@ export default function NoticeTable() {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/notice`,{
+        axios.get(`http://localhost:8080/user/api/notice`,{
             headers:{
                 'Authorization': Cookies.get('Authorization') // 쿠키를 요청 헤더에 포함
             }
@@ -52,9 +52,9 @@ export default function NoticeTable() {
 
         let url = '';
         if (searchOption === 'title') {
-            url = `http://localhost:8080/api/notice/title/${noticeTitle}`;
+            url = `http://localhost:8080/user/api/notice/title/${noticeTitle}`;
         } else if (searchOption === 'admin') {
-            url = `http://localhost:8080/api/notice/name/${noticeTitle}`;
+            url = `http://localhost:8080/user/api/notice/name/${noticeTitle}`;
         }
 
         axios.get(url)

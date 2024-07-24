@@ -1,1 +1,41 @@
 /* header CSS */
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo{
+    width: 270px;
+}
+.headerLogo{
+    width: 80px;
+    height: auto;
+}
+
+.userHeader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.userHeader li{
+    margin: 10px;
+}
+
+.adminHeader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.adminHeader ul {
+    position: relative;
+
+}
+.adminHeader li {
+    margin: 10px;
+}
+
+.adminHeader ul:hover li {
+    display: grid;
+}

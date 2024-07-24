@@ -1,52 +1,91 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useNavigate } from "react-router-dom";
 
-function App() {
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
+export default function App() {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [response, setResponse] = useState(null);
+    const [formattedResponse, setFormattedResponse] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('http://localhost:8080/api/test/1');
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+        if (response) {
+            setFormattedResponse(JSON.stringify(response, null, 2));
+        }
+    }, [response]);
+
+    const handleSignIn = async () => {
+        try {
+            const res = await axios.post('http://localhost:8080/members/signIn', {
+                username,
+                password
+            });
+
+            setResponse(res.data);
+            Cookies.set("Authorization", `${res.data.grantType} ${res.data.accessToken}`, { expires: 1 });
+        } catch (error) {
+            console.error('Error signing in:', error);
+            setResponse({ error: 'Failed to sign in' });
+        }
+    };
+
+    const handleSignOut = () => {
+        Cookies.remove('Authorization');
+        navigate('/');
+    };
+
+    const handleRequestWithCookie = async () => {
+        try {
+            const res = await axios.get('http://localhost:8080/api/penalty', {
+                headers: {
+                    'Authorization': Cookies.get('Authorization') // 쿠키를 요청 헤더에 포함
                 }
-                const result = await response.json();
-                setData(result);
-                setLoading(false);
-            } catch (error) {
-                setError(error);
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>Error: {error.message}</div>;
-    }
+            });
+            setResponse(res.data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setResponse({ error: 'Failed to fetch data' });
+        }
+    };
 
     return (
-        <div className="App">
-            <h1>Data from API</h1>
-            {data ? (
+        <div style={{ height: '100vh' }}>
+            <h1>Sign In</h1>
+            <div>
+                <label>
+                    Username:
+                    <input
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                </label>
+            </div>
+            <div>
+                <label>
+                    Password:
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </label>
+            </div>
+            <button onClick={handleSignIn}>Sign In</button>
+            <button onClick={handleSignOut}>Sign Out</button>
+            <button onClick={handleRequestWithCookie}>Request with Cookie</button>
+            {formattedResponse && (
                 <div>
-                    <p>ID: {data.id}</p>
-                    <p>Name: {data.name}</p>
-                    <p>Email: {data.email}</p>
+                    <h2>Response</h2>
+                    {response.error ? (
+                        <p>{response.error}</p>
+                    ) : (
+                        <pre>{formattedResponse}</pre>
+                    )}
                 </div>
-            ) : (
-                <p>No data available</p>
             )}
         </div>
     );
 }
-
-export default App;
