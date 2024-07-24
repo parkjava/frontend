@@ -1,20 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import {useNavigate} from "react-router-dom";
+import {Button, Form, Image} from 'react-bootstrap'
+import Logo from '../../../static/images/loginLogo.png'
+// import axiosInstance from '../../../common/components/axiosinstance';
 
 export default function App() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [response, setResponse] = useState(null);
-    const [formattedResponse, setFormattedResponse] = useState('');
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (response) {
-            setFormattedResponse(JSON.stringify(response, null, 2));
-        }
-    }, [response]);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [isLogin, setIsLogin] = useState('');
 
     const handleSignIn = async () => {
         try {
@@ -22,69 +19,72 @@ export default function App() {
                 username,
                 password
             });
-            setResponse(res.data);
             Cookies.set("Authorization", `${res.data.grantType} ${res.data.accessToken}`, {expires: 1});
+            alert("로그인에 성공하였습니다.")
+            navigate('/admin')
+
         } catch (error) {
-            console.error('Error signing in:', error);
-            setResponse({error: 'Failed to sign in'});
+            alert("로그인에 실패하였습니다.")
+            navigate('')
         }
+
     };
 
     const handleSignOut = () => {
-        Cookies.remove('Authorization');
-        navigate('/');
-    };
-
-    const handleRequestWithCookie = async () => {
-        try {
-            const res = await axios.get('http://localhost:8080/members/test', {
-                headers: {
-                    'Authorization': Cookies.get('Authorization') // 쿠키를 요청 헤더에 포함
-                }
-            });
-            setResponse(res.data);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-            setResponse({error: 'Failed to fetch data'});
+        if (Cookies.get("Authorization") != null) {
+            alert('로그아웃 되었습니다');
+            Cookies.remove('Authorization');
+        } else {
+            alert('로그인 정보가 없습니다.')
         }
+        navigate('/')
     };
 
-    return (
-        <div>
-            <h1>관리자 로그인</h1>
-            <div>
-                <label>
-                    Username:
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Password:
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </label>
-            </div>
-            <button onClick={handleSignIn}>로그인</button>
-            <button onClick={handleSignOut}>로그아웃</button>
-            <button onClick={handleRequestWithCookie}>요청 확인</button>
-            {formattedResponse && (
-                <div>
-                    <h2>Response</h2>
-                    {response.error ? (
-                        <p>{response.error}</p>
-                    ) : (
-                        <pre>{formattedResponse}</pre>
-                    )}
+    useEffect(() => {
+        const loginInfo = Cookies.get("Authorization");
+        if (loginInfo != null) {
+            return setIsLogin(true);
+        } else if (loginInfo == null) {
+            return setIsLogin(false);
+        }
+    }, []);
+
+    return (<>
+        {isLogin === false ?
+            <div style={{height: '80vh'}}>
+                <div className={'loginContainer'}>
+                    <div className={'loginGroup'}>
+                        <Image src={Logo} width={355}/>
+
+                        <div className={'loginArea'}>
+                            <Form.Control className={'loginInput'}
+                                          type="text"
+                                          value={username}
+                                          placeholder={'ID'}
+                                          onChange={(e) => setUsername(e.target.value)}
+                            />
+                        </div>
+                        <div className={'loginArea'}>
+                            <Form.Control className={'loginInput'}
+                                          type="password"
+                                          value={password}
+                                          placeholder={'Password'}
+                                          onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
+                        <Button type={'submit'} className={'loginBtn'}
+                                onClick={handleSignIn}>
+                            로그인
+                        </Button>
+                    </div>
                 </div>
-            )}
-        </div>
-    );
+            </div> :
+            <Button type={'submit'} className={'loginBtn btn-danger'}
+                    onClick={handleSignOut}>
+                로그아웃
+            </Button>
+        }
+
+
+    </>);
 }

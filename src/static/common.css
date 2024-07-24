@@ -18,6 +18,56 @@ a {
     text-decoration: none !important;
     color: #222222 !important;
 }
+/* 로그인 */
+.loginContainer{
+    text-align: center;
+    border: 1px solid #bdbdbd;
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    max-height: 500px;
+    margin: 100px auto;
+    padding: 50px;
+    border-radius: 15px;
+    background-color: #fbfbfb;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.loginTitle{
+    margin-bottom: 40px;
+}
+
+.loginGroup{
+
+}
+.loginInput{
+    width: 395px !important;
+    transition: 0.3s;
+    height: 50px !important;
+
+}
+.loginInput:focus{
+    width: 400px !important;
+    transition: 0.3s;
+}
+.loginInput:not(:focus){
+    transition: 0.3s;
+}
+
+.loginBtn{
+    width: 100%;
+    margin-top: 30px !important;
+    max-width: 390px;
+    height: 50px !important;
+}
+
+.loginArea{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 /* 페널티 */
 
@@ -340,7 +390,7 @@ body {
 }
 
 .groupChild1:hover {
-    padding: 100px 170px 100px 170px;
+    padding: 140px 170px 140px 170px;
     background-color: rgb(255, 174, 97);
     transition: 0.5s;
     color: white;
@@ -358,7 +408,7 @@ body {
 }
 
 .groupChild2:hover {
-    padding: 100px 170px 100px 170px;
+    padding: 140px 170px 140px 170px;
     background-color: rgb(111, 175, 248);
     transition: 0.5s;
     color: white;
