@@ -15,7 +15,6 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     //요청 보내기 전에 수행 로직
-    alert("요청 보냄")
     return config;
   },
   (err) => {
