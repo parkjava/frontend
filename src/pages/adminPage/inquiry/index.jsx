@@ -2,6 +2,7 @@ import {Table, Container, Dropdown} from 'react-bootstrap';
 import {Link} from 'react-router-dom'
 import React, {useState, useEffect} from 'react';
 import Pagination from './components/pagination'
+import Cookies from "js-cookie";
 
 
 export default function Index() {
@@ -16,7 +17,11 @@ export default function Index() {
     const currentPosts = searchResults.length > 0 ? searchResults.slice(indexOfFirst, indexOfLast) : inquiry.slice(indexOfFirst, indexOfLast);
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/inquiry')
+        fetch('http://localhost:8080/api/inquiry',{
+            headers:{
+                'Authorization': Cookies.get('Authorization') // 쿠키를 요청 헤더에 포함
+            }
+        })
             .then(response => response.json())
             .then(data => setInquiry(data))
             .catch(error => console.error('Error fetching data:', error));
