@@ -21,12 +21,10 @@ export default function NoticeTable() {
     const currentPosts = searchResults.length > 0 ? searchResults.slice(indexOfFirst, indexOfLast) : notices.slice(indexOfFirst, indexOfLast);
 
 
-
     function noticeApi() {
         axiosInstance
           .get('/api/notice')
           .then((res) => {
-            console.log('Fetched notices:', res);
             setNotices(res)
           })
           .catch((err) => console.log(err));
@@ -59,18 +57,18 @@ export default function NoticeTable() {
             url = `http://localhost:8080/api/notice/name/${noticeTitle}`;
         }
 
-        axios.get(url)
-            .then(response => {
-                if (response.data.length === 0) {
+        axiosInstance.get(url)
+            .then(res => {
+                if (res.length === 0) {
                     setNoResultsMessage('일치하는 검색 결과가 없습니다.');
                     setSearchResults([]);
                 } else {
                     setNoResultsMessage('');
-                    setSearchResults(response.data);
+                    setSearchResults(res);
                 }
             })
-            .catch(error => {
-                console.error('공지사항 검색 오류:', error);
+            .catch(err => {
+                console.error('공지사항 검색 오류:', err);
                 setNoResultsMessage('데이터에 없는 검색어입니다.');
                 setSearchResults([]);
             });
@@ -135,7 +133,7 @@ export default function NoticeTable() {
             <Container className="d-flex justify-content-end align-items-center">
                 <Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">
                     <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                        검색 옵션: {searchOptionLabel === 'title' ? '제목' : '작성자'}
+                        검색 옵션: {searchOptionLabel}
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
