@@ -21,7 +21,6 @@ export default function PetrolList() {
         axiosInstance
           .get('/api/patrol')
           .then((res) => {
-            console.log('Fetched notices:', res);
             setPatrols(res)
           })
           .catch((err) => console.log(err));

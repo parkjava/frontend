@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Pagination from "../../../../common/components/pagination2"
-import Cookies from "js-cookie";
+import axiosInstance from '../../../../common/components/axiosinstance';
 
 export default function CarCheck(){
     const [penalties, setPenalties] = useState([]);
     const [penaltyTitle, setPenaltyTitle] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const [searchOption, setSearchOption] = useState('title'); // 검색 옵션 상태 추가
+    const [searchOption, setSearchOption] = useState('carnumber'); // 검색 옵션 상태 추가
     const [noResultsMessage, setNoResultsMessage] = useState(''); // 검색 결과가 없을 때 메시지 상태 추가
     
     const [postsPerPage, setPostsPerPage] = useState(10);
@@ -19,16 +19,18 @@ export default function CarCheck(){
     const indexOfFirst = indexOfLast - postsPerPage;
     const currentPosts = searchResults.length > 0 ? searchResults.slice(indexOfFirst, indexOfLast) : penalties.slice(indexOfFirst, indexOfLast);
 
-    useEffect(() => {
-        // axios를 사용하여 공지사항 데이터를 가져옵니다.
-        axios.get('http://localhost:8080/api/penalty',{
-            headers:{
-                'Authorization': Cookies.get('Authorization') // 쿠키를 요청 헤더에 포함
-            }
-        })
-            .then(response => setPenalties(response.data))
-            .catch(error => console.error('데이터 가져오기 오류:', error));
-    }, []);
+    function penaltyApi() {
+        axiosInstance
+          .get('/api/penalty')
+          .then((res) => {
+            setPenalties(res)   
+          })
+          .catch((err) => console.log(err));
+      }
+
+      useEffect(() => {
+        penaltyApi();
+      }, []);
 
     const handleInputChange = (e) => {
         setPenaltyTitle(e.target.value);
@@ -47,34 +49,25 @@ export default function CarCheck(){
         }
 
         let url = '';
-        if (searchOption === 'title') {
+        if (searchOption === 'carnumber') {
             url = `http://localhost:8080/api/penalty/number/${penaltyTitle}`;
         } else if (searchOption === 'date') {
             url = `http://localhost:8080/api/penalty/date/${penaltyTitle}`;
         }
 
-        axios.get(url)
-            .then(response => {
-                if (response.data.length === 0) {
+        axiosInstance.get(url)
+            .then(res => {
+                if (res.length === 0) {
                     setNoResultsMessage(' 일치하는 검색결과가 없습니다.');
                     setSearchResults([]);
                 } else {
                     setNoResultsMessage('');
-                    setSearchResults(response.data);
+                    setSearchResults(res);
                 }
             })
-            .catch(error => {
-                if (error.response) {
-                    // 서버가 응답했지만, 상태 코드가 범위 밖일 경우
-                    console.error('공지사항 검색 오류:', error.response.status, error.response.data);
-                } else if (error.request) {
-                    // 요청이 이루어졌으나 응답이 없을 경우
-                    console.error('공지사항 검색 오류: 응답 없음');
-                } else {
-                    // 요청 설정 중에 오류가 발생했을 경우
-                    console.error('공지사항 검색 오류:', error.message);
-                }
-                setNoResultsMessage('데이터에 없는 검색어입니다');
+            .catch(err => {
+                console.error('검색 오류:', err);
+                setNoResultsMessage('데이터에 없는 검색어입니다.');
                 setSearchResults([]);
             });
     };
@@ -97,7 +90,7 @@ export default function CarCheck(){
 
     // const sortedPenalty = [...(searchResults.length > 0 ? searchResults : penalties)];
 
-    const searchOptionLabel = searchOption === 'title' ? '차량 번호' : '날짜';
+    const searchOptionLabel = searchOption === 'carnumber' ? '차량 번호' : '날짜';
     const postsPerPageLabel = postsPerPage === 10 ? '10개' : '15개';
 
     return (
@@ -123,7 +116,7 @@ export default function CarCheck(){
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item eventKey="title">차량 번호</Dropdown.Item>
+                        <Dropdown.Item eventKey="carnumber">차량 번호</Dropdown.Item>
                         <Dropdown.Item eventKey="date">날짜</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
@@ -161,7 +154,7 @@ export default function CarCheck(){
                             <td>{penalty.penaltyIndex}</td>
                             <td><Link to={`/admin/penalty/${penalty.penaltyIndex}`}>{penalty.penaltyCarNumber}</Link></td>
                             <td>{formatNumber(penalty.penaltyCash)}</td>
-                            <td>{new Date(penalty.penaltyDate).toLocaleDateString()}</td>
+                            <td>{new Date(penalty.penaltyDate).toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\./g, '-').replace(/\s+/g, '').split('-').slice(0, 3).join('-')}</td>
                         </tr>
                     ))}
 

@@ -105,7 +105,7 @@ export default function Index()  {
 
     return (
         <div>
-            <h1>ROS 관제 페이지</h1>
+            <h1>ROS 관제 페이지 </h1>
             <img src='http://192.168.0.211:8080/stream?topic=/csi_cam_0/image_raw' alt='ros' style={{border: "1px solid black", width: "720", height: "480"}}/>
             <h2>연결 상태 : {connectionStatus}</h2>
             <div>

@@ -3,6 +3,8 @@ import {Link} from "react-router-dom";
 import '../static/common.css';
 import MainImage from '../static/images/character.png'
 import {Image} from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 export default function Index() {
     return <>
@@ -13,6 +15,7 @@ export default function Index() {
                           width={140}
                           height={140}/></p>
                 <spanx>WELCOME&nbsp;</spanx>
+                <FontAwesomeIcon icon="fa-solid fa-arrow-right-from-bracket" />
                 <span>ParkJAVA</span>
             </div>
             <div className={'descriptionArea'}>
