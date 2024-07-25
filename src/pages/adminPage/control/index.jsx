@@ -1,10 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import ROSLIB from 'roslib';
-import {Image} from "react-bootstrap";
+import {Image, Button, Form} from "react-bootstrap";
+import '../../../static/common.css'
 
-export default function Index(){
+export default function Index() {
     const [currentSpeed, setCurrentSpeed] = useState(40);
     const [voltage, setVoltage] = useState('');
+    const [isChecked, setIsChecked] = useState(false);
+
+    const handleSwitchChange = (e) => {
+
+        setIsChecked(e.target.checked);
+
+        if (isChecked === false) {
+            publishMessage(true)
+            callService('/LEDGREE', 'jetbotmini_msgs/srv', 0)
+            callService('/LEDBLUE', 'jetbotmini_msgs/srv', 1)
+
+        } else if (isChecked === true) {
+            publishMessage(false)
+            callService('/LEDBLUE', 'jetbotmini_msgs/srv', 0)
+            callService('/LEDGREE', 'jetbotmini_msgs/srv', 1)
+
+
+        }
+    };
 
     const ros = new ROSLIB.Ros({
         url: 'ws://192.168.0.12:9090',
@@ -84,19 +104,19 @@ export default function Index(){
 
     const handleKeyPress = (key) => {
         const keyMap = {
-            '1': { buttonName: '↙', functionCall: () => toggleCheckbox('leftback') },
-            '2': { buttonName: '↓', functionCall: () => toggleCheckbox('back') },
-            '3': { buttonName: '↘', functionCall: () => toggleCheckbox('rightback') },
-            '4': { buttonName: '←', functionCall: () => toggleCheckbox('left') },
-            '5': { buttonName: '■', functionCall: () => toggleCheckbox('stop') },
-            '6': { buttonName: '→', functionCall: () => toggleCheckbox('right') },
-            '7': { buttonName: '↖', functionCall: () => toggleCheckbox('leftgo') },
-            '8': { buttonName: '↑', functionCall: () => toggleCheckbox('go') },
-            '9': { buttonName: '↗', functionCall: () => toggleCheckbox('rightgo') },
+            '1': {ButtonName: '↙', functionCall: () => toggleCheckbox('leftback')},
+            '2': {ButtonName: '↓', functionCall: () => toggleCheckbox('back')},
+            '3': {ButtonName: '↘', functionCall: () => toggleCheckbox('rightback')},
+            '4': {ButtonName: '←', functionCall: () => toggleCheckbox('left')},
+            '5': {ButtonName: '■', functionCall: () => toggleCheckbox('stop')},
+            '6': {ButtonName: '→', functionCall: () => toggleCheckbox('right')},
+            '7': {ButtonName: '↖', functionCall: () => toggleCheckbox('leftgo')},
+            '8': {ButtonName: '↑', functionCall: () => toggleCheckbox('go')},
+            '9': {ButtonName: '↗', functionCall: () => toggleCheckbox('rightgo')},
         };
 
         if (key in keyMap) {
-            return `입력키: ${keyMap[key].buttonName}`;
+            return `입력키: ${keyMap[key].ButtonName}`;
         }
         return null;
     };
@@ -108,47 +128,80 @@ export default function Index(){
 
     return (
         <div className={'commonContainer'}>
-            <h1>Live Video Streaming</h1>
-            <Image src={'http://192.168.0.12:8080/stream?topic=/csi_cam_1/image_raw'} width="800" height="600" alt="Live Video" />
-            <h3>배터리 잔량 : <span id="voltage">{voltage}</span></h3>
-            <button onClick={() => callService('/Buzzer', 'jetbotmini_msgs/Buzzer', 1)}>BUZZER ON</button>
-            <button onClick={() => callService('/Buzzer', 'jetbotmini_msgs/Buzzer', 0)}>BUZZER OFF</button>
-            <button onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 1)}></button>
-            <div>
-                <button className="button" onClick={() => publishMessage(true)}>자율주행</button>
-                <button className="button" onClick={() => publishMessage(false)}>직접주행</button>
+            <div className={'control'}>
+                <h1>ParkJAVA Control Page</h1>
+                <div className={'controlInfo'}>
+                    <span style={{position: 'absolute', color: '#77f132', marginRight: '20'}}>
+                        <b>{voltage || 'Connect...'}</b></span>
+                    <span style={{position: 'absolute', color: "blue"}}>
+                        <div className={'switchArea'}>
+                        {isChecked ? "AutoMode" : "PilotMode"}
+                            <Form.Check
+                                type="switch"
+                                id="toggleSwitch"
+                                checked={isChecked}
+                                label={''}
+                                onChange={handleSwitchChange}
+                            />
+                    </div>
+                    </span>
+                    <Image src={'http://192.168.0.12:8080/stream?topic=/csi_cam_1/image_raw'} width="640" height="360"
+                           alt="Live Video"/>
+                </div>
+                <Button onClick={() => callService('/Buzzer', 'jetbotmini_msgs/Buzzer', 1)}>BUZZER ON</Button>
+                <Button onClick={() => callService('/Buzzer', 'jetbotmini_msgs/Buzzer', 0)}>BUZZER OFF</Button>
+                <Button onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 1)}>앞으로</Button>
+
+                <div>
+                    <Button className="Button" onClick={() => publishMessage(true)}>자율주행</Button>
+                    <Button className="Button" onClick={() => publishMessage(false)}>직접주행</Button>
+                </div>
+                <div style={{textAlign: 'center'}}>
+                    <Button className="Button"
+                            onClick={() => handleSpeedChange(Math.max(40, currentSpeed - 10))}>-</Button>
+                    <span id="speedValue">{currentSpeed}</span>
+                    <Button className="Button"
+                            onClick={() => handleSpeedChange(Math.min(100, currentSpeed + 10))}>+</Button>
+                </div>
+                <div className="Button" id="Button-info"></div>
+                <table style={{marginLeft: 'auto', marginRight: 'auto'}}>
+                    <tbody>
+                    <tr>
+                        <td colSpan="6" style={{textAlign: 'center'}}>
+                            <Button className="Button" onMouseDown={() => toggleCheckbox('forward')}
+                                    onTouchStart={() => toggleCheckbox('forward')}
+                                    onMouseUp={() => toggleCheckbox('stop')}
+                                    onTouchEnd={() => toggleCheckbox('stop')}>Forward</Button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style={{textAlign: 'center'}}>
+                            <Button className="Button" onMouseDown={() => toggleCheckbox('left')}
+                                    onTouchStart={() => toggleCheckbox('left')} onMouseUp={() => toggleCheckbox('stop')}
+                                    onTouchEnd={() => toggleCheckbox('stop')}>Left</Button>
+                        </td>
+                        <td style={{textAlign: 'center'}}>
+                            <Button className="Button" onMouseDown={() => toggleCheckbox('stop')}
+                                    onTouchStart={() => toggleCheckbox('stop')}>Stop</Button>
+                        </td>
+                        <td style={{textAlign: 'center'}}>
+                            <Button className="Button" onMouseDown={() => toggleCheckbox('right')}
+                                    onTouchStart={() => toggleCheckbox('right')}
+                                    onMouseUp={() => toggleCheckbox('stop')}
+                                    onTouchEnd={() => toggleCheckbox('stop')}>Right</Button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan="6" style={{textAlign: 'center'}}>
+                            <Button className="Button" onMouseDown={() => toggleCheckbox('backward')}
+                                    onTouchStart={() => toggleCheckbox('backward')}
+                                    onMouseUp={() => toggleCheckbox('stop')}
+                                    onTouchEnd={() => toggleCheckbox('stop')}>Backward</Button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-            <div style={{ textAlign: 'center' }}>
-                <button className="button" onClick={() => handleSpeedChange(Math.max(40, currentSpeed - 10))}>-</button>
-                <span id="speedValue">{currentSpeed}</span>
-                <button className="button" onClick={() => handleSpeedChange(Math.min(100, currentSpeed + 10))}>+</button>
-            </div>
-            <div className="button" id="button-info"></div>
-            <table style={{ marginLeft: 'auto', marginRight: 'auto' }}>
-                <tbody>
-                <tr>
-                    <td colSpan="6" style={{ textAlign: 'center' }}>
-                        <button className="button" onMouseDown={() => toggleCheckbox('forward')} onTouchStart={() => toggleCheckbox('forward')} onMouseUp={() => toggleCheckbox('stop')} onTouchEnd={() => toggleCheckbox('stop')}>Forward</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td style={{ textAlign: 'center' }}>
-                        <button className="button" onMouseDown={() => toggleCheckbox('left')} onTouchStart={() => toggleCheckbox('left')} onMouseUp={() => toggleCheckbox('stop')} onTouchEnd={() => toggleCheckbox('stop')}>Left</button>
-                    </td>
-                    <td style={{ textAlign: 'center' }}>
-                        <button className="button" onMouseDown={() => toggleCheckbox('stop')} onTouchStart={() => toggleCheckbox('stop')}>Stop</button>
-                    </td>
-                    <td style={{ textAlign: 'center' }}>
-                        <button className="button" onMouseDown={() => toggleCheckbox('right')} onTouchStart={() => toggleCheckbox('right')} onMouseUp={() => toggleCheckbox('stop')} onTouchEnd={() => toggleCheckbox('stop')}>Right</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td colSpan="6" style={{ textAlign: 'center' }}>
-                        <button className="button" onMouseDown={() => toggleCheckbox('backward')} onTouchStart={() => toggleCheckbox('backward')} onMouseUp={() => toggleCheckbox('stop')} onTouchEnd={() => toggleCheckbox('stop')}>Backward</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
         </div>
     );
 };
