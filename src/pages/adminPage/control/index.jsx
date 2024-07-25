@@ -14,12 +14,14 @@ export default function Index() {
 
         if (isChecked === false) {
             publishMessage(true)
-            callService('/LEDBLUE', 'jetbotmini_msgs/srv/LEDGREE', 0)
-            callService('/LEDGREE', 'jetbotmini_msgs/srv/LEDGREE', 1)
+            callService('/LEDGREE', 'jetbotmini_msgs/srv', 0)
+            callService('/LEDBLUE', 'jetbotmini_msgs/srv', 1)
+
         } else if (isChecked === true) {
             publishMessage(false)
-            callService('/LEDGREE', 'jetbotmini_msgs/srv/LEDGREE', 0)
-            callService('/LEDBLUE', 'jetbotmini_msgs/srv/LEDGREE', 1)
+            callService('/LEDBLUE', 'jetbotmini_msgs/srv', 0)
+            callService('/LEDGREE', 'jetbotmini_msgs/srv', 1)
+
 
         }
     };
@@ -129,9 +131,9 @@ export default function Index() {
             <div className={'control'}>
                 <h1>ParkJAVA Control Page</h1>
                 <div className={'controlInfo'}>
-                    <span style={{position:'absolute',color: '#77f132', marginRight:'20'}}>
+                    <span style={{position: 'absolute', color: '#77f132', marginRight: '20'}}>
                         <b>{voltage || 'Connect...'}</b></span>
-                    <span style={{position:'absolute',color: "blue"}}>
+                    <span style={{position: 'absolute', color: "blue"}}>
                         <div className={'switchArea'}>
                         {isChecked ? "AutoMode" : "PilotMode"}
                             <Form.Check
