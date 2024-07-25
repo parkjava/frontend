@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Card, Button } from 'react-bootstrap';
+import React, {useState, useEffect} from 'react';
+import {useParams, useNavigate} from 'react-router-dom';
+import {Container, Card, Button} from 'react-bootstrap';
 
 export default function Index() {
-    const { inquiryIndex } = useParams();
+    const {inquiryIndex} = useParams();
     const [inquiry, setInquiry] = useState(null);
     const navigate = useNavigate();
 
@@ -36,24 +36,26 @@ export default function Index() {
     }
 
     return (
-        <Container>
-            <Card>
-                <Card.Header>{inquiry.inquiryTitle}</Card.Header>
-                <Card.Body>
-                    <Card.Text>
-                        {inquiry.inquiryContent}
-                    </Card.Text>
-                    <Card.Footer>
-                        작성자: {inquiry.inquiryWriter} | 게시일: {new Date(inquiry.inquiryDate).toLocaleDateString()}
-                    </Card.Footer>
-                    <Button variant="danger" size="md" onClick={handleDelete}>
-                        삭제
-                    </Button>{' '}
-                    <Button variant="primary" size="md" onClick={handleUpdate}>
-                        수정
-                    </Button>{' '}
-                </Card.Body>
-            </Card>
-        </Container>
+        <div className={'commonContainer'}>
+            <Container>
+                <Card>
+                    <Card.Header>{inquiry.inquiryTitle}</Card.Header>
+                    <Card.Body>
+                        <Card.Text>
+                            {inquiry.inquiryContent}
+                        </Card.Text>
+                        <Card.Footer>
+                            작성자: {inquiry.inquiryWriter} | 게시일: {new Date(inquiry.inquiryDate).toLocaleDateString()}
+                        </Card.Footer>
+                        <Button variant="danger" size="md" onClick={handleDelete}>
+                            삭제
+                        </Button>{' '}
+                        <Button variant="primary" size="md" onClick={handleUpdate}>
+                            수정
+                        </Button>{' '}
+                    </Card.Body>
+                </Card>
+            </Container>
+        </div>
     );
 }

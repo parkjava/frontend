@@ -138,81 +138,83 @@ export default function PatrolTable() {
     };
 
     return (
-        <Container>
-            <Form onSubmit={handleSubmit}>
-                <Table striped bordered hover variant="light">
-                    <thead>
-                    <tr>
-                        <th>
-                            <Form.Select
-                                aria-label="Default select example"
-                                name="area"
-                                value={patrol.area}
-                                onChange={handleInputChange}
-                            >
-                                <option value="">--관할지역--</option>
-                                <option value="동구">동구</option>
-                                <option value="대덕구">대덕구</option>
-                                <option value="서구">서구</option>
-                                <option value="유성구">유성구</option>
-                                <option value="중구">중구</option>
-                            </Form.Select>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <Form.Select
-                                aria-label="Default select example"
-                                name="subarea"
-                                value={patrol.subarea}
-                                onChange={handleInputChange}
-                                disabled={!patrol.area} // 대분류가 선택되지 않으면 중분류 비활성화
-                            >
-                                <option value="">--세부지역--</option>
-                                {subareas.map((subarea) => (
-                                    <option key={subarea} value={subarea}>{subarea}</option>
-                                ))}
-                            </Form.Select>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>
-                            <Form.Control
-                                as="textarea"
-                                rows={15}
-                                placeholder="순찰 요약"
-                                name="summary"
-                                value={patrol.summary}
-                                onChange={handleInputChange}
-                                style={{border: 'none', resize: 'none'}}
-                            />
-                        </td>
-                    </tr>
-                    </tbody>
-                </Table>
-                {showAlert && (
-                    <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
-                        {Object.values(errors).map((error, index) => (
-                            <p key={index}>{error}</p>
-                        ))}
-                    </Alert>
-                )}
-                <div className="d-flex justify-content-end">
-                    <Button
-                        variant="primary"
-                        type="submit"
-                        style={{width: '100px'}}
-                        disabled={!patrol.area || !patrol.subarea || !patrol.summary} // 중분류 추가
-                    >
-                        작성
-                    </Button>
+        <div className={'commonContainer'}>
+            <Container>
+                <Form onSubmit={handleSubmit}>
+                    <Table striped bordered hover variant="light">
+                        <thead>
+                        <tr>
+                            <th>
+                                <Form.Select
+                                    aria-label="Default select example"
+                                    name="area"
+                                    value={patrol.area}
+                                    onChange={handleInputChange}
+                                >
+                                    <option value="">--관할지역--</option>
+                                    <option value="동구">동구</option>
+                                    <option value="대덕구">대덕구</option>
+                                    <option value="서구">서구</option>
+                                    <option value="유성구">유성구</option>
+                                    <option value="중구">중구</option>
+                                </Form.Select>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <Form.Select
+                                    aria-label="Default select example"
+                                    name="subarea"
+                                    value={patrol.subarea}
+                                    onChange={handleInputChange}
+                                    disabled={!patrol.area} // 대분류가 선택되지 않으면 중분류 비활성화
+                                >
+                                    <option value="">--세부지역--</option>
+                                    {subareas.map((subarea) => (
+                                        <option key={subarea} value={subarea}>{subarea}</option>
+                                    ))}
+                                </Form.Select>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <Form.Control
+                                    as="textarea"
+                                    rows={15}
+                                    placeholder="순찰 요약"
+                                    name="summary"
+                                    value={patrol.summary}
+                                    onChange={handleInputChange}
+                                    style={{border: 'none', resize: 'none'}}
+                                />
+                            </td>
+                        </tr>
+                        </tbody>
+                    </Table>
+                    {showAlert && (
+                        <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
+                            {Object.values(errors).map((error, index) => (
+                                <p key={index}>{error}</p>
+                            ))}
+                        </Alert>
+                    )}
+                    <div className="d-flex justify-content-end">
+                        <Button
+                            variant="primary"
+                            type="submit"
+                            style={{width: '100px'}}
+                            disabled={!patrol.area || !patrol.subarea || !patrol.summary} // 중분류 추가
+                        >
+                            작성
+                        </Button>
+                    </div>
+                </Form>
+                <div>
+                    <Link to={'/admin/patrol'}>목록으로</Link>
                 </div>
-            </Form>
-            <div>
-                <Link to={'/admin/patrol'}>목록으로</Link>
-            </div>
-        </Container>
+            </Container>
+        </div>
     );
 }

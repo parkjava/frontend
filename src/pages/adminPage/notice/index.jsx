@@ -3,16 +3,14 @@ import NoticeCreate from './components/noticeCreate'
 import NoticeTable from './components/noticeTable';
 
 
-
 export default function Index() {
-  return (
-    <>
-      <div>
-        <NoticeTitle/>
-        <NoticeTable/>
-        <NoticeCreate/>
-
-      </div>
-    </>
-  );
+    return (
+        <>
+            <div className={'commonContainer'}>
+                <NoticeTitle/>
+                <NoticeTable/>
+                <NoticeCreate/>
+            </div>
+        </>
+    );
 }

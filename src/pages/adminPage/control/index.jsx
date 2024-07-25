@@ -1,61 +1,41 @@
-import React, {useState, useEffect} from 'react';
-import ROSLIB from 'roslib'; // eslint-disable-next-line
+import React, { useState, useEffect } from 'react';
+import ROSLIB from 'roslib';
+import {Image} from "react-bootstrap";
 
-
-export default function Index()  {
-    const [ros, setRos] = useState(null);
+export default function Index(){
+    const [currentSpeed, setCurrentSpeed] = useState(40);
     const [voltage, setVoltage] = useState('');
-    const [ledBlue, setLedBlue] = useState('');
-    const [ledGreen, setLedGreen] = useState('');
-    const [buzzer, setBuzzer] = useState('');
-    const [connectionStatus, setConnectionStatus] = useState('Wait...');
+
+    const ros = new ROSLIB.Ros({
+        url: 'ws://192.168.0.12:9090',
+    });
 
     useEffect(() => {
-
-        const rosInstance = new ROSLIB.Ros({
-            // url: 'ws://192.168.137.6:9090', 핫스팟일 때
-            url: 'ws://192.168.137.6:9090'
-        });
-
-        rosInstance.on('connection', () => {
+        ros.on('connection', () => {
             console.log('Connected to websocket server.');
-            setConnectionStatus('연결됨');
         });
-
-        rosInstance.on('error', (error) => {
+        ros.on('error', (error) => {
             console.log('Error connecting to websocket server: ', error);
-            setConnectionStatus('Error');
         });
 
-        rosInstance.on('close', () => {
+        ros.on('close', () => {
             console.log('Connection to websocket server closed.');
-            setConnectionStatus('연결 끊어짐');
         });
-
-        setRos(rosInstance);
 
         const batteryLevelListener = new ROSLIB.Topic({
-            ros: rosInstance,
+            ros: ros,
             name: '/voltage',
             messageType: 'jetbotmini_msgs/Battery',
         });
 
-        batteryLevelListener.subscribe((msg) => {
-            setVoltage(msg.Voltage);
+        batteryLevelListener.subscribe((message) => {
+            const voltage = message.Voltage;
+            const percentage = Math.round((voltage / 12.5) * 100);
+            setVoltage(`${percentage}%`);
         });
-
-
-
-
-        return () => {
-            batteryLevelListener.unsubscribe();
-            rosInstance.close();
-        };
-    }, []);
+    }, [ros]);
 
     const callService = (name, type, value) => {
-        if (!ros) return;
-
         const exampleService = new ROSLIB.Service({
             ros: ros,
             name: name,
@@ -63,65 +43,113 @@ export default function Index()  {
         });
 
         const param = {};
-        setBuzzer('off');
-        setLedGreen('off');
-        setLedBlue('off');
-
         if (name === '/Buzzer') {
             param['buzzer'] = value;
-            if (value === 0) {
-                setBuzzer('off');
-            } else if (value === 1) {
-                setBuzzer('on')
-            }
-
-
         } else if (name === '/LEDBLUE') {
             param['ledblue'] = value;
-            if (value === 0) {
-                setLedBlue('off');
-            } else if (value === 1) {
-                setLedBlue('on')
-            }
-
-
         } else if (name === '/LEDGREE') {
             param['ledgree'] = value;
-            if (value === 0) {
-                setLedGreen('off');
-            } else if (value === 1) {
-                setLedGreen('on')
-            }
+        } else if (name === '/Motor') {
+            param['rightspeed'] = value;
+            param['leftspeed'] = value;
         }
 
         const request = new ROSLIB.ServiceRequest(param);
 
         exampleService.callService(request, (result) => {
-            console.log('Result for service call on /example_service: ', result);
+            console.log(`Result for service call on ${name}: `, result);
         });
     };
 
-    const voltagePercentage = voltage ? ((voltage / 12.5) * 100).toFixed(1) : '';
+    const publishMessage = (modestate) => {
+        const exampleTopic = new ROSLIB.Topic({
+            ros: ros,
+            name: '/data',
+            messageType: 'ModeState',
+        });
+
+        const message = new ROSLIB.Message({
+            modestate: modestate,
+        });
+
+        exampleTopic.publish(message);
+        console.log('Published message to /data');
+    };
+
+    const handleSpeedChange = (newSpeed) => {
+        setCurrentSpeed(newSpeed);
+        // Replace with appropriate speed functions
+        console.log(`Speed set to ${newSpeed}`);
+    };
+
+    const handleKeyPress = (key) => {
+        const keyMap = {
+            '1': { buttonName: '↙', functionCall: () => toggleCheckbox('leftback') },
+            '2': { buttonName: '↓', functionCall: () => toggleCheckbox('back') },
+            '3': { buttonName: '↘', functionCall: () => toggleCheckbox('rightback') },
+            '4': { buttonName: '←', functionCall: () => toggleCheckbox('left') },
+            '5': { buttonName: '■', functionCall: () => toggleCheckbox('stop') },
+            '6': { buttonName: '→', functionCall: () => toggleCheckbox('right') },
+            '7': { buttonName: '↖', functionCall: () => toggleCheckbox('leftgo') },
+            '8': { buttonName: '↑', functionCall: () => toggleCheckbox('go') },
+            '9': { buttonName: '↗', functionCall: () => toggleCheckbox('rightgo') },
+        };
+
+        if (key in keyMap) {
+            return `입력키: ${keyMap[key].buttonName}`;
+        }
+        return null;
+    };
+
+    const toggleCheckbox = (direction) => {
+        // Handle the direction change
+        console.log(`Direction: ${direction}`);
+    };
 
     return (
-        <div>
-            <h1>ROS 관제 페이지 </h1>
-            <img src='http://192.168.0.211:8080/stream?topic=/csi_cam_0/image_raw' alt='ros' style={{border: "1px solid black", width: "720", height: "480"}}/>
-            <h2>연결 상태 : {connectionStatus}</h2>
+        <div className={'commonContainer'}>
+            <h1>Live Video Streaming</h1>
+            <Image src={'http://192.168.0.12:8080/stream?topic=/csi_cam_1/image_raw'} width="800" height="600" alt="Live Video" />
+            <h3>배터리 잔량 : <span id="voltage">{voltage}</span></h3>
+            <button onClick={() => callService('/Buzzer', 'jetbotmini_msgs/Buzzer', 1)}>BUZZER ON</button>
+            <button onClick={() => callService('/Buzzer', 'jetbotmini_msgs/Buzzer', 0)}>BUZZER OFF</button>
+            <button onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 1)}></button>
             <div>
-                <h3>배터리 : <span id="voltage">{voltagePercentage}%</span></h3>
-                <h3>LEDBLUE : {ledBlue}</h3>
-                <h3>LEDGREEN : {ledGreen}</h3>
-                <h3>BUZZER : {buzzer}</h3>
-                <button onClick={() => callService('/Buzzer', 'jetbotmini_msgs/Buzzer', 1)}>BUZZER ON</button>
-                <button onClick={() => callService('/Buzzer', 'jetbotmini_msgs/Buzzer', 0)}>BUZZER OFF</button>
-                <button onClick={() => callService('/LEDBLUE', 'jetbotmini_msgs/LEDBLUE', 1)}>LEDBLUE ON</button>
-                <button onClick={() => callService('/LEDBLUE', 'jetbotmini_msgs/LEDBLUE', 0)}>LEDBLUE OFF</button>
-                <button onClick={() => callService('/LEDGREE', 'jetbotmini_msgs/LEDGREE', 1)}>LEDGREE ON</button>
-                <button onClick={() => callService('/LEDGREE', 'jetbotmini_msgs/LEDGREE', 0)}>LEDGREE OFF</button>
+                <button className="button" onClick={() => publishMessage(true)}>자율주행</button>
+                <button className="button" onClick={() => publishMessage(false)}>직접주행</button>
             </div>
+            <div style={{ textAlign: 'center' }}>
+                <button className="button" onClick={() => handleSpeedChange(Math.max(40, currentSpeed - 10))}>-</button>
+                <span id="speedValue">{currentSpeed}</span>
+                <button className="button" onClick={() => handleSpeedChange(Math.min(100, currentSpeed + 10))}>+</button>
+            </div>
+            <div className="button" id="button-info"></div>
+            <table style={{ marginLeft: 'auto', marginRight: 'auto' }}>
+                <tbody>
+                <tr>
+                    <td colSpan="6" style={{ textAlign: 'center' }}>
+                        <button className="button" onMouseDown={() => toggleCheckbox('forward')} onTouchStart={() => toggleCheckbox('forward')} onMouseUp={() => toggleCheckbox('stop')} onTouchEnd={() => toggleCheckbox('stop')}>Forward</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td style={{ textAlign: 'center' }}>
+                        <button className="button" onMouseDown={() => toggleCheckbox('left')} onTouchStart={() => toggleCheckbox('left')} onMouseUp={() => toggleCheckbox('stop')} onTouchEnd={() => toggleCheckbox('stop')}>Left</button>
+                    </td>
+                    <td style={{ textAlign: 'center' }}>
+                        <button className="button" onMouseDown={() => toggleCheckbox('stop')} onTouchStart={() => toggleCheckbox('stop')}>Stop</button>
+                    </td>
+                    <td style={{ textAlign: 'center' }}>
+                        <button className="button" onMouseDown={() => toggleCheckbox('right')} onTouchStart={() => toggleCheckbox('right')} onMouseUp={() => toggleCheckbox('stop')} onTouchEnd={() => toggleCheckbox('stop')}>Right</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colSpan="6" style={{ textAlign: 'center' }}>
+                        <button className="button" onMouseDown={() => toggleCheckbox('backward')} onTouchStart={() => toggleCheckbox('backward')} onMouseUp={() => toggleCheckbox('stop')} onTouchEnd={() => toggleCheckbox('stop')}>Backward</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     );
 };
-
 
