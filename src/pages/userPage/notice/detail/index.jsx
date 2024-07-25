@@ -23,7 +23,7 @@ export default function Index() {
 
     return (
         <Container className='detailContainer' style={{height: '100vh',borderRadius: '20px'}}>
-            <Table striped="columns" bordered>
+            <Table className={'detailTable'} bordered>
                 <thead>
                 <tr>
                     <th rowSpan={2} style={{width: '60px', verticalAlign: 'middle'}}>제목</th>

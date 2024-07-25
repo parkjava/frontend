@@ -114,7 +114,7 @@ export default function Index() {
 
 
     return (
-        <Container>
+        <Container className={'noticeContainer'}>
             <Container className="d-flex justify-content-end align-items-center pb-2">
                 <Dropdown onSelect={handleNoticeCount}>
                     <Dropdown.Toggle>
@@ -158,7 +158,7 @@ export default function Index() {
             {noResultsMessage ? (
                 <Alert variant="warning">{noResultsMessage}</Alert>
             ) : (
-                <Table striped bordered hover variant="light">
+                <Table  bordered hover variant="white">
                     <thead>
                     <tr>
                         <th onClick={() => handleSort('noticeIndex')}>NO</th>
@@ -183,10 +183,12 @@ export default function Index() {
                     </tbody>
                 </Table>
             )}
+            <div className={'noticePagination'}>
             <Pagination
                 postsPerPage={postsPerPage}
                 totalPosts={notices.length}
                 paginate={setCurrentPage}></Pagination>
+            </div>
         </Container>
     );
 }
