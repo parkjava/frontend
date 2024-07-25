@@ -11,7 +11,7 @@ const subareasByArea = {
     중구: ['은행동', '대흥동', '목동'],
 };
 
-export default function PatrolUpdatePage() {
+export default function Index() {
     const { patrolIndex } = useParams();
     const [patrol, setPatrol] = useState({
         patrolArea: '',

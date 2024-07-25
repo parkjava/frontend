@@ -12,7 +12,7 @@ export default function Index() {
 
     useEffect(() => {
         // 전체 penalty 목록을 가져옵니다.
-        axios.get('http://localhost:8080/api/penalty',{
+        axios.get('http://localhost:8080/api/penalty', {
             headers: {
                 'Authorization': Cookies.get('Authorization') // 쿠키를 요청 헤더에 포함
             }
@@ -23,10 +23,11 @@ export default function Index() {
 
     useEffect(() => {
         // 개별 penalty 데이터를 가져옵니다.
-        axios.get(`http://localhost:8080/api/penalty/${penaltyIndex}`,{
+        axios.get(`http://localhost:8080/api/penalty/${penaltyIndex}`, {
             headers: {
                 'Authorization': Cookies.get('Authorization') // 쿠키를 요청 헤더에 포함
-            }})
+            }
+        })
             .then(response => setPenalty(response.data))
             .catch(error => console.error('데이터 가져오기 오류:', error));
     }, [penaltyIndex]);
@@ -45,32 +46,34 @@ export default function Index() {
     const nextIndex = parseInt(penaltyIndex, 10) + 1;
 
     return (
-        <Container className='d-flex pt-3 position-relative'>
-            <Table striped="columns" bordered>
-                <thead>
+        <div className={'commonContainer'}>
+            <Container className='d-flex pt-3 position-relative'>
+                <Table striped="columns" bordered>
+                    <thead>
                     <tr>
-                        <th rowSpan={2} style={{width:'60px', verticalAlign: 'middle'}}>차량번호</th>
-                        <th rowSpan={2} style={{width:'300px', verticalAlign: 'middle'}}>
+                        <th rowSpan={2} style={{width: '60px', verticalAlign: 'middle'}}>차량번호</th>
+                        <th rowSpan={2} style={{width: '300px', verticalAlign: 'middle'}}>
                             {penalty.penaltyCarNumber}
                         </th>
-                        <th style={{width:'60px'}}>단속일자</th>
-                        <th style={{width:'300px'}}>
+                        <th style={{width: '60px'}}>단속일자</th>
+                        <th style={{width: '300px'}}>
                             {new Date(penalty.penaltyDate).toLocaleDateString('ko-KR')}
                         </th>
                     </tr>
                     <tr>
-                        <th style={{width:'60px'}}>과태료</th>
+                        <th style={{width: '60px'}}>과태료</th>
                         <th>{formatNumber(penalty.penaltyCash)}</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <tr>
                         <td colSpan={4}>
                             <Card.Text className='cardText'>
                                 {penalty.penaltyImageUrl ? (
-                                    <Image className='penaltyImage' src={penalty.penaltyImageUrl} />
+                                    <Image className='penaltyImage' src={penalty.penaltyImageUrl}/>
                                 ) : (
-                                    <Image className='penaltyImage' src={'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo-available_87543-11093.jpg'} />
+                                    <Image className='penaltyImage'
+                                           src={'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo-available_87543-11093.jpg'}/>
                                 )}
                             </Card.Text>
                         </td>
@@ -89,11 +92,12 @@ export default function Index() {
                             )}
                         </td>
                     </tr>
-                </tbody>
-            </Table>
-            <div className='pt-2 penaltyDoc'><Link to={'../admin/penalty'} >목록으로</Link></div>
-            {/* <Button className='documentButton' variant="info" onClick={handleBack}>목록으로</Button> */}
-            {/*<Button variant="danger" onClick={handleDelete}>삭제</Button>{' '}*/}
-        </Container>
+                    </tbody>
+                </Table>
+                <div className='pt-2 penaltyDoc'><Link to={'../admin/penalty'}>목록으로</Link></div>
+                {/* <Button className='documentButton' variant="info" onClick={handleBack}>목록으로</Button> */}
+                {/*<Button variant="danger" onClick={handleDelete}>삭제</Button>{' '}*/}
+            </Container>
+        </div>
     );
 }

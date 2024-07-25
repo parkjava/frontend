@@ -22,43 +22,46 @@ export default function Index() {
     }
 
     return (
-        <Container className='detailContainer' style={{height: '100vh',borderRadius: '20px'}}>
-            <Table className={'detailTable'} bordered>
-                <thead>
-                <tr>
-                    <th rowSpan={2} style={{width: '60px', verticalAlign: 'middle'}}>제목</th>
-                    <th rowSpan={2} style={{width: '300px', verticalAlign: 'middle'}}>
-                        {notice.noticeTitle}
-                    </th>
-                    <th colSpan={2} style={{width: '60px'}}>일자</th>
-                    <th colSpan={4} style={{width: '300px'}}>
-                        {new Date(notice.createDate).toLocaleDateString('ko-KR')}
-                    </th>
-                </tr>
-                <tr>
-                    <th colSpan={2} style={{width: '60px'}}>작성자</th>
-                    <th colSpan={2}>{notice.adminName}</th>
-                    <th style={{width: '120px'}}>조회수</th>
-                    <th>{notice.noticeView}</th>
+        <>
+            <div className={'commonContainer'}>
+                <Container className='detailContainer' style={{height: '100vh', borderRadius: '20px'}}>
+                    <Table className={'detailTable'} bordered>
+                        <thead>
+                        <tr>
+                            <th rowSpan={2} style={{width: '60px', verticalAlign: 'middle'}}>제목</th>
+                            <th rowSpan={2} style={{width: '300px', verticalAlign: 'middle'}}>
+                                {notice.noticeTitle}
+                            </th>
+                            <th colSpan={2} style={{width: '60px'}}>일자</th>
+                            <th colSpan={4} style={{width: '300px'}}>
+                                {new Date(notice.createDate).toLocaleDateString('ko-KR')}
+                            </th>
+                        </tr>
+                        <tr>
+                            <th colSpan={2} style={{width: '60px'}}>작성자</th>
+                            <th colSpan={2}>{notice.adminName}</th>
+                            <th style={{width: '120px'}}>조회수</th>
+                            <th>{notice.noticeView}</th>
 
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td colSpan={8} style={{height: '600px'}}>
-                        {notice.noticeContent}
-                    </td>
-                </tr>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td colSpan={8} style={{height: '600px'}}>
+                                {notice.noticeContent}
+                            </td>
+                        </tr>
 
-                </tbody>
-            </Table>
-            <div className={'noticeDetailBtn'}>
-            <Button className='noticeListBtn' variant="info"><Link to={'../user/notice'}>목록으로</Link></Button>
-            {/* <Button className='documentButton' variant="info" onClick={handleBack}>목록으로</Button> */}
-            {/*<Button variant="danger" onClick={handleDelete}>삭제</Button>{' '}*/}
+                        </tbody>
+                    </Table>
+                    <div className={'noticeDetailBtn'}>
+                        <Button className='noticeListBtn' variant="info"><Link
+                            to={'../user/notice'}>목록으로</Link></Button>
+                        {/* <Button className='documentButton' variant="info" onClick={handleBack}>목록으로</Button> */}
+                        {/*<Button variant="danger" onClick={handleDelete}>삭제</Button>{' '}*/}
+                    </div>
+                </Container>
             </div>
-        </Container>
-
-
+        </>
     );
 }

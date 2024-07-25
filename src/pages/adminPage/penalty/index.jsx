@@ -4,7 +4,7 @@ import CarCheck from './components/carCheck';
 export default function CheckPages() {
     return (
         <>
-            <div>
+            <div className={'commonContainer'}>
                 <CarCheck />
             </div>
         </>

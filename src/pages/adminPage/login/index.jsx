@@ -45,38 +45,40 @@ export default function App() {
 
     return (
         <>
-            {isLogin === false ?
-                <div style={{height: '80vh'}}>
-                    <div className={'loginContainer'}>
-                        <div className={'loginGroup'}>
-                            <Image src={Logo} width={355}/>
-                            <div className={'loginArea'}>
-                                <Form.Control className={'loginInput'}
-                                              type="text"
-                                              value={username}
-                                              placeholder={'ID'}
-                                              onChange={(e) => setUsername(e.target.value)}
-                                              onKeyPress={handleKeyPress}
-                                />
+            <div className={'commonContainer'}>
+                {isLogin === false ?
+                    <div style={{height: '80vh'}}>
+                        <div className={'loginContainer'}>
+                            <div className={'loginGroup'}>
+                                <Image src={Logo} width={355}/>
+                                <div className={'loginArea'}>
+                                    <Form.Control className={'loginInput'}
+                                                  type="text"
+                                                  value={username}
+                                                  placeholder={'ID'}
+                                                  onChange={(e) => setUsername(e.target.value)}
+                                                  onKeyPress={handleKeyPress}
+                                    />
+                                </div>
+                                <div className={'loginArea'}>
+                                    <Form.Control className={'loginInput'}
+                                                  type="password"
+                                                  value={password}
+                                                  placeholder={'Password'}
+                                                  onChange={(e) => setPassword(e.target.value)}
+                                                  onKeyPress={handleKeyPress}
+                                    />
+                                </div>
+                                <Button type={'submit'} className={'loginBtn'}
+                                        onClick={handleSignIn}>
+                                    로그인
+                                </Button>
                             </div>
-                            <div className={'loginArea'}>
-                                <Form.Control className={'loginInput'}
-                                              type="password"
-                                              value={password}
-                                              placeholder={'Password'}
-                                              onChange={(e) => setPassword(e.target.value)}
-                                              onKeyPress={handleKeyPress}
-                                />
-                            </div>
-                            <Button type={'submit'} className={'loginBtn'}
-                                    onClick={handleSignIn}>
-                                로그인
-                            </Button>
                         </div>
-                    </div>
-                </div> :
-                navigate('/admin')
-            }
+                    </div> :
+                    navigate('/admin')
+                }
+            </div>
         </>
     );
 }

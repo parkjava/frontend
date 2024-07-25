@@ -17,12 +17,12 @@ import PenaltyListPage from "./pages/adminPage/penalty/index";
 import PenaltyDetailPage from "./pages/adminPage/penalty/detail/index"
 import PatrolListPage from "./pages/adminPage/patrol/index";
 import PatrolCreatePage from "./pages/adminPage/patrol/create/index";
-import PatrolUpdatePage from "./pages/adminPage/patrol/detail/update";
+import PatrolUpdatePage from "./pages/adminPage/patrol/update/index";
 import PatrolDetailPage from "./pages/adminPage/patrol/detail/index";
 import ControlPage from "./pages/adminPage/control/index";
 import InquiryPage from "./pages/adminPage/inquiry/index";
 import InquiryDetailPage from "./pages/adminPage/inquiry/deatail/index"
-import InquiryEdit from "./pages/adminPage/inquiry/update";
+import InquiryEdit from "./pages/adminPage/inquiry/update/index";
 /*-------------------------------------------------------------*/
 // 사용자 전용
 import UserPage from "./pages/userPage/index";

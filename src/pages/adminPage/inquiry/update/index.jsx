@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Form, Button } from 'react-bootstrap';
+import React, {useState, useEffect} from 'react';
+import {useParams, useNavigate} from 'react-router-dom';
+import {Container, Form, Button} from 'react-bootstrap';
 
 export default function InquiryEdit() {
-    const { inquiryIndex } = useParams();
-    const [inquiry, setInquiry] = useState({ inquiryTitle: '', inquiryContent: '' });
+    const {inquiryIndex} = useParams();
+    const [inquiry, setInquiry] = useState({inquiryTitle: '', inquiryContent: ''});
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -15,7 +15,7 @@ export default function InquiryEdit() {
     }, [inquiryIndex]);
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setInquiry({
             ...inquiry,
             [name]: value,
@@ -41,33 +41,35 @@ export default function InquiryEdit() {
     };
 
     return (
-        <Container>
-            <Form onSubmit={handleUpdate}>
-                <Form.Group controlId="inquiryTitle">
-                    <Form.Label>제목</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Enter title"
-                        name="inquiryTitle"
-                        value={inquiry.inquiryTitle}
-                        onChange={handleInputChange}
-                    />
-                </Form.Group>
-                <Form.Group controlId="inquiryContent">
-                    <Form.Label>내용</Form.Label>
-                    <Form.Control
-                        as="textarea"
-                        rows={5}
-                        placeholder="Enter content"
-                        name="inquiryContent"
-                        value={inquiry.inquiryContent}
-                        onChange={handleInputChange}
-                    />
-                </Form.Group>
-                <Button variant="primary" type="submit">
-                    수정
-                </Button>
-            </Form>
-        </Container>
+        <div className={'commonContainer'}>
+            <Container>
+                <Form onSubmit={handleUpdate}>
+                    <Form.Group controlId="inquiryTitle">
+                        <Form.Label>제목</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="Enter title"
+                            name="inquiryTitle"
+                            value={inquiry.inquiryTitle}
+                            onChange={handleInputChange}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="inquiryContent">
+                        <Form.Label>내용</Form.Label>
+                        <Form.Control
+                            as="textarea"
+                            rows={5}
+                            placeholder="Enter content"
+                            name="inquiryContent"
+                            value={inquiry.inquiryContent}
+                            onChange={handleInputChange}
+                        />
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                        수정
+                    </Button>
+                </Form>
+            </Container>
+        </div>
     );
 }

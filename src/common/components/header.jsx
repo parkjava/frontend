@@ -98,12 +98,12 @@ export default function Header() {
                                 <li><Link to={"/admin/patrol"}>Patrol</Link></li>
                                 <li><Link to={"/admin/notice"}>Notice</Link></li>
                                 <li><Link to={"/admin/inquiry"}>Inquiry</Link></li>
-                                <li><span className={'adminName'}>{name}님, 안녕하세요</span></li>
+                                <li className={'adminName'}>{name}님, 안녕하세요</li>
                                 <li onClick={handleSignOut} className={'logoutBtn'}>
-                                    <Link to={'/'}>
+                                    <Link to={'/'} className={'svgIcon'}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                              fill="currentColor"
-                                             className="bi bi-box-arrow-in-right" style={{color: '#f8f8f8'}}
+                                             className="bi bi-box-arrow-in-right icon"
                                              viewBox="0 0 16 16">
                                             <path fill-rule="evenodd"
                                                   d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/>
