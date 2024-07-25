@@ -630,3 +630,16 @@ body {
     padding-top: 120px;
     padding-bottom: 20px;
 }
+
+/* 관제 페이지 */
+.control{
+    text-align: center;
+}
+.controlInfo{
+    display: block;
+    align-items: start;
+    justify-content: center;
+}
+.switchArea{
+    text-align: center !important;
+}
