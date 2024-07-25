@@ -1,31 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Container, Card, Button, Col, Row } from 'react-bootstrap';
+import axiosInstance from "../../../../common/components/axiosinstance";
 
 export default function PatrolDetail() {
     const { patrolIndex } = useParams();
-    const [patrol, setPetrol] = useState();
+    const [patrol, setPetrol] = useState(null);
     const navigate = useNavigate();
+    function patrolDetailApi() {
+        axiosInstance
+            .get(`/api/patrol/${patrolIndex}`)
+            .then((res) => {
+                setPetrol(res)
+            })
+            .catch((err) => console.log(err));
+    }
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/patrol/${patrolIndex}`)
-            .then(response => response.json())
-            .then(data => setPetrol(data))
-            .catch(error => console.error('Error fetching patrol detail:', error));
-    }, [patrolIndex]);
+        patrolDetailApi();
+    }, []);
 
     const handleEdit = () => {
         navigate(`/admin/patrol/update/${patrolIndex}`);
     };
 
     const handleDelete = () => {
-        fetch(`http://localhost:8080/api/patrol/delete/${patrolIndex}`, {
-            method: 'DELETE',
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
+       axiosInstance
+           .delete(`/api/patrol/delete/${patrolIndex}`)
+            .then(res => {
+                setPetrol(res)
                 navigate('/admin/patrol');
             })
             .catch(error => console.error('Error deleting patrol:', error));

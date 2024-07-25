@@ -608,6 +608,7 @@ body {
 /* 유저 공지사항 페이지*/
 .noticeContainer{
     padding-top: 130px;
+    text-align: center;
 }
 .noticePagination{
     display: flex;
