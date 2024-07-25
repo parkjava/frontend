@@ -1,18 +1,25 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import {Container, Card, Button} from 'react-bootstrap';
+import axiosInstance from "../../../../common/components/axiosinstance";
 
 export default function Index() {
     const {inquiryIndex} = useParams();
     const [inquiry, setInquiry] = useState(null);
     const navigate = useNavigate();
+    function inquiryDetailApi() {
+        axiosInstance
+            .get(`/api/inquiry/${inquiryIndex}`)
+            .then((res) => {
+                setInquiry(res)
+            })
+            .catch((err) => console.log(err));
+    }
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/inquiry/${inquiryIndex}`)
-            .then(response => response.json())
-            .then(data => setInquiry(data))
-            .catch(error => console.error('Error fetching inquiry detail:', error));
-    }, [inquiryIndex]);
+        inquiryDetailApi();
+    }, []);
+
 
     const handleDelete = () => {
         fetch(`http://localhost:8080/api/inquiry/delete/${inquiryIndex}`, {

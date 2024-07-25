@@ -115,7 +115,7 @@ export default function Index() {
 
     return (<>
             <div className={'commonContainer'}>
-                <Container className={'noticeContainer'}>
+                <Container>
                     <Container className="d-flex justify-content-end align-items-center pb-2">
                         <Dropdown onSelect={handleNoticeCount}>
                             <Dropdown.Toggle>
@@ -184,7 +184,7 @@ export default function Index() {
                             </tbody>
                         </Table>
                     )}
-                    <div className={'noticePagination'}>
+                    <div>
                         <Pagination
                             postsPerPage={postsPerPage}
                             totalPosts={notices.length}
