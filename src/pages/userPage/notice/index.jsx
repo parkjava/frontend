@@ -22,8 +22,8 @@ export default function Index() {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/user/api/notice`,{
-            headers:{
+        axios.get(`http://localhost:8080/user/api/notice`, {
+            headers: {
                 'Authorization': Cookies.get('Authorization') // 쿠키를 요청 헤더에 포함
             }
         })
@@ -83,7 +83,7 @@ export default function Index() {
             setPostsPerPage(10);
         } else if (option === 'thirty') {
             setPostsPerPage(30);
-        } else if (option === 'fifty'){
+        } else if (option === 'fifty') {
             setPostsPerPage(50);
         }
     }
@@ -113,80 +113,85 @@ export default function Index() {
     const searchOptionLabel = searchOption === 'title' ? '제목' : '작성자';
 
 
-    return (
-        <Container>
-            <Container className="d-flex justify-content-end align-items-center pb-2">
-                <Dropdown onSelect={handleNoticeCount}>
-                    <Dropdown.Toggle>
-                        데이터 개수: {postsPerPage}
-                    </Dropdown.Toggle>
+    return (<>
+            <div className={'commonContainer'}>
+                <Container className={'noticeContainer'}>
+                    <Container className="d-flex justify-content-end align-items-center pb-2">
+                        <Dropdown onSelect={handleNoticeCount}>
+                            <Dropdown.Toggle>
+                                데이터 개수: {postsPerPage}
+                            </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                        <Dropdown.Item eventKey="ten">10개</Dropdown.Item>
-                        <Dropdown.Item eventKey="thirty">30개</Dropdown.Item>
-                        <Dropdown.Item eventKey="fifty">50개</Dropdown.Item>
+                            <Dropdown.Menu>
+                                <Dropdown.Item eventKey="ten">10개</Dropdown.Item>
+                                <Dropdown.Item eventKey="thirty">30개</Dropdown.Item>
+                                <Dropdown.Item eventKey="fifty">50개</Dropdown.Item>
 
-                    </Dropdown.Menu>
-                </Dropdown>
-            </Container>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </Container>
 
-            <Container className="d-flex justify-content-end align-items-center">
-                <Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">
-                    <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                        검색 옵션: {searchOptionLabel === 'title' ? '제목' : '작성자'}
-                    </Dropdown.Toggle>
+                    <Container className="d-flex justify-content-end align-items-center">
+                        <Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">
+                            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                                검색 옵션: {searchOptionLabel === 'title' ? '제목' : '작성자'}
+                            </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                        <Dropdown.Item eventKey="title">제목</Dropdown.Item>
-                        <Dropdown.Item eventKey="admin">작성자</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
-                <Form onSubmit={handleSubmit} className="d-flex pb-2" style={{width: '300px'}}>
-                    <Form.Control
-                        type="text"
-                        placeholder="검색"
-                        name="notice"
-                        value={noticeTitle}
-                        onChange={handleInputChange}
-                        className="me-2"
-                    />
-                    <Button variant="primary" type="submit" className="" style={{width: '100px'}}>
-                        검색
-                    </Button>
-                </Form>
-            </Container>
-            {noResultsMessage ? (
-                <Alert variant="warning">{noResultsMessage}</Alert>
-            ) : (
-                <Table striped bordered hover variant="light">
-                    <thead>
-                    <tr>
-                        <th onClick={() => handleSort('noticeIndex')}>NO</th>
-                        <th onClick={() => handleSort('noticeTitle')}>제목</th>
-                        <th onClick={() => handleSort('createDate')}>게시일</th>
-                        <th onClick={() => handleSort('adminName')}>작성자</th>
-                        <th onClick={() => handleSort('noticeView')}>조회수</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {currentPosts.map(notice => (
-                        <tr key={notice.noticeIndex}>
-                            <td>{notice.noticeIndex}</td>
-                            <td>
-                                <Link to={`/user/notice/${notice.noticeIndex}`}>{notice.noticeTitle}</Link>
-                            </td>
-                            <td>{new Date(notice.createDate).toLocaleDateString()}</td>
-                            <td>{notice.adminName}</td>
-                            <td>{notice.noticeView}</td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </Table>
-            )}
-            <Pagination
-                postsPerPage={postsPerPage}
-                totalPosts={notices.length}
-                paginate={setCurrentPage}></Pagination>
-        </Container>
+                            <Dropdown.Menu>
+                                <Dropdown.Item eventKey="title">제목</Dropdown.Item>
+                                <Dropdown.Item eventKey="admin">작성자</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                        <Form onSubmit={handleSubmit} className="d-flex pb-2" style={{width: '300px'}}>
+                            <Form.Control
+                                type="text"
+                                placeholder="검색"
+                                name="notice"
+                                value={noticeTitle}
+                                onChange={handleInputChange}
+                                className="me-2"
+                            />
+                            <Button variant="primary" type="submit" className="" style={{width: '100px'}}>
+                                검색
+                            </Button>
+                        </Form>
+                    </Container>
+                    {noResultsMessage ? (
+                        <Alert variant="warning">{noResultsMessage}</Alert>
+                    ) : (
+                        <Table bordered hover variant="white">
+                            <thead>
+                            <tr>
+                                <th onClick={() => handleSort('noticeIndex')}>NO</th>
+                                <th onClick={() => handleSort('noticeTitle')}>제목</th>
+                                <th onClick={() => handleSort('createDate')}>게시일</th>
+                                <th onClick={() => handleSort('adminName')}>작성자</th>
+                                <th onClick={() => handleSort('noticeView')}>조회수</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {currentPosts.map(notice => (
+                                <tr key={notice.noticeIndex}>
+                                    <td>{notice.noticeIndex}</td>
+                                    <td>
+                                        <Link to={`/user/notice/${notice.noticeIndex}`}>{notice.noticeTitle}</Link>
+                                    </td>
+                                    <td>{new Date(notice.createDate).toLocaleDateString()}</td>
+                                    <td>{notice.adminName}</td>
+                                    <td>{notice.noticeView}</td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </Table>
+                    )}
+                    <div className={'noticePagination'}>
+                        <Pagination
+                            postsPerPage={postsPerPage}
+                            totalPosts={notices.length}
+                            paginate={setCurrentPage}></Pagination>
+                    </div>
+                </Container>
+            </div>
+        </>
     );
 }

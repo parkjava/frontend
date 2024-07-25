@@ -100,7 +100,7 @@ export default function Header() {
                                 <li><Link to={"/admin/patrol"}>Patrol</Link></li>
                                 <li><Link to={"/admin/notice"}>Notice</Link></li>
                                 <li><Link to={"/admin/inquiry"}>Inquiry</Link></li>
-                                <li><span className={'adminName'}>{name}님, 안녕하세요</span></li>
+                                <li className={'adminName'}>{name}님, 안녕하세요</li>
                                 <li onClick={handleSignOut} className={'logoutBtn'}>
                                     <Link to={'/'}>
                                     <FontAwesomeIcon icon={faRightFromBracket} size='xl'/>

@@ -36,6 +36,7 @@ export default function PatrolDetail() {
     }
 
     return (
+        <div className={'commonContainer'}>
         <Container>
             <Card>
                 <Card.Header>관할 구역: {patrol.patrolArea}</Card.Header>
@@ -58,5 +59,6 @@ export default function PatrolDetail() {
             </Row>
             <div className='d-flex pt-3'><Link to={'../admin/patrol'} >목록으로</Link></div>
         </Container>
+        </div>
     );
 }

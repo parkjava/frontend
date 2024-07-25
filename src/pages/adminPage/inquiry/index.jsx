@@ -18,19 +18,19 @@ export default function Index() {
 
     function inquiryApi() {
         axiosInstance
-          .get('/api/inquiry')
-          .then((res) => {
-            setInquiry(res)
-          })
-          .catch((err) => console.log(err));
-      }
+            .get('/api/inquiry')
+            .then((res) => {
+                setInquiry(res)
+            })
+            .catch((err) => console.log(err));
+    }
 
-      useEffect(() => {
+    useEffect(() => {
         inquiryApi();
-      }, []);
+    }, []);
 
     const handlePenaltyCount = (option) => {
-        if ( option === 'ten') {
+        if (option === 'ten') {
             setPostsPerPage(10);
         } else if (option === 'fifteen') {
             setPostsPerPage(15);
@@ -40,55 +40,57 @@ export default function Index() {
     const postsPerPageLabel = postsPerPage === 10 ? '10개' : '15개';
 
     return (
-        <Container>
-            <Container className="d-flex justify-content-end align-items-center pb-2">
-                <Dropdown onSelect={handlePenaltyCount}>
-                    <Dropdown.Toggle>
-                        데이터 개수: {postsPerPageLabel}
-                    </Dropdown.Toggle>
+        <div className={'commonContainer'}>
+            <Container>
+                <Container className="d-flex justify-content-end align-items-center pb-2">
+                    <Dropdown onSelect={handlePenaltyCount}>
+                        <Dropdown.Toggle>
+                            데이터 개수: {postsPerPageLabel}
+                        </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                        <Dropdown.Item eventKey="ten">10개</Dropdown.Item>
-                        <Dropdown.Item eventKey="fifteen">15개</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
-            </Container>
+                        <Dropdown.Menu>
+                            <Dropdown.Item eventKey="ten">10개</Dropdown.Item>
+                            <Dropdown.Item eventKey="fifteen">15개</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </Container>
 
-            <Table striped bordered hover variant="light">
-                <thead>
-                <tr>
-                    <th>NO</th>
-                    <th>제목</th>
-                    <th>게시일</th>
-                    <th>작성자</th>
-                </tr>
-                </thead>
-                <tbody>
-                {currentPosts.map(inquiry => (
-                    <tr key={inquiry.inquiryIndex}>
-                        <td>
-                            {inquiry.inquiryIndex}
-                        </td>
-                        <td>
-                            <Link to={`/admin/inquiry/${inquiry.inquiryIndex}`}>{inquiry.inquiryTitle}
-                            </Link>
-                        </td>
-                        <td>
-                            {new Date(inquiry.inquiryDate).toLocaleDateString()}
-                        </td>
-                        <td>
-                            {inquiry.inquiryWriter}
-                        </td>
-
+                <Table striped bordered hover variant="light">
+                    <thead>
+                    <tr>
+                        <th>NO</th>
+                        <th>제목</th>
+                        <th>게시일</th>
+                        <th>작성자</th>
                     </tr>
-                ))}
-                </tbody>
-            </Table>
+                    </thead>
+                    <tbody>
+                    {currentPosts.map(inquiry => (
+                        <tr key={inquiry.inquiryIndex}>
+                            <td>
+                                {inquiry.inquiryIndex}
+                            </td>
+                            <td>
+                                <Link to={`/admin/inquiry/${inquiry.inquiryIndex}`}>{inquiry.inquiryTitle}
+                                </Link>
+                            </td>
+                            <td>
+                                {new Date(inquiry.inquiryDate).toLocaleDateString()}
+                            </td>
+                            <td>
+                                {inquiry.inquiryWriter}
+                            </td>
 
-            <Pagination
-                postsPerPage={postsPerPage}
-                totalPosts={inquiry.length}
-                paginate={setCurrentPage}></Pagination>
-        </Container>
+                        </tr>
+                    ))}
+                    </tbody>
+                </Table>
+
+                <Pagination
+                    postsPerPage={postsPerPage}
+                    totalPosts={inquiry.length}
+                    paginate={setCurrentPage}></Pagination>
+            </Container>
+        </div>
     );
 }

@@ -19,12 +19,12 @@
     background-color: #fff;
 }
 
-.header span{
-    display: block;
-    padding: 20px 20px;
-    font-size: 16px;
+/*.header span{*/
+/*    display: block;*/
+/*    padding: 20px 20px;*/
+/*    font-size: 16px;*/
 
-}
+/*}*/
 .header li a {
     display: block;
     padding: 20px 10px;
@@ -138,19 +138,13 @@
     .header .menu-icon {
         display: none;
     }
+    .svgIcon{
+        display: none;
+    }
 }
 
 .adminName{
     color: #171717;
 }
-.logoutBtn{
-    background: #818181;
-}
-.logoutBtn :hover{
-    background-color: #4e4e4e !important;
-    transition:  .3s;
-}
-.logoutBtn :not(:hover){
-    transition: .3s;
-}
+
 

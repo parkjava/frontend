@@ -18,9 +18,10 @@ a {
     text-decoration: none !important;
     color: #222222 !important;
 }
-body{
-    margin-top: 50px;
+.commonContainer{
+    padding-top:66px;
 }
+
 /* 로그인 */
 .loginContainer{
     text-align: center;
@@ -284,8 +285,9 @@ body {
     font-family: "Orbit", sans-serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 60px;
+    font-size: 3vw; /* 반응형 폰트 크기 */
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding-top: 10vh; /* 반응형 패딩 */
 }
 
 .projectInfo {
@@ -293,44 +295,40 @@ body {
     text-align: center;
     overflow: hidden;
     background-image: url("./images/logo-1-transformed.png");
-    background-size: 300px;
+    background-size: 20vw; /* 반응형 백그라운드 이미지 크기 */
     background-position: center;
     background-repeat: no-repeat;
-
-    /*background: linear-gradient(to bottom, #efeaff 1%, #ffffff 30%);*/
     color: #45a3ff;
-
-
 }
 
 .metal_image {
     transition: transform 3s ease 1s;
-
 }
 
 .metal_image.animate {
-    transform: translateX(650px);
+    transform: translateX(30vw); /* 반응형 이동 */
 }
 
 .p-info {
     transition: transform 3s ease 1s, font-size 3s ease 1s;
     transform: translateX(0);
-    font-size: 0px;
+    font-size: 0;
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .p-info.animate {
-    transform: translate(-200px, -300px);
-    font-size: 50px;
+    transform: translate(calc(-20vw), calc(-30vh)); /* 반응형 이동 */
+    font-size: 2vw; /* 반응형 폰트 크기 */
 }
 
 .img2 {
     text-align: right;
     transition: transform 3s ease 1s;
+    margin-bottom: 5vh; /* 반응형 마진 */
 }
 
 .img2.animate {
-    transform: translateX(-1200px);
+    transform: translateX(-50vw); /* 반응형 이동 */
 }
 
 .p-info2 {
@@ -341,9 +339,69 @@ body {
 }
 
 .p-info2.animate {
-    transform: translate(200px, 300px);
-    font-size: 50px;
+    transform: translate(calc(30vw), calc(30vh)); /* 반응형 이동 */
+    font-size: 2vw; /* 반응형 폰트 크기 */
 }
+
+/* 미디어 쿼리 추가 */
+@media (max-width: 768px) {
+    .projectTitle {
+        font-size: 5vw;
+        padding-top: 12vh;
+    }
+
+    .projectInfo {
+        background-size: 40vw;
+    }
+
+    .metal_image.animate {
+        transform: translateX(50vw);
+    }
+
+    .p-info.animate {
+        transform: translate(calc(-10vw), calc(-20vh));
+        font-size: 3vw;
+    }
+
+    .img2.animate {
+        transform: translateX(-60vw);
+    }
+
+    .p-info2.animate {
+        transform: translate(calc(10vw), calc(20vh));
+        font-size: 6vw;
+    }
+}
+
+@media (max-width: 480px) {
+    .projectTitle {
+        font-size: 6vw;
+        padding-top: 15vh;
+    }
+
+    .projectInfo {
+        background-size: 50vw;
+    }
+
+    .metal_image.animate {
+        transform: translateX(30vw);
+    }
+
+    .p-info.animate {
+        transform: translate(calc(-10vw), calc(-20vh));
+        font-size: 8vw;
+    }
+
+    .img2.animate {
+        transform: translateX(-70vw);
+    }
+
+    .p-info2.animate {
+        transform: translate(calc(15vw), calc(15vh));
+        font-size: 8vw;
+    }
+}
+
 
 
 /* 메인 페이지 */
@@ -548,17 +606,27 @@ body {
 }
 
 /* 유저 공지사항 페이지*/
-.d-flex pb-2{
-    background-color: #b0d9ff!important;
+.noticeContainer{
+    padding-top: 130px;
+}
+.noticePagination{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-left: 130px;
+    margin-top: -40px;
 }
 
 /* 유저 공지사항 상세페이지*/
 .noticeListBtn{
     height: 40px;
     width: 100px;
+    padding-bottom: 20px;
 }
 .noticeDetailBtn{
     margin-top: auto;
 }
 .detailContainer{
+    padding-top: 120px;
+    padding-bottom: 20px;
 }
