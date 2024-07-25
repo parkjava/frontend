@@ -17,7 +17,7 @@ export default function Index() {
                            width={140}
                            height={140}/>
                 </p>
-                <span>WELCOME&nbsp;</span>
+                <span id="maintitle">WELCOME&nbsp;</span>
                 <span>ParkJAVA</span>
                 <FontAwesomeIcon icon={faGear} spin/>
             </div>

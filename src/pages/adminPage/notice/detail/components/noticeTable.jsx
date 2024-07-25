@@ -4,18 +4,23 @@ import {Table, Container, Card} from 'react-bootstrap';
 import axios from "axios";
 import Button from 'react-bootstrap/Button';
 import '../../../../../static/common.css'
+import axiosInstance from '../../../../../common/components/axiosinstance';
 
 export default function NoticeTable() {
     const {noticeIndex} = useParams();
     const navigate = useNavigate();
     const [notice, setNotice] = useState();
 
-    useEffect(() => {
-        // axios를 사용하여 공지사항 데이터를 가져옵니다.
-        axios.get(`http://localhost:8080/api/notice/${noticeIndex}`)
-            .then(response => setNotice(response.data))
-            .catch(error => console.error('데이터 가져오기 오류:', error));
-    }, [noticeIndex]);
+    function noticeDetailApi() {
+        axiosInstance
+          .get(`/api/notice/${noticeIndex}`)
+          .then((res) => setNotice(res))
+          .catch(error => console.error('데이터 가져오기 오류:', error));
+      }
+
+      useEffect(() => {
+        noticeDetailApi();
+      }, [noticeIndex]);
 
     const handleUpdate = () => {
         navigate(`/admin/notice/update/${noticeIndex}`);

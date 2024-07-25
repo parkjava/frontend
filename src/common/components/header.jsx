@@ -40,12 +40,14 @@ export default function Header() {
 
     const handleSignOut = () => {
         if (Cookies.get("Authorization") != null) {
-            alert('로그아웃 되었습니다');
-            Cookies.remove('Authorization');
+            if( window.confirm("정말 로그아웃 하시겠습니까?") ){
+                alert('로그아웃 되었습니다');
+                Cookies.remove('Authorization');
+                navigate("/")
+            }
         } else {
             alert('로그인 정보가 없습니다.')
         }
-        navigate('/')
     };
 
     function loginApi() {
@@ -102,10 +104,8 @@ export default function Header() {
                                 <li><Link to={"/admin/inquiry"}>Inquiry</Link></li>
                                 <li className={'adminName'}>{name}님, 안녕하세요</li>
                                 <li onClick={handleSignOut} className={'logoutBtn'}>
-                                    <Link to={'/'}>
                                     <FontAwesomeIcon icon={faRightFromBracket} size='xl'/>
-                                    </Link></li>
-
+                                </li>
                             </ul>
                         </nav>
 
