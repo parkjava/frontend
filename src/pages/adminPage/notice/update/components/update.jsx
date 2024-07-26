@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Form, Button } from 'react-bootstrap';
-import axios from 'axios';
+import axiosInstance from '../../../../../common/components/axiosinstance';
 
 export default function NoticeEdit() {
     const { noticeIndex } = useParams();
@@ -11,11 +11,18 @@ export default function NoticeEdit() {
         noticeContent: ''
     });
 
-    useEffect(() => {
-        axios.get(`http://localhost:8080/api/notice/${noticeIndex}`)
-            .then(response => setNotice(response.data))
-            .catch(error => console.error('데이터 가져오기 오류:', error));
-    }, [noticeIndex]);
+    function noticeUpdateApi() {
+        axiosInstance
+          .get(`/api/notice/${noticeIndex}`)
+          .then((res) => {
+            setNotice(res)   
+          })
+          .catch((err) => console.log('데이터 가져오기 오류:', err));
+      }
+
+      useEffect(() => {
+        noticeUpdateApi();
+      }, [noticeIndex]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -25,7 +32,7 @@ export default function NoticeEdit() {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (window.confirm('수정하시겠습니까?')) {
-            axios.put(`http://localhost:8080/api/notice/update/${noticeIndex}`, notice)
+            axiosInstance.put(`/api/notice/update/${noticeIndex}`, notice)
                 .then(() => {
                     navigate(`/admin/notice/${noticeIndex}`);  // 수정 후 해당 공지사항 상세 페이지로 이동
                 })

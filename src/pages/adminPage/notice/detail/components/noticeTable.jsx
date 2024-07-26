@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import {Table, Container, Card} from 'react-bootstrap';
-import axios from "axios";
 import Button from 'react-bootstrap/Button';
 import '../../../../../static/common.css'
 import axiosInstance from '../../../../../common/components/axiosinstance';
@@ -28,8 +27,8 @@ export default function NoticeTable() {
 
 
     const handleDelete = () => {
-        axios.delete(`http://localhost:8080/api/notice/delete/${noticeIndex}`)
-            .then(response => setNotice(response.data))
+        axiosInstance.delete(`/api/notice/delete/${noticeIndex}`)
+            .then(response => setNotice(response))
             .catch(error => console.error('데이터 가져오기 오류:', error));
 
         navigate(`/admin/notice`);
