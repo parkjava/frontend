@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Container, Form, Button, Alert } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {Table, Container, Form, Button, Alert} from 'react-bootstrap';
+import {Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import axiosInstance from "../../../../../common/components/axiosinstance";
 
 const cookies = new Cookies();
 
 const setCookie = (name, value) => {
-    cookies.set(name, value, { path: '/' });
+    cookies.set(name, value, {path: '/'});
 }
 
 const getCookie = (name) => {
@@ -18,8 +19,6 @@ export default function NoticeTable() {
     const [noticeText, setNoticeText] = useState({
         title: '',
         content: '',
-        adminIndex: '',
-        name: '',
         date: '',
     });
     const [errors, setErrors] = useState({});
@@ -27,19 +26,7 @@ export default function NoticeTable() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const admin = getCookie('session');
-        if (admin) {
-            try {
-                const { index, name } = admin;  // admin이 이미 객체라고 가정
-                setNoticeText((prevState) => ({
-                    ...prevState,
-                    adminIndex: index.toString(),
-                    name: name.toString(),
-                }));
-            } catch (error) {
-                console.error('Error parsing admin data:', error);
-            }
-        }
+
 
         const today = new Date();
         const formattedDate = today.toISOString().split('T')[0];
@@ -50,7 +37,7 @@ export default function NoticeTable() {
     }, []);
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setNoticeText({
             ...noticeText,
             [name]: value,
@@ -71,30 +58,22 @@ export default function NoticeTable() {
         if (Object.keys(formErrors).length > 0) {
             setErrors(formErrors);
             setShowAlert(true);
-            return;
+
         }
-        console.log(noticeText)
+        
         const newNotice = {
             noticeTitle: noticeText.title,
             noticeContent: noticeText.content,
-            adminIndex: noticeText.adminIndex,
-            adminName: noticeText.name,
             createDate: noticeText.date,
             noticeView: 0,
         };
 
-        axios.post('http://localhost:8080/api/notice/create', newNotice, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': cookies.get('Authorization'),
-            },
-        })
+        axiosInstance
+            .post('/api/notice/create', newNotice)
             .then((response) => {
                 setNoticeText({
                     title: '',
                     content: '',
-                    adminIndex: '',
-                    name: '',
                     date: '',
                 });
                 navigate('/admin/notice');
@@ -129,7 +108,7 @@ export default function NoticeTable() {
                                 name="content"
                                 value={noticeText.content}
                                 onChange={handleInputChange}
-                                style={{ border: 'none', resize: 'none' }}
+                                style={{border: 'none', resize: 'none'}}
                             />
                         </td>
                     </tr>
@@ -181,7 +160,7 @@ export default function NoticeTable() {
                     <Button
                         variant="primary"
                         type="submit"
-                        style={{ width: '100px' }}
+                        style={{width: '100px'}}
                         disabled={!noticeText.title || !noticeText.content}
                     >
                         작성

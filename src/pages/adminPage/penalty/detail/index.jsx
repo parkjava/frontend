@@ -62,7 +62,7 @@ export default function Index() {
                     </tr>
                     <tr>
                         <th style={{width: '60px'}}>과태료</th>
-                        <th>{formatNumber(penalty.penaltyCash)}</th>
+                        <th>{formatNumber(penalty.penaltyCash)} 원</th>
                     </tr>
                     </thead>
                     <tbody>

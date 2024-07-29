@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Form, Button } from 'react-bootstrap';
+import React, {useState, useEffect} from 'react';
+import {useParams, useNavigate} from 'react-router-dom';
+import {Container, Form, Button} from 'react-bootstrap';
 
 import axiosInstance from "../../../../common/components/axiosinstance";
+
 const subareasByArea = {
     동구: ['중앙동', '신암동', '신천동'],
     대덕구: ['법1동', '법2동', '오정동'],
@@ -12,7 +13,7 @@ const subareasByArea = {
 };
 
 export default function Index() {
-    const { patrolIndex } = useParams();
+    const {patrolIndex} = useParams();
     const [patrol, setPatrol] = useState({
         patrolArea: '',
         patrolSummary: '',
@@ -25,7 +26,7 @@ export default function Index() {
     function patrolUpdateApi() {
         axiosInstance
             .get(`/api/patrol/${patrolIndex}`)
-            .then((res)=> {
+            .then((res) => {
                 const data = res;
                 const [patrolArea, subarea] = data.patrolArea.split('/');
                 setPatrol({
@@ -39,12 +40,13 @@ export default function Index() {
             })
             .catch(error => console.error('Error fetching patrol detail:', error));
     }
+
     useEffect(() => {
         patrolUpdateApi();
     }, [patrolIndex]);
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setPatrol({
             ...patrol,
             [name]: value,
@@ -116,9 +118,6 @@ export default function Index() {
                         onChange={handleInputChange}
                     />
                 </Form.Group>
-                <div className="mt-3">
-                    <strong>작성자:</strong> {patrol.adminName}
-                </div>
                 <Button variant="primary" type="submit" className="mt-3">
                     저장
                 </Button>

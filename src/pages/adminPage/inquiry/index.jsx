@@ -4,7 +4,6 @@ import React, {useState, useEffect} from 'react';
 import Pagination from './components/pagination'
 import axiosInstance from '../../../common/components/axiosinstance';
 
-
 export default function Index() {
     const [inquiry, setInquiry] = useState([]);
 
@@ -47,7 +46,6 @@ export default function Index() {
                         <Dropdown.Toggle>
                             데이터 개수: {postsPerPageLabel}
                         </Dropdown.Toggle>
-
                         <Dropdown.Menu>
                             <Dropdown.Item eventKey="ten">10개</Dropdown.Item>
                             <Dropdown.Item eventKey="fifteen">15개</Dropdown.Item>

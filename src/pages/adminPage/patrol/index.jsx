@@ -79,7 +79,7 @@ export default function PetrolList() {
                     {currentPosts.map((patrol) => (
                         <tr key={patrol.patrolIndex}>
                             <td>{patrol.patrolIndex}</td>
-                            <td>{patrol.adminName}</td>
+                            <td>{patrol.username}</td>
                             <td>{patrol.patrolArea}</td>
                             <td><Link to={`/admin/patrol/${patrol.patrolIndex}`}>{patrol.patrolSummary}</Link></td>
                             <td>{patrol.createDate}</td>
