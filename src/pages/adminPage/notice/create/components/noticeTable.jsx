@@ -73,7 +73,7 @@ export default function NoticeTable() {
             setShowAlert(true);
             return;
         }
-
+        console.log(noticeText)
         const newNotice = {
             noticeTitle: noticeText.title,
             noticeContent: noticeText.content,
@@ -86,6 +86,7 @@ export default function NoticeTable() {
         axios.post('http://localhost:8080/api/notice/create', newNotice, {
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': cookies.get('Authorization'),
             },
         })
             .then((response) => {

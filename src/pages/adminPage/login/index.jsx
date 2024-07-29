@@ -14,18 +14,19 @@ export default function App() {
 
     const handleSignIn = async (e) => {
         e.preventDefault();  // Prevent default form submission
-        try {
-            const res = await axios.post('http://localhost:8080/members/signIn', {
+        await axios.post('http://localhost:8080/members/signIn', {
                 username,
                 password
-            });
+        }).then((res) => {
+            console.log(res)
             Cookies.set("Authorization", `${res.data.grantType} ${res.data.accessToken}`, {expires: 1});
             alert("로그인에 성공하였습니다.");
             navigate('/admin');
-        } catch (error) {
+        }).catch((error) => {
+            console.log(error)
             alert("로그인에 실패하였습니다.");
             navigate('');
-        }
+        })
     };
 
     const handleKeyPress = (e) => {
