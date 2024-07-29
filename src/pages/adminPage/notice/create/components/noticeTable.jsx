@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Container, Form, Button, Alert } from 'react-bootstrap';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import axiosInstance from '../../../../../common/components/axiosinstance';
+import React, {useState, useEffect} from 'react';
+import {Table, Container, Form, Button, Alert} from 'react-bootstrap';
+import {Link, useNavigate} from 'react-router-dom';
+import axios from 'axios';
 import Cookies from 'universal-cookie';
+import axiosInstance from "../../../../../common/components/axiosinstance";
 
 const cookies = new Cookies();
 
+const setCookie = (name, value) => {
+    cookies.set(name, value, {path: '/'});
+}
 
 const getCookie = (name) => {
     return cookies.get(name);
@@ -15,8 +19,6 @@ export default function NoticeTable() {
     const [noticeText, setNoticeText] = useState({
         title: '',
         content: '',
-        adminIndex: '',
-        name: '',
         date: '',
     });
     const [errors, setErrors] = useState({});
@@ -24,6 +26,7 @@ export default function NoticeTable() {
     const navigate = useNavigate();
 
     useEffect(() => {
+
 
         const today = new Date();
         const formattedDate = today.toISOString().split('T')[0];
@@ -34,9 +37,9 @@ export default function NoticeTable() {
     }, []);
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setNoticeText((prevState) => ({
-            ...prevState,
+        const {name, value} = e.target;
+        setNoticeText({
+            ...noticeText,
             [name]: value,
         }));
     };
@@ -54,9 +57,9 @@ export default function NoticeTable() {
         const formErrors = validateForm();
         if (Object.keys(formErrors).length > 0) {
             setShowAlert(true);
-            return;
-        }
 
+        }
+        
         const newNotice = {
             noticeTitle: noticeText.title,
             noticeContent: noticeText.content,
@@ -64,8 +67,9 @@ export default function NoticeTable() {
             noticeView: 0,
         };
 
-        axiosInstance.post('/api/notice/create', newNotice)
-            .then((res) => {
+        axiosInstance
+            .post('/api/notice/create', newNotice)
+            .then((response) => {
                 setNoticeText({
                     title: '',
                     content: '',
@@ -103,7 +107,7 @@ export default function NoticeTable() {
                                 name="content"
                                 value={noticeText.content}
                                 onChange={handleInputChange}
-                                style={{ border: 'none', resize: 'none' }}
+                                style={{border: 'none', resize: 'none'}}
                             />
                         </td>
                     </tr>
@@ -122,7 +126,7 @@ export default function NoticeTable() {
                     <Button
                         variant="primary"
                         type="submit"
-                        style={{ width: '100px' }}
+                        style={{width: '100px'}}
                         disabled={!noticeText.title || !noticeText.content}
                     >
                         작성

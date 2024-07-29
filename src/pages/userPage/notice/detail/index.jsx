@@ -37,13 +37,6 @@ export default function Index() {
                                 {new Date(notice.createDate).toLocaleDateString('ko-KR')}
                             </th>
                         </tr>
-                        <tr>
-                            <th colSpan={2} style={{width: '60px'}}>작성자</th>
-                            <th colSpan={2}>{notice.adminName}</th>
-                            <th style={{width: '120px'}}>조회수</th>
-                            <th>{notice.noticeView}</th>
-
-                        </tr>
                         </thead>
                         <tbody>
                         <tr>

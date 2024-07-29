@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Table, Container, Form, Button, Dropdown, Alert} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import Pagination from '../../../../common/components/pagination2';
+import Pagination from '../../../../common/components/pagination1';
 import axiosInstance from '../../../../common/components/axiosinstance';
 
 export default function NoticeTable() {
@@ -164,7 +164,6 @@ export default function NoticeTable() {
                         <th onClick={() => handleSort('noticeIndex')}>NO</th>
                         <th onClick={() => handleSort('noticeTitle')}>제목</th>
                         <th onClick={() => handleSort('createDate')}>게시일</th>
-                        <th onClick={() => handleSort('adminName')}>작성자</th>
                         <th onClick={() => handleSort('noticeView')}>조회수</th>
                     </tr>
                     </thead>
@@ -176,8 +175,7 @@ export default function NoticeTable() {
                                 <Link to={`/admin/notice/${notice.noticeIndex}`}>{notice.noticeTitle}</Link>
                             </td>
                             <td>{new Date(notice.createDate).toLocaleDateString()}</td>
-                            <td>{notice.adminName}</td>
-                            <td>{notice.noticeView}</td>
+                            <td style={{textAlign:'center'}}>{notice.noticeView}</td>
                         </tr>
                     ))}
                     </tbody>

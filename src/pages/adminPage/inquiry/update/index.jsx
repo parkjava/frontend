@@ -1,21 +1,27 @@
-import React, {useState, useEffect} from 'react';
-import {useParams, useNavigate} from 'react-router-dom';
-import {Container, Form, Button} from 'react-bootstrap';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Container, Form, Button } from 'react-bootstrap';
+import axiosInstance from "../../../../common/components/axiosinstance";
 
 export default function InquiryEdit() {
-    const {inquiryIndex} = useParams();
-    const [inquiry, setInquiry] = useState({inquiryTitle: '', inquiryContent: ''});
+    const { inquiryIndex } = useParams();
+    const [inquiry, setInquiry] = useState(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        fetch(`http://localhost:8080/api/inquiry/${inquiryIndex}`)
-            .then(response => response.json())
-            .then(data => setInquiry(data))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    function inquiryUpdateApi(){
+        axiosInstance
+            .get(`/api/inquiry/${inquiryIndex}`)
+            .then(response => setInquiry(response))
             .catch(error => console.error('Error fetching inquiry detail:', error));
+    }
+
+    useEffect(() => {
+        inquiryUpdateApi();
     }, [inquiryIndex]);
 
     const handleInputChange = (e) => {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         setInquiry({
             ...inquiry,
             [name]: value,
@@ -24,21 +30,18 @@ export default function InquiryEdit() {
 
     const handleUpdate = (e) => {
         e.preventDefault();
-        fetch(`http://localhost:8080/api/inquiry/update/${inquiryIndex}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(inquiry),
-        })
+        axiosInstance
+            .put(`/api/inquiry/update/${inquiryIndex}`, inquiry)
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
                 navigate(`/admin/inquiry/${inquiryIndex}`);
+
             })
             .catch(error => console.error('Error updating inquiry:', error));
     };
+
+    if (!inquiry) {
+        return <Container>Loading...</Container>;
+    }
 
     return (
         <div className={'commonContainer'}>

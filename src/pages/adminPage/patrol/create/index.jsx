@@ -1,22 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {Table, Container, Form, Button, Alert} from 'react-bootstrap';
 import {Link, useNavigate} from 'react-router-dom';
-import Cookies from 'universal-cookie';
-
-const cookies = new Cookies();
-
-const setCookie = (name, value) => {
-    cookies.set(name, value, {path: '/'});
-}
-
-const getCookie = (name) => {
-    return cookies.get(name);
-}
+import axiosInstance from '../../../../common/components/axiosinstance';
 
 // 대분류와 중분류의 매핑을 정의
 const subareasByArea = {
     동구: ['중앙동', '신암동', '신천동'],
-    대덕구: ['법1동', '법2동', '오정동'],
+    대덕구: ['법1동', '법2동', '오정동', '신탄진동'],
     서구: ['갈마1동', '갈마2동', '월평1동'],
     유성구: ['노은1동', '노은2동', '전민동'],
     중구: ['은행동', '대흥동', '목동'],
@@ -27,30 +17,27 @@ export default function PatrolTable() {
         area: '',
         subarea: '',
         summary: '',
-        adminIndex: '',
         name: '',
         date: '',
     });
     const [errors, setErrors] = useState({});
     const [showAlert, setShowAlert] = useState(false);
     const [subareas, setSubareas] = useState([]); // 중분류 상태 추가
+    const [name, setName] = useState('');
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const admin = getCookie('session');
-        if (admin) {
-            try {
-                const {index, name} = admin;  // admin이 이미 객체라고 가정
-                setPatrol((prevState) => ({
-                    ...prevState,
-                    adminIndex: index.toString(),
-                    name: name.toString(),
-                }));
-            } catch (error) {
-                console.error('Error parsing admin data:', error);
-            }
-        }
+    function nameApi() {
+        axiosInstance.get('/members/info')
+            .then((res) => setName(res))
+            .catch((err) => console.log(err));
+    }
 
+    useEffect(() => {
+        nameApi();
+    }, [name])
+
+
+    useEffect(() => {
         const today = new Date();
         const formattedDate = today.toLocaleString('ko-KR', {
             year: 'numeric',
@@ -60,8 +47,6 @@ export default function PatrolTable() {
             minute: '2-digit',
             hour12: false,
         }).replace(/\./g, '').replace(/\s/g, '-').replace(/-/g, (match, offset) => offset === 4 || offset === 7 ? '-' : ' ').slice(0, 16);
-
-        console.log(formattedDate);  // 예: 2023-07-12 13:45
 
         setPatrol((prevState) => ({
             ...prevState,
@@ -89,6 +74,7 @@ export default function PatrolTable() {
     const validateForm = () => {
         const newErrors = {};
         if (!patrol.area) newErrors.area = '관할구역을 입력해주세요';
+        if (!patrol.subarea) newErrors.subarea = '세부지역을 선택해주세요';
         if (!patrol.summary) newErrors.summary = '내용을 입력해주세요';
         return newErrors;
     };
@@ -102,39 +88,36 @@ export default function PatrolTable() {
             return;
         }
 
-        const newPetrol = {
+        const newPatrol = {
             patrolArea: patrol.area + '/' + patrol.subarea,
             patrolSummary: patrol.summary,
-            adminIndex: patrol.adminIndex,
-            adminName: patrol.name,
+            username: name,
             createDate: patrol.date,
             noticeView: 0,
         };
 
-        fetch('http://localhost:8080/api/patrol/create', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newPetrol),
-        })
+        console.log("Sending data:", newPatrol); // 전송할 데이터 로그 확인
+
+        axiosInstance.post('/api/patrol/create', newPatrol)
             .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then((data) => {
                 setPatrol({
                     area: '',
+                    subarea: '',
                     summary: '',
-                    adminIndex: '',
-                    name: '',
+                    username: '',
                     date: '',
                 });
+                setShowAlert(false);
                 navigate('/admin/patrol');
             })
-            .catch((error) => console.error('Error saving data:', error));
+            .catch((error) => {
+                console.error('Error saving data:', error);
+                if (error.response) {
+                    console.error('Response data:', error.response.data);
+                    setErrors({summary: '데이터 저장 중 오류가 발생했습니다.'}); // 에러 메시지 설정
+                    setShowAlert(true);
+                }
+            });
     };
 
     return (
@@ -151,12 +134,10 @@ export default function PatrolTable() {
                                     value={patrol.area}
                                     onChange={handleInputChange}
                                 >
-                                    <option value="">--관할지역--</option>
-                                    <option value="동구">동구</option>
-                                    <option value="대덕구">대덕구</option>
-                                    <option value="서구">서구</option>
-                                    <option value="유성구">유성구</option>
-                                    <option value="중구">중구</option>
+                                    <option value="">관할 구</option>
+                                    {Object.keys(subareasByArea).map((area) => (
+                                        <option key={area} value={area}>{area}</option>
+                                    ))}
                                 </Form.Select>
                             </th>
                         </tr>
@@ -169,7 +150,7 @@ export default function PatrolTable() {
                                     onChange={handleInputChange}
                                     disabled={!patrol.area} // 대분류가 선택되지 않으면 중분류 비활성화
                                 >
-                                    <option value="">--세부지역--</option>
+                                    <option value="">관할 동</option>
                                     {subareas.map((subarea) => (
                                         <option key={subarea} value={subarea}>{subarea}</option>
                                     ))}

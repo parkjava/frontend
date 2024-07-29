@@ -30,6 +30,7 @@ export default function Header() {
     }, [location])
 
     useEffect(() => {
+        console.log("헤더가 새롭게 불러지는 타이밍?!")
         const loginInfo = Cookies.get("Authorization");
         if (loginInfo != null) {
             return setIsLogin(true);
@@ -102,7 +103,6 @@ export default function Header() {
                                 <li><Link to={"/admin/patrol"}>Patrol</Link></li>
                                 <li><Link to={"/admin/notice"}>Notice</Link></li>
                                 <li><Link to={"/admin/inquiry"}>Inquiry</Link></li>
-                                <li className={'adminName'}>{name}님, 안녕하세요</li>
                                 <li onClick={handleSignOut} className={'logoutBtn'}>
                                     <FontAwesomeIcon icon={faRightFromBracket} size='xl'/>
                                 </li>
