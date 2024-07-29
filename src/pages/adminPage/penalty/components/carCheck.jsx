@@ -1,7 +1,6 @@
 import { Table, Container, Form, Button, Dropdown, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Pagination from "../../../../common/components/pagination2"
 import axiosInstance from '../../../../common/components/axiosinstance';
 

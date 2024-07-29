@@ -1,19 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Table, Container, Form, Button, Alert} from 'react-bootstrap';
 import {Link, useNavigate} from 'react-router-dom';
-import axios from 'axios';
-import Cookies from 'universal-cookie';
 import axiosInstance from "../../../../../common/components/axiosinstance";
-
-const cookies = new Cookies();
-
-const setCookie = (name, value) => {
-    cookies.set(name, value, {path: '/'});
-}
-
-const getCookie = (name) => {
-    return cookies.get(name);
-}
 
 export default function NoticeTable() {
     const [noticeText, setNoticeText] = useState({
@@ -56,7 +44,6 @@ export default function NoticeTable() {
         e.preventDefault();
         const formErrors = validateForm();
         if (Object.keys(formErrors).length > 0) {
-            setErrors(formErrors);
             setShowAlert(true);
 
         }
@@ -112,42 +99,8 @@ export default function NoticeTable() {
                             />
                         </td>
                     </tr>
-                    {/*<tr>*/}
-                    {/*    <th>*/}
-                    {/*        <Form.Control*/}
-                    {/*            type="number"*/}
-                    {/*            placeholder="유저 인덱스 입력"*/}
-                    {/*            name="adminIndex"*/}
-                    {/*            value={noticeText.adminIndex}*/}
-                    {/*            onChange={handleInputChange}*/}
-                    {/*            readOnly*/}
-                    {/*        />*/}
-                    {/*    </th>*/}
-                    {/*</tr>*/}
-                    {/*<tr>*/}
-                    {/*    <th>*/}
-                    {/*        <Form.Control*/}
-                    {/*            type="text"*/}
-                    {/*            placeholder="유저 이름 입력"*/}
-                    {/*            name="name"*/}
-                    {/*            value={noticeText.name}*/}
-                    {/*            onChange={handleInputChange}*/}
-                    {/*            readOnly*/}
-                    {/*        />*/}
-                    {/*    </th>*/}
-                    {/*</tr>*/}
-                    {/*<tr>*/}
-                    {/*    <th>*/}
-                    {/*        <Form.Control*/}
-                    {/*            type="date"*/}
-                    {/*            placeholder="작성일 입력"*/}
-                    {/*            name="date"*/}
-                    {/*            value={noticeText.date}*/}
-                    {/*            onChange={handleInputChange}*/}
-                    {/*        />*/}
-                    {/*    </th>*/}
-                    {/*</tr>*/}
                     </tbody>
+
                 </Table>
                 {showAlert && (
                     <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
@@ -157,6 +110,7 @@ export default function NoticeTable() {
                     </Alert>
                 )}
                 <div className="d-flex justify-content-end">
+                    
                     <Button
                         variant="primary"
                         type="submit"

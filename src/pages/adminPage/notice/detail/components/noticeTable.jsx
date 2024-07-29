@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useParams, useNavigate} from 'react-router-dom';
+import {useParams, Link, useNavigate} from 'react-router-dom';
 import {Table, Container, Card} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import '../../../../../static/common.css'
