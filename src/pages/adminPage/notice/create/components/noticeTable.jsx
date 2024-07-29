@@ -1,19 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Table, Container, Form, Button, Alert} from 'react-bootstrap';
 import {Link, useNavigate} from 'react-router-dom';
-import axios from 'axios';
-import Cookies from 'universal-cookie';
 import axiosInstance from "../../../../../common/components/axiosinstance";
-
-const cookies = new Cookies();
-
-const setCookie = (name, value) => {
-    cookies.set(name, value, {path: '/'});
-}
-
-const getCookie = (name) => {
-    return cookies.get(name);
-}
 
 export default function NoticeTable() {
     const [noticeText, setNoticeText] = useState({
@@ -41,7 +29,7 @@ export default function NoticeTable() {
         setNoticeText({
             ...noticeText,
             [name]: value,
-        }));
+        });
     };
 
     const validateForm = () => {
