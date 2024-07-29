@@ -612,6 +612,9 @@ body {
     margin-left: 130px;
     margin-top: -40px;
 }
+.userNoticeContainer{
+    font-family: 'LeeSeoyun';
+}
 
 /* 유저 공지사항 상세페이지*/
 .noticeListBtn{
@@ -650,7 +653,7 @@ body {
 }
 
 .commonContainer{
-    font-family: 'LeeSeoyun';
+    /*font-family: 'LeeSeoyun';*/
 }
 
 table th,
