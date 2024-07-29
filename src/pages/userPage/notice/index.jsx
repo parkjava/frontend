@@ -118,7 +118,7 @@ export default function Index() {
                 <Container>
                     <Container className="d-flex justify-content-end align-items-center pb-2">
                         <Dropdown onSelect={handleNoticeCount}>
-                            <Dropdown.Toggle>
+                            <Dropdown.Toggle className={'dropDownToggle'}>
                                 데이터 개수: {postsPerPage}
                             </Dropdown.Toggle>
 
@@ -133,7 +133,7 @@ export default function Index() {
 
                     <Container className="d-flex justify-content-end align-items-center">
                         <Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">
-                            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                            <Dropdown.Toggle className={'dropDownToggle'} variant="secondary" id="dropdown-basic">
                                 검색 옵션: {searchOptionLabel === 'title' ? '제목' : '작성자'}
                             </Dropdown.Toggle>
 
@@ -151,7 +151,7 @@ export default function Index() {
                                 onChange={handleInputChange}
                                 className="me-2"
                             />
-                            <Button variant="primary" type="submit" className="" style={{width: '100px'}}>
+                            <Button variant="primary" type="submit" className={"searchButton"} style={{width: '100px'}}>
                                 검색
                             </Button>
                         </Form>

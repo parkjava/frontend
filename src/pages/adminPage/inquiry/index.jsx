@@ -43,7 +43,7 @@ export default function Index() {
             <Container>
                 <Container className="d-flex justify-content-end align-items-center pb-2">
                     <Dropdown onSelect={handlePenaltyCount}>
-                        <Dropdown.Toggle>
+                        <Dropdown.Toggle className={'dropDownToggle'}>
                             데이터 개수: {postsPerPageLabel}
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
@@ -53,13 +53,13 @@ export default function Index() {
                     </Dropdown>
                 </Container>
 
-                <Table striped bordered hover variant="light">
+                <Table className={'inquiryTable'}>
                     <thead>
                     <tr>
-                        <th>NO</th>
-                        <th>제목</th>
-                        <th>게시일</th>
-                        <th>작성자</th>
+                        <th className={'noColumn'}>NO</th>
+                        <th className={'titleColumn'}>제목</th>
+                        <th className={'writerColumn'}>작성자</th>
+                        <th className={'dateColumn'}>게시일</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -73,12 +73,11 @@ export default function Index() {
                                 </Link>
                             </td>
                             <td>
-                                {new Date(inquiry.inquiryDate).toLocaleDateString()}
-                            </td>
-                            <td>
                                 {inquiry.inquiryWriter}
                             </td>
-
+                            <td>
+                                {new Date(inquiry.inquiryDate).toLocaleDateString()}
+                            </td>
                         </tr>
                     ))}
                     </tbody>

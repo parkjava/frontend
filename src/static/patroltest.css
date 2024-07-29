@@ -1,0 +1,53 @@
+
+@font-face {
+    font-family: 'LeeSeoyun';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/LeeSeoyun.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.commonContainer{
+    font-family: 'LeeSeoyun';
+}
+
+table th,
+table td {
+    border-left: none;
+    border-right: none;
+    text-align: center;
+
+
+
+}
+table th:first-child,
+table td:first-child {
+    border-left: 0;
+}
+table th:last-child,
+table td:last-child {
+    border-right: 0;
+}
+
+.trTitle{
+    background-color: #c2e1fd;
+}
+.patrolH1{
+
+    font-size: 50px;
+}
+.createButton{
+
+    display: flex!important;
+    justify-content: flex-end !important;
+}
+.crButton{
+
+    background-color: #ef8484 !important;
+    border: #ef8484 !important ;
+
+}
+.dropDown{
+    background-color: rgb(176, 217, 255) !important;
+    border: #d3f0ff !important ;
+}
+
