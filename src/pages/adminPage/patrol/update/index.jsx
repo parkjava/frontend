@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Form, Button } from 'react-bootstrap';
-import cookies from "js-cookie";
-import axios from 'axios';
+
 import axiosInstance from "../../../../common/components/axiosinstance";
 const subareasByArea = {
     동구: ['중앙동', '신암동', '신천동'],
@@ -25,7 +24,7 @@ export default function Index() {
 
     function patrolUpdateApi() {
         axiosInstance
-            .get(`/api/patrol;/${patrolIndex}`)
+            .get(`/api/patrol/${patrolIndex}`)
             .then((res)=> {
                 const data = res;
                 const [patrolArea, subarea] = data.patrolArea.split('/');
@@ -42,20 +41,6 @@ export default function Index() {
     }
     useEffect(() => {
         patrolUpdateApi();
-    //     axios.get(`http://localhost:8080/api/patrol/${patrolIndex}`)
-    //         .then(response => {
-    //             const data = response.data;
-    //             const [patrolArea, subarea] = data.patrolArea.split('/');
-    //             setPatrol({
-    //                 patrolArea,
-    //                 subarea,
-    //                 patrolSummary: data.patrolSummary,
-    //                 adminName: data.adminName,
-    //                 createDate: data.updateDate,
-    //             });
-    //             setSubareas(subareasByArea[patrolArea] || []); // 선택된 대분류에 따른 중분류 설정
-    //         })
-    //         .catch(error => console.error('Error fetching patrol detail:', error));
     }, [patrolIndex]);
 
     const handleInputChange = (e) => {

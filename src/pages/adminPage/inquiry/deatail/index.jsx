@@ -1,32 +1,31 @@
-import React, {useState, useEffect} from 'react';
-import {useParams, useNavigate} from 'react-router-dom';
-import {Container, Card, Button} from 'react-bootstrap';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Container, Card, Button } from 'react-bootstrap';
 import axiosInstance from "../../../../common/components/axiosinstance";
 
 export default function Index() {
-    const {inquiryIndex} = useParams();
+    const { inquiryIndex } = useParams();
     const [inquiry, setInquiry] = useState(null);
     const navigate = useNavigate();
-    function inquiryDetailApi() {
+
+   function inquiryDetailApi() {
         axiosInstance
             .get(`/api/inquiry/${inquiryIndex}`)
             .then((res) => {
-                setInquiry(res)
+                setInquiry(res);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error('Error fetching inquiry details:', err));
     }
 
     useEffect(() => {
         inquiryDetailApi();
-    }, []);
-
+    }, [inquiryDetailApi]);
 
     const handleDelete = () => {
-        fetch(`http://localhost:8080/api/inquiry/delete/${inquiryIndex}`, {
-            method: 'DELETE',
-        })
+        axiosInstance
+            .delete(`/api/inquiry/delete/${inquiryIndex}`)
             .then(response => {
-                if (!response.ok) {
+                if (response.status !== 204) {
                     throw new Error('Network response was not ok');
                 }
                 navigate('/admin/inquiry'); // 삭제 후 목록 페이지로 리디렉션
@@ -59,7 +58,7 @@ export default function Index() {
                         </Button>{' '}
                         <Button variant="primary" size="md" onClick={handleUpdate}>
                             수정
-                        </Button>{' '}
+                        </Button>
                     </Card.Body>
                 </Card>
             </Container>
