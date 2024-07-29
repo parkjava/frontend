@@ -3,6 +3,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Jua&family=Orbit&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Orbit&display=swap');
 
+@font-face {
+    font-family: 'LeeSeoyun';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/LeeSeoyun.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 /*
 
 1. 어느 부분에서 사용된 클래스인지?
@@ -495,6 +501,42 @@ body {
 .adminDescription {
     max-width: 390px;
 }
+
+/* 상용자 메인페이지 */
+.userMainPage{
+    background-repeat: no-repeat; /* 이미지가 반복되지 않도록 설정 */
+    flex-grow: 1; /* 남은 공간을 채우기 위해 확장 */
+    background-size: cover; /* 이미지가 잘리지 않게 전체 영역을 채웁니다 */
+    background-position: center; /* 이미지를 가운데 정렬 */
+    background-image: url("./images/street.jpg");
+    width: 100%!important;
+    height: 100%!important;
+    /*background-color: rgba(0, 0, 0, 0.5)!important; !* 반투명한 검정 오버레이 *!*/
+    /*pointer-events: none; !* 오버레이가 클릭 이벤트를 차단하지 않도록 설정 *!*/
+}
+.userMainTitle{
+    padding-top:100px;
+    font-size: 120px;
+    color: white;
+    text-align: center;
+    font-family: 'LeeSeoyun';
+}
+.userMainH3{
+    font-family: 'LeeSeoyun';
+    color: white;
+    text-align: center;
+    font-size: 40px;
+}
+.userMainText{
+    font-family: 'LeeSeoyun';
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    padding-top: 200px;
+    padding-bottom: 100px;
+    margin-bottom: 0;
+}
+
 /* pagination */
 .paginationGroup{
     display: flex;
