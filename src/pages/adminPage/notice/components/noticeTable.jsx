@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Table, Container, Form, Button, Dropdown, Alert} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
-import axios from 'axios';
 import Pagination from '../../../../common/components/pagination1';
 import axiosInstance from '../../../../common/components/axiosinstance';
 
@@ -117,7 +116,7 @@ export default function NoticeTable() {
         <Container>
             <Container className="d-flex justify-content-end align-items-center pb-2">
                 <Dropdown onSelect={handleNoticeCount}>
-                    <Dropdown.Toggle>
+                    <Dropdown.Toggle className={'dropDownToggle'}>
                         데이터 개수: {postsPerPage}
                     </Dropdown.Toggle>
 
@@ -131,8 +130,8 @@ export default function NoticeTable() {
             </Container>
 
             <Container className="d-flex justify-content-end align-items-center">
-                <Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">
-                    <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                <Dropdown onSelect={handleSearchOptionSelect} className="dataDropdown">
+                    <Dropdown.Toggle className={'dropDownToggle'} variant="secondary" id="dropdown-basic">
                         검색 옵션: {searchOptionLabel}
                     </Dropdown.Toggle>
 
@@ -150,7 +149,7 @@ export default function NoticeTable() {
                         onChange={handleInputChange}
                         className="me-2"
                     />
-                    <Button variant="primary" type="submit" className="" style={{width: '100px'}}>
+                    <Button variant="primary" type="submit" className={"searchButton"} style={{width: '100px'}}>
                         검색
                     </Button>
                 </Form>
@@ -158,28 +157,29 @@ export default function NoticeTable() {
             {noResultsMessage ? (
                 <Alert variant="warning">{noResultsMessage}</Alert>
             ) : (
-                <Table className='' striped bordered hover variant="light">
+
+                <table className="table">
                     <thead>
                     <tr>
-                        <th onClick={() => handleSort('noticeIndex')}>NO</th>
-                        <th onClick={() => handleSort('noticeTitle')}>제목</th>
-                        <th onClick={() => handleSort('createDate')}>게시일</th>
-                        <th onClick={() => handleSort('noticeView')}>조회수</th>
+                        <th className="no-column" onClick={() => handleSort('noticeIndex')}>NO</th>
+                        <th className="title-column" onClick={() => handleSort('noticeTitle')}>제목</th>
+                        <th className="date-column" onClick={() => handleSort('createDate')}>게시일</th>
+                        <th className="view-column" onClick={() => handleSort('noticeView')}>조회수</th>
                     </tr>
                     </thead>
                     <tbody>
                     {currentPosts.map(notice => (
                         <tr key={notice.noticeIndex}>
-                            <td>{notice.noticeIndex}</td>
-                            <td>
+                            <td className="no-column">{notice.noticeIndex}</td>
+                            <td className="title-column">
                                 <Link to={`/admin/notice/${notice.noticeIndex}`}>{notice.noticeTitle}</Link>
                             </td>
-                            <td>{new Date(notice.createDate).toLocaleDateString()}</td>
-                            <td style={{textAlign:'center'}}>{notice.noticeView}</td>
+                            <td className="date-column">{new Date(notice.createDate).toLocaleDateString()}</td>
+                            <td className="view-column" style={{textAlign: 'center'}}>{notice.noticeView}</td>
                         </tr>
                     ))}
                     </tbody>
-                </Table>
+                </table>
             )}
             <Pagination
                 postsPerPage={postsPerPage}

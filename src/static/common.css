@@ -503,7 +503,7 @@ body {
     text-align: center;
 }
 .paginationGroup span{
-    color: #2f34ff;
+    color: #ef8484;
     margin: 1.5px;
     padding: 3px 8px 3px 8px;
     border: 1px solid #777777;
@@ -639,3 +639,92 @@ body {
 .switchArea{
     text-align: center !important;
 }
+
+/* 순찰내역 페이지 */
+
+@font-face {
+    font-family: 'LeeSeoyun';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/LeeSeoyun.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.commonContainer{
+    font-family: 'LeeSeoyun';
+}
+
+table th,
+table td {
+    border-left: none;
+    border-right: none;
+    text-align: center;
+
+
+
+}
+table th:first-child,
+table td:first-child {
+    border-left: 0;
+}
+table th:last-child,
+table td:last-child {
+    border-right: 0;
+}
+
+.trTitle{
+    background-color: #c2e1fd;
+}
+.patrolH1{
+
+    font-size: 50px;
+}
+.createButton{
+
+    display: flex!important;
+    justify-content: flex-end !important;
+}
+.crButton{
+
+    background-color: #ef8484 !important;
+    border: #ef8484 !important ;
+
+}
+.dropDown{
+    background-color: rgb(176, 217, 255) !important;
+    border: #d3f0ff !important ;
+}
+
+/* 관리자 공지사항 페이지 */
+.table th, .table td {
+    padding: 8px;
+
+}
+
+.table th.no-column, .table td.no-column {
+    width: 10%; /* 예: NO 열의 넓이를 10%로 설정 */
+}
+
+.table th.title-column, .table td.title-column {
+    width: 50%; /* 예: 제목 열의 넓이를 50%로 설정 */
+}
+
+.table th.date-column, .table td.date-column {
+    width: 20%; /* 예: 게시일 열의 넓이를 20%로 설정 */
+}
+
+.table th.view-column, .table td.view-column {
+    width: 20%; /* 예: 조회수 열의 넓이를 20%로 설정 */
+}
+.noticeCreateBtn{
+    background-color: #ef8484!important;
+    border: #ef8484 !important ;
+}
+
+/* 드롭다운, 검색버튼 */
+.dataDropdown, .dropDownToggle, .searchButton{
+    background-color: #45a3ff!important;
+    border: #45a3ff!important;
+    border-radius: 10px;
+}
+
+/* 관리자 문의사항 페이지 */
