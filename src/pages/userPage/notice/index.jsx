@@ -115,7 +115,7 @@ export default function Index() {
 
     return (<>
             <div className={'commonContainer'}>
-                <Container>
+                <Container className={'userNoticeContainer'}>
                     <Container className="d-flex justify-content-end align-items-center pb-2">
                         <Dropdown onSelect={handleNoticeCount}>
                             <Dropdown.Toggle className={'dropDownToggle'}>
@@ -176,7 +176,7 @@ export default function Index() {
                                         <Link to={`/user/notice/${notice.noticeIndex}`}>{notice.noticeTitle}</Link>
                                     </td>
                                     <td>{new Date(notice.createDate).toLocaleDateString()}</td>
-                                    <td>{notice.adminName}</td>
+                                    {/*<td>{notice.adminName}</td>*/}
                                     <td>{notice.noticeView}</td>
                                 </tr>
                             ))}
