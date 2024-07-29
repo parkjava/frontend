@@ -2,7 +2,9 @@ import {Link} from "react-router-dom";
 import '../static/common.css';
 import MainImage from "../static/images/character.png";
 import {Image} from "react-bootstrap";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGear } from "@fortawesome/free-solid-svg-icons";
+
 
 
 export default function Index() {
@@ -15,8 +17,9 @@ export default function Index() {
                            width={140}
                            height={140}/>
                 </p>
-                <span>WELCOME&nbsp;</span>
+                <span id="maintitle">WELCOME&nbsp;</span>
                 <span>ParkJAVA</span>
+                <FontAwesomeIcon icon={faGear} spin/>
             </div>
             <div className={'descriptionArea'}>
                 <div className={'userDescription'}>

@@ -7,7 +7,7 @@ export default function Index() {
     const [currentSpeed, setCurrentSpeed] = useState(40);
     const [voltage, setVoltage] = useState('');
     const [isChecked, setIsChecked] = useState(false);
-
+    const [buttonInfo, setButtonInfo] = useState('');
     const handleSwitchChange = (e) => {
 
         setIsChecked(e.target.checked);
@@ -55,6 +55,23 @@ export default function Index() {
         });
     }, [ros]);
 
+
+    useEffect(() => {
+        const handleKeyDown = (event) =>{
+            const key = event.key.toLowerCase();
+            const info = handleKeyPress(key);
+            if (info) {
+                setButtonInfo(info);
+            }
+        };
+        document.addEventListener('keydown',handleKeyDown);
+
+        return () => {
+            document.removeEventListener('keydown',handleKeyDown);
+        };
+
+    }, []);
+
     const callService = (name, type, value) => {
         const exampleService = new ROSLIB.Service({
             ros: ros,
@@ -70,8 +87,35 @@ export default function Index() {
         } else if (name === '/LEDGREE') {
             param['ledgree'] = value;
         } else if (name === '/Motor') {
-            param['rightspeed'] = value;
-            param['leftspeed'] = value;
+            console.log(currentSpeed / 100);
+            if (value === 'leftback') {
+                param['rightspeed'] = -(currentSpeed / 100);
+                param['leftspeed'] = 0;
+            } else if (value === 'back') {
+                param['rightspeed'] = -(currentSpeed / 100);
+                param['leftspeed'] = -(currentSpeed / 100);
+            } else if (value === 'rightback') {
+                param['rightspeed'] = 0;
+                param['leftspeed'] = -(currentSpeed / 100);
+            } else if (value === 'left') {
+                param['rightspeed'] = currentSpeed / 100;
+                param['leftspeed'] = -(currentSpeed / 100);
+            } else if (value === 'stop') {
+                param['rightspeed'] = 0;
+                param['leftspeed'] = 0;
+            } else if (value === 'right') {
+                param['rightspeed'] = -(currentSpeed / 100);
+                param['leftspeed'] = currentSpeed / 100;
+            } else if (value === 'leftgo') {
+                param['rightspeed'] = currentSpeed / 100;
+                param['leftspeed'] = 0;
+            } else if (value === 'go') {
+                param['rightspeed'] = currentSpeed / 100;
+                param['leftspeed'] = currentSpeed / 100;
+            } else if (value === 'rightgo') {
+                param['rightspeed'] = 0;
+                param['leftspeed'] = currentSpeed / 100;
+            }
         }
 
         const request = new ROSLIB.ServiceRequest(param);
@@ -101,30 +145,36 @@ export default function Index() {
         // Replace with appropriate speed functions
         console.log(`Speed set to ${newSpeed}`);
     };
-
+    // function toggleCheckbox(id){
+    //     const checkbox = document.getElementById(id);
+    //     checkbox.checked = !checkbox.checked;
+    // }
     const handleKeyPress = (key) => {
         const keyMap = {
-            '1': {ButtonName: '↙', functionCall: () => toggleCheckbox('leftback')},
-            '2': {ButtonName: '↓', functionCall: () => toggleCheckbox('back')},
-            '3': {ButtonName: '↘', functionCall: () => toggleCheckbox('rightback')},
-            '4': {ButtonName: '←', functionCall: () => toggleCheckbox('left')},
-            '5': {ButtonName: '■', functionCall: () => toggleCheckbox('stop')},
-            '6': {ButtonName: '→', functionCall: () => toggleCheckbox('right')},
-            '7': {ButtonName: '↖', functionCall: () => toggleCheckbox('leftgo')},
-            '8': {ButtonName: '↑', functionCall: () => toggleCheckbox('go')},
-            '9': {ButtonName: '↗', functionCall: () => toggleCheckbox('rightgo')},
+            '+': {ButtonName: '+', functionCall: () => document.getElementById('speedUp').click()},
+            '-': {ButtonName: '-', functionCall: () => document.getElementById('speedDown').click()},
+            '1': {ButtonName: '↙', functionCall: () => document.getElementById('leftback').click()},
+            '2': {ButtonName: '↓', functionCall: () => document.getElementById('back').click()},
+            '3': {ButtonName: '↘', functionCall: () => document.getElementById('rightback').click()},
+            '4': {ButtonName: '←', functionCall: () => document.getElementById('left').click()},
+            '5': {ButtonName: '■', functionCall: () => document.getElementById('stop').click()},
+            '6': {ButtonName: '→', functionCall: () => document.getElementById('right').click()},
+            '7': {ButtonName: '↖', functionCall: () => document.getElementById('leftgo').click()},
+            '8': {ButtonName: '↑', functionCall: () => document.getElementById('go').click()},
+            '9': {ButtonName: '↗', functionCall: () => document.getElementById('rightgo').click()},
         };
 
         if (key in keyMap) {
+            keyMap[key].functionCall();
             return `입력키: ${keyMap[key].ButtonName}`;
         }
         return null;
     };
 
-    const toggleCheckbox = (direction) => {
-        // Handle the direction change
-        console.log(`Direction: ${direction}`);
-    };
+    // const toggleCheckbox = (direction) => {
+    //     // Handle the direction change
+    //     console.log(`Direction: ${direction}`);
+    // };
 
     return (
         <div className={'commonContainer'}>
@@ -145,64 +195,78 @@ export default function Index() {
                             />
                     </div>
                     </span>
-                    <Image src={'http://192.168.0.12:8080/stream?topic=/csi_cam_1/image_raw'} width="640" height="360"
+                    <Image src={'http://192.168.137.6:8080/stream?topic=/csi_cam_1/image_raw'} width="640" height="360"
                            alt="Live Video"/>
                 </div>
                 <Button onClick={() => callService('/Buzzer', 'jetbotmini_msgs/Buzzer', 1)}>BUZZER ON</Button>
                 <Button onClick={() => callService('/Buzzer', 'jetbotmini_msgs/Buzzer', 0)}>BUZZER OFF</Button>
                 <Button onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 1)}>앞으로</Button>
+                <Button onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', (0, 0))}>정지</Button>
 
                 <div>
                     <Button className="Button" onClick={() => publishMessage(true)}>자율주행</Button>
-                    <Button className="Button" onClick={() => publishMessage(false)}>직접주행</Button>
+                    <Button className="Button" onClick={() => {
+                        publishMessage(false);
+                    }}>직접주행</Button>
                 </div>
                 <div style={{textAlign: 'center'}}>
-                    <Button className="Button"
+                    <Button className="Button" id={'speedDown'}
                             onClick={() => handleSpeedChange(Math.max(40, currentSpeed - 10))}>-</Button>
                     <span id="speedValue">{currentSpeed}</span>
-                    <Button className="Button"
+                    <Button className="Button" id={'speedUp'}
                             onClick={() => handleSpeedChange(Math.min(100, currentSpeed + 10))}>+</Button>
                 </div>
                 <div className="Button" id="Button-info"></div>
                 <table style={{marginLeft: 'auto', marginRight: 'auto'}}>
                     <tbody>
                     <tr>
-                        <td colSpan="6" style={{textAlign: 'center'}}>
-                            <Button className="Button" onMouseDown={() => toggleCheckbox('forward')}
-                                    onTouchStart={() => toggleCheckbox('forward')}
-                                    onMouseUp={() => toggleCheckbox('stop')}
-                                    onTouchEnd={() => toggleCheckbox('stop')}>Forward</Button>
+                        <td style={{textAlign: 'center'}}>
+                            <Button id={'leftgo'}
+                                onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'leftgo')}>↖</Button>
+                        </td>
+                        <td style={{textAlign: 'center'}}>
+                            <Button id={'go'}
+                                onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'go')}>↑</Button>
+                        </td>
+                        <td style={{textAlign: 'center'}}>
+                            <Button id={'rightgo'}
+                                onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'rightgo')}>↗</Button>
                         </td>
                     </tr>
                     <tr>
                         <td style={{textAlign: 'center'}}>
-                            <Button className="Button" onMouseDown={() => toggleCheckbox('left')}
-                                    onTouchStart={() => toggleCheckbox('left')} onMouseUp={() => toggleCheckbox('stop')}
-                                    onTouchEnd={() => toggleCheckbox('stop')}>Left</Button>
+                            <Button id={'left'}
+                                onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'left')}>←</Button>
                         </td>
                         <td style={{textAlign: 'center'}}>
-                            <Button className="Button" onMouseDown={() => toggleCheckbox('stop')}
-                                    onTouchStart={() => toggleCheckbox('stop')}>Stop</Button>
+                            <Button id={'stop'}
+                                onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'stop')}>■</Button>
                         </td>
                         <td style={{textAlign: 'center'}}>
-                            <Button className="Button" onMouseDown={() => toggleCheckbox('right')}
-                                    onTouchStart={() => toggleCheckbox('right')}
-                                    onMouseUp={() => toggleCheckbox('stop')}
-                                    onTouchEnd={() => toggleCheckbox('stop')}>Right</Button>
+                            <Button id={'right'}
+                                onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'right')}>→</Button>
                         </td>
                     </tr>
                     <tr>
-                        <td colSpan="6" style={{textAlign: 'center'}}>
-                            <Button className="Button" onMouseDown={() => toggleCheckbox('backward')}
-                                    onTouchStart={() => toggleCheckbox('backward')}
-                                    onMouseUp={() => toggleCheckbox('stop')}
-                                    onTouchEnd={() => toggleCheckbox('stop')}>Backward</Button>
+                        <td style={{textAlign: 'center'}}>
+                            <Button id={'leftback'}
+                                onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'leftback')}>↙</Button>
+                        </td>
+                        <td style={{textAlign: 'center'}}>
+                            <Button id={'back'}
+                                onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'back')}>↓</Button>
+                        </td>
+                        <td style={{textAlign: 'center'}}>
+                            <Button id={'rightback'}
+                                onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'rightback')}>↘</Button>
                         </td>
                     </tr>
                     </tbody>
                 </table>
+                <div>
+                    <div id="button-info">{buttonInfo}</div>
+                </div>
             </div>
         </div>
     );
 };
-
