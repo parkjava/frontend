@@ -5,7 +5,6 @@ import {Image} from "react-bootstrap";
 import Logo from '../../static/images/logo.png'
 import AdminLogo from '../../static/images/adminLogo.png'
 import Cookies from "js-cookie";
-import axiosinstance from "./axiosinstance";
 import axiosInstance from "./axiosinstance";
 
 
@@ -99,7 +98,6 @@ export default function Header() {
                                 <li><Link to={"/admin/patrol"}>Patrol</Link></li>
                                 <li><Link to={"/admin/notice"}>Notice</Link></li>
                                 <li><Link to={"/admin/inquiry"}>Inquiry</Link></li>
-                                <li className={'adminName'}>{name}님, 안녕하세요</li>
                                 <li onClick={handleSignOut} className={'logoutBtn'}>
                                     <Link to={'/'} className={'svgIcon'}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"

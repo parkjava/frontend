@@ -47,9 +47,6 @@ export default function PatrolDetail() {
                     <Card.Text>
                         {patrol.patrolSummary}
                     </Card.Text>
-                    <Card.Footer>
-                    작성자: {patrol.adminName} | 수정일: {new Date(patrol.updateDate).toLocaleDateString()}
-                    </Card.Footer>
                 </Card.Body>
             </Card>
             <Row className="mt-3">

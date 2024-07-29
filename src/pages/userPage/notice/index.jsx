@@ -165,7 +165,6 @@ export default function Index() {
                                 <th onClick={() => handleSort('noticeIndex')}>NO</th>
                                 <th onClick={() => handleSort('noticeTitle')}>제목</th>
                                 <th onClick={() => handleSort('createDate')}>게시일</th>
-                                <th onClick={() => handleSort('adminName')}>작성자</th>
                                 <th onClick={() => handleSort('noticeView')}>조회수</th>
                             </tr>
                             </thead>

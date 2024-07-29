@@ -1,10 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Table, Container, Form, Button, Alert} from 'react-bootstrap';
 import {Link, useNavigate} from 'react-router-dom';
-import Cookies from 'universal-cookie';
 import axiosInstance from '../../../../common/components/axiosinstance';
-
-const cookies = new Cookies();
 
 // 대분류와 중분류의 매핑을 정의
 const subareasByArea = {
@@ -20,30 +17,27 @@ export default function PatrolTable() {
         area: '',
         subarea: '',
         summary: '',
-        adminIndex: '',
         name: '',
         date: '',
     });
     const [errors, setErrors] = useState({});
     const [showAlert, setShowAlert] = useState(false);
     const [subareas, setSubareas] = useState([]); // 중분류 상태 추가
+    const [name, setName] = useState('');
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const sessionCookie = cookies.get('session'); // 쿠키에서 세션 정보 가져오기
-        if (sessionCookie) {
-            try {
-                const admin = JSON.parse(sessionCookie);  // JSON으로 파싱
-                setPatrol((prevState) => ({
-                    ...prevState,
-                    adminIndex: admin.index.toString(),
-                    name: admin.name.toString(),
-                }));
-            } catch (error) {
-                console.error('Error parsing admin data:', error);
-            }
-        }
+    function nameApi() {
+        axiosInstance.get('/members/info')
+            .then((res) => setName(res))
+            .catch((err) => console.log(err));
+    }
 
+    useEffect(() => {
+        nameApi();
+    }, [name])
+
+
+    useEffect(() => {
         const today = new Date();
         const formattedDate = today.toLocaleString('ko-KR', {
             year: 'numeric',
@@ -97,20 +91,20 @@ export default function PatrolTable() {
         const newPatrol = {
             patrolArea: patrol.area + '/' + patrol.subarea,
             patrolSummary: patrol.summary,
-            adminIndex: patrol.adminIndex,
-            adminName: patrol.name,
+            username: name,
             createDate: patrol.date,
             noticeView: 0,
         };
+
         console.log("Sending data:", newPatrol); // 전송할 데이터 로그 확인
+
         axiosInstance.post('/api/patrol/create', newPatrol)
             .then((response) => {
                 setPatrol({
                     area: '',
                     subarea: '',
                     summary: '',
-                    adminIndex: '',
-                    name: '',
+                    username: '',
                     date: '',
                 });
                 setShowAlert(false);
@@ -140,7 +134,7 @@ export default function PatrolTable() {
                                     value={patrol.area}
                                     onChange={handleInputChange}
                                 >
-                                    <option value="">--관할지역--</option>
+                                    <option value="">관할 구</option>
                                     {Object.keys(subareasByArea).map((area) => (
                                         <option key={area} value={area}>{area}</option>
                                     ))}
@@ -156,7 +150,7 @@ export default function PatrolTable() {
                                     onChange={handleInputChange}
                                     disabled={!patrol.area} // 대분류가 선택되지 않으면 중분류 비활성화
                                 >
-                                    <option value="">--세부지역--</option>
+                                    <option value="">관할 동</option>
                                     {subareas.map((subarea) => (
                                         <option key={subarea} value={subarea}>{subarea}</option>
                                     ))}

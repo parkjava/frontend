@@ -51,7 +51,7 @@ export default function Index() {
                             {inquiry.inquiryContent}
                         </Card.Text>
                         <Card.Footer>
-                            작성자: {inquiry.inquiryWriter} | 게시일: {new Date(inquiry.inquiryDate).toLocaleDateString()}
+                            게시일: {new Date(inquiry.inquiryDate).toLocaleDateString()}
                         </Card.Footer>
                         <Button variant="danger" size="md" onClick={handleDelete}>
                             삭제

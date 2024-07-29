@@ -153,7 +153,7 @@ export default function CarCheck(){
                         <tr key={penalty.penaltyIndex}>
                             <td>{penalty.penaltyIndex}</td>
                             <td><Link to={`/admin/penalty/${penalty.penaltyIndex}`}>{penalty.penaltyCarNumber}</Link></td>
-                            <td>{formatNumber(penalty.penaltyCash)}</td>
+                            <td>{formatNumber(penalty.penaltyCash)}원</td>
                             <td>{new Date(penalty.penaltyDate).toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\./g, '-').replace(/\s+/g, '').split('-').slice(0, 3).join('-')}</td>
                         </tr>
                     ))}
