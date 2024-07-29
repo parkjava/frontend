@@ -158,7 +158,7 @@ export default function NoticeTable() {
             {noResultsMessage ? (
                 <Alert variant="warning">{noResultsMessage}</Alert>
             ) : (
-                <Table striped bordered hover variant="light">
+                <Table className='' striped bordered hover variant="light">
                     <thead>
                     <tr>
                         <th onClick={() => handleSort('noticeIndex')}>NO</th>

@@ -25,21 +25,6 @@ export default function NoticeTable() {
 
     useEffect(() => {
 
-        const admin = getCookie('Authorization');
-        console.log(admin)
-        if (admin) {
-            try {
-                const {index, name} = admin;  // admin이 이미 객체라고 가정
-                setNoticeText((prevState) => ({
-                    ...prevState,
-                    adminIndex: index,
-                    name: name,
-                }));
-            } catch (error) {
-                console.error('Error parsing admin data:', error);
-            }
-        }
-
         const today = new Date();
         const formattedDate = today.toISOString().split('T')[0];
         setNoticeText((prevState) => ({
@@ -75,8 +60,6 @@ export default function NoticeTable() {
         const newNotice = {
             noticeTitle: noticeText.title,
             noticeContent: noticeText.content,
-            adminIndex: noticeText.adminIndex,
-            adminName: noticeText.name,
             createDate: noticeText.date,
             noticeView: 0,
         };
@@ -86,8 +69,6 @@ export default function NoticeTable() {
                 setNoticeText({
                     title: '',
                     content: '',
-                    adminIndex: '',
-                    name: '',
                     date: '',
                 });
                 navigate('/admin/notice');
