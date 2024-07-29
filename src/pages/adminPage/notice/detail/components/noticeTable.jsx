@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useParams, useNavigate} from 'react-router-dom';
+import {useParams, Link, useNavigate} from 'react-router-dom';
 import {Table, Container, Card} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import '../../../../../static/common.css'
@@ -71,7 +71,7 @@ export default function NoticeTable() {
                 </tr>
                 </tbody>
             </Table>
-            <Button variant={"link"}>목록으로</Button>
+            <div className='pb-2'><Link to={'/admin/notice'}>목록으로</Link></div>
             <div>
                 <Button variant="info" onClick={handleUpdate}>수정</Button>{' '}
                 <Button variant="danger" onClick={handleDelete}>삭제</Button>{' '}

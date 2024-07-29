@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Container, Form, Button, Alert } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import axiosInstance from '../../../../../common/components/axiosinstance';
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
-const setCookie = (name, value) => {
-    cookies.set(name, value, { path: '/' });
-}
 
 const getCookie = (name) => {
     return cookies.get(name);
@@ -27,14 +24,16 @@ export default function NoticeTable() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const admin = getCookie('session');
+
+        const admin = getCookie('Authorization');
+        console.log(admin)
         if (admin) {
             try {
-                const { index, name } = admin;  // admin이 이미 객체라고 가정
+                const {index, name} = admin;  // admin이 이미 객체라고 가정
                 setNoticeText((prevState) => ({
                     ...prevState,
-                    adminIndex: index.toString(),
-                    name: name.toString(),
+                    adminIndex: index,
+                    name: name,
                 }));
             } catch (error) {
                 console.error('Error parsing admin data:', error);
@@ -51,10 +50,10 @@ export default function NoticeTable() {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setNoticeText({
-            ...noticeText,
+        setNoticeText((prevState) => ({
+            ...prevState,
             [name]: value,
-        });
+        }));
     };
 
     const validateForm = () => {
@@ -69,7 +68,6 @@ export default function NoticeTable() {
         e.preventDefault();
         const formErrors = validateForm();
         if (Object.keys(formErrors).length > 0) {
-            setErrors(formErrors);
             setShowAlert(true);
             return;
         }
@@ -83,12 +81,8 @@ export default function NoticeTable() {
             noticeView: 0,
         };
 
-        axios.post('http://localhost:8080/api/notice/create', newNotice, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then((response) => {
+        axiosInstance.post('/api/notice/create', newNotice)
+            .then((res) => {
                 setNoticeText({
                     title: '',
                     content: '',
@@ -132,42 +126,8 @@ export default function NoticeTable() {
                             />
                         </td>
                     </tr>
-                    {/*<tr>*/}
-                    {/*    <th>*/}
-                    {/*        <Form.Control*/}
-                    {/*            type="number"*/}
-                    {/*            placeholder="유저 인덱스 입력"*/}
-                    {/*            name="adminIndex"*/}
-                    {/*            value={noticeText.adminIndex}*/}
-                    {/*            onChange={handleInputChange}*/}
-                    {/*            readOnly*/}
-                    {/*        />*/}
-                    {/*    </th>*/}
-                    {/*</tr>*/}
-                    {/*<tr>*/}
-                    {/*    <th>*/}
-                    {/*        <Form.Control*/}
-                    {/*            type="text"*/}
-                    {/*            placeholder="유저 이름 입력"*/}
-                    {/*            name="name"*/}
-                    {/*            value={noticeText.name}*/}
-                    {/*            onChange={handleInputChange}*/}
-                    {/*            readOnly*/}
-                    {/*        />*/}
-                    {/*    </th>*/}
-                    {/*</tr>*/}
-                    {/*<tr>*/}
-                    {/*    <th>*/}
-                    {/*        <Form.Control*/}
-                    {/*            type="date"*/}
-                    {/*            placeholder="작성일 입력"*/}
-                    {/*            name="date"*/}
-                    {/*            value={noticeText.date}*/}
-                    {/*            onChange={handleInputChange}*/}
-                    {/*        />*/}
-                    {/*    </th>*/}
-                    {/*</tr>*/}
                     </tbody>
+
                 </Table>
                 {showAlert && (
                     <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
@@ -177,6 +137,7 @@ export default function NoticeTable() {
                     </Alert>
                 )}
                 <div className="d-flex justify-content-end">
+                    
                     <Button
                         variant="primary"
                         type="submit"
