@@ -43,7 +43,14 @@
 .header li a:hover,
 .header .menu-btn:hover {
     background-color: #b0d9ff;
+    transition: 0.4s;
 }
+
+.header li a:not(:hover),
+.header .menu-btn:not(:hover) {
+    transition: 0.4s;
+}
+
 
 .header .logo {
     display: block;
