@@ -17,8 +17,21 @@ export default function Index() {
         phone: '',
         date: '',
     });
+
+    const [inquiryList, setInquiryList] = useState({
+        title: '',
+        name: '',
+        phone: '',
+        content: '',
+    });
+
     const [isFormValid, setIsFormValid] = useState(false);
     const [showMessage, setShowMessage] = useState(false); // 상태 추가
+    
+    const [modalOpen, setModalOpen] = useState(false);
+    const [historyOpen, setHistoryOpen] = useState(false);
+    const modalBackground = useRef();
+    const historyBackground = useRef();
 
     const navigate = useNavigate();
 
@@ -42,6 +55,10 @@ export default function Index() {
             ...inquiryText,
             [name]: value,
         });
+        setInquiryList({
+            ...inquiryList,
+            [name]: value,
+        });
     };
 
     const handleSubmit = (e) => {
@@ -55,8 +72,10 @@ export default function Index() {
             inquiryDate: inquiryText.date,
         };
 
+
         axios.post('http://localhost:8080/user/api/inquiry/create', newInquiry)
             .then((response) => {
+                alert("문의가 접수되었습니다.")
                 setInquiryText({
                     title: '',
                     content: '',
@@ -68,14 +87,34 @@ export default function Index() {
                 setShowMessage(true); // 메시지 표시
                 setTimeout(() => {
                     setShowMessage(false);
-                    navigate('/user'); // 3초 후 목록 페이지로 리디렉션
-                }, 3000);
+                    navigate('/user');
+                });
             })
             .catch((error) => console.error('Error saving data:', error));
     };
 
-    const [modalOpen, setModalOpen] = useState(false);
-    const modalBackground = useRef();
+    const handleGet = (e) => {
+        e.preventDefault();
+        const inquiryPhone = inquiryList.phone
+
+        axios
+            .get(`http://localhost:8080/user/api/inquiry/phone/${inquiryPhone}`)
+            .then((res) => {
+                const data = res.data
+                if (data.length > 0) {
+                    setInquiryList({
+                        title: data[0].inquiryTitle,
+                        name: data[0].inquiryWriter,
+                        phone: data[0].inquiryPhone,
+                        content: data[0].inquiryContent,
+                    });
+                    alert(`${data[0].inquiryWriter}님의 문의 내역입니다.`);
+                } else {
+                    alert('문의 내역을 찾을 수 없습니다.');
+                }
+            })
+            .catch((error) => console.error('Error saving data:', error));
+    }
 
     return (
         <>
@@ -101,7 +140,7 @@ export default function Index() {
                             <Card.Text>
                                 여러분들이 어떠한 문의사항들을 남겼는지 확인할수 있습니다.
                             </Card.Text>
-                            <Button className={'modalOpenBtn'} variant="primary" onClick={() => setModalOpen(true)}>
+                            <Button className={'setHistoryOpenBtn'} variant="primary" onClick={() => setHistoryOpen(true)}>
                                 문의내역
                             </Button>
                         </Card.Body>
@@ -118,7 +157,7 @@ export default function Index() {
                             }
                         }}>
                             <div className={'modalContent'}>
-                                <Form className={'inquiryForm'}>
+                                <div className={'inquiryForm'}>
                                     <h1 className={'inquiryTitle'}>무엇이든 물어보살</h1>
                                     <Form className={'inquiryIndex'} onSubmit={handleSubmit}>
                                         <Row className="mb-3">
@@ -204,15 +243,56 @@ export default function Index() {
                                             문의가 완료되었습니다
                                         </Alert>
                                     )}
-                                </Form>
-                                <div>
-                                    이거 왜이러냐 씨봉
                                 </div>
                             </div>
                         </div>
                     }
+
                 </div>
+
+                {
+                    historyOpen &&
+                    <div className={'modalContainer'} ref={historyBackground} onClick={e => {
+                        if (e.target === historyBackground.current) {
+                            setHistoryOpen(false);
+                        }
+                    }}>
+                        <div className={'modalContent'}>
+                            <div className={'inquiryForm'}>
+                                <h1 className={'inquiryTitle'}>문의 내역</h1>
+                                <Form onSubmit={handleGet}>
+
+                                        <Form.Group>
+                                            <Form.Label className={'formLabel'}>전화번호</Form.Label>
+                                            <Form.Control
+                                                className={'formControl'}
+                                                type="text"
+                                                placeholder="전화번호를 적어주세요"
+                                                name="phone"
+                                                value={inquiryList.phone}
+                                                onChange={handleChange}/>
+                                        </Form.Group>
+                                        <div className={'buttonContainer'}>
+                                            <Button className={'inquiryButton'} variant="primary" type="submit">
+                                                확인하기
+                                            </Button>
+                                            <Button className={'modalCloseBtn'} variant="primary"
+                                                    onClick={() => setHistoryOpen(false)}>
+                                                닫기
+                                            </Button>
+                                        </div>
+                                </Form>
+                                <div>
+                                    이름: {inquiryList.name} <br />
+                                    제목: {inquiryList.title} <br />
+                                    전화번호: {inquiryList.phone} <br />
+                                    내용: {inquiryList.content} <br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </>
     );
-};
+}
