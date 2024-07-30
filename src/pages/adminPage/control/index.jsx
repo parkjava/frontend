@@ -4,16 +4,19 @@ import {Image, Button, Form} from "react-bootstrap";
 import '../../../static/common.css'
 import {getDownloadURL, ref, listAll} from "firebase/storage";
 import {storage} from "../../../firebase";
+import axiosInstance from "../../../common/components/axiosinstance";
 
 
 export default function Index() {
     const [currentSpeed, setCurrentSpeed] = useState(40);
     const [voltage, setVoltage] = useState('');
     const [isChecked, setIsChecked] = useState(false);
+    const [buttonInfo, setButtonInfo] = useState('');
+    const [images, setImages] = useState([]);
+    const [penalty, setPenalty] = useState('');
+
     const handleSwitchChange = (e) => {
-
         setIsChecked(e.target.checked);
-
         if (isChecked === false) {
             publishMessage(true)
             callService('/LEDGREE', 'jetbotmini_msgs/srv', 0)
@@ -28,9 +31,6 @@ export default function Index() {
         }
     };
 
-    const [buttonInfo, setButtonInfo] = useState('');
-
-    const [images, setImages] = useState([]);
 
     useEffect(() => {
         // setInterval(async () => {
@@ -209,30 +209,48 @@ export default function Index() {
         return null;
     };
 
-    // const toggleCheckbox = (direction) => {
-    //     // Handle the direction change
-    //     console.log(`Direction: ${direction}`);
-    // };
+    const handleSubmit = (e) => {
+        axiosInstance.post('/api/penalty/create')
+            .then((response) => {
 
+            })
+            .catch((error) => {
+                console.error('Error saving data:', error);
+                if (error.response) {
+                    console.error('Response data:', error.response.data);
+                }
+            });
+
+
+    }
+
+    const handleDelete = (e) => {
+
+    }
     return (<>
         <div className={'commonContainer'}>
             <div className={'control'}>
                 <div className={'controlInfo'}>
-                    <p>{voltage || 'Battery Loading..'}</p>
-                    {isChecked ? "AutoMode" : "PilotMode"}
-                    <Form.Check
-                        type="switch"
-                        id="toggleSwitch"
-                        checked={isChecked}
-                        label={''}
-                        onChange={handleSwitchChange}
-                    />
-
                     <div className={'controlVideo'}>
                         <Image src={'http://192.168.137.6:8080/stream?topic=/csi_cam_1/image_raw'} width="1024"
                                height="768"
                         />
+                        <div className={'controlInfo'}>
+                            {isChecked ? "AutoMode" : "PilotMode"}
+                            <Form.Check
+                                type="switch"
+                                id="toggleSwitch"
+                                checked={isChecked}
+                                label={''}
+                                onChange={handleSwitchChange}
+                            />
+                            <span className={'battery'}>
+                                Battery : {voltage || 'Loading..'}
+                            </span>
+                        </div>
                     </div>
+
+
                     <div className={'penaltyList'}>
                         <h2>단속 차량 번호</h2>
                         <ul className={'penaltyUl'}>
@@ -247,7 +265,7 @@ export default function Index() {
                                         <Button className={'btn-danger'}>삭제</Button>
                                     </div>
                                 ))
-                            ) : null }
+                            ) : null}
                         </ul>
                     </div>
                 </div>
