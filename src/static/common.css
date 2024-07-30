@@ -26,6 +26,7 @@ a {
 }
 .commonContainer{
     padding-top:66px;
+    font-family: 'LeeSeoyun';
 }
 
 /* 로그인 */
@@ -640,6 +641,10 @@ body {
 .buttonContainer {
     display: flex;
     justify-content: flex-end;
+}
+
+.formControl{
+    resize: none;
 }
 
 /* 유저 공지사항 페이지*/
