@@ -9,6 +9,7 @@
     font-weight: normal;
     font-style: normal;
 }
+
 /*
 
 1. 어느 부분에서 사용된 클래스인지?
@@ -24,13 +25,13 @@ a {
     text-decoration: none !important;
     color: #222222 !important;
 }
-.commonContainer{
-    padding-top:66px;
-    font-family: 'LeeSeoyun';
+
+.commonContainer {
+    padding-top: 66px;
 }
 
 /* 로그인 */
-.loginContainer{
+.loginContainer {
     text-align: center;
     border: 1px solid #bdbdbd;
     width: 100%;
@@ -44,35 +45,38 @@ a {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.loginTitle{
+.loginTitle {
     margin-bottom: 40px;
 }
 
-.loginGroup{
+.loginGroup {
 
 }
-.loginInput{
+
+.loginInput {
     width: 395px !important;
     transition: 0.3s;
     height: 50px !important;
 
 }
-.loginInput:focus{
+
+.loginInput:focus {
     width: 400px !important;
     transition: 0.3s;
 }
-.loginInput:not(:focus){
+
+.loginInput:not(:focus) {
     transition: 0.3s;
 }
 
-.loginBtn{
+.loginBtn {
     width: 100%;
     margin-top: 30px !important;
     max-width: 390px;
     height: 50px !important;
 }
 
-.loginArea{
+.loginArea {
     margin-top: 10px;
     display: flex;
     align-items: center;
@@ -194,7 +198,7 @@ body {
 }
 
 .wrapper {
-    background-image: linear-gradient(to right bottom, #ffffff 10%, #f8f6ff, #bddfff, #b0d9ff, #e8dafd );
+    background-image: linear-gradient(to right bottom, #ffffff 10%, #f8f6ff, #bddfff, #b0d9ff, #e8dafd);
     display: flex;
     height: 100vh;
     justify-content: center;
@@ -486,15 +490,17 @@ body {
     transition: .5s;
 }
 
-.descriptionArea{
+.descriptionArea {
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.descriptionSpace{
+
+.descriptionSpace {
     width: 80px;
 }
+
 .userDescription {
     max-width: 390px;
 }
@@ -504,31 +510,34 @@ body {
 }
 
 /* 상용자 메인페이지 */
-.userMainPage{
+.userMainPage {
     background-repeat: no-repeat; /* 이미지가 반복되지 않도록 설정 */
     flex-grow: 1; /* 남은 공간을 채우기 위해 확장 */
     background-size: cover; /* 이미지가 잘리지 않게 전체 영역을 채웁니다 */
     background-position: center; /* 이미지를 가운데 정렬 */
     background-image: url("./images/street.jpg");
-    width: 100%!important;
-    height: 100%!important;
+    width: 100% !important;
+    height: 100% !important;
     /*background-color: rgba(0, 0, 0, 0.5)!important; !* 반투명한 검정 오버레이 *!*/
     /*pointer-events: none; !* 오버레이가 클릭 이벤트를 차단하지 않도록 설정 *!*/
 }
-.userMainTitle{
-    padding-top:100px;
+
+.userMainTitle {
+    padding-top: 100px;
     font-size: 120px;
     color: white;
     text-align: center;
     font-family: 'LeeSeoyun';
 }
-.userMainH3{
+
+.userMainH3 {
     font-family: 'LeeSeoyun';
     color: white;
     text-align: center;
     font-size: 40px;
 }
-.userMainText{
+
+.userMainText {
     font-family: 'LeeSeoyun';
     text-align: center;
     color: white;
@@ -539,13 +548,14 @@ body {
 }
 
 /* pagination */
-.paginationGroup{
+.paginationGroup {
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
 }
-.paginationGroup span{
+
+.paginationGroup span {
     color: #ef8484;
     margin: 1.5px;
     padding: 3px 8px 3px 8px;
@@ -553,10 +563,12 @@ body {
     border-radius: 5px;
     cursor: pointer;
 }
-.paginationGroup span:hover{
+
+.paginationGroup span:hover {
     color: #f4f4f4;
     background-color: #2f34ff;
 }
+
 .paginationGroup span:not(:hover) {
     transition: .3s;
 }
@@ -568,7 +580,7 @@ body {
     margin-top: 5rem;
 }
 
-.modalOpenButton{
+.modalOpenButton {
 
     margin-top: auto;
 }
@@ -584,33 +596,39 @@ body {
     align-items: center;
     background: rgba(0, 0, 0, 0.5);
 }
-.modalCloseBtn{
+
+.modalCloseBtn {
     width: 80px;
     margin-left: auto;
 }
-.card1, .card2{
+
+.card1, .card2 {
     background-image: linear-gradient(to right bottom, #ffffff, #f8f6ff, #f2edff, #ede4fe, #e8dafd);
     position: fixed;
     width: 400px !important;
-    height: 500px!important;
+    height: 500px !important;
     margin: auto;
-    border-radius: 20px!important;
+    border-radius: 20px !important;
     font-family: "Jua", sans-serif;
-.modalContent{
-    width: 100vh;
-}
-.cardBody{
-   margin: auto;
-    bottom: 100px !important;
-}
-.cardImages{
-    width: 200px;
-    height: 300px;
-    margin: auto;
-}
+
+    .modalContent {
+        width: 100vh;
+    }
+
+    .cardBody {
+        margin: auto;
+        bottom: 100px !important;
+    }
+
+    .cardImages {
+        width: 200px;
+        height: 300px;
+        margin: auto;
+    }
 
 }
-.cards{
+
+.cards {
     text-align: center;
     height: 100vh;
     display: flex;
@@ -648,47 +666,98 @@ body {
 }
 
 /* 유저 공지사항 페이지*/
-.noticeContainer{
+.noticeContainer {
     padding-top: 130px;
     text-align: center;
 }
-.noticePagination{
+
+.noticePagination {
     display: flex;
     justify-content: left;
     align-items: center;
     margin-left: 130px;
     margin-top: -40px;
 }
-.userNoticeContainer{
+
+.userNoticeContainer {
     font-family: 'LeeSeoyun';
 }
 
 /* 유저 공지사항 상세페이지*/
-.noticeListBtn{
+.noticeListBtn {
     height: 40px;
     width: 100px;
     padding-bottom: 20px;
 }
-.noticeDetailBtn{
+
+.noticeDetailBtn {
     margin-top: auto;
 }
-.detailContainer{
+
+.detailContainer {
     padding-top: 120px;
     padding-bottom: 20px;
 }
 
 /* 관제 페이지 */
-.control{
-    text-align: center;
+.summary {
+
+
 }
-.controlInfo{
-    display: block;
-    align-items: start;
+
+.controlInfo {
+    display: flex;
     justify-content: center;
+    align-items: center;
+
 }
-.switchArea{
+
+.switchArea {
     text-align: center !important;
 }
+
+.controlVideo {
+    max-width: 1024px;
+    max-height: 768px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    margin: 0 50px 0 50px;
+}
+
+.penaltyList {
+    text-align: center;
+}
+
+.penaltyUl {
+    width: 100%;
+    height: 768px;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid black;
+    overflow-x: scroll;
+}
+
+.penaltyUl p {
+    margin-bottom: 2px;
+
+}
+
+.penaltyLi {
+    border: 1px solid black;
+    margin: 10px 0 10px 0;
+
+
+    border-radius: 5px;
+    font-size: 40px;
+}
+
+.penaltyLi img {
+    width: 150px;
+    height: 50px;
+
+}
+
 
 /* 순찰내역 페이지 */
 
@@ -699,7 +768,7 @@ body {
     font-style: normal;
 }
 
-.commonContainer{
+.commonContainer {
     /*font-family: 'LeeSeoyun';*/
 }
 
@@ -710,38 +779,43 @@ table td {
     text-align: center;
 
 
-
 }
+
 table th:first-child,
 table td:first-child {
     border-left: 0;
 }
+
 table th:last-child,
 table td:last-child {
     border-right: 0;
 }
 
-.trTitle{
+.trTitle {
     background-color: #c2e1fd;
 }
-.patrolH1{
+
+.patrolH1 {
 
     font-size: 50px;
 }
-.createButton{
 
-    display: flex!important;
+.createButton {
+
+    display: flex !important;
     justify-content: flex-end !important;
 }
-.crButton{
+
+.crButton {
 
     background-color: #ef8484 !important;
-    border: #ef8484 !important ;
+    border: #ef8484 !important;
 
 }
-.dropDown{
+
+.dropDown {
     background-color: rgb(176, 217, 255) !important;
-    border: #d3f0ff !important ;
+    border: #d3f0ff !important;
 }
 
 /* 관리자 공지사항 페이지 */
@@ -765,15 +839,16 @@ table td:last-child {
 .table th.view-column, .table td.view-column {
     width: 20%; /* 예: 조회수 열의 넓이를 20%로 설정 */
 }
-.noticeCreateBtn{
-    background-color: #ef8484!important;
-    border: #ef8484 !important ;
+
+.noticeCreateBtn {
+    background-color: #ef8484 !important;
+    border: #ef8484 !important;
 }
 
 /* 드롭다운, 검색버튼 */
-.dataDropdown, .dropDownToggle, .searchButton{
-    background-color: #45a3ff!important;
-    border: #45a3ff!important;
+.dataDropdown, .dropDownToggle, .searchButton {
+    background-color: #45a3ff !important;
+    border: #45a3ff !important;
     border-radius: 10px;
 }
 
