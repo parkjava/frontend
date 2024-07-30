@@ -97,11 +97,11 @@ export default function CarCheck(){
             <p>단속 차량 목록</p>
             <Container className="d-flex justify-content-end align-items-center pb-2">
                 <Dropdown onSelect={handlePenaltyCount}>
-                    <Dropdown.Toggle>
+                    <Dropdown.Toggle  className={'dropDownToggle'}>
                         데이터 개수: {postsPerPageLabel}
                     </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
+                    <Dropdown.Menu  className={'dropDownToggle'}>
                         <Dropdown.Item eventKey="ten">10개</Dropdown.Item>
                         <Dropdown.Item eventKey="fifteen">15개</Dropdown.Item>
                     </Dropdown.Menu>
@@ -110,7 +110,7 @@ export default function CarCheck(){
 
             <Container className="d-flex justify-content-end align-items-center">
                 <Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">
-                    <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                    <Dropdown.Toggle className={'dropDownToggle'} variant="secondary" id="dropdown-basic">
                         검색 옵션: {searchOptionLabel}
                     </Dropdown.Toggle>
 
@@ -128,7 +128,7 @@ export default function CarCheck(){
                         onChange={handleInputChange}
                         className="me-2"
                     />
-                    <Button variant="primary" type="submit" className="" style={{ width: '100px' }}>
+                    <Button className={"searchButton"} variant="primary" type="submit"  style={{ width: '100px' }}>
                         검색
                     </Button>
                 </Form>
