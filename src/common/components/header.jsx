@@ -27,7 +27,6 @@ export default function Header() {
     }, [location])
 
     useEffect(() => {
-        console.log("헤더가 새롭게 불러지는 타이밍?!")
         const loginInfo = Cookies.get("Authorization");
         if (loginInfo != null) {
             return setIsLogin(true);
