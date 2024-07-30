@@ -96,7 +96,6 @@ export default function Index() {
     const handleGet = (e) => {
         e.preventDefault();
         const inquiryPhone = inquiryList.phone
-
         axios
             .get(`http://localhost:8080/user/api/inquiry/phone/${inquiryPhone}`)
             .then((res) => {
@@ -257,7 +256,7 @@ export default function Index() {
                             setHistoryOpen(false);
                         }
                     }}>
-                        <div className={'modalContent'}>
+                        <div className='w-5 h-5'>
                             <div className={'inquiryForm'}>
                                 <h1 className={'inquiryTitle'}>문의 내역</h1>
                                 <Form onSubmit={handleGet}>
@@ -265,24 +264,24 @@ export default function Index() {
                                         <Form.Group>
                                             <Form.Label className={'formLabel'}>전화번호</Form.Label>
                                             <Form.Control
-                                                className={'formControl'}
+                                                className=''
                                                 type="text"
                                                 placeholder="전화번호를 적어주세요"
                                                 name="phone"
                                                 value={inquiryList.phone}
                                                 onChange={handleChange}/>
                                         </Form.Group>
-                                        <div className={'buttonContainer'}>
-                                            <Button className={'inquiryButton'} variant="primary" type="submit">
-                                                확인하기
+                                        <div className='d-flex justify-content-between pt-3'>
+                                            <Button className='' variant="primary" type="submit">
+                                                확인
                                             </Button>
-                                            <Button className={'modalCloseBtn'} variant="primary"
+                                            <Button className='' variant="primary"
                                                     onClick={() => setHistoryOpen(false)}>
                                                 닫기
                                             </Button>
                                         </div>
                                 </Form>
-                                <div>
+                                <div className='pt-3'>
                                     이름: {inquiryList.name} <br />
                                     제목: {inquiryList.title} <br />
                                     전화번호: {inquiryList.phone} <br />
