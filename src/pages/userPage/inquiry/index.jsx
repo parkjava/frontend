@@ -191,7 +191,7 @@ export default function Index() {
                                             <Button className={'inquiryButton'} variant="primary" type="submit"
                                                     disabled={!isFormValid}>
                                                 문의등록
-                                            </Button>
+                                            </Button>xx
                                             <Button className={'modalCloseBtn'} variant="primary"
                                                     onClick={() => setModalOpen(false)}>
                                                 닫기

@@ -7,9 +7,6 @@ import AdminLogo from '../../static/images/adminLogo.png'
 import Cookies from "js-cookie";
 import axiosInstance from "./axiosinstance";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-
 
 export default function Header() {
     const location = useLocation();
@@ -41,14 +38,12 @@ export default function Header() {
 
     const handleSignOut = () => {
         if (Cookies.get("Authorization") != null) {
-            if( window.confirm("정말 로그아웃 하시겠습니까?") ){
-                alert('로그아웃 되었습니다');
-                Cookies.remove('Authorization');
-                navigate("/")
-            }
+            alert('로그아웃 되었습니다');
+            Cookies.remove('Authorization');
         } else {
             alert('로그인 정보가 없습니다.')
         }
+        navigate('/')
     };
 
     function loginApi() {
@@ -104,8 +99,18 @@ export default function Header() {
                                 <li><Link to={"/admin/notice"}>Notice</Link></li>
                                 <li><Link to={"/admin/inquiry"}>Inquiry</Link></li>
                                 <li onClick={handleSignOut} className={'logoutBtn'}>
-                                    <FontAwesomeIcon icon={faRightFromBracket} size='xl'/>
-                                </li>
+                                    <Link to={'/'} className={'svgIcon'}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                             fill="currentColor"
+                                             className="bi bi-box-arrow-in-right icon"
+                                             viewBox="0 0 16 16">
+                                            <path fillRule="evenodd"
+                                                  d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/>
+                                            <path fillRule="evenodd"
+                                                  d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                                        </svg>
+                                    </Link></li>
+
                             </ul>
                         </nav>
 
