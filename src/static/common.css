@@ -20,6 +20,7 @@ a {
 }
 .commonContainer{
     padding-top:66px;
+    font-family: 'LeeSeoyun';
 }
 
 /* 로그인 */
@@ -651,10 +652,6 @@ body {
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/LeeSeoyun.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-}
-
-.commonContainer{
-    font-family: 'LeeSeoyun';
 }
 
 table th,

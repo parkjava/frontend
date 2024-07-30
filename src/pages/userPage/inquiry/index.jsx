@@ -1,4 +1,4 @@
-import {Form, Row, Col, Button, Alert} from 'react-bootstrap';
+import {Form, Row, Col, Button, Alert, Container} from 'react-bootstrap';
 import React, {useRef, useState, useEffect} from "react";
 import '../../../static/common.css'
 import {useNavigate} from 'react-router-dom';
@@ -47,6 +47,11 @@ export default function Index() {
             ...prevState,
             date: currentDate,
         }));
+        
+        setInquiryList(prevState => ({
+            ...prevState,
+            date: currentDate,
+        }))
     }, []);
 
     const handleChange = (e) => {
@@ -100,14 +105,15 @@ export default function Index() {
             .get(`http://localhost:8080/user/api/inquiry/phone/${inquiryPhone}`)
             .then((res) => {
                 const data = res.data
+                
                 if (data.length > 0) {
                     setInquiryList({
                         title: data[0].inquiryTitle,
                         name: data[0].inquiryWriter,
                         phone: data[0].inquiryPhone,
                         content: data[0].inquiryContent,
+                        daate: data[0].inquiryDate.split('T')[0],
                     });
-                    alert(`${data[0].inquiryWriter}님의 문의 내역입니다.`);
                 } else {
                     alert('문의 내역을 찾을 수 없습니다.');
                 }
@@ -248,17 +254,18 @@ export default function Index() {
                     }
 
                 </div>
-
+                
+                <Container>
                 {
                     historyOpen &&
-                    <div className={'modalContainer'} ref={historyBackground} onClick={e => {
+                    <div className='modalContainer' ref={historyBackground} onClick={e => {
                         if (e.target === historyBackground.current) {
                             setHistoryOpen(false);
                         }
                     }}>
-                        <div className='w-5 h-5'>
-                            <div className={'inquiryForm'}>
-                                <h1 className={'inquiryTitle'}>문의 내역</h1>
+                        <div className='inquiryFormParents'>
+                            <div className='inquiryForm'>
+                                <h1 className={'inquiryTitle'}>문의 내역 조회</h1>
                                 <Form onSubmit={handleGet}>
 
                                         <Form.Group>
@@ -282,15 +289,17 @@ export default function Index() {
                                         </div>
                                 </Form>
                                 <div className='pt-3'>
-                                    이름: {inquiryList.name} <br />
+                                    작성자: {inquiryList.name} <br />
                                     제목: {inquiryList.title} <br />
                                     전화번호: {inquiryList.phone} <br />
                                     내용: {inquiryList.content} <br />
+                                    문의일자: {inquiryList.date}
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>   
                 }
+                </Container>
             </div>
         </>
     );
