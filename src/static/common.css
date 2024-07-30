@@ -699,6 +699,10 @@ body {
     font-style: normal;
 }
 
+.commonContainer{
+    /*font-family: 'LeeSeoyun';*/
+}
+
 table th,
 table td {
     border-left: none;
