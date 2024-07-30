@@ -157,6 +157,7 @@ export default function NoticeTable() {
             {noResultsMessage ? (
                 <Alert variant="warning">{noResultsMessage}</Alert>
             ) : (
+
                 <table className="table">
                     <thead>
                     <tr>
