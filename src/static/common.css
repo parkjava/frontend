@@ -547,6 +547,28 @@ body {
     margin-bottom: 0;
 }
 
+/* 관리자 메인페이지 */
+.adminMainPage{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    background-color: #9ed1ff;
+
+    margin: auto;
+    padding:280px 0 270px 0;
+}
+.adminMainText{
+    text-align: center;
+    font-size: 60px;
+}
+.adminMainText1{
+    position: relative;
+    text-align: right;
+    font-size: 20px;
+    padding-top: 50px;
+    padding-right: 50px;
+}
+
 /* pagination */
 .paginationGroup {
     display: flex;
