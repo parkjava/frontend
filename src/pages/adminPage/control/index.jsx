@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import ROSLIB from 'roslib';
-import {Image, Button} from "react-bootstrap";
+import {Image, Button, Form} from "react-bootstrap";
 import '../../../static/common.css'
 import {getDownloadURL, ref, listAll} from "firebase/storage";
 import {storage} from "../../../firebase";
@@ -9,12 +9,32 @@ import {storage} from "../../../firebase";
 export default function Index() {
     const [currentSpeed, setCurrentSpeed] = useState(40);
     const [voltage, setVoltage] = useState('');
-    // const [isChecked, setIsChecked] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
+    const handleSwitchChange = (e) => {
+
+        setIsChecked(e.target.checked);
+
+        if (isChecked === false) {
+            publishMessage(true)
+            callService('/LEDGREE', 'jetbotmini_msgs/srv', 0)
+            callService('/LEDBLUE', 'jetbotmini_msgs/srv', 1)
+
+        } else if (isChecked === true) {
+            publishMessage(false)
+            callService('/LEDBLUE', 'jetbotmini_msgs/srv', 0)
+            callService('/LEDGREE', 'jetbotmini_msgs/srv', 1)
+
+
+        }
+    };
+
     const [buttonInfo, setButtonInfo] = useState('');
 
     const [images, setImages] = useState([]);
 
     useEffect(() => {
+        // setInterval(async () => {
+        // console.log('렌더링했당')
         const fetchImages = async () => {
             try {
                 // Storage에서 디렉토리 참조를 생성합니다.
@@ -38,8 +58,8 @@ export default function Index() {
                 console.error("Error fetching images:", error);
             }
         };
-
         fetchImages();
+        // }, 3000)
     }, []);
 
     const ros = new ROSLIB.Ros({
@@ -48,7 +68,6 @@ export default function Index() {
 
     useEffect(() => {
         ros.on('connection', () => {
-            console.log('Connected to websocket server.');
         });
         ros.on('error', (error) => {
             console.log('Error connecting to websocket server: ', error);
@@ -137,7 +156,6 @@ export default function Index() {
         const request = new ROSLIB.ServiceRequest(param);
 
         exampleService.callService(request, (result) => {
-            console.log(`Result for service call on ${name}: `, result);
         });
     };
 
@@ -153,13 +171,11 @@ export default function Index() {
         });
 
         exampleTopic.publish(message);
-        console.log('Published message to /data');
     };
 
     const handleSpeedChange = (newSpeed) => {
         setCurrentSpeed(newSpeed);
         // Replace with appropriate speed functions
-        console.log(`Speed set to ${newSpeed}`);
     };
 
 
@@ -202,7 +218,16 @@ export default function Index() {
         <div className={'commonContainer'}>
             <div className={'control'}>
                 <div className={'controlInfo'}>
-                    <p>{voltage}</p>
+                    <p>{voltage || 'Battery Loading..'}</p>
+                    {isChecked ? "AutoMode" : "PilotMode"}
+                    <Form.Check
+                        type="switch"
+                        id="toggleSwitch"
+                        checked={isChecked}
+                        label={''}
+                        onChange={handleSwitchChange}
+                    />
+
                     <div className={'controlVideo'}>
                         <Image src={'http://192.168.137.6:8080/stream?topic=/csi_cam_1/image_raw'} width="1024"
                                height="768"
@@ -213,12 +238,16 @@ export default function Index() {
                         <ul className={'penaltyUl'}>
                             {images.length > 0 ? (
                                 images.map((image, index) => (
-                                    <li key={index} className={'penaltyLi'}>
-                                        <Image src={image.url} alt={image.name}/>
-                                        <p>{image.name}</p>
-                                    </li>
+                                    <div>
+                                        <li key={index} className={'penaltyLi'}>
+                                            <Image src={image.url} alt={image.name}/>
+                                            <p key={index}>{image.name}</p>
+                                        </li>
+                                        <Button className={'btn-success'}>저장</Button>
+                                        <Button className={'btn-danger'}>삭제</Button>
+                                    </div>
                                 ))
-                            ) : null}
+                            ) : null }
                         </ul>
                     </div>
                 </div>
