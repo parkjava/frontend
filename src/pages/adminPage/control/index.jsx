@@ -2,10 +2,12 @@ import React, {useState, useEffect} from 'react';
 import ROSLIB from 'roslib';
 import {Image, Button, Form} from "react-bootstrap";
 import '../../../static/common.css'
-import {getDownloadURL, ref, listAll} from "firebase/storage";
+import {getDownloadURL, ref, listAll, deleteObject, getStorage} from "firebase/storage";
 import {storage} from "../../../firebase";
 import axiosInstance from "../../../common/components/axiosinstance";
 import {TransformWrapper, TransformComponent} from "react-zoom-pan-pinch";
+import {useNavigate} from 'react-router-dom';
+
 
 
 export default function Index() {
@@ -14,7 +16,9 @@ export default function Index() {
     const [isChecked, setIsChecked] = useState(false);
     const [buttonInfo, setButtonInfo] = useState('');
     const [images, setImages] = useState([]);
-    const [penalty, setPenalty] = useState('');
+    
+    const [checkState, setcheckState] = useState(new Array(images.length).fill(false))
+
 
     const handleSwitchChange = (e) => {
         setIsChecked(e.target.checked);
@@ -204,19 +208,37 @@ export default function Index() {
         return null;
     };
 
-    const handleSubmit = (e, index) => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // `checkState`를 `images`의 길이에 맞게 초기화합니다.
+        setcheckState(new Array(images.length).fill(false));
+    }, [images]);
+
+    const handleCheckBoxChange = (index) => {
+        setcheckState(prevState =>
+            prevState.map((item, i) => (i === index ? !item : item))
+        );
+    }
+
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        const selectImage = {
-            penaltyImageUrl: images[index].url,
-            penaltyCarNumber: images[index].name,
-            penaltyCash: 120000,
-            penaltyDate: new Date().toISOString().split('T')[0],
-        }
+        const selectImages = images.filter((_, index) => checkState[index])
+        const currentDate = new Date().toISOString().split('T')[0]
 
+        selectImages.forEach((image) => {
+            const selectImage = {
+                penaltyImageUrl: image.url,
+                penaltyCarNumber: image.name,
+                penaltyCash: '',
+                penaltyDate: currentDate,
+            }
+        
         axiosInstance.post('/api/penalty/create', selectImage)
             .then((response) => {
                 alert('이름과url을 저장합니다.')
+                navigate('/admin/penalty');
             })
             .catch((error) => {
                 console.error('Error saving data:', error);
@@ -224,12 +246,32 @@ export default function Index() {
                     console.error('Response data:', error.response.data);
                 }
             });
-
-
+        })
     }
 
-    const handleDelete = (e) => {
 
+    const handleDelete = (e) => {
+        e.preventDefault()
+
+        const selectImages = images.filter((_, index) => checkState[index])
+
+        const storage = getStorage();
+
+        // Create a reference to the file to delete
+        const desertRef = ref(storage, `gs://parkjavastorage.appspot.com/${selectImages[0].name}`);
+
+        const ok = window.confirm('정말 삭제하시겠습니까?')
+
+        if (ok) {
+            try {
+                // 파일 삭제를 수행합니다.
+                deleteObject(desertRef);
+                window.location.href = '/admin/control'
+            } catch (error) {
+                console.error('Error deleting file:', error);
+                alert('파일 삭제 중 오류가 발생했습니다.');
+            }
+        }
     }
 
     return (<>
@@ -268,33 +310,31 @@ export default function Index() {
                         <h3>차량번호 단속목록</h3>
                         <ul className={'penaltyUl'}>
                             {images.length > 0 ? (images.map((image, index) => (
-                                <div>
-                                    <li key={index} className={'penaltyLi'}>
+                                <div key={index}>
+                                    <li className={'penaltyLi'}>
                                         <div className={'divArea'}>
-                                            <input className="form-check-input" type="checkbox" value=""
-                                                   id="defaultCheck1"/>
+                                            <input 
+                                                className="form-check-input" 
+                                                type="checkbox"
+                                                checked={checkState[index]}
+                                                onChange={() => handleCheckBoxChange(index)}
+                                                id={`defaultCheck1${index}`}
+                                            />
                                             <TransformWrapper initialScale={1} minScale={1} maxScale={5}>
                                                 <TransformComponent>
                                                     <Image src={image.url} alt={image.name}
                                                            className={'carNumberImg'}/>
                                                 </TransformComponent>
                                             </TransformWrapper>
-
                                         </div>
-                                        <p className={'carNumber'} key={index}>{image.name}</p>
-                                        <Button className={'btn-success'} key={index}
-                                                onClick={(e) => handleSubmit(e, index)}>저장</Button>
-                                        <Button className={'btn-danger'} key={index}
-                                                onClick={handleDelete}>삭제</Button>
+                                        <p className={'carNumber'} >{image.name}</p>
                                     </li>
                                 </div>))) : null}
                         </ul>
-                        <Button className={'btn-success'} key={''}
-                                onClick={(e) => handleSubmit(e)}>저장</Button>
-                        <Button className={'btn-danger'} key={''}
-                                onClick={handleDelete}>삭제</Button>
                     </div>
                 </div>
+                <Button className={'btn-success'} onClick={handleSubmit}>저장</Button>
+                <Button className={'btn-danger'} onClick={handleDelete}>삭제</Button>
             </div>
             <div>
                 <div>
