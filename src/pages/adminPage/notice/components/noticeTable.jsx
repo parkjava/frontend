@@ -174,7 +174,7 @@ export default function NoticeTable() {
                             <td className="title-column">
                                 <Link to={`/admin/notice/${notice.noticeIndex}`}>{notice.noticeTitle}</Link>
                             </td>
-                            <td className="date-column">{new Date(notice.createDate).toLocaleDateString()}</td>
+                            <td className="date-column">{notice.createDate}</td>
                             <td className="view-column" style={{textAlign: 'center'}}>{notice.noticeView}</td>
                         </tr>
                     ))}

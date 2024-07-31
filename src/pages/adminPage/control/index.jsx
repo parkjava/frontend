@@ -209,10 +209,19 @@ export default function Index() {
         return null;
     };
 
-    const handleSubmit = (e) => {
-        axiosInstance.post('/api/penalty/create')
+    const handleSubmit = (e, index) => {
+        e.preventDefault();
+        
+        const selectImage = {
+            penaltyImageUrl: images[index].url,
+            penaltyCarNumber: images[index].name,
+            penaltyCash: "",
+            penaltyDate: new Date().toISOString().split('T')[0],
+        }
+        
+        axiosInstance.post('/api/penalty/create', selectImage)
             .then((response) => {
-
+                alert('이름과url을 저장합니다.')
             })
             .catch((error) => {
                 console.error('Error saving data:', error);
@@ -227,6 +236,7 @@ export default function Index() {
     const handleDelete = (e) => {
 
     }
+    
     return (<>
         <div className={'commonContainer'}>
             <div className={'control'}>
@@ -260,9 +270,9 @@ export default function Index() {
                                         <li key={index} className={'penaltyLi'}>
                                             <Image src={image.url} alt={image.name}/>
                                             <p key={index}>{image.name}</p>
+                                            <Button className={'btn-success'} key={index} onClick={(e) => handleSubmit(e, index)}>저장</Button>
+                                            <Button className={'btn-danger'} key={index} onClick={handleDelete}>삭제</Button>
                                         </li>
-                                        <Button className={'btn-success'}>저장</Button>
-                                        <Button className={'btn-danger'}>삭제</Button>
                                     </div>
                                 ))
                             ) : null}

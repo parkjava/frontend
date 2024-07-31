@@ -18,7 +18,7 @@ const Pagination = ({postsPerPage, totalPosts, paginate}) => {
     };
 
     return (
-        <div >
+        <nav >
             <ul className={"paginationGroup"}>
           <span onClick={() => handleClick(1)}>
           &lt;&lt;
@@ -27,11 +27,11 @@ const Pagination = ({postsPerPage, totalPosts, paginate}) => {
           &lt;
           </span>
                 {pageNumbers.map((number) => (
-                    <span key={number}>
-              <li onClick={() => handleClick(number)}>
+                    <li key={number}>
+              <span onClick={() => handleClick(number)}>
                 {number}
-              </li>
-                    </span>
+              </span>
+                    </li>
                 ))}
                 <span onClick={() => handleClick(currentPage + 1)}>
           &gt;
@@ -41,7 +41,7 @@ const Pagination = ({postsPerPage, totalPosts, paginate}) => {
           </span>
             </ul>
 
-        </div>
+        </nav>
     );
 };
 
