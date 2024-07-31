@@ -15,7 +15,6 @@ export default function Header() {
     const [headerLocation, setHeaderLocation] = useState('')
     const [isLogin, setIsLogin] = useState('');
 
-
     useEffect(() => {
         if (location.pathname.startsWith('/user')) {
             setHeaderLocation(0)

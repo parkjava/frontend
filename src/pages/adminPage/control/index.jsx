@@ -5,6 +5,7 @@ import '../../../static/common.css'
 import {getDownloadURL, ref, listAll} from "firebase/storage";
 import {storage} from "../../../firebase";
 import axiosInstance from "../../../common/components/axiosinstance";
+import {TransformWrapper, TransformComponent} from "react-zoom-pan-pinch";
 
 
 export default function Index() {
@@ -63,7 +64,7 @@ export default function Index() {
     }, []);
 
     const ros = new ROSLIB.Ros({
-        url: 'ws://192.168.137.6:9090',
+        url: 'ws://192.168.0.12:9090',
     });
 
     useEffect(() => {
@@ -78,9 +79,7 @@ export default function Index() {
         });
 
         const batteryLevelListener = new ROSLIB.Topic({
-            ros: ros,
-            name: '/voltage',
-            messageType: 'jetbotmini_msgs/Battery',
+            ros: ros, name: '/voltage', messageType: 'jetbotmini_msgs/Battery',
         });
 
         batteryLevelListener.subscribe((message) => {
@@ -109,9 +108,7 @@ export default function Index() {
 
     const callService = (name, type, value) => {
         const exampleService = new ROSLIB.Service({
-            ros: ros,
-            name: name,
-            serviceType: type,
+            ros: ros, name: name, serviceType: type,
         });
 
         const param = {};
@@ -122,7 +119,7 @@ export default function Index() {
         } else if (name === '/LEDGREE') {
             param['ledgree'] = value;
         } else if (name === '/Motor') {
-            console.log(currentSpeed / 100);
+            // console.log(currentSpeed / 100);
             if (value === 'leftback') {
                 param['rightspeed'] = -(currentSpeed / 100);
                 param['leftspeed'] = 0;
@@ -161,9 +158,7 @@ export default function Index() {
 
     const publishMessage = (modestate) => {
         const exampleTopic = new ROSLIB.Topic({
-            ros: ros,
-            name: '/data',
-            messageType: 'ModeState',
+            ros: ros, name: '/data', messageType: 'ModeState',
         });
 
         const message = new ROSLIB.Message({
@@ -211,14 +206,14 @@ export default function Index() {
 
     const handleSubmit = (e, index) => {
         e.preventDefault();
-        
+
         const selectImage = {
             penaltyImageUrl: images[index].url,
             penaltyCarNumber: images[index].name,
-            penaltyCash: "",
+            penaltyCash: 120000,
             penaltyDate: new Date().toISOString().split('T')[0],
         }
-        
+
         axiosInstance.post('/api/penalty/create', selectImage)
             .then((response) => {
                 alert('이름과url을 저장합니다.')
@@ -236,15 +231,14 @@ export default function Index() {
     const handleDelete = (e) => {
 
     }
-    
+
     return (<>
         <div className={'commonContainer'}>
             <div className={'control'}>
                 <div className={'controlInfo'}>
                     <div className={'controlVideo'}>
-                        <Image src={'http://192.168.137.6:8080/stream?topic=/csi_cam_1/image_raw'} width="1024"
-                               height="768"
-                        />
+                        <Image src={'http://192.168.0.12:8080/stream?topic=/csi_cam_1/image_raw'} width={1024}
+                               height={768}/>
                         <div className={'controlInfo'}>
                             {isChecked ? "AutoMode" : "PilotMode"}
                             <Form.Check
@@ -255,99 +249,90 @@ export default function Index() {
                                 onChange={handleSwitchChange}
                             />
                             <span className={'battery'}>
-                                Battery : {voltage || 'Loading..'}
-                            </span>
+                                Battery : {voltage || 'Loading..'}</span>
+                            <button className="button" id={'speedDown'}
+                                    onClick={() => handleSpeedChange(Math.max(40, currentSpeed - 10))}>
+                                -
+                            </button>
+                            <span id="speedValue">{currentSpeed}</span>
+                            <button className="button" id={'speedUp'}
+                                    onClick={() => handleSpeedChange(Math.min(100, currentSpeed + 10))}>
+                                +
+                            </button>
+
                         </div>
                     </div>
 
 
                     <div className={'penaltyList'}>
-                        <h2>단속 차량 번호</h2>
+                        <h3>차량번호 단속목록</h3>
                         <ul className={'penaltyUl'}>
-                            {images.length > 0 ? (
-                                images.map((image, index) => (
-                                    <div>
-                                        <li key={index} className={'penaltyLi'}>
-                                            <Image src={image.url} alt={image.name}/>
-                                            <p key={index}>{image.name}</p>
-                                            <Button className={'btn-success'} key={index} onClick={(e) => handleSubmit(e, index)}>저장</Button>
-                                            <Button className={'btn-danger'} key={index} onClick={handleDelete}>삭제</Button>
-                                        </li>
-                                    </div>
-                                ))
-                            ) : null}
+                            {images.length > 0 ? (images.map((image, index) => (
+                                <div>
+                                    <li key={index} className={'penaltyLi'}>
+                                        <div className={'divArea'}>
+                                            <input className="form-check-input" type="checkbox" value=""
+                                                   id="defaultCheck1"/>
+                                            <TransformWrapper initialScale={1} minScale={1} maxScale={5}>
+                                                <TransformComponent>
+                                                    <Image src={image.url} alt={image.name}
+                                                           className={'carNumberImg'}/>
+                                                </TransformComponent>
+                                            </TransformWrapper>
+
+                                        </div>
+                                        <p className={'carNumber'} key={index}>{image.name}</p>
+                                        <Button className={'btn-success'} key={index}
+                                                onClick={(e) => handleSubmit(e, index)}>저장</Button>
+                                        <Button className={'btn-danger'} key={index}
+                                                onClick={handleDelete}>삭제</Button>
+                                    </li>
+                                </div>))) : null}
                         </ul>
+                        <Button className={'btn-success'} key={''}
+                                onClick={(e) => handleSubmit(e)}>저장</Button>
+                        <Button className={'btn-danger'} key={''}
+                                onClick={handleDelete}>삭제</Button>
                     </div>
                 </div>
-
             </div>
-            <Button onClick={() => callService('/Buzzer', 'jetbotmini_msgs/Buzzer', 1)}>BUZZER ON</Button>
-            <Button onClick={() => callService('/Buzzer', 'jetbotmini_msgs/Buzzer', 0)}>BUZZER OFF</Button>
-            <Button onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 1)}>앞으로</Button>
-            <Button onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', (0, 0))}>정지</Button>
-
             <div>
-                <Button className="Button" onClick={() => publishMessage(true)}>자율주행</Button>
-                <Button className="Button" onClick={() => {
-                    publishMessage(false);
-                }}>직접주행</Button>
-            </div>
-            <div style={{textAlign: 'center'}}>
-                <Button className="Button" id={'speedDown'}
-                        onClick={() => handleSpeedChange(Math.max(40, currentSpeed - 10))}>-</Button>
-                <span id="speedValue">{currentSpeed}</span>
-                <Button className="Button" id={'speedUp'}
-                        onClick={() => handleSpeedChange(Math.min(100, currentSpeed + 10))}>+</Button>
-            </div>
-            <div className="Button" id="Button-info"></div>
-            <table style={{marginLeft: 'auto', marginRight: 'auto'}}>
-                <tbody>
-                <tr>
-                    <td style={{textAlign: 'center'}}>
-                        <Button id={'leftgo'}
-                                onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'leftgo')}>↖</Button>
-                    </td>
-                    <td style={{textAlign: 'center'}}>
-                        <Button id={'go'}
-                                onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'go')}>↑</Button>
-                    </td>
-                    <td style={{textAlign: 'center'}}>
-                        <Button id={'rightgo'}
-                                onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'rightgo')}>↗</Button>
-                    </td>
-                </tr>
-                <tr>
-                    <td style={{textAlign: 'center'}}>
-                        <Button id={'left'}
-                                onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'left')}>←</Button>
-                    </td>
-                    <td style={{textAlign: 'center'}}>
-                        <Button id={'stop'}
-                                onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'stop')}>■</Button>
-                    </td>
-                    <td style={{textAlign: 'center'}}>
-                        <Button id={'right'}
-                                onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'right')}>→</Button>
-                    </td>
-                </tr>
-                <tr>
-                    <td style={{textAlign: 'center'}}>
-                        <Button id={'leftback'}
-                                onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'leftback')}>↙</Button>
-                    </td>
-                    <td style={{textAlign: 'center'}}>
-                        <Button id={'back'}
-                                onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'back')}>↓</Button>
-                    </td>
-                    <td style={{textAlign: 'center'}}>
-                        <Button id={'rightback'}
-                                onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'rightback')}>↘</Button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <div>
-                <div id="button-info">{buttonInfo}</div>
+                <div>
+                    <button id={'leftgo'}
+                            onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'leftgo')} title={'좌회전'}>↖
+                    </button>
+                    <button id={'go'}
+                            onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'go')} title={'전진'}>↑
+                    </button>
+                    <button id={'rightgo'}
+                            onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'rightgo')}
+                            title={'우회전'}>↗
+                    </button>
+                </div>
+                <div>
+                    <button id={'left'}
+                            onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'left')} title={'좌측 턴'}>←
+                    </button>
+                    <button id={'stop'}
+                            onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'stop')} title={'정지'}>■
+                    </button>
+                    <button id={'right'}
+                            onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'right')} title={'우측 턴'}>→
+                    </button>
+                </div>
+                <div>
+                    <button id={'leftback'}
+                            onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'leftback')}
+                            title={'좌로 후진'}>↙
+                    </button>
+                    <button id={'back'}
+                            onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'back')} title={'후진'}>↓
+                    </button>
+                    <button id={'rightback'}
+                            onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'rightback')}
+                            title={'우로 후진'}>↘
+                    </button>
+                </div>
             </div>
         </div>
     </>);

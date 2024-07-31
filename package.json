@@ -25,6 +25,7 @@
     "react-js-pagination": "^3.0.3",
     "react-router-dom": "^6.24.1",
     "react-scripts": "5.0.1",
+    "react-zoom-pan-pinch": "^3.6.1",
     "roslib": "^1.4.1",
     "styled-components": "^6.1.12",
     "sweetalert2": "^11.12.3",
