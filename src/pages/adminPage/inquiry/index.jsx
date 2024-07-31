@@ -76,7 +76,7 @@ export default function Index() {
                                 {inquiry.inquiryWriter}
                             </td>
                             <td>
-                                {new Date(inquiry.inquiryDate).toLocaleDateString()}
+                                {inquiry.inquiryDate.split('T')[0]}
                             </td>
                         </tr>
                     ))}

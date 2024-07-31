@@ -112,7 +112,7 @@ export default function Index() {
                         name: data[0].inquiryWriter,
                         phone: data[0].inquiryPhone,
                         content: data[0].inquiryContent,
-                        daate: data[0].inquiryDate.split('T')[0],
+                        date: data[0].inquiryDate.split('T')[0],
                     });
                 } else {
                     alert('문의 내역을 찾을 수 없습니다.');
