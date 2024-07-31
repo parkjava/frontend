@@ -5,6 +5,8 @@ import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import question from '../../../static/images/question.png'
 import check from '../../../static/images/checklist.png'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faComment } from "@fortawesome/free-solid-svg-icons";
 
 import Card from 'react-bootstrap/Card';
 
@@ -124,7 +126,7 @@ export default function Index() {
     return (
         <>
             <div className={'commonContainer'}>
-                <h1 style={{textAlign: 'center'}}>무늬하기's</h1>
+                <h1 className='pt-4' style={{textAlign: 'center'}}><FontAwesomeIcon icon={faComment} bounce style={{color: '#B197FC'} } /> 무늬하기's</h1>
                 <div className={'cards'}>
                     <Card style={{width: '18rem'}} className={'card1'}>
                         <Card.Img className={'cardImages'} variant="top" src={question}/>
