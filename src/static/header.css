@@ -1,12 +1,5 @@
 /* header CSS */
 /* header */
-@font-face {
-    font-family: 'LeeSeoyun';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/LeeSeoyun.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
 .header {
     border: none;
     align-items: center;
@@ -26,14 +19,8 @@
     background-color: #fff;
 }
 
-/*.header span{*/
-/*    display: block;*/
-/*    padding: 20px 20px;*/
-/*    font-size: 16px;*/
-
-/*}*/
 .header li a {
-    font-family: 'LeeSeoyun';
+
     font-size: 20px;
     display: block;
     padding: 20px 10px;
@@ -171,6 +158,5 @@
     color: #171717;
     margin-top: 10px;
     padding: 10px 10px 10px 10px;
-    font-family: 'LeeSeoyun';
     font-size: 20px;
 }

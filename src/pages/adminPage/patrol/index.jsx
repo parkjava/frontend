@@ -3,7 +3,7 @@ import {Table, Container, Button, Dropdown} from 'react-bootstrap';
 import {useNavigate, Link} from 'react-router-dom';
 import Pagination from '../../../common/components/pagination2'
 import axiosInstance from '../../../common/components/axiosinstance';
-// import '../../../static/patroltest.css'
+
 
 export default function PetrolList() {
     const [patrols, setPatrols] = useState([]);
