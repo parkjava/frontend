@@ -130,7 +130,7 @@ export default function NoticeTable() {
             </Container>
 
             <Container className="d-flex justify-content-end align-items-center">
-                <Dropdown onSelect={handleSearchOptionSelect} className="dataDropdown">
+                <Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">
                     <Dropdown.Toggle className={'dropDownToggle'} variant="secondary" id="dropdown-basic">
                         검색 옵션: {searchOptionLabel}
                     </Dropdown.Toggle>
@@ -158,7 +158,7 @@ export default function NoticeTable() {
                 <Alert variant="warning">{noResultsMessage}</Alert>
             ) : (
 
-                <table className="table">
+                <Table hover variant={'white'} className="table">
                     <thead>
                     <tr>
                         <th className="no-column" onClick={() => handleSort('noticeIndex')}>NO</th>
@@ -179,7 +179,7 @@ export default function NoticeTable() {
                         </tr>
                     ))}
                     </tbody>
-                </table>
+                </Table>
             )}
             <Pagination
                 postsPerPage={postsPerPage}
