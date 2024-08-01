@@ -7,11 +7,9 @@ import AdminLogo from '../../static/images/adminLogo.png'
 import Cookies from "js-cookie";
 import axiosInstance from "./axiosinstance";
 
-
 export default function Header() {
     const location = useLocation();
     const navigate = useNavigate();
-    const [name, setName] = useState('')
     const [headerLocation, setHeaderLocation] = useState('')
     const [isLogin, setIsLogin] = useState('');
 
@@ -44,25 +42,10 @@ export default function Header() {
         navigate('/')
     };
 
-    function loginApi() {
-        axiosInstance
-            .get('/members/test')
-            .then((res) => {
-                console.log('Fetched notices:', res);
-                return setName(res)
-            })
-            .catch((err) => console.log(err));
-    }
-
-    useEffect((res) => {
-        loginApi(res);
-    }, []);
-
-
     return (
         <>
             {
-                headerLocation === 0 // /user일때
+                headerLocation === 0 //  user 일때
                     ?
                     <nav className={"header"}>
                         <Link to={"/user"} className={"logo"}>
@@ -81,7 +64,7 @@ export default function Header() {
                             <li><Link to={"/user/inquiry"}>Contact Us</Link></li>
                         </ul>
                     </nav>
-                    : (headerLocation === 1 ? // /admin 일때
+                    : (headerLocation === 1 ? // admin 일때
                         <nav className={"header"}>
                             <Link to={"/admin"} className={"logo"}>
                                 <Image src={AdminLogo} className={'headerImg'} width={340}/>
@@ -108,11 +91,8 @@ export default function Header() {
                                                   d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
                                         </svg>
                                     </Link></li>
-
                             </ul>
                         </nav>
-
-                        // 메인페이지
                         : null)}
         </>
     );

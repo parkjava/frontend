@@ -96,7 +96,7 @@ export default function PatrolTable() {
             noticeView: 0,
         };
 
-        console.log("Sending data:", newPatrol); // 전송할 데이터 로그 확인
+        // console.log("Sending data:", newPatrol); // 전송할 데이터 로그 확인
 
         axiosInstance.post('/api/patrol/create', newPatrol)
             .then((response) => {

@@ -68,7 +68,7 @@ export default function Index() {
     }, []);
 
     const ros = new ROSLIB.Ros({
-        url: 'ws://192.168.0.12:9090',
+        url: 'ws://192.168.137.6:9090',
     });
 
     useEffect(() => {
@@ -237,7 +237,6 @@ export default function Index() {
         
         axiosInstance.post('/api/penalty/create', selectImage)
             .then((response) => {
-                alert('이름과url을 저장합니다.')
                 navigate('/admin/penalty');
             })
             .catch((error) => {
@@ -279,7 +278,7 @@ export default function Index() {
             <div className={'control'}>
                 <div className={'controlInfo'}>
                     <div className={'controlVideo'}>
-                        <Image src={'http://192.168.0.12:8080/stream?topic=/csi_cam_1/image_raw'} width={1024}
+                        <Image src={'http://192.168.137.6:8080/stream?topic=/csi_cam_1/image_raw'} width={1024}
                                height={768}/>
                         <div className={'controlInfo'}>
                             {isChecked ? "AutoMode" : "PilotMode"}
@@ -313,10 +312,10 @@ export default function Index() {
                                 <div key={index}>
                                     <li className={'penaltyLi'}>
                                         <div className={'divArea'}>
-                                            <input 
+                                            <input
                                                 className="form-check-input" 
                                                 type="checkbox"
-                                                checked={checkState[index]}
+                                                checked={checkState[index] || false}
                                                 onChange={() => handleCheckBoxChange(index)}
                                                 id={`defaultCheck1${index}`}
                                             />
