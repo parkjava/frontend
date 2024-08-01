@@ -1,7 +1,7 @@
 import { Table, Container, Form, Button, Dropdown, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import Pagination from "../../../../common/components/pagination2"
+import Pagination from "../../../../common/components/pagination1"
 import axiosInstance from '../../../../common/components/axiosinstance';
 
 export default function CarCheck(){
@@ -137,7 +137,7 @@ export default function CarCheck(){
             {noResultsMessage ? (
                 <Alert variant="warning">{noResultsMessage}</Alert>
             ) : (
-                <Table striped bordered hover variant="light">
+                <Table  hover variant="white">
                     <thead>
                         <tr>
                             <th>NO</th>

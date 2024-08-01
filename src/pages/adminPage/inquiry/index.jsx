@@ -1,7 +1,7 @@
 import {Table, Container, Dropdown} from 'react-bootstrap';
 import {Link} from 'react-router-dom'
 import React, {useState, useEffect} from 'react';
-import Pagination from './components/pagination'
+import Pagination from '../../../common/components/pagination1'
 import axiosInstance from '../../../common/components/axiosinstance';
 
 export default function Index() {
@@ -53,7 +53,7 @@ export default function Index() {
                     </Dropdown>
                 </Container>
 
-                <Table className={'inquiryTable'}>
+                <Table hover variant="white" className={'inquiryTable'}>
                     <thead>
                     <tr>
                         <th className={'noColumn'}>NO</th>

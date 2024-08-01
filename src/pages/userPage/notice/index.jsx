@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Table, Container, Form, Button, Dropdown, Alert} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import Pagination from '../../../common/components/pagination2';
+import Pagination from '../../../common/components/pagination1';
 import Cookies from "js-cookie";
 
 export default function Index() {
