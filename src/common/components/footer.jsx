@@ -24,17 +24,17 @@ export default function Footer() {
                         Hello, We are Team OOB
                     </div>
                     <div className='footerValue'>
-                        <p>
+                        <span>
                             Project Subject : <span style={{color: 'red'}}>RED ZONE enforcement</span> Autonomous
                             Driving
                             Robot
-                        </p>
-                        <p>
+                        </span>
+                        <span>
                             Project Date : 7.12 ~ 8.19
-                        </p>
-                        <p>
+                        </span>
+                        <span>
                             TEAM : Choi Youngwon, 오학균, 박현준, 이동민
-                        </p>
+                        </span>
                     </div>
                 </div>
                 : null

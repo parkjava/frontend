@@ -104,11 +104,11 @@ export default function Index() {
         const fetchData = async () => {
             try {
                 const response = await axiosInstance.get('/api/inquiry/asc'); // 엔드포인트 수정
-                console.log("response" + response)
+                // console.log("response" + response)
                 const data = response;
 
                 // 데이터 확인
-                console.log("data" + data);
+                // console.log("data" + data);
                 // 데이터가 배열인지 확인
                 if (!Array.isArray(data)) {
                     throw new Error('응답 데이터가 배열이 아닙니다.');
@@ -116,9 +116,9 @@ export default function Index() {
 
                 // 데이터 구조에 맞게 변환
                 const labels = data.map(item => item.inquiryDate); // X축 레이블
-                console.log("labels" + labels);
+                // console.log("labels" + labels);
                 const dataset = data.map(item => Number(item.inquiryIndex));
-                console.log("dataset1" + dataset);
+                // console.log("dataset1" + dataset);
                 // const dataset2 = data.map(item => Number(item.patrolArea));
                 // console.log("dataset2"+dataset2);
 

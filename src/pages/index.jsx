@@ -2,9 +2,8 @@ import {Link} from "react-router-dom";
 import '../static/common.css';
 import MainImage from "../static/images/character.png";
 import {Image} from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGear } from "@fortawesome/free-solid-svg-icons";
-
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faGear} from "@fortawesome/free-solid-svg-icons";
 
 
 export default function Index() {
@@ -23,22 +22,18 @@ export default function Index() {
             </div>
             <div className={'descriptionArea'}>
                 <div className={'userDescription'}>
+                    <p style={{fontSize: 50}}>사용자</p>
                     <p>
-                        <p style={{fontSize: 50}}>사용자</p>
-                        <p>
-                            페이지에서는 프로젝트소개, 만든이와 공지사항, 문의작성을 수행할 수 있습니다.
-                        </p>
+                        페이지에서는 프로젝트소개, 만든이와 공지사항, 문의작성을 수행할 수 있습니다.
                     </p>
                 </div>
                 <div className={'descriptionSpace'}>
 
                 </div>
                 <div className={'adminDescription'}>
+                    <p style={{fontSize: 50}}>관리자</p>
                     <p>
-                        <p style={{fontSize: 50}}>관리자</p>
-                        <p>
-                            페이지에서는 관제시스템, 순찰일지, 단속내역, 공지사항, 문의확인 등 CRUD를 수행할 수 있습니다.
-                        </p>
+                        페이지에서는 관제시스템, 순찰일지, 단속내역, 공지사항, 문의확인 등 CRUD를 수행할 수 있습니다.
                     </p>
                 </div>
             </div>
