@@ -6,6 +6,7 @@ import Test from "./pages/testPage/app"
 /*-------------------------------------------------------------*/
 // 메인 페이지
 import MainPage from "./pages/index"
+import NotFound from './NotFound'
 // 관리자 전용
 import LoginPage from "./pages/adminPage/login/index";
 import AdminPage from "./pages/adminPage/index";
@@ -46,8 +47,12 @@ export default function App() {
                 {/* 메인 페이지*/}
                 <Route path="/" element={<MainPage/>}/>
 
-                {/* 관리자 전용 페이지*/}
+                {/*없는 페이지 갈 때 ?*/}
+                <Route path={"/user/*"} element={<NotFound/>}/>
+                <Route path={"/admin/*"} element={<NotFound/>}/>
+                <Route path={"*"} element={<NotFound/>}/>
 
+                {/* 관리자 전용 페이지*/}
                 <Route path="/login" element={<LoginPage/>}/> {/* 관리자 로그인*/}
                 <Route path="/admin" element={<AdminPage/>}/> {/* 관리자 메인 페이지*/}
                 <Route path="/admin/control" element={<ControlPage/>}/> {/* 관제페이지*/}

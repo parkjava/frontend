@@ -6,18 +6,16 @@ import {getDownloadURL, ref, listAll, deleteObject, getStorage} from "firebase/s
 import {storage} from "../../../firebase";
 import axiosInstance from "../../../common/components/axiosinstance";
 import {TransformWrapper, TransformComponent} from "react-zoom-pan-pinch";
-import {useNavigate} from 'react-router-dom';
-
 
 
 export default function Index() {
     const [currentSpeed, setCurrentSpeed] = useState(40);
     const [voltage, setVoltage] = useState('');
-    const [isChecked, setIsChecked] = useState(false);
+    const [isChecked, setIsChecked] = useState(true);
     const [buttonInfo, setButtonInfo] = useState('');
     const [images, setImages] = useState([]);
-    
-    const [checkState, setcheckState] = useState(new Array(images.length).fill(false))
+
+    const [checkState, setCheckState] = useState(new Array(images.length).fill(false))
 
 
     const handleSwitchChange = (e) => {
@@ -68,7 +66,7 @@ export default function Index() {
     }, []);
 
     const ros = new ROSLIB.Ros({
-        url: 'ws://192.168.137.6:9090',
+        url: 'ws://192.168.0.12:9090',
     });
 
     useEffect(() => {
@@ -167,9 +165,18 @@ export default function Index() {
 
         const message = new ROSLIB.Message({
             modestate: modestate,
+
+        });
+
+        exampleTopic.subscribe((message) => {
+            const voltage = message.ModeState;
+
+            console.log(voltage)
         });
 
         exampleTopic.publish(message);
+
+        console.log(message)
     };
 
     const handleSpeedChange = (newSpeed) => {
@@ -182,6 +189,7 @@ export default function Index() {
         const keyMap = {
             'w': {ButtonName: '↑', functionCall: () => document.getElementById('go').click()}, // 앞으로
             'W': {ButtonName: '↑', functionCall: () => document.getElementById('go').click()}, // 앞으로
+            'ㅈ': {ButtonName: '↑', functionCall: () => document.getElementById('go').click()}, // 앞으로
             's': {ButtonName: '↓', functionCall: () => document.getElementById('back').click()}, // 뒤로
             'ㄴ': {ButtonName: '↓', functionCall: () => document.getElementById('back').click()}, // 뒤로
             'a': {ButtonName: '↖', functionCall: () => document.getElementById('left').click()}, // 좌회전
@@ -208,17 +216,17 @@ export default function Index() {
         return null;
     };
 
-    const navigate = useNavigate();
-
     useEffect(() => {
         // `checkState`를 `images`의 길이에 맞게 초기화합니다.
-        setcheckState(new Array(images.length).fill(false));
+
+        setCheckState(new Array(images.length).fill(false));
     }, [images]);
 
     const handleCheckBoxChange = (index) => {
-        setcheckState(prevState =>
+        setCheckState(prevState =>
             prevState.map((item, i) => (i === index ? !item : item))
         );
+
     }
 
     const handleSubmit = (e) => {
@@ -231,21 +239,21 @@ export default function Index() {
             const selectImage = {
                 penaltyImageUrl: image.url,
                 penaltyCarNumber: image.name,
-                penaltyCash: '',
+                penaltyCash: 100000,
                 penaltyDate: currentDate,
             }
-        
-        axiosInstance.post('/api/penalty/create', selectImage)
-            .then((response) => {
-                navigate('/admin/penalty');
-            })
-            .catch((error) => {
-                console.error('Error saving data:', error);
-                if (error.response) {
-                    console.error('Response data:', error.response.data);
-                }
-            });
+
+            axiosInstance.post('/api/penalty/create', selectImage)
+                .then((response) => {
+                })
+                .catch((error) => {
+                    console.error('Error saving data:', error);
+                    if (error.response) {
+                        console.error('Response data:', error.response.data);
+                    }
+                });
         })
+        alert('저장되었습니다.')
     }
 
 
@@ -278,7 +286,7 @@ export default function Index() {
             <div className={'control'}>
                 <div className={'controlInfo'}>
                     <div className={'controlVideo'}>
-                        <Image src={'http://192.168.137.6:8080/stream?topic=/csi_cam_1/image_raw'} width={1024}
+                        <Image src={'http://192.168.0.12:8080/stream?topic=/csi_cam_1/image_raw'} width={1024}
                                height={768}/>
                         <div className={'controlInfo'}>
                             {isChecked ? "AutoMode" : "PilotMode"}
@@ -300,11 +308,8 @@ export default function Index() {
                                     onClick={() => handleSpeedChange(Math.min(100, currentSpeed + 10))}>
                                 +
                             </button>
-
                         </div>
                     </div>
-
-
                     <div className={'penaltyList'}>
                         <h3>차량번호 단속목록</h3>
                         <ul className={'penaltyUl'}>
@@ -313,7 +318,7 @@ export default function Index() {
                                     <li className={'penaltyLi'}>
                                         <div className={'divArea'}>
                                             <input
-                                                className="form-check-input" 
+                                                className="form-check-input"
                                                 type="checkbox"
                                                 checked={checkState[index] || false}
                                                 onChange={() => handleCheckBoxChange(index)}
@@ -326,53 +331,58 @@ export default function Index() {
                                                 </TransformComponent>
                                             </TransformWrapper>
                                         </div>
-                                        <p className={'carNumber'} >{image.name}</p>
+                                        <p className={'carNumber'}>{image.name}</p>
                                     </li>
                                 </div>))) : null}
                         </ul>
+                        <Button className={'btn-success controlBtn'}
+                                onClick={handleSubmit}>
+                            저장
+                        </Button>
+                        <Button className={'btn-danger controlBtn'}
+                                onClick={handleDelete}>
+                            삭제
+                        </Button>
                     </div>
                 </div>
-                <div className='activeButton'>
-                    <Button className={'btn-success'} style={{marginRight: '20px'}} onClick={handleSubmit}>저장</Button>
-                    <Button className={'btn-danger'} onClick={handleDelete}>삭제</Button>
-                </div>
+
             </div>
-            <div>
+            <div className={'controlInfo'}>
                 <div>
-                    <button id={'leftgo'}
+                    <Button id={'leftgo'} className={'controlBtn'} variant="outline-warning"
                             onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'leftgo')} title={'좌회전'}>↖
-                    </button>
-                    <button id={'go'}
+                    </Button>
+                    <Button id={'go'} className={'controlBtn'} variant="outline-warning"
                             onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'go')} title={'전진'}>↑
-                    </button>
-                    <button id={'rightgo'}
+                    </Button>
+                    <Button id={'rightgo'} className={'controlBtn'} variant="outline-warning"
                             onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'rightgo')}
                             title={'우회전'}>↗
-                    </button>
+                    </Button>
                 </div>
                 <div>
-                    <button id={'left'}
+                    <Button id={'left'} className={'controlBtn'} variant="outline-warning"
                             onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'left')} title={'좌측 턴'}>←
-                    </button>
-                    <button id={'stop'}
+                    </Button>
+                    <Button id={'stop'} className={'controlBtn'} variant="outline-danger"
                             onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'stop')} title={'정지'}>■
-                    </button>
-                    <button id={'right'}
+                    </Button>
+                    <Button id={'right'} className={'controlBtn'} variant="outline-warning"
                             onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'right')} title={'우측 턴'}>→
-                    </button>
+                    </Button>
                 </div>
                 <div>
-                    <button id={'leftback'}
+                    <Button id={'leftback'} className={'controlBtn'} variant="outline-warning"
                             onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'leftback')}
                             title={'좌로 후진'}>↙
-                    </button>
-                    <button id={'back'}
+                    </Button>
+                    <Button id={'back'} className={'controlBtn'} variant="outline-warning"
                             onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'back')} title={'후진'}>↓
-                    </button>
-                    <button id={'rightback'}
+                    </Button>
+                    <Button id={'rightback'} className={'controlBtn'} variant="outline-warning"
                             onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'rightback')}
                             title={'우로 후진'}>↘
-                    </button>
+                    </Button>
                 </div>
             </div>
         </div>

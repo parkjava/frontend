@@ -9,7 +9,6 @@ import RosLogo from '../../../static/images/infoImg/ros.png'
 import SpringLogo from '../../../static/images/infoImg/spring.png'
 import MySqlLogo from '../../../static/images/infoImg/mysql.png'
 import BootStrapLogo from '../../../static/images/infoImg/bootstrap.png'
-import JavascriptLogo from '../../../static/images/infoImg/js.png'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 

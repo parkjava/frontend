@@ -1,38 +1,43 @@
 import axios from 'axios';
 import cookies from "js-cookie";
+import {useNavigate} from "react-router-dom";
+import NotFound from "../../NotFound";
 
 const axiosInstance = axios.create({
-    baseURL:"http://localhost:8080",
-    params : {
+    baseURL: "http://localhost:8080",
+    params: {
         api_key: process.env.REACT_APP_MOVIE_DB_API_KEY,
-        language : "ko-KR",
+        language: "ko-KR",
     },
-  	headers: {
-      'Authorization': cookies.get('Authorization'),
-  }
+    headers: {
+        'Authorization': cookies.get('Authorization'),
+    }
 });
 
+
+
 axiosInstance.interceptors.request.use(
-  (config) => {
-    //요청 보내기 전에 수행 로직
-    return config;
-  },
-  (err) => {
-    //요청 에러 시 수행 로직
-    return Promise.reject(err);
-  }
+
+    (config) => {
+        //요청 보내기 전에 수행 로직
+        return config;
+    },
+    (err) => {
+
+        return Promise.reject(err);
+    }
 );
 
 //응답 인터셉터
 axiosInstance.interceptors.response.use(
-  (response) => {
-    //응답에 대한 로직
-    const res = response.data;
-    return res;
-  },
-  (err) => {
-    return Promise.reject(err);
-  }
+    (response) => {
+        //응답에 대한 로직
+        const res = response.data;
+        return res;
+    },
+    (err) => {
+        return Promise.reject(err);
+    }
 );
 
 export default axiosInstance;

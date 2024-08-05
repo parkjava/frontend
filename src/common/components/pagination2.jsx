@@ -18,29 +18,27 @@ const Pagination = ({postsPerPage, totalPosts, paginate}) => {
 
     return (
         <>
-            <nav>
-                <ul className="pagination">
+            <ul className="pagination">
           <span onClick={() => handleClick(1)} className="page-link">
           &lt;&lt;
           </span>
-                    <span onClick={() => handleClick(currentPage - 1)} className="page-link">
+                <span onClick={() => handleClick(currentPage - 1)} className="page-link">
           &lt;
           </span>
-                    {pageNumbers.map((number) => (
-                        <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
+                {pageNumbers.map((number) => (
+                    <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
               <span onClick={() => handleClick(number)} className="page-link">
                 {number}
               </span>
-                        </li>
-                    ))}
-                    <span onClick={() => handleClick(currentPage + 1)} className="page-link">
+                    </li>
+                ))}
+                <span onClick={() => handleClick(currentPage + 1)} className="page-link">
           &gt;
           </span>
-                    <span onClick={() => handleClick(totalPages)} className="page-link">
+                <span onClick={() => handleClick(totalPages)} className="page-link">
           &gt;&gt;
           </span>
-                </ul>
-            </nav>
+            </ul>
         </>
     );
 };
