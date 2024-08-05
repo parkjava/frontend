@@ -1,7 +1,7 @@
 import { Table, Container, Form, Button, Dropdown, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import Pagination from "../../../../common/components/pagination1"
+import Pagination from "../../../../common/components/pagination2"
 import axiosInstance from '../../../../common/components/axiosinstance';
 
 export default function CarCheck(){
@@ -20,7 +20,7 @@ export default function CarCheck(){
 
     function penaltyApi() {
         axiosInstance
-          .get('/api/penalty')
+          .get('/api/penalty/desc')
           .then((res) => {
             setPenalties(res)   
           })
@@ -93,8 +93,9 @@ export default function CarCheck(){
     const postsPerPageLabel = postsPerPage === 10 ? '10개' : '15개';
 
     return (
+        <div className={'commonContainer'}>
         <Container>
-            <p>단속 차량 목록</p>
+            <h1>단속 차량 목록</h1>
             <Container className="d-flex justify-content-end align-items-center pb-2">
                 <Dropdown onSelect={handlePenaltyCount}>
                     <Dropdown.Toggle  className={'dropDownToggle'}>
@@ -184,6 +185,6 @@ export default function CarCheck(){
                 <Pagination.Last />
             </Pagination> */}
         </Container>
-
+        </div>
     )
 }

@@ -1,7 +1,7 @@
 import {Table, Container, Dropdown} from 'react-bootstrap';
 import {Link} from 'react-router-dom'
 import React, {useState, useEffect} from 'react';
-import Pagination from '../../../common/components/pagination1'
+import Pagination from '../../../common/components/pagination2'
 import axiosInstance from '../../../common/components/axiosinstance';
 
 export default function Index() {
@@ -41,25 +41,26 @@ export default function Index() {
     return (
         <div className={'commonContainer'}>
             <Container>
+                <h1>문의 목록</h1>
+                <hr/>
                 <Container className="d-flex justify-content-end align-items-center pb-2">
                     <Dropdown onSelect={handlePenaltyCount}>
                         <Dropdown.Toggle className={'dropDownToggle'}>
-                            데이터 개수: {postsPerPageLabel}
+                            노출 설정 : {postsPerPageLabel}
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                            <Dropdown.Item eventKey="ten">10개</Dropdown.Item>
-                            <Dropdown.Item eventKey="fifteen">15개</Dropdown.Item>
+                            <Dropdown.Item eventKey="ten">10</Dropdown.Item>
+                            <Dropdown.Item eventKey="fifteen">15</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </Container>
-
                 <Table hover variant="white" className={'inquiryTable'}>
                     <thead>
                     <tr>
                         <th className={'noColumn'}>NO</th>
-                        <th className={'titleColumn'}>제목</th>
-                        <th className={'writerColumn'}>작성자</th>
-                        <th className={'dateColumn'}>게시일</th>
+                        <th className={'titleColumn'}>문의제목</th>
+                        <th className={'writerColumn'}>문의자</th>
+                        <th className={'dateColumn'}>문의일자</th>
                     </tr>
                     </thead>
                     <tbody>

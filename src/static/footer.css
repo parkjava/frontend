@@ -1,21 +1,40 @@
 /* footer CSS */
-
-.footer{
-    background-color: white;
+.footer {
+    background-color: #f9f9f9;
+    z-index: 9999;
     color: black;
-    text-align: center;
-    position:relative;
-    bottom:0;
-    padding-bottom: 15px;
-    border-top: 1px solid #222222;
-
+    position: relative;
+    bottom: 0;
+    /*padding-bottom: 15px;*/
+    border-top: 1px solid #686868;
+    overflow: hidden;
 }
-.footerTitle{
-    margin: 12px 0 20px 0;
-    font-size: 28px;
-    font-weight: 500;
+.footer a{
+    color: #424242 !important;
 }
 
-.footerValue{
+.footerLogo {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    margin-top: 20px;
+    font-size: 36px;
+    font-weight: 100;
+}
+.footerLogo img{
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.footerArea{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-size: 20px;
+    margin: 40px 200px 30px 200px;
 }
+
+.footerArea a:hover{
+    text-decoration: underline !important;
+}
+
