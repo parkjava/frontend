@@ -10,6 +10,8 @@ import { faComment } from "@fortawesome/free-solid-svg-icons";
 
 import Card from 'react-bootstrap/Card';
 
+import styled from 'styled-components'
+
 export default function Index() {
     const [inquiryText, setInquiryText] = useState({
         title: '',
@@ -123,10 +125,23 @@ export default function Index() {
             .catch((error) => console.error('Error saving data:', error));
     }
 
+    const [backGroundColor, setBackGroundColor] = useState('skyblue')
+
+    const backGroundColorHandler = () => {
+        setBackGroundColor(backGroundColor === 'skyblue' ? 'yellow' : 'skyblue')
+    }
+
+    
+    const StyledButton = styled.button`
+    background-color: red;
+    padding: 20px;
+    border-radius: 10px;
+    `
+
     return (
         <>
             <div className={'commonContainer'}>
-                <h1 className='pt-4' style={{textAlign: 'center'}}><FontAwesomeIcon icon={faComment} bounce style={{color: '#B197FC'} } /> 무늬하기's</h1>
+                <h1 className='pt-4' style={{textAlign: 'center'}}><FontAwesomeIcon icon={faComment} bounce style={{color: '#B197FC'}} /> <span onClick={backGroundColorHandler} style={{backgroundColor: backGroundColor}}>무늬하기's</span></h1>
                 <div className={'cards'}>
                     <Card style={{width: '18rem'}} className={'card1'}>
                         <Card.Img className={'cardImages'} variant="top" src={question}/>

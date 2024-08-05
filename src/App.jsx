@@ -30,7 +30,7 @@ import UserProjectInfoPage from "./pages/userPage/projectInfo/index"
 import UserCreatorIngoPage from "./pages/userPage/creator/index";
 import UserNoticePage from "./pages/userPage/notice/index";
 import UserNoticeDetailPage from "./pages/userPage/notice/detail/index";
-import UserInquiryPage from "./pages/userPage/inquiry/index";
+import UserInquiryPage from "./pages/userPage/inquiry/newindex";
 
 
 /*-------------------------------------------------------------*/

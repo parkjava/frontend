@@ -717,7 +717,6 @@ body {
 
 .buttonContainer {
     display: flex;
-    justify-content: flex-end;
 }
 
 .formControl {
@@ -821,6 +820,13 @@ body {
     margin: 10px;
     border-radius: 6px;
     padding: 5px 10px 5px 10px;
+}
+
+.activeButton {
+    display: flex;
+    justify-content: end;
+    position: relative;
+    padding-right: 320px;
 }
 
 /* 순찰내역 페이지 */
