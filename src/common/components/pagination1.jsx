@@ -8,6 +8,8 @@ const Pagination = ({postsPerPage, totalPosts, paginate}) => {
 
     for (let i = 1; i <= totalPages; i++) {
         pageNumbers.push(i);
+        console.log(currentPage);
+
     }
 
     const handleClick = (page) => {
@@ -15,10 +17,11 @@ const Pagination = ({postsPerPage, totalPosts, paginate}) => {
         if (page > totalPages) page = totalPages;
         setCurrentPage(page);
         paginate(page);
+
     };
 
     return (
-        <nav >
+        <nav>
             <ul className={"paginationGroup"}>
           <span onClick={() => handleClick(1)}>
           &lt;&lt;

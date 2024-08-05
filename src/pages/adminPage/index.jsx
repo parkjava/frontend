@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import Header from "../../common/components/header";
 import {
     Chart as ChartJS,
     LineElement,
@@ -12,7 +11,7 @@ import {
     Filler
 } from 'chart.js';
 import {Line} from 'react-chartjs-2';
-import axiosInstance from '../../../src/common/components/axiosinstance'; // Axios 인스턴스 불러오기
+import axiosInstance from '../../../src/common/components/axiosinstance';
 
 // Chart.js 컴포넌트 등록
 ChartJS.register(
@@ -32,11 +31,12 @@ export default function Index() {
         datasets: []
     });
 
+
     // 백엔드 데이터 가져오기
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axiosInstance.get('/api/patrol/asc'); // 엔드포인트 수정
+                const response = await axiosInstance.get('/api/penalty/asc'); // 엔드포인트 수정
                 const data = response;
 
 
@@ -46,9 +46,9 @@ export default function Index() {
                 }
 
                 // 데이터 구조에 맞게 변환
-                const labels = data.map(item => item.createDate); // X축 레이블
+                const labels = data.map(item => item.penaltyDate); // X축 레이블
 
-                const dataset1 = data.map(item => Number(item.patrolIndex));
+                const dataset1 = data.map(item => Number(item.penaltyIndex));
 
                 // const dataset2 = data.map(item => Number(item.patrolArea));
 
@@ -165,18 +165,20 @@ export default function Index() {
     };
     return (
         <>
-            <Header/>
-            <div className={'adminMainPage'}>
-                <div className={'adminMainText'}>
-                    이곳은 관리자 페이지입니다.<br/>
-                    이곳에선 실시간 단속영상 및 문의사항 등을 확인할 수 있고,<br/>
-                    공지사항을 작성할 수 있습니다.<br/>
-                    <p className={'adminMainText1'}>-PARKJAVA-</p>
-                </div>
-                {/* 라인 차트 렌더링 */}
-                <div style={{width: '80%', margin: '0 auto'}}>
-                    <Line data={chartData} options={options}/>
-                    <Line data={inquiryData} options={options2}/>
+            <div className={'commonContainer'}>
+                <div className={'container404'}>
+                    <div className={'adminMainText'}>
+                        이곳은 관리자 페이지입니다.<br/>
+                        이곳에선 실시간 단속영상 및 문의사항 등을 확인할 수 있고,<br/>
+                        공지사항을 작성할 수 있습니다.<br/>
+                    </div>
+                    <div className={'graph'}>
+                        <Line data={chartData} options={options}/>
+                    </div>
+                    <div className={'graph'}>
+                        <Line data={inquiryData} options={options2}/>
+                    </div>
+                    {/* 라인 차트 렌더링 */}
                 </div>
             </div>
         </>

@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {Table, Container, Button, Dropdown} from 'react-bootstrap';
 import {useNavigate, Link} from 'react-router-dom';
-import Pagination from '../../../common/components/pagination1'
+import Pagination from '../../../common/components/pagination2'
 import axiosInstance from '../../../common/components/axiosinstance';
+
 
 
 export default function PetrolList() {
@@ -47,24 +48,21 @@ export default function PetrolList() {
     return (
         <div className={'commonContainer'}>
             <Container>
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h1 className={'patrolH1'}>순 찰 내 역</h1>
-
-                </div>
+                <h1>순찰내역</h1>
+                <hr/>
                 <Container className="d-flex justify-content-end align-items-center pb-2">
                     <Dropdown onSelect={handlePenaltyCount}>
                         <Dropdown.Toggle className={'dropDownToggle'}>
-                            데이터 개수: {postsPerPageLabel}
+                            노출 설정: {postsPerPageLabel}
                         </Dropdown.Toggle>
-
                         <Dropdown.Menu>
-                            <Dropdown.Item eventKey="ten">10개</Dropdown.Item>
-                            <Dropdown.Item eventKey="fifteen">15개</Dropdown.Item>
+                            <Dropdown.Item eventKey="ten">10</Dropdown.Item>
+                            <Dropdown.Item eventKey="fifteen">15</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </Container>
 
-                <Table hover variant="white" className={'patrolTable'} >
+                <Table hover variant="white" className={'patrolTable'}>
                     <thead>
                     <tr className={'trTitle'}>
                         <th>NO</th>
@@ -88,14 +86,13 @@ export default function PetrolList() {
                 </Table>
                 <div className={'createButton'}>
                     <Button className={'crButton'} onClick={handleCreateClick}>
-                        작성하기
+                        순찰내역작성
                     </Button>
                 </div>
                 <Pagination className={'patrolPagination'}
                             postsPerPage={postsPerPage}
                             totalPosts={patrols.length}
                             paginate={setCurrentPage}></Pagination>
-
             </Container>
         </div>
     );

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import {useNavigate} from "react-router-dom";
+import {Route, Router, useNavigate} from "react-router-dom";
 import {Button, Form, Image} from 'react-bootstrap';
 import Logo from '../../../static/images/loginLogo.png';
 
@@ -15,17 +15,15 @@ export default function App() {
     const handleSignIn = async (e) => {
         e.preventDefault();  // Prevent default form submission
         await axios.post('http://localhost:8080/members/signIn', {
-                username,
-                password
+            username,
+            password
         }).then((res) => {
             console.log(res)
             Cookies.set("Authorization", `${res.data.grantType} ${res.data.accessToken}`, {expires: 1});
             alert("로그인에 성공하였습니다.");
-            navigate('/admin');
         }).catch((error) => {
             console.log(error)
             alert("로그인에 실패하였습니다.");
-            navigate('');
         })
     };
 
@@ -39,6 +37,7 @@ export default function App() {
         const loginInfo = Cookies.get("Authorization");
         if (loginInfo != null) {
             setIsLogin(true);
+            navigate('/admin')
         } else {
             setIsLogin(false);
         }
@@ -71,13 +70,18 @@ export default function App() {
                                     />
                                 </div>
                                 <Button type={'submit'} className={'loginBtn'}
-                                        onClick={handleSignIn}>
+                                        onClick={handleSignIn}
+                                >
                                     로그인
                                 </Button>
                             </div>
                         </div>
-                    </div> :
-                    navigate('/admin')
+                    </div> :null
+                    // <Router>
+                    //     <Route exact path="/">
+                    //         <Redirect to="/login"/>
+                    //     </Route>
+                    // </Router>
                 }
             </div>
         </>

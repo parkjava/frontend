@@ -44,8 +44,10 @@ export default function Index() {
     return (
         <div className={'commonContainer'}>
             <Container>
+                <h2>문의 상세 정보</h2>
                 <Card>
-                    <Card.Header>{inquiry.inquiryTitle}</Card.Header>
+                    <Card.Header>
+                        제목 : {inquiry.inquiryTitle}</Card.Header>
                     <Card.Body>
                         <Card.Text>
                             {inquiry.inquiryContent}
