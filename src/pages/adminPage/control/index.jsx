@@ -332,8 +332,10 @@ export default function Index() {
                         </ul>
                     </div>
                 </div>
-                <Button className={'btn-success'} onClick={handleSubmit}>저장</Button>
-                <Button className={'btn-danger'} onClick={handleDelete}>삭제</Button>
+                <div className='activeButton'>
+                    <Button className={'btn-success'} style={{marginRight: '20px'}} onClick={handleSubmit}>저장</Button>
+                    <Button className={'btn-danger'} onClick={handleDelete}>삭제</Button>
+                </div>
             </div>
             <div>
                 <div>

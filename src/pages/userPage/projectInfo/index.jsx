@@ -23,7 +23,7 @@ export default function Index() {
                 <h1 data-aos="fade-up" data-aos-duration="3000">Project Information</h1>
             </div>
             <div className={'commonContainer'}>
-                <div className={'projectInfo'}>
+                <div className={'projectInfo'} >
                     <h1 data-aos="fade-up" data-aos-duration="3000">프로젝트 개요</h1>
                     <div className={'infoStart2'} data-aos="fade-up" data-aos-duration="3000">
                         현재 사회에서 불법주차에 의한 사회적 문제들이 많이 발생하고 있습니다.<br/>
