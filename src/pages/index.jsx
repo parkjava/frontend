@@ -5,10 +5,9 @@ import {Image} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faGear} from "@fortawesome/free-solid-svg-icons";
 
-
 export default function Index() {
     return <>
-        <div className={'mainContainer'}>
+        <div className={'commonContainer'}>
             <div className={'welcome'}>
                 <p>
                     <Image src={MainImage}
@@ -28,7 +27,6 @@ export default function Index() {
                     </p>
                 </div>
                 <div className={'descriptionSpace'}>
-
                 </div>
                 <div className={'adminDescription'}>
                     <p style={{fontSize: 50}}>관리자</p>

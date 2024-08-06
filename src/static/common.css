@@ -132,11 +132,25 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 
 /* 요소 */
 .pagination {
-    display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    margin: 100px;
+
+}
+
+
+@media (max-width: 868px) {
+    .pageContainer{
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .pagination .noneActive{
+        display: none;
+
+    }
+
 }
 
 /* 상세 */
@@ -413,12 +427,6 @@ thead > tr > th {
 
 
 /* 메인 페이지 */
-
-.mainContainer {
-    background-color: #f9f9f9;
-    height: 100vh;
-}
-
 .mainGroup {
     text-align: center;
     display: flex;
@@ -665,13 +673,11 @@ thead > tr > th {
 /* 문의하기 폼 */
 .inquiryForm {
     position: absolute;
-    bottom: 30px;
-    right: 17px;
     background-color: #fff;
-    padding: 13px;
+    padding: 30px;
     border-radius: 10px;
     max-width: 500px;
-    width: 50%;
+    width: 100%;
 }
 
 .inquiryIndex {
