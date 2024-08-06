@@ -1,7 +1,5 @@
 import axios from 'axios';
 import cookies from "js-cookie";
-import {useNavigate} from "react-router-dom";
-import NotFound from "../../NotFound";
 
 const axiosInstance = axios.create({
     baseURL: "http://localhost:8080",

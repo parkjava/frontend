@@ -1,6 +1,25 @@
 /* header CSS */
 /* header */
-.header a{
+
+body.noScroll {
+    overflow: hidden;
+}
+
+.shadow{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: 0.5s;
+    background-color: rgba(25, 25, 25, 0.56); /* Semi-transparent black */
+    z-index: 50; /* Ensure the shadow is just below the header */
+}
+
+
+
+
+.header a {
     text-decoration: none;
     color: #424242 !important;
 }
@@ -11,10 +30,10 @@
     justify-content: center;
     background-color: #f9f9f9;
     transition: background-color 0.3s ease;
-    box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     position: fixed;
     width: 100%;
-    z-index: 3;
+    z-index: 999;
 }
 
 /*.header.scrolled {*/
@@ -27,27 +46,30 @@
     padding: 0;
     list-style: none;
     overflow: hidden;
+
 }
 
 .header li a {
     height: 80px;
-    font-size: 20px;
+    font-size: 16px;
     display: flex;
     align-items: center;
-    padding: 20px 10px;
+    padding: 20px 25px;
     text-decoration: none;
-    border-left: 1px solid rgb(135, 135, 135, 0.2);
+    border-top: 1px solid rgb(135, 135, 135, 0.2);
 }
 
 .header li a:hover,
 .header .menu-btn:hover {
     background-color: rgba(214, 214, 214, 0.58);
     transition: 0.3s;
+
 }
 
 .header li a:not(:hover),
 .header .menu-btn:not(:hover) {
     transition: 0.4s;
+
 }
 
 
@@ -70,6 +92,7 @@
     max-height: 0;
     transition: max-height .2s ease-out;
     border: none;
+
 }
 
 /* menu icon */
@@ -83,6 +106,7 @@
     margin: 0 20px 0 20px;
     position: relative;
     user-select: none;
+
 }
 
 .header .menu-icon .navicon {
@@ -92,6 +116,7 @@
     position: relative;
     transition: background .2s ease-out;
     width: 18px;
+
 }
 
 .header .menu-icon .navicon:before,
@@ -103,6 +128,7 @@
     position: absolute;
     transition: all .2s ease-out;
     width: 100%;
+
 }
 
 .header .menu-icon .navicon:before {
@@ -111,24 +137,28 @@
 
 .header .menu-icon .navicon:after {
     top: -5px;
+
 }
 
 /* menu btn */
 
 .header .menu-btn {
     display: none;
+
 }
 
 .header .menu-btn:checked ~ .menu {
-    max-height: 500px;
+    max-height: 800px;
 }
 
 .header .menu-btn:checked ~ .menu-icon .navicon {
     background: transparent;
+
 }
 
 .header .menu-btn:checked ~ .menu-icon .navicon:before {
     transform: rotate(-45deg);
+
 }
 
 .header .menu-btn:checked ~ .menu-icon .navicon:after {
@@ -142,11 +172,12 @@
 
 /* 48em = 768px */
 
-/* 최소 넓이가 1200ox 이하일 때  */
-@media (min-width: 1200px) {
+/* 최소 넓이가 768ox 이하일 때  */
+@media (min-width: 768px) {
     .header.scrolled {
         background: transparent;
-        border-bottom: 1px solid rgb(135, 135, 135, 0.2);
+        border-bottom: 1px solid rgb(135, 135, 135, 0.5);
+
     }
 
     .header li {
@@ -155,7 +186,7 @@
 
     .header li a {
         padding: 20px 25px;
-
+        border-left: 1px solid rgb(135, 135, 135, 0.2);
     }
 
     .header .menu {

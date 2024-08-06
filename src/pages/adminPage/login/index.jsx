@@ -21,6 +21,7 @@ export default function App() {
             console.log(res)
             Cookies.set("Authorization", `${res.data.grantType} ${res.data.accessToken}`, {expires: 1});
             alert("로그인에 성공하였습니다.");
+            navigate('/admin')
         }).catch((error) => {
             console.log(error)
             alert("로그인에 실패하였습니다.");
@@ -76,7 +77,7 @@ export default function App() {
                                 </Button>
                             </div>
                         </div>
-                    </div> :null
+                    </div> : null
                     // <Router>
                     //     <Route exact path="/">
                     //         <Redirect to="/login"/>
