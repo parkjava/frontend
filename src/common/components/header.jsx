@@ -1,8 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
-import '../../static/header.css'
+import '../../static/header.css';
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {Image} from "react-bootstrap";
-import Logo from '../../static/images/logo.png'
+import Logo from '../../static/images/logo.png';
 import Cookies from "js-cookie";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -15,7 +15,7 @@ export default function Header() {
     const [headerLocation, setHeaderLocation] = useState('');
     const [isLogin, setIsLogin] = useState('');
     const [isScrolled, setIsScrolled] = useState(false);
-    const [shadow, setShadow] = useState('')
+    const [shadow, setShadow] = useState('');
 
     useEffect(() => {
         AOS.init();
@@ -24,14 +24,12 @@ export default function Header() {
     useEffect(() => {
         if (location.pathname.startsWith('/user')) {
             setHeaderLocation(0);
-            setShadow('');
         } else if (location.pathname.startsWith('/admin')) {
             setHeaderLocation(1);
-            setShadow('');
         } else {
             setHeaderLocation(2);
-            setShadow('');
         }
+        setShadow('');
     }, [location]);
 
     useEffect(() => {
@@ -70,7 +68,6 @@ export default function Header() {
         if (menuBtn.checked) {
             setShadow('shadow');
             document.body.classList.add('noScroll');
-
         } else {
             setShadow('');
             document.body.classList.remove('noScroll');
@@ -82,9 +79,15 @@ export default function Header() {
             alert('로그아웃 되었습니다');
             Cookies.remove('Authorization');
         } else {
-            alert('로그인 정보가 없습니다.')
+            alert('로그인 정보가 없습니다.');
         }
         navigate('/');
+    };
+
+    const handleLinkClick = () => {
+        document.getElementById('menu-btn').checked = false;
+        document.body.classList.remove('noScroll');
+        setShadow('');
     };
 
     return (
@@ -92,7 +95,7 @@ export default function Header() {
             <div className={shadow}>
                 {headerLocation === 0 ? (
                     <nav className={`header ${isScrolled ? 'scrolled' : ''}`} ref={menuRef}>
-                        <Link to={"/user"} className={"logo"} data-aos="fade-right" data-aos-duration="500">
+                        <Link to={"/"} className={"logo"} data-aos="fade-right" data-aos-duration="500">
                             <Image src={Logo} className={'headerImg'}/>
                         </Link>
                         <input className={"menu-btn"} type="checkbox" id="menu-btn" onChange={handleMenuToggle}/>
@@ -100,11 +103,11 @@ export default function Header() {
                             <span className="navicon"></span>
                         </label>
                         <ul className={"menu"}>
-                            <li><Link to={'/'}>메인</Link></li>
-                            <li><Link to={"/user/info"}>프로젝트소개</Link></li>
-                            <li><Link to={"/user/creator"}>팀원소개</Link></li>
-                            <li><Link to={"/user/notice"}>공지사항</Link></li>
-                            <li><Link to={"/user/inquiry"}>문의하기</Link></li>
+                            <li><Link to={'/user'} onClick={handleLinkClick}>메인</Link></li>
+                            <li><Link to={"/user/info"} onClick={handleLinkClick}>프로젝트소개</Link></li>
+                            <li><Link to={"/user/creator"} onClick={handleLinkClick}>팀원소개</Link></li>
+                            <li><Link to={"/user/notice"} onClick={handleLinkClick}>공지사항</Link></li>
+                            <li><Link to={"/user/inquiry"} onClick={handleLinkClick}>문의하기</Link></li>
                         </ul>
                     </nav>
                 ) : (
@@ -116,14 +119,14 @@ export default function Header() {
                             <input className="menu-btn" type="checkbox" id="menu-btn" onChange={handleMenuToggle}/>
                             <label className="menu-icon" htmlFor="menu-btn"><span className="navicon"></span></label>
                             <ul className="menu">
-                                <li><Link to={'/'}>메인</Link></li>
-                                <li><Link to={"/admin/control"}>관제</Link></li>
-                                <li><Link to={"/admin/patrol"}>순찰내역</Link></li>
-                                <li><Link to={"/admin/penalty"}>단속차량</Link></li>
-                                <li><Link to={"/admin/notice"}>공지사항</Link></li>
-                                <li><Link to={"/admin/inquiry"}>문의목록</Link></li>
+                                <li><Link to={'/admin'} target={'_self'} onClick={handleLinkClick}>메인</Link></li>
+                                <li><Link to={"/admin/control"} onClick={handleLinkClick}>관제</Link></li>
+                                <li><Link to={"/admin/patrol"} onClick={handleLinkClick}>순찰내역</Link></li>
+                                <li><Link to={"/admin/penalty"} onClick={handleLinkClick}>단속차량</Link></li>
+                                <li><Link to={"/admin/notice"} onClick={handleLinkClick}>공지사항</Link></li>
+                                <li><Link to={"/admin/inquiry"} onClick={handleLinkClick}>문의목록</Link></li>
                                 <li onClick={handleSignOut} className={'logoutBtn'}>
-                                    <Link to={'/'} className={'svgIcon'}>
+                                    <Link to={'/'} className={'svgIcon'} onClick={handleLinkClick}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                              fill="currentColor"
                                              className="bi bi-box-arrow-in-right icon" viewBox="0 0 16 16">
@@ -133,6 +136,7 @@ export default function Header() {
                                                   d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
                                         </svg>
                                     </Link>
+                                    <Link to={'/'} className={'logout'}>로그아웃</Link>
                                 </li>
                             </ul>
                         </nav>

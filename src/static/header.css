@@ -116,7 +116,6 @@ body.noScroll {
     position: relative;
     transition: background .2s ease-out;
     width: 18px;
-
 }
 
 .header .menu-icon .navicon:before,
@@ -137,7 +136,6 @@ body.noScroll {
 
 .header .menu-icon .navicon:after {
     top: -5px;
-
 }
 
 /* menu btn */
@@ -169,11 +167,20 @@ body.noScroll {
 .header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
     top: 0;
 }
+.logoutBtn .svgIcon {
+    display: none;
+}
+.logoutBtn .logout {
+    display: block;
+}
+
+
+
 
 /* 48em = 768px */
 
 /* 최소 넓이가 768ox 이하일 때  */
-@media (min-width: 768px) {
+@media (min-width: 876px) {
     .header.scrolled {
         background: transparent;
         border-bottom: 1px solid rgb(135, 135, 135, 0.5);
@@ -199,9 +206,16 @@ body.noScroll {
         display: none;
     }
 
-    .svgIcon {
+    .logoutBtn .svgIcon {
+        display: flex;
+    }
+    .logoutBtn .logout {
         display: none;
     }
+
+
+
+
 
 }
 

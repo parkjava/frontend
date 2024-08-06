@@ -39,7 +39,7 @@
     text-decoration: underline !important;
 }
 
-@media(max-width:768px){
+@media(max-width:876px){
     .footer{
 
     }
@@ -66,7 +66,7 @@
     .footerLogo{
         display: flex;
         align-items: center;
-        justify-content: space-around;
+        justify-content: space-evenly;
         margin: 5px;
 
 
