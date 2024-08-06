@@ -113,7 +113,7 @@ export default function Header() {
                 ) : (
                     headerLocation === 1 && (
                         <nav className={`header ${isScrolled ? 'scrolled' : ''}`} ref={menuRef}>
-                            <Link to={"/admin"} className={"logo"} data-aos="fade-right" data-aos-duration="500">
+                            <Link to={"/"} className={"logo"} data-aos="fade-right" data-aos-duration="500">
                                 <Image src={Logo} className={'headerImg'}/>
                             </Link>
                             <input className="menu-btn" type="checkbox" id="menu-btn" onChange={handleMenuToggle}/>

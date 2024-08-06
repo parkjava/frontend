@@ -40,7 +40,7 @@
     text-decoration: underline !important;
 }
 
-@media(max-width:876px){
+@media(max-width:768px){
     .footer{
 
     }
