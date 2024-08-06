@@ -21,7 +21,7 @@ a {
 }
 
 li {
-   list-style-type: none;
+    list-style-type: none;
 }
 
 .commonContainer {
@@ -31,11 +31,12 @@ li {
     min-height: 100vh;
 }
 
-.commonContainer h1{
+.commonContainer h1 {
     margin: 80px 0 80px 0;
     text-align: center;
 }
-.commonContainer hr{
+
+.commonContainer hr {
     margin: 80px 0 80px 0;
 }
 
@@ -48,7 +49,8 @@ li {
     height: 100%;
     text-align: center;
 }
-.notFoundMsg{
+
+.notFoundMsg {
     background: linear-gradient(90deg, rgba(52, 32, 70, 1) 23%, rgba(126, 210, 214, 1) 100%, rgba(52, 32, 70, 1) 23%);
     color: transparent;
     -webkit-background-clip: text;
@@ -63,14 +65,22 @@ li {
 
 }
 
-.notFoundTitle{
+.notFoundTitle {
     font-size: 30px;
 }
 
-input:-webkit-autofill { -webkit-box-shadow: 0 0 0 30px #fff inset ; -webkit-text-fill-color: #000; }
-input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0s; } /*파란배경 없애기*/
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #fff inset;
+    -webkit-text-fill-color: #000;
+}
 
-.notFoundImg{
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/*파란배경 없애기*/
+
+.notFoundImg {
     width: 50%;
 }
 
@@ -138,17 +148,25 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 
 }
 
+.total {
+    display: none;
+}
+
 
 @media (max-width: 868px) {
-    .pageContainer{
+    .pageContainer {
         text-align: center;
         margin-top: 20px;
         margin-bottom: 20px;
     }
 
-    .pagination .noneActive{
+    .pagination .noneActive {
         display: none;
 
+    }
+
+    .total {
+        display: block;
     }
 
 }
@@ -193,8 +211,8 @@ thead > tr > th {
     margin-bottom: 32px;
 }
 
-.CreateH1{
-    margin-bottom: 10px!important;
+.CreateH1 {
+    margin-bottom: 10px !important;
 }
 
 .team-members {
@@ -247,7 +265,7 @@ thead > tr > th {
 }
 
 @media (max-width: 768px) {
-    .App{
+    .App {
         padding: 30px 0 30px 0;
     }
 
@@ -261,7 +279,7 @@ thead > tr > th {
         visibility: visible;
     }
 
-    .team-member{
+    .team-member {
         margin: 0 0 80px 0;
     }
 }
@@ -441,11 +459,13 @@ thead > tr > th {
     justify-content: center;
     text-align: center;
     font-weight: bold;
-    font-size: 70px;
+    font-size: 62px;
     color: #515151;
 }
 
 .mainImg {
+    width: 120px;
+    height: 120px;
     margin: 40px;
 }
 
@@ -515,6 +535,53 @@ thead > tr > th {
     max-width: 390px;
 }
 
+@media (max-width: 868px) {
+    .welcome {
+        font-size: 28px;
+        color: #515151;
+        margin-bottom: 25px;
+    }
+
+    .welcome img {
+        display: none;
+    }
+
+    .mainGroup {
+        display: contents;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mainItem {
+        margin: 60px;
+    }
+
+    .descriptionSpace {
+        display: none;
+    }
+
+    .userDescription, .adminDescription {
+        display: none;
+    }
+
+    .groupChild1 {
+        font-size: 20px;
+        padding: 20px 30px 20px 30px;
+        border: 1px solid #ff5900;
+        border-radius: 8px;
+        color: rgb(255, 174, 97);
+    }
+
+    .groupChild2 {
+        font-size: 20px;
+        padding: 20px 30px 20px 30px;
+        border: 1px solid #0017ff;
+        border-radius: 8px;
+    }
+
+
+}
+
 /* 사용자 메인페이지 */
 .mainBackground :before {
     content: "";
@@ -545,7 +612,7 @@ thead > tr > th {
 }
 
 
-.mainPageContent{
+.mainPageContent {
     height: 100vh;
     background-color: #f9f9f9;
     color: black;
@@ -698,32 +765,49 @@ thead > tr > th {
 }
 
 .outBox {
-    margin: 50px auto; padding: 10px; max-width: 400px;
+    margin: 50px auto;
+    padding: 10px;
+    max-width: 400px;
 }
 
-.outBox .inputBox{
+.outBox .inputBox {
     position: relative;
     height: 50px;
 }
 
-.outBox .inputBox input[type='text']{
-    padding:0 10px; width: 100%; height: 40px; font-size: 14px;
-    box-sizing: border-box; border: 1px solid gray; outline: none;
+.outBox .inputBox input[type='text'] {
+    padding: 0 10px;
+    width: 100%;
+    height: 40px;
+    font-size: 14px;
+    box-sizing: border-box;
+    border: 1px solid gray;
+    outline: none;
 }
 
 .outBox .inputBox label {
     pointer-events: none;
     transition: all .2s;
     position: absolute;
-    left: 0px; bottom: 0; padding: 0 6px; color: #999; font-size: 14px; font-weight: normal;
-    background: #ffff; transform: translate(10px, -18px);
+    left: 0px;
+    bottom: 0;
+    padding: 0 6px;
+    color: #999;
+    font-size: 14px;
+    font-weight: normal;
+    background: #ffff;
+    transform: translate(10px, -18px);
 }
 
 .outBox .inputBox input[type='text']:focus + label,
-.outBox .inputBox input[type='text'].not-empty + label {transform: scale(0.85) translate(-8px, -46px);}
+.outBox .inputBox input[type='text'].not-empty + label {
+    transform: scale(0.85) translate(-8px, -46px);
+}
 
 .inquiryNew .headline {
-    margin: 0; padding: 0; border: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 .inquiryNewList, .inquiryNew {
@@ -768,8 +852,8 @@ thead > tr > th {
     text-align: center;
 }
 
-.userNoticeContainer h1{
-    margin: 100px 0 100px 0 ;
+.userNoticeContainer h1 {
+    margin: 100px 0 100px 0;
     width: 100%;
 }
 
@@ -790,7 +874,7 @@ thead > tr > th {
 }
 
 /* 관제 페이지 */
-.control{
+.control {
     height: 100vh;
 }
 
@@ -867,7 +951,7 @@ thead > tr > th {
 
 .controlBtn {
     width: 80px;
-    margin:5px 5px 5px 5px;
+    margin: 5px 5px 5px 5px;
 }
 
 /* 순찰내역 페이지 */
