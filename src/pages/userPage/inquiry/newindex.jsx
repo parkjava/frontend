@@ -34,9 +34,20 @@ export default function Index() {
     const [showMessage, setShowMessage] = useState(false); // 상태 추가
     const [isFormValid, setIsFormValid] = useState(false);
     const modalBackground = useRef();
+
+    useEffect(() => {
+        // 모든 필드가 입력되었는지 확인
+        const allFieldsFilled = Object.values(inquiryText).every(field => field !== '');
+        setIsFormValid(allFieldsFilled);
+    }, [inquiryText]);
     
 
     useEffect(() => {
+        const currentDate = new Date().toISOString().split('T')[0];
+        setInquiryText(pre => ({
+            ...pre,
+            date: currentDate,
+        }))
 
         setInquiryList(prevState => ({
             ...prevState,
@@ -46,6 +57,11 @@ export default function Index() {
 
     const handleChange = (e) => {
         const {name, value} = e.target;
+
+        setInquiryText((pre) => ({
+            ...pre,
+            [name]: value,
+        }))
 
         setInquiryList((prevState) => ({
             ...prevState,
@@ -184,6 +200,7 @@ export default function Index() {
                         <Button className={'modalOpenBtn'} variant="primary" onClick={() => setModalOpen(true)}>문의하기</Button>
                     </div>
                 </div>
+                <SpaceBox paddingBottom='16px' marginBottom='32px'></SpaceBox>
 
                 {
                     modalOpen &&
@@ -269,7 +286,7 @@ export default function Index() {
                                     <Button className={'inquiryButton'} variant="primary" type="submit"
                                             disabled={!isFormValid}>
                                         문의등록
-                                    </Button>xx
+                                    </Button>
                                     <Button className={'modalCloseBtn'} variant="primary"
                                             onClick={() => setModalOpen(false)}>
                                         닫기
