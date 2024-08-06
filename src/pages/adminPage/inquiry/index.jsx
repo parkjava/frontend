@@ -41,7 +41,7 @@ export default function Index() {
     return (
         <div className={'commonContainer'}>
             <Container>
-                <h1>문의 목록</h1>
+                <h1 className={'adminInquiryH1'}>문의 목록</h1>
                 <hr/>
                 <Container className="d-flex justify-content-end align-items-center pb-2">
                     <Dropdown onSelect={handlePenaltyCount}>
