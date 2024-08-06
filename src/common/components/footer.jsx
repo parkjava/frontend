@@ -24,17 +24,13 @@ export default function Footer() {
             {footerLocation === 'user' ?
                 <div className={'footer'}>
                     <div className={'footerArea'}>
-                        <div>
-                            <p><Link to={'/user/info'}>프로젝트소개</Link></p>
-                            <p><Link to={'/user/creator'}>만든 이</Link></p>
-                            <p><Link to={'/user/notice'}>공지사항</Link></p>
-                            <p><Link to={'user/inquiry'}>문의하기</Link></p>
+                        <div className={'footerLink'}>
+                            <p><Link to={'/user/info'}>About</Link></p>
+                            <p><Link to={'/user/creator'}>OurTeam</Link></p>
+                            <p><Link to={'/user/notice'}>Notice</Link></p>
+                            <p><Link to={'user/inquiry'}>ContactUs</Link></p>
                         </div>
-                        <div className={'footerLogo'}>
-                            <Image src={EducationLogo} width={250}/>
-                            <Image src={ParkjavaLogo} width={250}/>
-                        </div>
-                        <div>
+                        <div className={'footerLink2'}>
                             <p><Link to={'https://github.com/parkjava'}>
                                 <b>GitHub</b></Link>&nbsp;&nbsp;
                                 <Link to={'https://github.com/parkjava'}>
@@ -57,6 +53,12 @@ export default function Footer() {
 
                             </p>
                         </div>
+                    </div>
+                    <div className={'footerLogo'}>
+                        <Image src={ParkjavaLogo}/>
+                        <Link to={'https://mcea.co.kr/'} target={"_blank"}>
+                            <Image src={EducationLogo}/>
+                        </Link>
                     </div>
                 </div>
                 : null

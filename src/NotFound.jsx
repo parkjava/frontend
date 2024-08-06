@@ -5,7 +5,8 @@ import NotFoundImg from './static/images/notFound.png'
 import {Image} from "react-bootstrap";
 
 export default function NotFound() {
-    return (<>
+    return (
+        <>
             <div className={'commonContainer'}>
                 <div className={'container404'}>
                     <div className={'notFoundTitle'}>
