@@ -3,7 +3,6 @@ import '../../static/header.css'
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {Image} from "react-bootstrap";
 import Logo from '../../static/images/logo.png'
-// import AdminLogo from '../../static/images/adminLogo.png'
 import Cookies from "js-cookie";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -81,7 +80,7 @@ export default function Header() {
                         <ul className={"menu"}>
                             <li><Link to={'/'}>메인</Link></li>
                             <li><Link to={"/user/info"}>프로젝트소개</Link></li>
-                            <li><Link to={"/user/creator"}>만든 이</Link></li>
+                            <li><Link to={"/user/creator"}>팀원소개</Link></li>
                             <li><Link to={"/user/notice"}>공지사항</Link></li>
                             <li><Link to={"/user/inquiry"}>문의하기</Link></li>
                         </ul>

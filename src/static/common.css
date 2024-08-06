@@ -49,13 +49,13 @@ a {
     color: transparent;
     -webkit-background-clip: text;
     font-weight: 600;
-    font-size: 80px;
+    font-size: 86px;
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 150px 50px 150px 50px;
+    padding: 30px 50px 50px 50px;
 
 }
 
@@ -65,6 +65,10 @@ a {
 
 input:-webkit-autofill { -webkit-box-shadow: 0 0 0 30px #fff inset ; -webkit-text-fill-color: #000; }
 input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0s; } /*파란배경 없애기*/
+
+.notFoundImg{
+    width: 50%;
+}
 
 /* 로그인 */
 .loginContainer {
@@ -799,7 +803,7 @@ body {
 .outBox .inputBox input[type='text'].not-empty + label {transform: scale(0.85) translate(-8px, -46px);}
 
 .inquiryNew {
-    
+
     padding-left: 100px;
 }
 
