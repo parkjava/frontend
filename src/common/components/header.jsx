@@ -81,7 +81,7 @@ export default function Header() {
                         <ul className={"menu"}>
                             <li><Link to={'/'}>메인</Link></li>
                             <li><Link to={"/user/info"}>프로젝트소개</Link></li>
-                            <li><Link to={"/user/creator"}>만든 이</Link></li>
+                            <li><Link to={"/user/creator"}>팀원소개</Link></li>
                             <li><Link to={"/user/notice"}>공지사항</Link></li>
                             <li><Link to={"/user/inquiry"}>문의하기</Link></li>
                         </ul>

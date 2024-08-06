@@ -1,11 +1,15 @@
 import './static/common.css'
 import React from 'react'
 import {Link} from "react-router-dom";
+import NotFoundImg from './static/images/notFound.png'
+import {Image} from "react-bootstrap";
+
 export default function NotFound() {
     return (<>
             <div className={'commonContainer'}>
                 <div className={'container404'}>
                     <div className={'notFoundTitle'}>
+                        <Image src={NotFoundImg} className={'notFoundImg'}/>
                         <p className={'notFoundMsg'}>
                             Not Found
                         </p>
