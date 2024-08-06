@@ -3,7 +3,7 @@ import React, {useState, useRef, useEffect} from "react";
 import '../../../static/common.css'
 import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faComment, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faComment, faMagnifyingGlass, faFile, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate} from 'react-router-dom';
 import Logo from '../../../static/images/logo.png'
 
@@ -137,17 +137,23 @@ export default function Index() {
             .catch((error) => console.error('Error saving data:', error));
     }
 
+    useEffect(() => {
+        if(modalOpen) {
+            document.body.style.overflow = 'hidden';
+        } else{
+            document.body.style.overflow = 'unset';
+        }
+      }, [modalOpen]);
+
 
 
     return (
         <>
         <div className={'commonContainer'}>
             <section>
-                <DisplayBox $display='flex' $justify='center'>
-                    <h1 style={{paddingTop: '100px'}}>
-                        <FontAwesomeIcon icon={faComment} bounce style={{color: 'skyblue', paddingRight: '5px'}} />ParkJava 문의하기
-                    </h1>
-                </DisplayBox>
+                <h1 style={{paddingTop: '100px'}}>
+                    <FontAwesomeIcon icon={faComment} bounce style={{color: '#000080', paddingRight: '5px'}} />ParkJava 문의하기
+                </h1>
             </section>
             <section>
             <div className='outBox' style={{display: 'flex', justifyContent: 'center'}}>
@@ -170,7 +176,6 @@ export default function Index() {
                     </div>
                 </Form>
             </div>
-            <SpaceBox $paddingbottom='16px' $marginbottom='32px'></SpaceBox>
             {inquiryList.length > 0 && (
                         <div className="inquiryNewList">
                             <ul>
@@ -183,7 +188,6 @@ export default function Index() {
                                         <p>전화번호: {inquiry.inquiryPhone}</p>
                                         <p>문의내용: {inquiry.inquiryContent}</p>
                                         <p>문의일자: {inquiry.inquiryDate.split('T')[0]}</p>
-
                                     </li>
                                 ))}
                             </ul>
@@ -199,8 +203,7 @@ export default function Index() {
                         <h2 className='headline'>
                             문의하기
                         </h2>
-                        <SpaceBox $paddingbottom='100px' $marginbottom='32px'></SpaceBox>
-                        <Button className={'modalOpenBtn'} variant="primary" onClick={() => setModalOpen(true)}>문의하기</Button>
+                        <FontAwesomeIcon icon={faFile} onClick={() => setModalOpen(true)} style={{scale: '4', paddingTop: '1.5rem', cursor: 'pointer'}}/>
                     </div>
                 </div>
                 <SpaceBox $paddingbottom='16px' $marginbottom='32px'></SpaceBox>
@@ -214,7 +217,10 @@ export default function Index() {
                     }}>
                         <div className={'inquiryForm'}>
                             <div style={{padding: 0, margin: 0}}>
-                            <h1 style={{margin: '20px 0 20px 0'}} className={'inquiryTitle'}><Image style={{width: '39%'}} src={Logo}/></h1>
+                            <FontAwesomeIcon className='modalCloseBtn' icon={faXmark} onClick={() => setModalOpen(false)}/>
+                            <h1 style={{margin: '20px 0 20px 0'}} className={'inquiryTitle'}>
+                                <Image style={{width: '39%'}} src={Logo}/>
+                            </h1>
                             
                             </div>
                             <Form className={'inquiryIndex'} onSubmit={handleSubmit}>
@@ -286,14 +292,10 @@ export default function Index() {
                                     />
                                 </Form.Group>
                                 <div className={'buttonContainer'}>
-                                    <Button className={'inquiryButton'} variant="primary" type="submit"
+                                    <Button className='inquiryButton text-white' variant="primary" type="submit"
                                             disabled={!isFormValid}>
                                         문의등록
-                                    </Button>
-                                    <Button className={'modalCloseBtn'} variant="primary"
-                                            onClick={() => setModalOpen(false)}>
-                                        닫기
-                                    </Button>
+                                    </Button>                                    
                                 </div>
                             </Form>
 
