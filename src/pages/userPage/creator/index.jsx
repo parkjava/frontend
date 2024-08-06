@@ -16,24 +16,32 @@ export default function Index() {
             name: '최영원',
             title: 'Leader',
             image: zeroone,
+            greetings: '안녕하세요!',
+            part: '제가맡은건요',
             borderColor: '#5475da' // 빨간색
         },
         {
             name: '박현준',
             title: 'Member',
             image: hyunjun,
+            greetings: '하이요',
+            part: '제가맡은건요',
             borderColor: '#f6794b' // 파란색
         },
         {
             name: '이동민',
             title: 'Member',
             image: dongmin,
+            greetings: '하이요',
+            part: '제가맡은건요',
             borderColor: '#f5fa59' // 밝은 파란색
         },
         {
             name: '오학균',
             title: 'Member',
             image: hakgyun,
+            greetings: '하이요',
+            part: '제가맡은건요',
             borderColor: '#8ffa8f' // 초록색
         }
     ];
@@ -43,7 +51,8 @@ export default function Index() {
             <div className="App">
                 <header className="App-header">
                     <h1 className={'CreateH1'} data-aos="fade-up" data-aos-duration="2000">Our Team Members</h1>
-                    <p data-aos="fade-up" data-aos-duration="2000">We are the project team OOB. We created an AI self-driving illegal parking enforcement robot
+                    <p data-aos="fade-up" data-aos-duration="2000">We are the project team OOB. We created an AI
+                        self-driving illegal parking enforcement robot
                         project.</p>
                 </header>
                 <div className="team-members">
@@ -56,9 +65,8 @@ export default function Index() {
                             </div>
                             <h2>{member.name}</h2>
                             <p className="member-title">{member.title}</p>
-                            <p className="hover-text">This letterhead design is meant to project an image of
-                                professional reliability.</p>
-                            <p className="hover-text">This letterhead this letter.</p>
+                            <p className="hover-text">{member.greetings}</p>
+                            <p className="hover-text">{member.part}</p>
                         </div>
                     ))}
                 </div>

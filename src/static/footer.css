@@ -6,9 +6,10 @@
     position: relative;
     bottom: 0;
     /*padding-bottom: 15px;*/
-    border-top: 1px solid #686868;
+    border-top: 1px solid #959595;
     overflow: hidden;
 }
+
 .footer a{
     color : #333333 !important;
 }
