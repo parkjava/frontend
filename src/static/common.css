@@ -673,13 +673,11 @@ thead > tr > th {
 /* 문의하기 폼 */
 .inquiryForm {
     position: absolute;
-    bottom: 30px;
-    right: 17px;
     background-color: #fff;
-    padding: 13px;
+    padding: 30px;
     border-radius: 10px;
     max-width: 500px;
-    width: 50%;
+    width: 100%;
 }
 
 .inquiryIndex {
