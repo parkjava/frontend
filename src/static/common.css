@@ -747,19 +747,17 @@ body {
 .inquiryForm {
     position: absolute;
     bottom: 30px;
-    right: 10px;
-    margin: 100px 0 0 500px;
+    right: 17px;
     background-color: #fff;
-    padding: 40px;
+    padding: 13px;
     border-radius: 10px;
     max-width: 500px;
     width: 50%;
 }
 
 .inquiryIndex {
-    margin-left: 20px;
-    margin-right: 20px;
-    padding: 60px 20px 60px 20px;
+    margin: 0;
+    padding: 0;
 }
 
 .formLabel {
@@ -807,6 +805,10 @@ body {
 
 .inquiryNew .headline {
     margin: 0; padding: 0; border: 0;
+}
+
+.inquiryTitle {
+    font-size: 30px;
 }
 
 

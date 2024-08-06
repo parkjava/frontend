@@ -1,10 +1,11 @@
-import {Form, Row, Col, Button, Alert} from 'react-bootstrap';
+import {Form, Row, Col, Button, Alert, Image} from 'react-bootstrap';
 import React, {useState, useRef, useEffect} from "react";
 import '../../../static/common.css'
 import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate} from 'react-router-dom';
+import Logo from '../../../static/images/logo.png'
 
 
 import styled from 'styled-components'
@@ -131,6 +132,7 @@ export default function Index() {
 
     return (
         <>
+        <div className={'commonContainer'}>
             <section>
                 <DisplayBox display='flex' justify='center'>
                     <h1 style={{paddingTop: '100px'}}>
@@ -190,102 +192,103 @@ export default function Index() {
                             setModalOpen(false);
                         }
                     }}>
-                        <div className={''}>
-                            <div className={'inquiryForm'}>
-                                <h1 className={'inquiryTitle'}>무엇이든 물어보살</h1>
-                                <Form className={'inquiryIndex'} onSubmit={handleSubmit}>
-                                    <Row className="mb-3">
-                                        <Form.Group as={Col} controlId="formGridTitle">
-                                            <Form.Label className={'formLabel'}>제목</Form.Label>
-                                            <Form.Control className={'formControl'}
-                                                            type="text"
-                                                            placeholder="제목을 적어주세요"
-                                                            name="title"
-                                                            value={inquiryText.title}
-                                                            onChange={handleChange}
-                                            />
-                                        </Form.Group>
-
-                                        <Form.Group as={Col} controlId="formGridName">
-                                            <Form.Label className={'formLabel'}>작성자</Form.Label>
-                                            <Form.Control className={'formControl'}
-                                                            type="text"
-                                                            placeholder="이름을 적어주세요"
-                                                            name="name"
-                                                            value={inquiryText.name}
-                                                            onChange={handleChange}
-                                            />
-                                        </Form.Group>
-
-                                        <Form.Group controlId="formGridEmail">
-                                            <Form.Label className={'formLabel'}>Email</Form.Label>
-                                            <Form.Control className={'formControl'}
-                                                            type="email"
-                                                            placeholder="email형식에 맞게 작성해주세요"
-                                                            name="email"
-                                                            value={inquiryText.email}
-                                                            onChange={handleChange}
-                                            />
-                                        </Form.Group>
-                                    </Row>
-
-                                    <Form.Group className="mb-3" controlId="formGridPhone">
-                                        <Form.Label className={'formLabel'}>전화번호</Form.Label>
+                        <div className={'inquiryForm'}>
+                            <div style={{padding: 0, margin: 0}}>
+                            <h1 style={{margin: '20px 0 20px 0'}} className={'inquiryTitle'}><Image style={{width: '39%'}} src={Logo}/></h1>
+                            
+                            </div>
+                            <Form className={'inquiryIndex'} onSubmit={handleSubmit}>
+                                <Row className="mb-3">
+                                    <Form.Group as={Col} controlId="formGridTitle">
+                                        <Form.Label className={'formLabel'}>제목</Form.Label>
                                         <Form.Control className={'formControl'}
                                                         type="text"
-                                                        placeholder="전화번호를 적어주세요"
-                                                        name="phone"
-                                                        value={inquiryText.phone}
+                                                        placeholder="제목을 적어주세요"
+                                                        name="title"
+                                                        value={inquiryText.title}
                                                         onChange={handleChange}
                                         />
                                     </Form.Group>
 
-                                    <Form.Group className="mb-3" controlId="formGridContent">
-                                        <Form.Label className={'formLabel'}>문의내용</Form.Label>
+                                    <Form.Group as={Col} controlId="formGridName">
+                                        <Form.Label className={'formLabel'}>작성자</Form.Label>
                                         <Form.Control className={'formControl'}
-                                                        as="textarea"
-                                                        name="content"
-                                                        value={inquiryText.content}
+                                                        type="text"
+                                                        placeholder="이름을 적어주세요"
+                                                        name="name"
+                                                        value={inquiryText.name}
                                                         onChange={handleChange}
-                                                        style={{whiteSpace: 'pre-line'}}
                                         />
                                     </Form.Group>
 
-                                    <Form.Group className="mb-3" controlId="formGridDate">
-                                        <Form.Label className={'formLabel'}>문의일자</Form.Label>
+                                    <Form.Group controlId="formGridEmail">
+                                        <Form.Label className={'formLabel'}>Email</Form.Label>
                                         <Form.Control className={'formControl'}
-                                                        type="date"
-                                                        name="date"
-                                                        value={inquiryText.date}
-                                                        disabled={true}
+                                                        type="email"
+                                                        placeholder="email형식에 맞게 작성해주세요"
+                                                        name="email"
+                                                        value={inquiryText.email}
                                                         onChange={handleChange}
                                         />
                                     </Form.Group>
-                                    <div className={'buttonContainer'}>
-                                        <Button className={'inquiryButton'} variant="primary" type="submit"
-                                                disabled={!isFormValid}>
-                                            문의등록
-                                        </Button>xx
-                                        <Button className={'modalCloseBtn'} variant="primary"
-                                                onClick={() => setModalOpen(false)}>
-                                            닫기
-                                        </Button>
-                                    </div>
-                                </Form>
+                                </Row>
 
-                                {showMessage && (
-                                    <Alert variant="success" className="mt-3">
-                                        문의가 완료되었습니다
-                                    </Alert>
-                                )}
-                            </div>
+                                <Form.Group className="mb-3" controlId="formGridPhone">
+                                    <Form.Label className={'formLabel'}>전화번호</Form.Label>
+                                    <Form.Control className={'formControl'}
+                                                    type="text"
+                                                    placeholder="전화번호를 적어주세요"
+                                                    name="phone"
+                                                    value={inquiryText.phone}
+                                                    onChange={handleChange}
+                                    />
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="formGridContent">
+                                    <Form.Label className={'formLabel'}>문의내용</Form.Label>
+                                    <Form.Control className={'formControl'}
+                                                    as="textarea"
+                                                    name="content"
+                                                    value={inquiryText.content}
+                                                    onChange={handleChange}
+                                                    style={{whiteSpace: 'pre-line'}}
+                                    />
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="formGridDate">
+                                    <Form.Label className={'formLabel'}>문의일자</Form.Label>
+                                    <Form.Control className={'formControl'}
+                                                    type="date"
+                                                    name="date"
+                                                    value={inquiryText.date}
+                                                    disabled={true}
+                                                    onChange={handleChange}
+                                    />
+                                </Form.Group>
+                                <div className={'buttonContainer'}>
+                                    <Button className={'inquiryButton'} variant="primary" type="submit"
+                                            disabled={!isFormValid}>
+                                        문의등록
+                                    </Button>xx
+                                    <Button className={'modalCloseBtn'} variant="primary"
+                                            onClick={() => setModalOpen(false)}>
+                                        닫기
+                                    </Button>
+                                </div>
+                            </Form>
+
+                            {showMessage && (
+                                <Alert variant="success" className="mt-3">
+                                    문의가 완료되었습니다
+                                </Alert>
+                            )}
                         </div>
                     </div>
                 }
 
             </section>
             
-            
+            </div>
         </>
     )
 }
