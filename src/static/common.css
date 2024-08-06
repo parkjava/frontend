@@ -67,8 +67,16 @@ li {
     font-size: 30px;
 }
 
-input:-webkit-autofill { -webkit-box-shadow: 0 0 0 30px #fff inset ; -webkit-text-fill-color: #000; }
-input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0s; } /*파란배경 없애기*/
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #fff inset;
+    -webkit-text-fill-color: #000;
+}
+
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/*파란배경 없애기*/
 
 .notFoundImg{
     width: 50%;
@@ -138,17 +146,25 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 
 }
 
+.total {
+    display: none;
+}
+
 
 @media (max-width: 868px) {
-    .pageContainer{
+    .pageContainer {
         text-align: center;
         margin-top: 20px;
         margin-bottom: 20px;
     }
 
-    .pagination .noneActive{
+    .pagination .noneActive {
         display: none;
 
+    }
+
+    .total {
+        display: block;
     }
 
 }
@@ -181,20 +197,20 @@ thead > tr > th {
 /* 만든이 페이지(팀원소개)*/
 .App {
     text-align: center;
-    /*font-family: Arial, sans-serif;*/
     background-color: #2e2e2e;
     color: white;
     padding: 100px;
     height: 100%;
 
+    padding: 50px;
 }
 
 .App-header {
     margin-bottom: 32px;
 }
 
-.CreateH1{
-    margin-bottom: 10px!important;
+.CreateH1 {
+    margin-bottom: 10px !important;
 }
 
 .team-members {
@@ -221,6 +237,7 @@ thead > tr > th {
     justify-content: center;
     align-items: center;
     background-color: white;
+    transition: transform 0.5s ease-in-out; /* 이미지 확대 애니메이션 추가 */
 }
 
 .member-image img {
@@ -235,7 +252,6 @@ thead > tr > th {
 }
 
 .hover-text {
-    /*display: none; 디스플레이 속성은 애니메이션 안됨 */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
@@ -246,8 +262,13 @@ thead > tr > th {
     visibility: visible;
 }
 
+.team-member:hover .member-image {
+    transform: scale(1.2); /* 이미지 확대 비율 설정 */
+}
+
+
 @media (max-width: 768px) {
-    .App{
+    .App {
         padding: 30px 0 30px 0;
     }
 
@@ -261,7 +282,7 @@ thead > tr > th {
         visibility: visible;
     }
 
-    .team-member{
+    .team-member {
         margin: 0 0 80px 0;
     }
 }
@@ -441,11 +462,13 @@ thead > tr > th {
     justify-content: center;
     text-align: center;
     font-weight: bold;
-    font-size: 70px;
+    font-size: 62px;
     color: #515151;
 }
 
 .mainImg {
+    width: 120px;
+    height: 120px;
     margin: 40px;
 }
 
@@ -515,6 +538,53 @@ thead > tr > th {
     max-width: 390px;
 }
 
+@media (max-width: 868px) {
+    .welcome {
+        font-size: 28px;
+        color: #515151;
+        margin-bottom: 25px;
+    }
+
+    .welcome img {
+        display: none;
+    }
+
+    .mainGroup {
+        display: contents;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mainItem {
+        margin: 60px;
+    }
+
+    .descriptionSpace {
+        display: none;
+    }
+
+    .userDescription, .adminDescription {
+        display: none;
+    }
+
+    .groupChild1 {
+        font-size: 20px;
+        padding: 20px 30px 20px 30px;
+        border: 1px solid #ff5900;
+        border-radius: 8px;
+        color: rgb(255, 174, 97);
+    }
+
+    .groupChild2 {
+        font-size: 20px;
+        padding: 20px 30px 20px 30px;
+        border: 1px solid #0017ff;
+        border-radius: 8px;
+    }
+
+
+}
+
 /* 사용자 메인페이지 */
 .mainBackground :before {
     content: "";
@@ -545,7 +615,7 @@ thead > tr > th {
 }
 
 
-.mainPageContent{
+.mainPageContent {
     height: 100vh;
     background-color: #f9f9f9;
     color: black;
@@ -710,32 +780,49 @@ thead > tr > th {
 }
 
 .outBox {
-    margin: 50px auto; padding: 10px; max-width: 400px;
+    margin: 50px auto;
+    padding: 10px;
+    max-width: 400px;
 }
 
-.outBox .inputBox{
+.outBox .inputBox {
     position: relative;
     height: 50px;
 }
 
-.outBox .inputBox input[type='text']{
-    padding:0 10px; width: 100%; height: 40px; font-size: 14px;
-    box-sizing: border-box; border: 1px solid gray; outline: none;
+.outBox .inputBox input[type='text'] {
+    padding: 0 10px;
+    width: 100%;
+    height: 40px;
+    font-size: 14px;
+    box-sizing: border-box;
+    border: 1px solid gray;
+    outline: none;
 }
 
 .outBox .inputBox label {
     pointer-events: none;
     transition: all .2s;
     position: absolute;
-    left: 0px; bottom: 0; padding: 0 6px; color: #999; font-size: 14px; font-weight: normal;
-    background: #ffff; transform: translate(10px, -18px);
+    left: 0px;
+    bottom: 0;
+    padding: 0 6px;
+    color: #999;
+    font-size: 14px;
+    font-weight: normal;
+    background: #ffff;
+    transform: translate(10px, -18px);
 }
 
 .outBox .inputBox input[type='text']:focus + label,
-.outBox .inputBox input[type='text'].not-empty + label {transform: scale(0.85) translate(-8px, -46px);}
+.outBox .inputBox input[type='text'].not-empty + label {
+    transform: scale(0.85) translate(-8px, -46px);
+}
 
 .inquiryNew .headline {
-    margin: 0; padding: 0; border: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 .inquiryNewList, .inquiryNew {
@@ -780,8 +867,15 @@ thead > tr > th {
 }
 
 .userNoticeContainer h1{
-    margin: 100px 0 100px 0 ;
+    background-image: url("./images/blue-background.jpg");
+    background-size: cover;
+    color: white;
+    margin-top:50px;
+    padding: 50px;
+    /*margin: 100px 0 100px 0 ;*/
     width: 100%;
+    font-size: 50px;
+    font-weight: bold;
 }
 
 /* 유저 공지사항 상세페이지*/
@@ -801,7 +895,7 @@ thead > tr > th {
 }
 
 /* 관제 페이지 */
-.control{
+.control {
     height: 100vh;
 }
 
@@ -878,7 +972,7 @@ thead > tr > th {
 
 .controlBtn {
     width: 80px;
-    margin:5px 5px 5px 5px;
+    margin: 5px 5px 5px 5px;
 }
 
 /* 순찰내역 페이지 */
@@ -907,8 +1001,15 @@ table td:last-child {
 }
 
 .patrolH1 {
-
+    background-image: url("./images/wooden-wall.jpg");
+    background-size: cover;
+    color: white;
+    margin-top:50px;
+    padding: 50px;
+    /*margin: 100px 0 100px 0 ;*/
+    width: 100%;
     font-size: 50px;
+    font-weight: bold;
 }
 
 .createButton {
@@ -927,10 +1028,25 @@ table td:last-child {
     border: #d3f0ff !important;
 }
 
+/* 단속차량 목록 페이지 */
+.penaltyH1{
+    background-image: url("./images/background-75.jpg")!important;
+    background-size: cover;
+    padding: 50px;
+    color: white;
+    font-weight: bold;
+}
+
 /* 관리자 공지사항 페이지 */
 .table th, .table td {
     padding: 8px;
-
+}
+.adminNoticeH1{
+    background-image: url("./images/blue-background.jpg");
+    background-size: cover;
+    color: white;
+    font-weight: bold;
+    padding: 50px;
 }
 
 .table th.no-column, .table td.no-column {
@@ -961,3 +1077,11 @@ table td:last-child {
 /*}*/
 
 /* 관리자 문의사항 페이지 */
+
+.adminInquiryH1{
+    background-image: url("./images/abstract.jpg");
+    background-size: cover;
+    color: white;
+    font-weight: bold;
+    padding: 50px;
+}
