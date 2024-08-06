@@ -95,7 +95,7 @@ export default function CarCheck(){
     return (
         <div className={'commonContainer'}>
         <Container>
-            <h1>단속 차량 목록</h1>
+            <h1 className={'penaltyH1'}>단속 차량 목록</h1>
             <Container className="d-flex justify-content-end align-items-center pb-2">
                 <Dropdown onSelect={handlePenaltyCount}>
                     <Dropdown.Toggle  className={'dropDownToggle'}>
