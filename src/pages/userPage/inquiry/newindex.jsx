@@ -7,8 +7,18 @@ import { faComment, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate} from 'react-router-dom';
 import Logo from '../../../static/images/logo.png'
 
-
 import styled from 'styled-components'
+
+const DisplayBox = styled.div`
+        display: ${props => props.display};
+        justify-content: ${props => props.justify};
+        padding: ${props => props.padding};
+    `
+
+const SpaceBox = styled.div`
+        padding-bottom: ${props => props.paddingbottom}
+        margin-bottom: ${props => props.marginbottom}
+    `
 
 export default function Index() {
     const [inquiryText, setInquiryText] = useState({
@@ -117,15 +127,8 @@ export default function Index() {
             .get(`http://localhost:8080/user/api/inquiry/phone/${inquiryPhone}`)
             .then((res) => {
                 const data = res.data
-                
                 if (data.length > 0) {
-                    setInquiryList({
-                        title: data[0].inquiryTitle,
-                        name: data[0].inquiryWriter,
-                        phone: data[0].inquiryPhone,
-                        content: data[0].inquiryContent,
-                        date: data[0].inquiryDate.split('T')[0],
-                    });
+                    setInquiryList(data);
                     navigate('./')
                 } else {
                     alert('문의 내역을 찾을 수 없습니다.');
@@ -134,73 +137,73 @@ export default function Index() {
             .catch((error) => console.error('Error saving data:', error));
     }
 
-    const DisplayBox = styled.div`
-        display: ${props => props.display};
-        justify-content: ${props => props.justify};
-        padding: ${props => props.padding};
-    `
-
-    const SpaceBox = styled.div`
-        padding-bottom: ${props => props.paddingbottom}
-        margin-bottom: ${props => props.marginbottom}
-    `
 
 
     return (
         <>
         <div className={'commonContainer'}>
             <section>
-                <DisplayBox display='flex' justify='center'>
+                <DisplayBox $display='flex' $justify='center'>
                     <h1 style={{paddingTop: '100px'}}>
                         <FontAwesomeIcon icon={faComment} bounce style={{color: 'skyblue', paddingRight: '5px'}} />ParkJava 문의하기
                     </h1>
                 </DisplayBox>
             </section>
             <section>
-            <div class='outBox' style={{display: 'flex', justifyContent: 'center'}}>
+            <div className='outBox' style={{display: 'flex', justifyContent: 'center'}}>
                 <Form onSubmit={handleGet} style={{width: '354px', position: 'relative', top: '5px'}}>
-                    <div class='inputBox'>
+                    <div className='inputBox'>
                         <Form.Group style={{width: '100%'}}>
                             <Form.Control
                                 className=''
                                 id='inquiryPhoneInput'
                                 type="text"
                                 name="phone"
-                                value={inquiryList.phone}
+                                value={inquiryList.phone || ''}
                                 onChange={handleChange}
                                 />
-                            <label for='inquiryPhoneInput'>전화번호를 입력하세요</label>
-                            <FontAwesomeIcon onClick={handleGet} style={{position: 'absolute', left: '92%', bottom: '44%', cursor: 'pointer'}} icon={faMagnifyingGlass} />
+                            <label htmlFor='inquiryPhoneInput'>전화번호를 입력하세요</label>
+                            <div className='inquiryIconBox'>
+                            <FontAwesomeIcon className='inquiryIcon' onClick={handleGet} icon={faMagnifyingGlass} />
+                            </div>
                         </Form.Group>
                     </div>
                 </Form>
             </div>
-            <SpaceBox paddingBottom='16px' marginBottom='32px'></SpaceBox>
-            {inquiryList.date && (
-                    <DisplayBox display='flex' justify='center' padding='50px'>
-                        <div>
-                            작성자: {inquiryList.name} <br />
-                            제목: {inquiryList.title} <br />
-                            전화번호: {inquiryList.phone} <br />
-                            내용: {inquiryList.content} <br />
-                            문의일자: {inquiryList.date}
+            <SpaceBox $paddingbottom='16px' $marginbottom='32px'></SpaceBox>
+            {inquiryList.length > 0 && (
+                        <div className="inquiryNewList">
+                            <ul>
+                                {inquiryList && 
+                                    inquiryList.map((inquiry, index) => (
+                                    <li key={index}>
+                                        <hr style={{width: '87rem'}}/>
+                                        <p>제목: {inquiry.inquiryTitle}</p>
+                                        <p>작성자: {inquiry.inquiryWriter}</p>
+                                        <p>전화번호: {inquiry.inquiryPhone}</p>
+                                        <p>문의내용: {inquiry.inquiryContent}</p>
+                                        <p>문의일자: {inquiry.inquiryDate.split('T')[0]}</p>
+
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
-                    </DisplayBox>
-            )}
+                    )}
             </section>
 
             <section>
-                <div class='inquiryNew'>
+                
+                <div className='inquiryNew'>
                     <div>
-                        <h2 class='headline'>
+                    <hr style={{width: '87rem'}}/>
+                        <h2 className='headline'>
                             문의하기
                         </h2>
-                        <hr style={{width: '90%'}}/>
-                        <SpaceBox paddingBottom='100px' marginBottom='32px'></SpaceBox>
+                        <SpaceBox $paddingbottom='100px' $marginbottom='32px'></SpaceBox>
                         <Button className={'modalOpenBtn'} variant="primary" onClick={() => setModalOpen(true)}>문의하기</Button>
                     </div>
                 </div>
-                <SpaceBox paddingBottom='16px' marginBottom='32px'></SpaceBox>
+                <SpaceBox $paddingbottom='16px' $marginbottom='32px'></SpaceBox>
 
                 {
                     modalOpen &&

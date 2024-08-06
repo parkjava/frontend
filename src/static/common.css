@@ -713,21 +713,28 @@ thead > tr > th {
     background: #ffff; transform: translate(10px, -18px);
 }
 
-.outBox .inputBox input[type='text']:focus {border: 2px solid;}
 .outBox .inputBox input[type='text']:focus + label,
 .outBox .inputBox input[type='text'].not-empty + label {transform: scale(0.85) translate(-8px, -46px);}
-
-.inquiryNew {
-
-    padding-left: 100px;
-}
 
 .inquiryNew .headline {
     margin: 0; padding: 0; border: 0;
 }
 
+.inquiryNewList, .inquiryNew {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
 .inquiryTitle {
     font-size: 30px;
+}
+
+.inquiryIcon {
+    position: absolute;
+    left: 92%;
+    bottom: 44%;
+    cursor: pointer;
 }
 
 

@@ -1,6 +1,7 @@
 /* footer CSS */
 .footer {
     background-color: #ffffff !important;
+
     z-index: 3;
     color: black;
     position: relative;
