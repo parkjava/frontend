@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import '../../static/header.css'
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {Image} from "react-bootstrap";
@@ -7,44 +7,38 @@ import Cookies from "js-cookie";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-
 export default function Header() {
     const location = useLocation();
     const navigate = useNavigate();
-    const [headerLocation, setHeaderLocation] = useState('')
+    const menuRef = useRef(null);
+
+    const [headerLocation, setHeaderLocation] = useState('');
     const [isLogin, setIsLogin] = useState('');
     const [isScrolled, setIsScrolled] = useState(false);
+    const [shadow, setShadow] = useState(false)
 
     useEffect(() => {
         AOS.init();
-    }, [])
+    }, []);
 
     useEffect(() => {
         if (location.pathname.startsWith('/user')) {
-            setHeaderLocation(0)
+            setHeaderLocation(0);
         } else if (location.pathname.startsWith('/admin')) {
-            setHeaderLocation(1)
+            setHeaderLocation(1);
         } else {
-            setHeaderLocation(2)
+            setHeaderLocation(2);
         }
-    }, [location])
+    }, [location]);
 
     useEffect(() => {
         const loginInfo = Cookies.get("Authorization");
-        if (loginInfo != null) {
-            return setIsLogin(true);
-        } else if (loginInfo == null) {
-            return setIsLogin(false);
-        }
+        setIsLogin(loginInfo != null);
     }, []);
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 100) {
-                setIsScrolled(true);
-            } else {
-                setIsScrolled(false);
-            }
+            setIsScrolled(window.scrollY > 100);
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -53,6 +47,36 @@ export default function Header() {
         };
     }, []);
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                document.getElementById('menu-btn').checked = false;
+                setShadow('');
+                document.body.classList.remove('no-scroll'); // Remove no-scroll class
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+
+        };
+    }, []);
+
+    const handleMenuToggle = () => {
+        const menuBtn = document.getElementById('menu-btn');
+        if (menuBtn.checked) {
+            document.body.classList.add('noScroll');
+            setShadow('shadow');
+            console.log(shadow);
+        } else {
+            document.body.classList.remove('noScroll');
+            setShadow('');
+            console.log(shadow);
+
+        }
+    };
+
     const handleSignOut = () => {
         if (Cookies.get("Authorization") != null) {
             alert('로그아웃 되었습니다');
@@ -60,22 +84,20 @@ export default function Header() {
         } else {
             alert('로그인 정보가 없습니다.')
         }
-        navigate('/')
+        navigate('/');
     };
 
     return (
         <>
-            {
-                headerLocation === 0 //  user 일때
-                    ?
-                    <nav className={`header ${isScrolled ? 'scrolled' : ''}`}>
+            <div className={`${setShadow ? shadow : shadow}`}>
+                {headerLocation === 0 ? (
+                    <nav className={`header ${isScrolled ? 'scrolled' : ''}`} ref={menuRef}>
                         <Link to={"/user"} className={"logo"} data-aos="fade-right" data-aos-duration="500">
                             <Image src={Logo} className={'headerImg'}/>
                         </Link>
-                        <input className={"menu-btn"} type="checkbox" id="menu-btn"/>
+                        <input className={"menu-btn"} type="checkbox" id="menu-btn" onChange={handleMenuToggle}/>
                         <label className={"menu-icon"} htmlFor="menu-btn">
-                            <span className="navicon">
-                            </span>
+                            <span className="navicon"></span>
                         </label>
                         <ul className={"menu"}>
                             <li><Link to={'/'}>메인</Link></li>
@@ -85,12 +107,13 @@ export default function Header() {
                             <li><Link to={"/user/inquiry"}>문의하기</Link></li>
                         </ul>
                     </nav>
-                    : (headerLocation === 1 ? // admin 일때
-                        <nav className={`header ${isScrolled ? 'scrolled' : ''}`}>
+                ) : (
+                    headerLocation === 1 && (
+                        <nav className={`header ${isScrolled ? 'scrolled' : ''}`} ref={menuRef}>
                             <Link to={"/admin"} className={"logo"} data-aos="fade-right" data-aos-duration="500">
                                 <Image src={Logo} className={'headerImg'}/>
                             </Link>
-                            <input className="menu-btn" type="checkbox" id="menu-btn"/>
+                            <input className="menu-btn" type="checkbox" id="menu-btn" onChange={handleMenuToggle}/>
                             <label className="menu-icon" htmlFor="menu-btn"><span className="navicon"></span></label>
                             <ul className="menu">
                                 <li><Link to={'/'}>메인</Link></li>
@@ -103,17 +126,19 @@ export default function Header() {
                                     <Link to={'/'} className={'svgIcon'}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                              fill="currentColor"
-                                             className="bi bi-box-arrow-in-right icon"
-                                             viewBox="0 0 16 16">
+                                             className="bi bi-box-arrow-in-right icon" viewBox="0 0 16 16">
                                             <path fillRule="evenodd"
                                                   d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/>
                                             <path fillRule="evenodd"
                                                   d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
                                         </svg>
-                                    </Link></li>
+                                    </Link>
+                                </li>
                             </ul>
                         </nav>
-                        : null)}
+                    )
+                )}
+            </div>
         </>
     );
 }
