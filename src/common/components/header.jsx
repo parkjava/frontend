@@ -3,7 +3,6 @@ import '../../static/header.css'
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {Image} from "react-bootstrap";
 import Logo from '../../static/images/logo.png'
-// import AdminLogo from '../../static/images/adminLogo.png'
 import Cookies from "js-cookie";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
