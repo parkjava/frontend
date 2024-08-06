@@ -15,7 +15,7 @@ export default function Header() {
     const [headerLocation, setHeaderLocation] = useState('');
     const [isLogin, setIsLogin] = useState('');
     const [isScrolled, setIsScrolled] = useState(false);
-    const [shadow, setShadow] = useState(false)
+    const [shadow, setShadow] = useState('')
 
     useEffect(() => {
         AOS.init();
@@ -24,10 +24,13 @@ export default function Header() {
     useEffect(() => {
         if (location.pathname.startsWith('/user')) {
             setHeaderLocation(0);
+            setShadow('');
         } else if (location.pathname.startsWith('/admin')) {
             setHeaderLocation(1);
+            setShadow('');
         } else {
             setHeaderLocation(2);
+            setShadow('');
         }
     }, [location]);
 
@@ -48,32 +51,29 @@ export default function Header() {
     }, []);
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (menuRef.current && !menuRef.current.contains(event.target)) {
+        const handleClickOutside = (e) => {
+            if (menuRef.current && !menuRef.current.contains(e.target)) {
                 document.getElementById('menu-btn').checked = false;
+                document.body.classList.remove('noScroll');
                 setShadow('');
-                document.body.classList.remove('no-scroll'); // Remove no-scroll class
             }
         };
         document.addEventListener('mousedown', handleClickOutside);
 
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
-
         };
     }, []);
 
     const handleMenuToggle = () => {
         const menuBtn = document.getElementById('menu-btn');
         if (menuBtn.checked) {
-            document.body.classList.add('noScroll');
             setShadow('shadow');
-            console.log(shadow);
-        } else {
-            document.body.classList.remove('noScroll');
-            setShadow('');
-            console.log(shadow);
+            document.body.classList.add('noScroll');
 
+        } else {
+            setShadow('');
+            document.body.classList.remove('noScroll');
         }
     };
 
@@ -89,7 +89,7 @@ export default function Header() {
 
     return (
         <>
-            <div className={`${setShadow ? shadow : shadow}`}>
+            <div className={shadow}>
                 {headerLocation === 0 ? (
                     <nav className={`header ${isScrolled ? 'scrolled' : ''}`} ref={menuRef}>
                         <Link to={"/user"} className={"logo"} data-aos="fade-right" data-aos-duration="500">

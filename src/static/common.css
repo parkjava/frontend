@@ -170,13 +170,15 @@ thead > tr > th {
     /*font-family: Arial, sans-serif;*/
     background-color: #2e2e2e;
     color: white;
-    padding: 50px;
+    padding: 100px;
+    height: 100%;
 
 }
 
 .App-header {
     margin-bottom: 32px;
 }
+
 .CreateH1{
     margin-bottom: 10px!important;
 }
@@ -190,7 +192,7 @@ thead > tr > th {
 }
 
 .team-member {
-    width: 250px;
+    width: 300px;
     text-align: center;
 }
 
@@ -231,16 +233,28 @@ thead > tr > th {
 }
 
 @media (max-width: 768px) {
+    .App{
+        padding: 30px 0 30px 0;
+    }
+
+    .App-header {
+        padding: 26px 15px 26px 15px;
+
+    }
+
     .hover-text {
         opacity: 1;
         visibility: visible;
+    }
+
+    .team-member{
+        margin: 0 0 80px 0;
     }
 }
 
 
 /* 프로젝트 소개 페이지 */
 .projectInfo {
-
     margin: 0 400px 0 400px;
     text-align: center;
     font-size: 30px;
