@@ -54,7 +54,7 @@ export default function NoticeTable() {
                         {new Date(notice.createDate).toLocaleDateString('ko-KR',)}
                     </p>
                     <p>
-                       조회수: {notice.noticeView}
+                        조회수: {notice.noticeView}
                     </p>
                     <Table className={'adminDetailTable'} bordered>
                         <tbody>
@@ -77,11 +77,13 @@ export default function NoticeTable() {
                                 {/*// )}*/}
                             </td>
                         </tr>
-                                <Button variant="primary" onClick={handleUpdate} className="w-30">수정</Button>
-                                <Button variant="danger" onClick={handleDelete} className="w-30">삭제</Button>
+
                         </tbody>
                     </Table>
+
                     <div className={'noticeDetailBtn'}>
+                        <Button variant="primary" onClick={handleUpdate} className="w-30">수정</Button>
+                        <Button variant="danger" onClick={handleDelete} className="w-30">삭제</Button>
                         <Button className='noticeListBtn'><Link
                             to={'../admin/patrol'}>목록으로</Link></Button>
 
