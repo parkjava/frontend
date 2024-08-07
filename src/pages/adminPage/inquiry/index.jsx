@@ -57,10 +57,11 @@ export default function Index() {
                 <Table hover variant="white" className={'inquiryTable'}>
                     <thead>
                     <tr>
-                        <th className={'noColumn'}>NO</th>
-                        <th className={'titleColumn'}>문의제목</th>
-                        <th className={'writerColumn'}>문의자</th>
-                        <th className={'dateColumn'}>문의일자</th>
+                        <th>No.</th>
+                        <th>문의제목</th>
+                        <th>답변여부</th>
+                        {/*<th>문의자</th>*/}
+                        <th>문의일자</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -70,12 +71,20 @@ export default function Index() {
                                 {inquiry.inquiryIndex}
                             </td>
                             <td>
-                                <Link to={`/admin/inquiry/${inquiry.inquiryIndex}`}>{inquiry.inquiryTitle}
+                                <Link
+                                    to={`/admin/inquiry/${inquiry.inquiryIndex}`}>{inquiry.inquiryTitle}
                                 </Link>
+
                             </td>
                             <td>
-                                {inquiry.inquiryWriter}
+                                {inquiry.inquiryAnswer === null ?
+                                    <span className={'answerNeed'}>답변 필요</span>
+                                    :
+                                    <span className={'answerComplete'}>답변 완료</span>}
                             </td>
+                            {/*<td>*/}
+                            {/*    {inquiry.inquiryWriter}*/}
+                            {/*</td>*/}
                             <td>
                                 {inquiry.inquiryDate.split('T')[0]}
                             </td>
