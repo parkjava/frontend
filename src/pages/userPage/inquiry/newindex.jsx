@@ -150,12 +150,12 @@ export default function Index() {
     return (
         <>
         <div className={'commonContainer'}>
-            <section>
+
                 <h1 style={{paddingTop: '100px'}}>
                     <FontAwesomeIcon icon={faComment} bounce style={{color: '#000080', paddingRight: '5px'}} />ParkJava 문의하기
                 </h1>
-            </section>
-            <section>
+
+
             <div className='outBox' style={{display: 'flex', justifyContent: 'center'}}>
                 <Form onSubmit={handleGet} style={{width: '354px', position: 'relative', top: '5px'}}>
                     <div className='inputBox'>
@@ -193,17 +193,16 @@ export default function Index() {
                             </ul>
                         </div>
                     )}
-            </section>
-
-            <section>
-                
                 <div className='inquiryNew'>
                     <div>
                     <hr style={{width: '87rem'}}/>
                         <h2 className='headline'>
                             문의하기
                         </h2>
-                        <FontAwesomeIcon icon={faFile} onClick={() => setModalOpen(true)} style={{scale: '4', paddingTop: '1.5rem', cursor: 'pointer'}}/>
+                        <FontAwesomeIcon 
+                            className='inquiryNewIcon' 
+                            icon={faFile} 
+                            onClick={() => setModalOpen(true)} />
                     </div>
                 </div>
                 <SpaceBox $paddingbottom='16px' $marginbottom='32px'></SpaceBox>
@@ -308,7 +307,7 @@ export default function Index() {
                     </div>
                 }
 
-            </section>
+
             
             </div>
         </>

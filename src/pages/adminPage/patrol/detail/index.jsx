@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useParams, useNavigate, Link} from 'react-router-dom';
 import {Container, Card, Button, Col, Row} from 'react-bootstrap';
 import axiosInstance from "../../../../common/components/axiosinstance";
+import '../../../../static/common.css'
 
 export default function PatrolDetail() {
     const {patrolIndex} = useParams();
@@ -41,25 +42,23 @@ export default function PatrolDetail() {
 
     return (
         <div className={'commonContainer'}>
-            <Container>
-                <Card>
-                    <Card.Header>관할 구역: {patrol.patrolArea}</Card.Header>
-                    <Card.Body>
-                        <Card.Text>
-                            {patrol.patrolSummary}
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
-                <Row className="mt-3">
-                    <Col md={6} className="text-md-end">
+            <div style={{margin: '0', padding: '20px 15px 40px'}}>
+                <span><strong>관할 구역:</strong> {patrol.patrolArea}</span>
+                <hr style={{margin:'0'}}/>
+                <span style={{fontSize: '12px'}}>{patrol.createDate}</span> {/*생성 날짜*/}
+                <div style={{padding: '30px 0px 40px'}}>
+                    {patrol.patrolSummary}
+                </div>
+                <div className="mt-3" >
+                    <span className="text-md-end" >
                         <Button variant="primary" onClick={handleEdit} className="w-30">수정</Button>
-                    </Col>
-                    <Col md={6} className="text-md-start mt-2 mt-md-0">
+                    </span>
+                    <span className="text-md-start mt-2 mt-md-0">
                         <Button variant="danger" onClick={handleDelete} className="w-30">삭제</Button>
-                    </Col>
-                </Row>
+                    </span>
+                </div>
                 <div className='d-flex pt-3'><Link to={'../admin/patrol'}>목록으로</Link></div>
-            </Container>
+            </div>
         </div>
     );
 }

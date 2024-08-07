@@ -822,13 +822,34 @@ thead > tr > th {
 .inquiryNew .headline {
     margin: 0;
     padding: 0;
-    border: 0;
+    border: 0; 
+}
+
+.inquiryNew .inquiryNewIcon {
+    scale: 4;
+    padding-top: 1.5rem; 
+    cursor: pointer;
+    color: #000080;
+}
+
+.inquiryNew {
+    margin-bottom: 200px;
 }
 
 .inquiryNewList, .inquiryNew {
     display: flex;
     justify-content: center;
     text-align: center;
+}
+
+.inquiryNewList ul li{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inquiryNewList ul li hr{
+    width: 87rem;
 }
 
 .inquiryTitle {
