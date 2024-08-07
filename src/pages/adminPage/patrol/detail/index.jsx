@@ -72,20 +72,15 @@ export default function PatrolDetail() {
                         </td>
                     </tr>
 
-                        {/*<td className="text-md-end">*/}
-                            <Button variant="primary" onClick={handleEdit} className="w-30">수정</Button>
-                        {/*</td>*/}
-                        {/*<td className="text-md-start mt-2 mt-md-0">*/}
-                            <Button variant="danger" onClick={handleDelete} className="w-30">삭제</Button>
-                        {/*</td>*/}
 
                     </tbody>
 
                 </Table>
                 <div className={'noticeDetailBtn'}>
-                    <Button className='noticeListBtn'><Link
-                        to={'../admin/patrol'}>목록으로</Link></Button>
-
+                    <Button variant="primary" onClick={handleEdit} className="w-30">수정</Button>
+                    <Button variant="danger" onClick={handleDelete} className="w-30">삭제</Button>
+                    <Button className='noticeListBtn'>
+                        <Link to={'../admin/patrol'}>목록으로</Link></Button>
                 </div>
                 {/*</Container>*/}
                 {/*<Card>*/}
