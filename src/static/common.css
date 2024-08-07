@@ -17,7 +17,7 @@
 /* 공통 */
 a {
     text-decoration: none !important;
-    color: #000000;
+
 }
 
 li {
@@ -864,6 +864,9 @@ thead > tr > th {
 
 .userNoticeContainer {
     text-align: center;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
 }
 
 .userNoticeContainer h1{
@@ -879,10 +882,27 @@ thead > tr > th {
 }
 
 /* 유저 공지사항 상세페이지*/
+.userNoticeTitle{
+    text-align: left!important;
+    font-size: 60px;
+    margin: 0!important;
+}
+.userNoticeDate{
+    padding: 10px!important;
+    font-size: 20px;
+    font-weight: bolder;
+}
+.userNoticeText{
+    height: 500px!important;
+}
+
 .noticeListBtn {
     height: 40px;
     width: 100px;
     padding-bottom: 20px;
+    background-color: #b0d9ff!important;
+    border-color: #b0d9ff!important;
+
 }
 
 .noticeDetailBtn {
@@ -890,8 +910,17 @@ thead > tr > th {
 }
 
 .detailContainer {
-    padding-top: 120px;
-    padding-bottom: 20px;
+    height: 400px;
+    padding-top: 60px;
+    margin-left: 0;
+/*    padding-bottom: 20px;*/
+}
+
+.detailContainer a{
+    color : black !important;
+}
+.text-center p{
+    text-align: left!important;
 }
 
 /* 관제 페이지 */
@@ -976,7 +1005,19 @@ thead > tr > th {
 }
 
 /* 순찰내역 페이지 */
-
+.adminPatrolTitle{
+    margin: 20px 0!important;
+    text-align: left!important;
+    font-size: 50px;
+}
+.adminPatrolDate{
+    font-size: 30px;
+    margin-left: 10px;
+    font-weight: bolder;
+}
+.adminPatrolText{
+    height: 400px!important;
+}
 table th,
 table td {
     border-left: none;
@@ -1035,6 +1076,27 @@ table td:last-child {
     padding: 50px;
     color: white;
     font-weight: bold;
+    font-size: 50px;
+}
+.adminPenaltyDate{
+    font-size: 30px;
+    margin-left: 0!important;
+    font-weight: bold;
+}
+.adminPenaltyCash{
+    font-size: 20px;
+}
+.cardText{
+    display: flex;
+    justify-content: left;
+    justify-items: left;
+    padding-top: 50px;
+    padding-left: 50px;
+
+}
+.imageTable{
+    background-color: #e6fde6 !important;
+    height: 400px!important;
 }
 
 /* 관리자 공지사항 페이지 */
@@ -1047,6 +1109,7 @@ table td:last-child {
     color: white;
     font-weight: bold;
     padding: 50px;
+    font-size: 50px;
 }
 
 .table th.no-column, .table td.no-column {
@@ -1063,6 +1126,21 @@ table td:last-child {
 
 .table th.view-column, .table td.view-column {
     width: 20%; /* 예: 조회수 열의 넓이를 20%로 설정 */
+}
+.adminNoticeTitle{
+    margin: 10px!important;
+    margin-left: 0!important;
+    text-align: left!important;
+    font-size: 50px!important;
+    font-weight: bold;
+}
+.adminNoticeDate{
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 0;
+}
+.adminNoticeText{
+    height: 400px!important;
 }
 
 /*.noticeCreateBtn {*/
@@ -1084,4 +1162,5 @@ table td:last-child {
     color: white;
     font-weight: bold;
     padding: 50px;
+    font-size: 50px;
 }
