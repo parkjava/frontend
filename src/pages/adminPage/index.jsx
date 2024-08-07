@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import axios from "axios";
 import {
     Chart as ChartJS,
     LineElement,
@@ -32,13 +33,16 @@ export default function Index() {
     });
 
 
+
     // 백엔드 데이터 가져오기
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axiosInstance.get('/api/penalty/asc'); // 엔드포인트 수정
+                const response = await axiosInstance.get('/api/penalty/countDate'); // 엔드포인트 수정
                 const data = response;
 
+
+                console.log('PenaltyData:', data);
 
                 // 데이터가 배열인지 확인
                 if (!Array.isArray(data)) {
@@ -47,9 +51,10 @@ export default function Index() {
 
                 // 데이터 구조에 맞게 변환
                 const labels = data.map(item => item.penaltyDate); // X축 레이블
+                console.log("labels============================="+labels)
 
-                const dataset1 = data.map(item => Number(item.penaltyIndex));
-
+                const dataset1 = data.map(item => item.count);
+                console.log("dataset================"+dataset1)
                 // const dataset2 = data.map(item => Number(item.patrolArea));
 
 
@@ -103,9 +108,10 @@ export default function Index() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axiosInstance.get('/api/inquiry/asc'); // 엔드포인트 수정
+                const response = await axiosInstance.get('/api/inquiry/countDate'); // 엔드포인트 수정
                 // console.log("response" + response)
                 const data = response;
+                console.log(response)
 
                 // 데이터 확인
                 // console.log("data" + data);
@@ -117,7 +123,7 @@ export default function Index() {
                 // 데이터 구조에 맞게 변환
                 const labels = data.map(item => item.inquiryDate); // X축 레이블
                 // console.log("labels" + labels);
-                const dataset = data.map(item => Number(item.inquiryIndex));
+                const dataset = data.map(item => item.count);
                 // console.log("dataset1" + dataset);
                 // const dataset2 = data.map(item => Number(item.patrolArea));
                 // console.log("dataset2"+dataset2);
