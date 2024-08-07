@@ -21,21 +21,21 @@ a {
 }
 
 li {
-   list-style-type: none;
+    list-style-type: none;
 }
 
 .commonContainer {
     padding-top: 80px;
     background-color: #ffffff;
     overflow: hidden;
-    min-height: 100vh;
 }
 
-.commonContainer h1{
+.commonContainer h1 {
     margin: 80px 0 80px 0;
     text-align: center;
 }
-.commonContainer hr{
+
+.commonContainer hr {
     margin: 80px 0 80px 0;
 }
 
@@ -48,7 +48,8 @@ li {
     height: 100%;
     text-align: center;
 }
-.notFoundMsg{
+
+.notFoundMsg {
     background: linear-gradient(90deg, rgba(52, 32, 70, 1) 23%, rgba(126, 210, 214, 1) 100%, rgba(52, 32, 70, 1) 23%);
     color: transparent;
     -webkit-background-clip: text;
@@ -63,7 +64,7 @@ li {
 
 }
 
-.notFoundTitle{
+.notFoundTitle {
     font-size: 30px;
 }
 
@@ -78,7 +79,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 
 /*파란배경 없애기*/
 
-.notFoundImg{
+.notFoundImg {
     width: 50%;
 }
 
@@ -203,6 +204,44 @@ thead > tr > th {
     height: 100%;
 
     padding: 50px;
+}
+
+/* 관리자 문의상세 페이지 */
+
+.answerNeed, .answerComplete {
+    padding: 5px 8px 5px 8px;
+    border-radius: 15px;
+    font-size: 14px;
+    color: #f8f8f8;
+    font-weight: bold;
+}
+
+.answerNeed {
+    border: 1px solid #ff5858;
+    background-color: #ed7e7e;
+
+}
+
+.answerComplete {
+    border: 1px solid #87cf64;
+    background-color: #4fd50a;
+}
+
+.answerBtn {
+    margin-top: 20px;
+    margin-left: 0;
+    width: 100%;
+
+}
+
+@media (max-width: 900px) {
+    .answerText {
+        width: 100%;
+    }
+
+    .answerBtn {
+
+    }
 }
 
 .App-header {
@@ -717,7 +756,7 @@ thead > tr > th {
 .inquiryButton {
     width: 100%;
     height: 3rem;
-    color: #ffffff;    
+    color: #ffffff;
     background-image: linear-gradient(to bottom, #000080, #000080);
 }
 
@@ -766,7 +805,7 @@ thead > tr > th {
 }
 
 .formLabel {
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .buttonContainer {
@@ -829,6 +868,7 @@ thead > tr > th {
     display: flex;
     justify-content: center;
     text-align: center;
+    height: 500px;
 }
 
 .inquiryTitle {
@@ -869,11 +909,11 @@ thead > tr > th {
     padding: 0;
 }
 
-.userNoticeContainer h1{
+.userNoticeContainer h1 {
     background-image: url("./images/blue-background.jpg");
     background-size: cover;
     color: white;
-    margin-top:50px;
+    margin-top: 50px;
     padding: 50px;
     /*margin: 100px 0 100px 0 ;*/
     width: 100%;
@@ -1045,7 +1085,7 @@ table td:last-child {
     background-image: url("./images/wooden-wall.jpg");
     background-size: cover;
     color: white;
-    margin-top:50px;
+    margin-top: 50px;
     padding: 50px;
     /*margin: 100px 0 100px 0 ;*/
     width: 100%;
@@ -1070,8 +1110,8 @@ table td:last-child {
 }
 
 /* 단속차량 목록 페이지 */
-.penaltyH1{
-    background-image: url("./images/background-75.jpg")!important;
+.penaltyH1 {
+    background-image: url("./images/background-75.jpg") !important;
     background-size: cover;
     padding: 50px;
     color: white;
@@ -1103,7 +1143,8 @@ table td:last-child {
 .table th, .table td {
     padding: 8px;
 }
-.adminNoticeH1{
+
+.adminNoticeH1 {
     background-image: url("./images/blue-background.jpg");
     background-size: cover;
     color: white;
@@ -1155,8 +1196,7 @@ table td:last-child {
 /*}*/
 
 /* 관리자 문의사항 페이지 */
-
-.adminInquiryH1{
+.adminInquiryH1 {
     background-image: url("./images/abstract.jpg");
     background-size: cover;
     color: white;

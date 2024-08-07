@@ -22,7 +22,7 @@ import PatrolUpdatePage from "./pages/adminPage/patrol/update/index";
 import PatrolDetailPage from "./pages/adminPage/patrol/detail/index";
 import ControlPage from "./pages/adminPage/control/index";
 import InquiryPage from "./pages/adminPage/inquiry/index";
-import InquiryDetailPage from "./pages/adminPage/inquiry/deatail/index"
+import InquiryDetailPage from "./pages/adminPage/inquiry/detail/index"
 import InquiryEdit from "./pages/adminPage/inquiry/update/index";
 /*-------------------------------------------------------------*/
 // 사용자 전용
