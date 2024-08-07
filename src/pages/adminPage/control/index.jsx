@@ -188,7 +188,6 @@ export default function Index() {
     const handleKeyPress = (key) => {
         const keyMap = {
             'w': {ButtonName: '↑', functionCall: () => document.getElementById('go').click()}, // 앞으로
-            'W': {ButtonName: '↑', functionCall: () => document.getElementById('go').click()}, // 앞으로
             'ㅈ': {ButtonName: '↑', functionCall: () => document.getElementById('go').click()}, // 앞으로
             's': {ButtonName: '↓', functionCall: () => document.getElementById('back').click()}, // 뒤로
             'ㄴ': {ButtonName: '↓', functionCall: () => document.getElementById('back').click()}, // 뒤로
