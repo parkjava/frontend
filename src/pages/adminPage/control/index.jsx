@@ -39,7 +39,7 @@ export default function Index() {
     useEffect(() => {
         console.log(images)
         setInterval(async () => {
-            console.log('렌더링했당')
+            // console.log('렌더링했당')
             const fetchImages = async () => {
                 try {
                     // Storage에서 디렉토리 참조를 생성합니다.
