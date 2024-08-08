@@ -38,7 +38,7 @@ export default function App() {
         const loginInfo = Cookies.get("Authorization");
         if (loginInfo != null) {
             setIsLogin(true);
-            navigate('/admin')
+            navigate('/admin',{replace:true})
         } else {
             setIsLogin(false);
         }

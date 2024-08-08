@@ -96,7 +96,7 @@ export default function Index() {
                 setShowMessage(true); // 메시지 표시
                 setTimeout(() => {
                     setShowMessage(false);
-                    navigate('/user');
+                    navigate('/user',{replace:true});
                 });
             })
             .catch((error) => console.error('Error saving data:', error));

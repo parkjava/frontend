@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Form, Button } from 'react-bootstrap';
+import React, {useState, useEffect} from 'react';
+import {useParams, useNavigate} from 'react-router-dom';
+import {Container, Form, Button} from 'react-bootstrap';
 import axiosInstance from "../../../../common/components/axiosinstance";
 
-export default function InquiryEdit() {
-    const { inquiryIndex } = useParams();
-    const [inquiry, setInquiry] = useState(null);
+export default function Index() {
+    const {inquiryIndex} = useParams();
+    const [inquiry, setInquiry] = useState('');
     const navigate = useNavigate();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    function inquiryUpdateApi(){
+    function inquiryUpdateApi() {
         axiosInstance
             .get(`/api/inquiry/${inquiryIndex}`)
             .then(response => setInquiry(response))
@@ -21,7 +21,8 @@ export default function InquiryEdit() {
     }, [inquiryIndex]);
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        e.preventDefault();
+        const {name, value} = e.target;
         setInquiry({
             ...inquiry,
             [name]: value,
@@ -30,13 +31,16 @@ export default function InquiryEdit() {
 
     const handleUpdate = (e) => {
         e.preventDefault();
+        const updatedInquiry = {
+            ...inquiry,
+            inquiryAnswer: `${inquiry.inquiryAnswer}`
+        }
         axiosInstance
-            .put(`/api/inquiry/update/${inquiryIndex}`, inquiry)
-            .then(response => {
-                navigate(`/admin/inquiry/${inquiryIndex}`);
-
-            })
+            .put(`/api/inquiry/answer/${inquiryIndex}`, updatedInquiry)
+            .then(response => setInquiry(response))
             .catch(error => console.error('Error updating inquiry:', error));
+        alert('답변이 완료되었습니다.');
+        navigate(`/admin/inquiry`,{replace: true});
     };
 
     if (!inquiry) {
@@ -44,35 +48,25 @@ export default function InquiryEdit() {
     }
 
     return (
-        <div className={'commonContainer'}>
+        <>
             <Container>
                 <Form onSubmit={handleUpdate}>
-                    <Form.Group controlId="inquiryTitle">
-                        <Form.Label>제목</Form.Label>
-                        <Form.Control
-                            type="text"
-                            placeholder="Enter title"
-                            name="inquiryTitle"
-                            value={inquiry.inquiryTitle}
-                            onChange={handleInputChange}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId="inquiryContent">
-                        <Form.Label>내용</Form.Label>
+                    <hr/>
+                    <h2 className={'mb-5'}>문의 답변하기</h2>
+                    <Form.Group controlId="inquiryAnswer" >
                         <Form.Control
                             as="textarea"
-                            rows={5}
+                            rows={3}
                             placeholder="Enter content"
-                            name="inquiryContent"
-                            value={inquiry.inquiryContent}
+                            name="inquiryAnswer"
                             onChange={handleInputChange}
                         />
+                        <Button variant="primary" type="submit" className={'answerBtn'}>
+                            등록
+                        </Button>
                     </Form.Group>
-                    <Button variant="primary" type="submit">
-                        수정
-                    </Button>
                 </Form>
             </Container>
-        </div>
+        </>
     );
 }
