@@ -116,10 +116,6 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
     margin-bottom: 40px;
 }
 
-.loginGroup {
-
-}
-
 .loginInput {
     width: 395px !important;
     transition: 0.3s;
@@ -875,7 +871,18 @@ thead > tr > th {
 .inquiryNew .headline {
     margin: 0;
     padding: 0;
-    border: 0;
+    border: 0; 
+}
+
+.inquiryNew .inquiryNewIcon {
+    scale: 4;
+    padding-top: 1.5rem; 
+    cursor: pointer;
+    color: #000080;
+}
+
+.inquiryNew {
+    margin-bottom: 200px;
 }
 
 .inquiryNewList, .inquiryNew {
@@ -883,6 +890,16 @@ thead > tr > th {
     justify-content: center;
     text-align: center;
     /*height: 500px;*/
+}
+
+.inquiryNewList ul li{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inquiryNewList ul li hr{
+    width: 87rem;
 }
 
 .inquiryTitle {
@@ -1086,14 +1103,22 @@ thead > tr > th {
 
 /* 순찰내역 페이지 */
 .adminPatrolTitle{
-    margin: 20px 0!important;
+    margin: 5px 0!important;
     text-align: left!important;
-    font-size: 50px;
+    font-size: 30px;
+    border-top: 1px solid;
+    padding: 37px 27px 30px; 
+    background-color: #f9f9f9; 
+    color: #333; 
+    font-weight: bold;
 }
 .adminPatrolDate{
-    font-size: 30px;
-    margin-left: 10px;
+    font-size: 12px;
+    margin: 0px;
     font-weight: bolder;
+    color: #333;
+    text-align: end;
+    padding-right: 5px;
 }
 .adminPatrolText{
     height: 400px!important;
