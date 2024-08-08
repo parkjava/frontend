@@ -175,7 +175,6 @@ export default function PatrolTable() {
                         {time}
                     </h4>
                     <div className={'createPatrolContainer'}>
-
                         <Form.Select
                             aria-label="Default select example"
                             name="area"
@@ -228,8 +227,6 @@ export default function PatrolTable() {
                         </Button>
                     </div>
                 </Form>
-
-
             </Container>
         </div>
     );
