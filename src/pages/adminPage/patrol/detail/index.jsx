@@ -9,6 +9,7 @@ import {faScrewdriverWrench, faCalendarPlus} from "@fortawesome/free-solid-svg-i
 export default function PatrolDetail() {
     const {patrolIndex} = useParams();
     const [patrol, setPetrol] = useState(null); // 특정 index에 해당하는 데이터
+    const [patrols, setPatrols] = useState(); // 전체 데이터
     const navigate = useNavigate();
 
     function patrolDetailApi() {
@@ -20,8 +21,19 @@ export default function PatrolDetail() {
             .catch((err) => console.log(err));
     }
 
+    function patrolApi() {
+        axiosInstance
+            .get('/api/patrol')
+            .then((res) => {
+                setPatrols(res)
+                console.log(res)
+            })
+            .catch((err) => console.log(err));
+    }
+
     useEffect(() => {
         patrolDetailApi();
+        patrolApi();
     }, [patrolIndex]);
 
     const handleEdit = () => {
@@ -45,6 +57,16 @@ export default function PatrolDetail() {
     if (!patrol) {
         return <Container>Loading...</Container>;
     }
+
+    const currentPatrolIndex = patrols.findIndex((item) => item.patrolIndex === parseInt(patrolIndex))
+
+    const nextPatrol = currentPatrolIndex < patrols.length - 1 ? patrols[2 + 1].patrolIndex : null
+    const prevPatrol = currentPatrolIndex > 0 ? patrols[currentPatrolIndex - 1].patrolIndex : null
+
+    console.log('cur: ' + currentPatrolIndex)
+    console.log('patrols: ' + patrols)
+    console.log('prev: ' + prevPatrol)
+    console.log('next: ' + nextPatrol)
 
     return (
 
@@ -75,12 +97,12 @@ export default function PatrolDetail() {
                         <td colSpan={4} className="text-center">
                             {/*{prevIndex >= 0 && ( // 이전 글 링크를 조건에 따라 렌더링*/}
                             <p>
-                                {parseInt(patrolIndex) > 0 ? <Link to={`/admin/patrol/${parseInt(patrolIndex) - 1}`}>이전 글▲</Link> : ''}
+                            {prevPatrol && <Link to={`/admin/patrol/${prevPatrol}`}>이전 글▲</Link>}
                             </p>
                             {/*// )}*/}
                             {/*{nextIndex <= penalties.length && ( // 다음 글 링크를 조건에 따라 렌더링*/}
                             <p>
-                                <Link to={`/admin/patrol/${parseInt(patrolIndex) + 1}`}>다음 글▼</Link>
+                                {nextPatrol && <Link to={`/admin/patrol/${nextPatrol}`}>다음 글▼</Link>}
                                 
                             </p>
                             {/*// )}*/}
