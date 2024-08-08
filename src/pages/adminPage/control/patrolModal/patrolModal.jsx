@@ -33,7 +33,6 @@ export default function PatrolTable() {
     const [showAlert, setShowAlert] = useState(false);
     const [subareas, setSubareas] = useState([]); // 중분류 상태 추가
     const [name, setName] = useState('');
-    const [time, setTime] = useState('')
     const navigate = useNavigate();
 
     function nameApi() {
@@ -118,7 +117,6 @@ export default function PatrolTable() {
                     date: '',
                 });
                 setShowAlert(false);
-                navigate('/admin/patrol');
             })
             .catch((error) => {
                 console.error('Error saving data:', error);
@@ -130,52 +128,11 @@ export default function PatrolTable() {
             });
     };
 
-    function timeApi() {
-        const date = new Date().toLocaleString('ko-KR', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false,
-            second: '2-digit',
-        }).replace(/\./g, '').replace(/\s/g, '-').replace(/-/g, (match, offset) => offset === 4 || offset === 7 ? '-' : ' ').slice(0, 20);
-        setTime(date);
-    }
-
-
-    useEffect(() => {
-        setInterval(timeApi, 1000);
-    }, [setTime, time]);
-
-
-    return (
-        <div className={'commonContainer'}>
-            <Container>
-                <h1 className={'patrolH1'}>순찰내역작성</h1>
-
-                <Form onSubmit={handleSubmit}>
-                    <h4 className={'d-flex align-items-center justify-content-sm-end'}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                             className="bi bi-person-workspace" viewBox="0 0 16 16">
-                            <path
-                                d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
-                            <path
-                                d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.4 5.4 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2z"/>
-                        </svg>
-                        &nbsp;
-                        {name}</h4>
-                    <h4 className={'d-flex align-items-center justify-content-sm-end'}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                             className="bi bi-clock" viewBox="0 0 16 16">
-                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
-                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
-                        </svg>
-                        &nbsp;
-                        {time}
-                    </h4>
-                    <div className={'createPatrolContainer'}>
-
+    return (<>
+            <Container className={'text-center'}>
+                <h2>순찰내역작성</h2>
+                <Form onSubmit={handleSubmit} className={'mt-5'}>
+                    <div className={'createPatrolModal'}>
                         <Form.Select
                             aria-label="Default select example"
                             name="area"
@@ -188,13 +145,14 @@ export default function PatrolTable() {
                             ))}
                         </Form.Select>
                         <Form.Select
+                            style={{marginLeft:8}}
                             aria-label="Default select example"
                             name="subarea"
                             value={patrol.subarea}
                             onChange={handleInputChange}
                             disabled={!patrol.area} // 대분류가 선택되지 않으면 중분류 비활성화
                         >
-                            <option value="">관할 동</option>
+                            <option disabled>관할 동</option>
                             {subareas.map((subarea) => (
                                 <option key={subarea} value={subarea}>{subarea}</option>
                             ))}
@@ -217,20 +175,18 @@ export default function PatrolTable() {
                             ))}
                         </Alert>
                     )}
-                    <div className="d-flex justify-content-center align-items-center mt-5">
+                    <div className="d-flex justify-content-end align-items-center">
                         <Button
+                            className={'mt-3 w-100'}
                             variant="primary"
                             type="submit"
-                            style={{width: '100%'}}
                             disabled={!patrol.area || !patrol.subarea || !patrol.summary} // 중분류 추가
                         >
                             작성
                         </Button>
                     </div>
                 </Form>
-
-
             </Container>
-        </div>
+        </>
     );
 }
