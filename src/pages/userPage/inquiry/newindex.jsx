@@ -8,12 +8,6 @@ import {useNavigate} from 'react-router-dom';
 import Logo from '../../../static/images/logo.png'
 
 import styled from 'styled-components'
-//
-// const DisplayBox = styled.div`
-//     display: ${props => props.display};
-//     justify-content: ${props => props.justify};
-//     padding: ${props => props.padding};
-// `
 
 const SpaceBox = styled.div`
     padding-bottom: ${props => props.paddingbottom}
@@ -206,7 +200,6 @@ export default function Index() {
                             <h2 className='headline'>
                                 문의하기
                             </h2>
-                            {/*<FontAwesomeIcon icon={faFile} />*/}
 
                             <FontAwesomeIcon icon={faComments} onClick={() => setModalOpen(true)}
                                              style={{scale: '3', paddingTop: '1.5rem', cursor: 'pointer'}}/>
