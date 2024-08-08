@@ -24,6 +24,20 @@ li {
     list-style-type: none;
 }
 
+th{
+    background: #e3e3e3 !important;
+}
+table{
+    min-height: 500px;
+}
+table th,
+table td {
+    border-left: none;
+    border-right: none;
+    text-align: center;
+
+}
+
 .commonContainer {
     padding-top: 80px;
     background-color: #ffffff;
@@ -868,7 +882,7 @@ thead > tr > th {
     display: flex;
     justify-content: center;
     text-align: center;
-    height: 500px;
+    /*height: 500px;*/
 }
 
 .inquiryTitle {
@@ -1044,6 +1058,21 @@ thead > tr > th {
     margin: 5px 5px 5px 5px;
 }
 
+.controlModal {
+    position: absolute;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 100%;
+}
+
+.createPatrolModal{
+    display: flex;
+    margin: 0 0 15px 0;
+}
+
+
 /* 순찰내역 페이지 */
 .adminPatrolTitle{
     margin: 20px 0!important;
@@ -1058,24 +1087,7 @@ thead > tr > th {
 .adminPatrolText{
     height: 400px!important;
 }
-table th,
-table td {
-    border-left: none;
-    border-right: none;
-    text-align: center;
 
-
-}
-
-table th:first-child,
-table td:first-child {
-    border-left: 0;
-}
-
-table th:last-child,
-table td:last-child {
-    border-right: 0;
-}
 
 .trTitle {
     background-color: #c2e1fd;
@@ -1108,6 +1120,13 @@ table td:last-child {
     background-color: rgb(176, 217, 255) !important;
     border: #d3f0ff !important;
 }
+/* 순찰내역작성 페이지 */
+.createPatrolContainer{
+    display: flex;
+    margin: 0 0 30px 0;
+}
+
+
 
 /* 단속차량 목록 페이지 */
 .penaltyH1 {

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import ROSLIB from 'roslib';
 import {Image, Button, Form} from "react-bootstrap";
 import '../../../static/common.css'
@@ -6,6 +6,9 @@ import {getDownloadURL, ref, listAll, deleteObject, getStorage} from "firebase/s
 import {storage} from "../../../firebase";
 import axiosInstance from "../../../common/components/axiosinstance";
 import {TransformWrapper, TransformComponent} from "react-zoom-pan-pinch";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faXmark} from "@fortawesome/free-solid-svg-icons";
+import CreatePatrol from "./patrolModal/patrolModal"
 
 
 export default function Index() {
@@ -14,7 +17,7 @@ export default function Index() {
     const [isChecked, setIsChecked] = useState(true);
     const [buttonInfo, setButtonInfo] = useState('');
     const [images, setImages] = useState([]);
-
+    const [modalOpen, setModalOpen] = useState(false);
     const [checkState, setCheckState] = useState(new Array(images.length).fill(false))
 
 
@@ -29,8 +32,6 @@ export default function Index() {
             publishMessage(false)
             callService('/LEDBLUE', 'jetbotmini_msgs/srv', 0)
             callService('/LEDGREE', 'jetbotmini_msgs/srv', 1)
-
-
         }
     };
 
@@ -109,6 +110,11 @@ export default function Index() {
     }, []);
 
     const callService = (name, type, value) => {
+
+        if (modalOpen) { // 모달 열려 있으면 함수 호출 안되도록
+            return;
+        }
+
         const exampleService = new ROSLIB.Service({
             ros: ros, name: name, serviceType: type,
         });
@@ -171,13 +177,15 @@ export default function Index() {
         exampleTopic.subscribe((message) => {
             const voltage = message.ModeState;
 
-            console.log(voltage)
+            // console.log(voltage)
         });
 
         exampleTopic.publish(message);
 
-        console.log(message)
+        // console.log(message)
     };
+
+    const modalBackground = useRef();
 
     const handleSpeedChange = (newSpeed) => {
         setCurrentSpeed(newSpeed);
@@ -186,7 +194,9 @@ export default function Index() {
 
 
     const handleKeyPress = (key) => {
+
         const keyMap = {
+
             'w': {ButtonName: '↑', functionCall: () => document.getElementById('go').click()}, // 앞으로
             'ㅈ': {ButtonName: '↑', functionCall: () => document.getElementById('go').click()}, // 앞으로
             's': {ButtonName: '↓', functionCall: () => document.getElementById('back').click()}, // 뒤로
@@ -205,11 +215,12 @@ export default function Index() {
             'ㅊ': {ButtonName: '↘', functionCall: () => document.getElementById('rightback').click()}, // 반시계방향 뒤로 턴
             '+': {ButtonName: '+', functionCall: () => document.getElementById('speedUp').click()},
             '-': {ButtonName: '-', functionCall: () => document.getElementById('speedDown').click()},
-            ' ': {ButtonName: '↑', functionCall: () => document.getElementById('stop').click()}, // 앞으로
+            ' ': {ButtonName: '↑', functionCall: () => document.getElementById('stop').click()}, //정지
         };
 
         if (key in keyMap) {
             keyMap[key].functionCall();
+            // console.log(key)
             return `입력키: ${keyMap[key].ButtonName}`;
         }
         return null;
@@ -279,6 +290,15 @@ export default function Index() {
             }
         }
     }
+
+    useEffect(() => {
+
+        if (modalOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+    }, [modalOpen]);
 
     return (<>
         <div className={'commonContainer'}>
@@ -383,7 +403,23 @@ export default function Index() {
                             title={'우로 후진'}>↘
                     </Button>
                 </div>
+
             </div>
         </div>
+        <Button onClick={() => setModalOpen(true)}>순찰내역작성</Button>
+        {
+            modalOpen &&
+            <div className={'modalContainer'} ref={modalBackground} onClick={e => {
+                if (e.target === modalBackground.current) {
+                    setModalOpen(false);
+                }
+            }}>
+                <div className={'controlModal'}>
+                    <FontAwesomeIcon className='modalCloseBtn' icon={faXmark}
+                                     onClick={() => setModalOpen(false)}/>
+                    <CreatePatrol/>
+                </div>
+            </div>
+        }
     </>);
 };
