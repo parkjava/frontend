@@ -98,19 +98,19 @@ export default function Index() {
                 <h1 className={'penaltyH1'}>단속 차량 목록</h1>
                 <hr/>
                 <Container className="d-flex justify-content-center align-items-center">
-                    <Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">
-                        <Dropdown.Toggle className={'dropDownToggle'} id="dropdown-basic">
-                            검색 옵션: {searchOptionLabel}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <Dropdown.Item eventKey="carnumber">차량 번호</Dropdown.Item>
-                            <Dropdown.Item eventKey="date">날짜</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
+                    {/*<Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">*/}
+                    {/*    <Dropdown.Toggle className={'dropDownToggle'} id="dropdown-basic">*/}
+                    {/*        검색 옵션: {searchOptionLabel}*/}
+                    {/*    </Dropdown.Toggle>*/}
+                    {/*    <Dropdown.Menu>*/}
+                    {/*        <Dropdown.Item eventKey="carnumber">차량 번호</Dropdown.Item>*/}
+                    {/*        <Dropdown.Item eventKey="date">날짜</Dropdown.Item>*/}
+                    {/*    </Dropdown.Menu>*/}
+                    {/*</Dropdown>*/}
                     <Form onSubmit={handleSubmit} className="d-flex pb-2" style={{width: '300px'}}>
                         <Form.Control
                             type="text"
-                            placeholder="검색"
+                            placeholder="차량번호 검색"
                             name="penalty"
                             value={penaltyTitle}
                             onChange={handleInputChange}
