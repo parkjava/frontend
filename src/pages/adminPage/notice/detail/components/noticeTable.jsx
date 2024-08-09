@@ -4,13 +4,23 @@ import {Table, Container, Card, Row, Col} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import '../../../../../static/common.css'
 import axiosInstance from "../../../../../common/components/axiosinstance";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faScrewdriverWrench, faCalendarPlus, faSquareCaretUp, faSquareCaretDown, faEye} from "@fortawesome/free-solid-svg-icons";
 
 export default function NoticeTable() {
     const {noticeIndex} = useParams();
     const navigate = useNavigate();
     const [notice, setNotice] = useState([]);
+    const [notices, setNotices] = useState([]); // 전체 데이터
 
-    // const [noticeTitle, setNoticeTitle] = useState();
+    function noticeApi() {
+        axiosInstance
+            .get('/api/notice')
+            .then((res) => {
+                setNotices(res)
+            })
+            .catch((err) => console.log(err));
+    }
 
     function noticeDetailApi() {
         axiosInstance
@@ -22,7 +32,7 @@ export default function NoticeTable() {
 
     useEffect(() => {
         noticeDetailApi();
-
+        noticeApi();
     }, [noticeIndex]);
 
 
@@ -41,21 +51,39 @@ export default function NoticeTable() {
         navigate(`/admin/notice/update/${noticeIndex}`);
     };
 
+    const currentNoticeIndex = notices.findIndex((item) => item.noticeIndex === parseInt(noticeIndex))
+
+    const prevPatrol = currentNoticeIndex < notices.length - 1 ? notices[currentNoticeIndex + 1].noticeIndex : null
+    const nextPatrol = currentNoticeIndex > 0 ? notices[currentNoticeIndex - 1].noticeIndex : null
+
+    const handleSubmit = () => {
+        navigate(`../admin/notice`);
+    }
 
     return (
         <>
             <div className={'commonContainer'}>
-                {/*<Container>*/}
                 <Container className='detailContainer' style={{height: '100vh', borderRadius: '20px'}}>
-                    <h1 className={'adminNoticeTitle'}>
+                <Button className='noticeListBtn' onClick={handleSubmit} style={{position: 'relative', bottom: '40px', float: 'right'}}>목록으로</Button>
+                    <p className={'adminNoticeTitle'}>
                         {notice.noticeTitle}
-                    </h1>
-                    <p className={'adminNoticeDate'}>
-                        {new Date(notice.createDate).toLocaleDateString('ko-KR',)}
                     </p>
-                    <p>
-                        조회수: {notice.noticeView}
-                    </p>
+                    <div style={{margin: '10px 5px 10px'}}>
+                        <div className={'adminNoticeDate'}>
+                            <p className='adminNoticeView'>
+                                <FontAwesomeIcon icon={faEye} style={{marginRight: '3px'}}/>                            
+                                {notice.noticeView}                            
+                            </p>
+                            <p className='adminNoticeDate'>
+                            <FontAwesomeIcon icon={faCalendarPlus} style={{marginRight: '6px'}} />
+                            {notice.createDate}
+                            </p>
+                        {notice.updateDate == null ? null : <p className={'adminNoticeDate'}>
+                            <FontAwesomeIcon icon={faScrewdriverWrench} style={{marginRight: '6px'}}/>
+                            {notice.updateDate}
+                        </p> }
+                        </div>
+                    </div>
                     <Table className={'adminDetailTable'} bordered>
                         <tbody>
                         <tr>
@@ -63,69 +91,29 @@ export default function NoticeTable() {
                                 {notice.noticeContent}
                             </td>
                         </tr>
-                        <tr>
-                            <td colSpan={4} className="text-center">
-                                {/*{prevIndex >= 0 && ( // 이전 글 링크를 조건에 따라 렌더링*/}
-                                <p>
-                                    <Link to={`/admin/notice/${parseInt(noticeIndex) - 1}`}>이전 글▲</Link>
-                                </p>
-                                {/*// )}*/}
-                                {/*{nextIndex <= penalties.length && ( // 다음 글 링크를 조건에 따라 렌더링*/}
-                                <p>
-                                    <Link to={`/admin/notice/${parseInt(noticeIndex) + 1}`}>다음 글▼</Link>
-                                </p>
-                                {/*// )}*/}
-                            </td>
-                        </tr>
-
                         </tbody>
+                        <div className='pageMove'>
+                            <ul>
+                                <li>
+                                {prevPatrol === null ? <><FontAwesomeIcon icon={faSquareCaretUp} /><span>이전글이 없습니다.</span></> :  <Link to={`/admin/notice/${prevPatrol}`}><FontAwesomeIcon icon={faSquareCaretUp} />
+                                    <span>이전 글</span>
+                                </Link>}
+                                </li>
+
+                                <li>
+                                {nextPatrol === null ? <><FontAwesomeIcon icon={faSquareCaretDown} /><span>다음글이 없습니다.</span></> : <Link to={`/admin/notice/${nextPatrol}`}><FontAwesomeIcon icon={faSquareCaretDown} />
+                                    <span>다음 글</span>
+                                </Link>}
+                                </li>
+                            </ul>
+                        </div>
                     </Table>
 
                     <div className={'noticeDetailBtn'}>
-                        <Button variant="primary" onClick={handleUpdate} className="w-30">수정</Button>
-                        <Button variant="danger" onClick={handleDelete} className="w-30">삭제</Button>
-                        <Button className='noticeListBtn'><Link
-                            to={'../admin/patrol'}>목록으로</Link></Button>
-
+                        <Button variant="primary" onClick={handleUpdate} className="w-30" style={{marginRight:'5px'}}>수정</Button>
+                        <Button variant="danger" onClick={handleDelete} className="w-30" style={{marginRight:'5px'}}>삭제</Button>
                     </div>
-
                 </Container>
-                {/*</div>*/}
-                {/*<div className={'commonContainer'}>*/}
-                {/*    {*/}
-                {/*        !notice ? "데이터를 찾을 수 없습니다." : <Container>*/}
-                {/*            <Table striped="columns" bordered>*/}
-                {/*                <thead>*/}
-                {/*                <tr>*/}
-                {/*                    <th style={{width: '80px'}}>공지사항 제목</th>*/}
-                {/*                    <th style={{width: '300px'}}>*/}
-                {/*                        {notice.noticeTitle}*/}
-                {/*                    </th>*/}
-                {/*                    <th style={{width: '30px'}}>조회수</th>*/}
-                {/*                    <th style={{width: '30px'}}>{notice.noticeView}</th>*/}
-                {/*                    <th style={{width: '30px'}}>작성일</th>*/}
-                {/*                    <th style={{width: '50px'}}>*/}
-                {/*                        {new Date(notice.createDate).toLocaleDateString('ko-KR',)}*/}
-                {/*                    </th>*/}
-                {/*                </tr>*/}
-                {/*                </thead>*/}
-                {/*                <tbody>*/}
-                {/*                <tr>*/}
-                {/*                    <td colSpan={6}>*/}
-                {/*                        <Card.Text>*/}
-                {/*                            {notice.noticeContent}*/}
-                {/*                        </Card.Text>*/}
-                {/*                    </td>*/}
-                {/*                </tr>*/}
-                {/*                </tbody>*/}
-                {/*            </Table>*/}
-                {/*            <Button variant={"link"}>목록으로</Button>*/}
-                {/*            <div>*/}
-                {/*                <Button variant="info" onClick={handleUpdate}>수정</Button>{' '}*/}
-                {/*                <Button variant="danger" onClick={handleDelete}>삭제</Button>{' '}*/}
-                {/*            </div>*/}
-                {/*        </Container>*/}
-                {/*    }*/}
             </div>
         </>
     );

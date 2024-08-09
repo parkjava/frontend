@@ -1,32 +1,32 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, useNavigate, Link} from 'react-router-dom';
-import {Container, Card, Button, Col, Row, Table} from 'react-bootstrap';
+import {Container, Button ,Table} from 'react-bootstrap';
 import axiosInstance from "../../../../common/components/axiosinstance";
 import '../../../../static/common.css'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faScrewdriverWrench, faCalendarPlus} from "@fortawesome/free-solid-svg-icons";
+import {faScrewdriverWrench, faCalendarPlus, faSquareCaretUp, faSquareCaretDown} from "@fortawesome/free-solid-svg-icons";
 
 export default function PatrolDetail() {
     const {patrolIndex} = useParams();
     const [patrol, setPetrol] = useState(null); // 특정 index에 해당하는 데이터
-    const [patrols, setPatrols] = useState(); // 전체 데이터
+    const [patrols, setPatrols] = useState([]); // 전체 데이터
     const navigate = useNavigate();
 
-    function patrolDetailApi() {
-        axiosInstance
-            .get(`/api/patrol/${patrolIndex}`)
-            .then((res) => {
-                setPetrol(res)
-            })
-            .catch((err) => console.log(err));
-    }
 
     function patrolApi() {
         axiosInstance
             .get('/api/patrol')
             .then((res) => {
                 setPatrols(res)
-                console.log(res)
+            })
+            .catch((err) => console.log(err));
+    }
+    
+    function patrolDetailApi() {
+        axiosInstance
+            .get(`/api/patrol/${patrolIndex}`)
+            .then((res) => {
+                setPetrol(res)
             })
             .catch((err) => console.log(err));
     }
@@ -60,75 +60,55 @@ export default function PatrolDetail() {
 
     const currentPatrolIndex = patrols.findIndex((item) => item.patrolIndex === parseInt(patrolIndex))
 
-    const nextPatrol = currentPatrolIndex < patrols.length - 1 ? patrols[2 + 1].patrolIndex : null
-    const prevPatrol = currentPatrolIndex > 0 ? patrols[currentPatrolIndex - 1].patrolIndex : null
-
-    console.log('cur: ' + currentPatrolIndex)
-    console.log('patrols: ' + patrols)
-    console.log('prev: ' + prevPatrol)
-    console.log('next: ' + nextPatrol)
-
+    const prevPatrol = currentPatrolIndex < patrols.length - 1 ? patrols[currentPatrolIndex + 1].patrolIndex : null
+    const nextPatrol = currentPatrolIndex > 0 ? patrols[currentPatrolIndex - 1].patrolIndex : null
     return (
 
         <div className={'commonContainer'}>
-            {/*<Container>*/}
             <Container className='detailContainer' style={{height: '100vh', borderRadius: '20px'}}>
+                    <Button className='patrolListBtn' onClick={handleSubmit} style={{position: 'relative', bottom: '40px', float: 'right'}}>목록으로</Button>
                 <p className={'adminPatrolTitle'} >
                     {patrol.patrolArea}
                 </p>
                 <div style={{margin: '10px 5px 10px'}}>
                     <p className={'adminPatrolDate'}>
                         <FontAwesomeIcon icon={faCalendarPlus} style={{marginRight: '6px'}} />
-                        {patrol.createDate}
+                        {patrol.createDate.slice(0,11)}
                     </p>
                     {patrol.updateDate == null ? null : <p className={'adminPatrolDate'}>
                         <FontAwesomeIcon icon={faScrewdriverWrench} style={{marginRight: '6px'}}/>
-                        {patrol.updateDate}
+                        {patrol.updateDate.slice(0,11)}
                     </p> }
                 </div>
                 <Table className={'adminDetailTable'} bordered>
                     <tbody>
-                    <tr>
-                        <td className={'adminPatrolText'} colSpan={8} style={{height: '600px', textAlign: 'start'}}>
-                            <p style={{paddingTop: '10px'}}>{patrol.patrolSummary}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan={4} className="text-center">
-                            {/*{prevIndex >= 0 && ( // 이전 글 링크를 조건에 따라 렌더링*/}
-                            <p>
-                            {prevPatrol && <Link to={`/admin/patrol/${prevPatrol}`}>이전 글▲</Link>}
-                            </p>
-                            {/*// )}*/}
-                            {/*{nextIndex <= penalties.length && ( // 다음 글 링크를 조건에 따라 렌더링*/}
-                            <p>
-                                {nextPatrol && <Link to={`/admin/patrol/${nextPatrol}`}>다음 글▼</Link>}
-                                
-                            </p>
-                            {/*// )}*/}
-                        </td>
-                    </tr>
-
-
+                        <tr>
+                            <td className={'adminPatrolText'} colSpan={8} style={{height: '600px', textAlign: 'start'}}>
+                                <p style={{paddingTop: '10px'}}>{patrol.patrolSummary}</p>
+                            </td>
+                        </tr>
                     </tbody>
+                        <div className='pageMove'>
+                            <ul>
+                                <li>
+                                {prevPatrol === null ? <><FontAwesomeIcon icon={faSquareCaretUp} /><span>이전글이 없습니다.</span></> :  <Link to={`/admin/patrol/${prevPatrol}`}><FontAwesomeIcon icon={faSquareCaretUp} />
+                                    <span>이전 글</span>
+                                </Link>}
+                                </li>
+
+                                <li>
+                                {nextPatrol === null ? <><FontAwesomeIcon icon={faSquareCaretDown} /><span>다음글이 없습니다.</span></> : <Link to={`/admin/patrol/${nextPatrol}`}><FontAwesomeIcon icon={faSquareCaretDown} />
+                                    <span>다음 글</span>
+                                </Link>}
+                                </li>
+                            </ul>
+                        </div>
 
                 </Table>
                 <div className={'noticeDetailBtn'}>
-                    <Button variant="primary" onClick={handleEdit} className="w-30">수정</Button>
-                    <Button variant="danger" onClick={handleDelete} className="w-30">삭제</Button>
-                    <Button className='noticeListBtn' onClick={handleSubmit}>목록으로</Button>
+                    <Button variant="primary" onClick={handleEdit} className="w-30" style={{marginRight:'5px'}}>수정</Button>
+                    <Button variant="danger" onClick={handleDelete} className="w-30"style={{marginRight:'5px'}}>삭제</Button>
                 </div>
-                {/*</Container>*/}
-                {/*<Card>*/}
-                {/*    <Card.Header>관할 구역: {patrol.patrolArea}</Card.Header>*/}
-                {/*    <Card.Body>*/}
-                {/*        <Card.Text>*/}
-                {/*            {patrol.patrolSummary}*/}
-                {/*        </Card.Text>*/}
-                {/*    </Card.Body>*/}
-                {/*</Card>*/}
-
-                {/*        <div className='d-flex pt-3'><Link to={'../admin/patrol'}>목록으로</Link></div>*/}
             </Container>
         </div>
     );
