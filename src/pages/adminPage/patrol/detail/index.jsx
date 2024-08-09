@@ -10,6 +10,7 @@ export default function PatrolDetail() {
     const {patrolIndex} = useParams();
     const [patrol, setPetrol] = useState(null); // 특정 index에 해당하는 데이터
     const [patrols, setPatrols] = useState(); // 전체 데이터
+
     const navigate = useNavigate();
 
     function patrolDetailApi() {
@@ -103,6 +104,7 @@ export default function PatrolDetail() {
                             {/*{nextIndex <= penalties.length && ( // 다음 글 링크를 조건에 따라 렌더링*/}
                             <p>
                                 {nextPatrol && <Link to={`/admin/patrol/${nextPatrol}`}>다음 글▼</Link>}
+
                                 
                             </p>
                             {/*// )}*/}
