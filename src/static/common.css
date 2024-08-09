@@ -27,9 +27,7 @@ li {
 th{
     background: #e3e3e3 !important;
 }
-table{
-    min-height: 500px;
-}
+
 table th,
 table td {
     border-left: none;
@@ -203,6 +201,19 @@ thead > tr > th {
     height: 50px;
     bottom: 10px;
 
+}
+
+.pageMove ul {
+    padding-left: 0px;
+}
+
+.pageMove ul li {
+    width: 100%;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.pageMove ul li span {
+    margin: 5px;
 }
 
 /* 만든이 페이지(팀원소개)*/
@@ -978,8 +989,6 @@ thead > tr > th {
     height: 40px;
     width: 100px;
     padding-bottom: 20px;
-    background-color: #b0d9ff!important;
-    border-color: #b0d9ff!important;
 
 }
 
@@ -1119,7 +1128,7 @@ thead > tr > th {
     color: #333; 
     font-weight: bold;
 }
-.adminPatrolDate{
+.adminPatrolDate, .adminPenaltyDate{
     font-size: 12px;
     margin: 0px;
     font-weight: bolder;
@@ -1180,13 +1189,13 @@ thead > tr > th {
     font-weight: bold;
     font-size: 50px;
 }
-.adminPenaltyDate{
-    font-size: 30px;
-    margin-left: 0!important;
-    font-weight: bold;
-}
+
 .adminPenaltyCash{
-    font-size: 20px;
+    font-size: 12px;
+    text-align: end;
+    font-weight: bold;
+    padding-right: 10px;
+    margin-bottom: 7px;
 }
 .cardText{
     display: flex;
@@ -1231,19 +1240,40 @@ thead > tr > th {
     width: 20%; /* 예: 조회수 열의 넓이를 20%로 설정 */
 }
 .adminNoticeTitle{
-    margin: 10px!important;
-    margin-left: 0!important;
+    margin: 5px 0!important;
     text-align: left!important;
-    font-size: 50px!important;
+    font-size: 30px;
+    border-top: 1px solid;
+    padding: 37px 27px 30px; 
+    background-color: #f9f9f9; 
+    color: #333; 
     font-weight: bold;
 }
-.adminNoticeDate{
-    font-size: 20px;
-    font-weight: bold;
-    margin-left: 0;
-}
+
 .adminNoticeText{
+    text-align: start!important;
     height: 400px!important;
+}
+
+.adminNoticeDate {
+    float: right;
+    font-size: 12px;
+    padding-right: 10px;
+}
+
+.adminNoticeView {
+    float: left!important;
+    font-size: 12px;
+    margin-right: 25px;
+    margin-top: 0px;
+
+}
+
+.noticeH1 {
+    font-size: 34px;
+    width: 100%;
+    float: left;
+    margin-bottom: 30px;
 }
 
 /*.noticeCreateBtn {*/

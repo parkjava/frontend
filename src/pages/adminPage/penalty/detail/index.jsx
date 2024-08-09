@@ -1,32 +1,29 @@
 import React, {useEffect, useState} from 'react';
 import Image from 'react-bootstrap/Image';
-import {Link, useParams} from "react-router-dom";
-import {Table, Card, Container, Row, Col, Button} from "react-bootstrap";
+import {Link, useParams, useNavigate} from "react-router-dom";
+import {Table, Container, Button} from "react-bootstrap";
 import axiosInstance from "../../../../common/components/axiosinstance";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faScrewdriverWrench, faCalendarPlus, faSquareCaretUp, faSquareCaretDown} from "@fortawesome/free-solid-svg-icons";
 
 export default function Index() {
     const {penaltyIndex} = useParams();
     const [penalty, setPenalty] = useState('');
-    const [penaltyList, setPenaltyList] = useState('')
-
+    const [penalties, setPenalties] = useState([]); // 전체 데이터
+    const navigate = useNavigate();
 
     function penaltyApi() {
         axiosInstance
-            .get(`api/penalty/desc`)
+            .get('/api/penalty/desc')
             .then((res) => {
-                setPenaltyList(res)
+                setPenalties(res)
             })
             .catch((err) => console.log(err));
     }
 
-    useEffect(() => {
-        penaltyApi();
-
-    }, []);
-
     function penaltyDetailApi() {
         axiosInstance
-            .get(`api/penalty/${penaltyIndex}`)
+            .get(`/api/penalty/${penaltyIndex}`)
             .then((res) => {
                 setPenalty(res)
             })
@@ -35,6 +32,7 @@ export default function Index() {
 
     useEffect(() => {
         penaltyDetailApi();
+        penaltyApi()
     }, [penaltyIndex]);
 
 
@@ -46,114 +44,67 @@ export default function Index() {
         return <Container>Loading...</Container>;
     }
 
+    const currentPenaltyIndex = penalties.findIndex((item) => item.penaltyIndex === parseInt(penaltyIndex))
+
+    const prevPenalty = currentPenaltyIndex < (penalties.length - 1) ? penalties[currentPenaltyIndex + 1].penaltyIndex : null
+    const nextPenalty = currentPenaltyIndex > 0 ? penalties[currentPenaltyIndex - 1].penaltyIndex : null
+
+    const handleSubmit = () => {
+        navigate(`../admin/penalty`);
+    }
+
     // 이전 글, 다음 글 계산
     return (
         <div className={'commonContainer'}>
             <Container className='detailContainer' style={{height: '100vh', borderRadius: '20px'}}>
-                <h3 className={'adminPatrolTitle'}>
+                    <Button className='noticeListBtn' onClick={handleSubmit} style={{position: 'relative', bottom: '40px', float: 'right'}}>목록으로</Button>
+                <p className={'adminPatrolTitle'}>
                     {penalty.penaltyCarNumber}
-                </h3>
-                <p className={'adminPenaltyDate'}>
-                    {new Date(penalty.penaltyDate).toLocaleDateString('ko-KR')}
                 </p>
+                <div style={{margin: '10px 5px 10px'}}>
+                    <p className={'adminPenaltyDate'}>
+                        <FontAwesomeIcon icon={faCalendarPlus} style={{marginRight: '6px'}} />
+                        {penalty.penaltyDate.slice(0,10)}
+                    </p>
+                </div>
                 <p className={'adminPenaltyCash'}>
-                    과태료: {formatNumber(penalty.penaltyCash)} 원
+                    {formatNumber(penalty.penaltyCash)}원
                 </p>
                 <Table className={'adminDetailTable'} bordered>
                     <tbody>
                     <tr>
                         <td className={'imageTable'} colSpan={8} style={{height: '600px'}}>
-                            <Card.Text className='cardText'>
+                            <p className='cardText'>
                                 {penalty.penaltyImageUrl ? (
                                     <Image className='penaltyImage' src={penalty.penaltyImageUrl}/>
                                 ) : (
                                     <Image className='penaltyImage'
                                            src={'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo-available_87543-11093.jpg'}/>
                                 )}
-                            </Card.Text>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan={4} className="text-center">
-                            {/*{prevIndex >= 0 && ( // 이전 글 링크를 조건에 따라 렌더링*/}
-                            <p>
-                                <Link to={`/admin/penalty/${parseInt(penaltyIndex) - 1}`}>이전 글▲</Link>
                             </p>
-                            {/*// )}*/}
-                            {/*{nextIndex <= penalties.length && ( // 다음 글 링크를 조건에 따라 렌더링*/}
-                            <p>
-                                <Link to={`/admin/penalty/${parseInt(penaltyIndex) + 1}`}>다음 글▼</Link>
-                            </p>
-                            {/*// )}*/}
                         </td>
                     </tr>
                     </tbody>
-                    {/*<Row className="mt-3">*/}
-                    {/*    <Col md={6} className="text-md-end">*/}
-                    {/*        <Button variant="primary" onClick={handleEdit} className="w-30">수정</Button>*/}
-                    {/*    </Col>*/}
-                    {/*    <Col md={6} className="text-md-start mt-2 mt-md-0">*/}
-                    {/*        <Button variant="danger" onClick={handleDelete} className="w-30">삭제</Button>*/}
-                    {/*    </Col>*/}
-                    {/*</Row>*/}
-                </Table>
-                <div className={'noticeDetailBtn'}>
-                    <Button className='noticeListBtn'><Link
-                        to={'../admin/patrol'}>목록으로</Link></Button>
+                    <div className='pageMove'>
+                        <ul>
+                            <li>
+                            {prevPenalty === null ? (
+                                <><FontAwesomeIcon icon={faSquareCaretUp} /><span>이전글이 없습니다.</span></>
+                                ) :  (<Link to={`/admin/penalty/${prevPenalty}`}><FontAwesomeIcon icon={faSquareCaretUp} />
+                                <span>이전 글</span>
+                            </Link>)}
+                            </li>
 
-                </div>
+                            <li>
+                            {nextPenalty === null ? (<><FontAwesomeIcon icon={faSquareCaretDown} /><span>다음글이 없습니다.</span></>
+                                ) : (<Link to={`/admin/penalty/${nextPenalty}`}><FontAwesomeIcon icon={faSquareCaretDown} />
+                                <span>다음 글</span>
+                            </Link>)}
+                            </li>
+                        </ul>
+                    </div>
+                    </Table>
             </Container>
-        {/*    <Container className='d-flex pt-3 position-relative'>*/}
-        {/*        <Table striped="columns" bordered>*/}
-        {/*            <thead>*/}
-        {/*            <tr>*/}
-        {/*                <th rowSpan={2} style={{width: '60px', verticalAlign: 'middle'}}>차량번호</th>*/}
-        {/*                <th rowSpan={2} style={{width: '300px', verticalAlign: 'middle'}}>*/}
-        {/*                    {penalty.penaltyCarNumber}*/}
-        {/*                </th>*/}
-        {/*                <th style={{width: '60px'}}>단속일자</th>*/}
-        {/*                <th style={{width: '300px'}}>*/}
-        {/*                    {new Date(penalty.penaltyDate).toLocaleDateString('ko-KR')}*/}
-        {/*                </th>*/}
-        {/*            </tr>*/}
-        {/*            <tr>*/}
-        {/*                <th style={{width: '60px'}}>과태료</th>*/}
-        {/*                <th>{formatNumber(penalty.penaltyCash)} 원</th>*/}
-        {/*            </tr>*/}
-        {/*            </thead>*/}
-        {/*            <tbody>*/}
-        {/*            <tr>*/}
-        {/*                <td colSpan={4}>*/}
-        {/*                    <Card.Text className='cardText'>*/}
-        {/*                        {penalty.penaltyImageUrl ? (*/}
-        {/*                            <Image className='penaltyImage' src={penalty.penaltyImageUrl}/>*/}
-        {/*                        ) : (*/}
-        {/*                            <Image className='penaltyImage'*/}
-        {/*                                   src={'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo-available_87543-11093.jpg'}/>*/}
-        {/*                        )}*/}
-        {/*                    </Card.Text>*/}
-        {/*                </td>*/}
-        {/*            </tr>*/}
-        {/*            <tr>*/}
-        {/*                <td colSpan={4} className="text-center">*/}
-        {/*                    /!*{prevIndex >= 0 && ( // 이전 글 링크를 조건에 따라 렌더링*!/*/}
-        {/*                    <p style={{marginRight: '20px'}}>*/}
-        {/*                        <Link to={`/admin/penalty/${parseInt(penaltyIndex) - 1}`}>이전 글</Link>*/}
-        {/*                    </p>*/}
-                            {/*// )}*/}
-        {/*                    /!*{nextIndex <= penalties.length && ( // 다음 글 링크를 조건에 따라 렌더링*!/*/}
-        {/*                    <p>*/}
-        {/*                        <Link to={`/admin/penalty/${parseInt(penaltyIndex) + 1} `}>다음 글</Link>*/}
-        {/*                    </p>*/}
-                            {/*// )}*/}
-        {/*                </td>*/}
-        {/*            </tr>*/}
-        {/*            </tbody>*/}
-        {/*        </Table>*/}
-        {/*        <div className='pt-2 penaltyDoc'><Link to={'../admin/penalty'}>목록으로</Link></div>*/}
-        {/*        /!* <Button className='documentButton' variant="info" onClick={handleBack}>목록으로</Button> *!/*/}
-        {/*        /!*<Button variant="danger" onClick={handleDelete}>삭제</Button>{' '}*!/*/}
-        {/*    // </Container>*/}
         </div>
     );
 }
