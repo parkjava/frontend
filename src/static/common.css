@@ -673,6 +673,10 @@ thead > tr > th {
     flex-grow: 1; /* 콘텐츠가 남은 공간을 채우도록 설정 */
     /* 추가적인 콘텐츠 스타일을 여기에 추가 */
 }
+.youtubeMain{
+    position: relative;
+    left: 600px;
+}
 
 
 .mainPageContent {
@@ -680,6 +684,9 @@ thead > tr > th {
     background-color: #f9f9f9;
     color: black;
     z-index: 1;
+}
+.carousel{
+    bottom: 50px;
 }
 
 .userMainTitle {
