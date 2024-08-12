@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {Table, Container, Form, Button, Alert} from 'react-bootstrap';
-import {Link, useNavigate} from 'react-router-dom';
+import {Container, Form, Alert} from 'react-bootstrap';
+import {useNavigate} from 'react-router-dom';
 import axiosInstance from '../../../../common/components/axiosinstance';
+import {FormControl, InputLabel, MenuItem, Select, Button} from "@mui/material";
 
 // 대분류와 중분류의 매핑을 정의
 const subareasByArea = {
@@ -145,7 +146,7 @@ export default function PatrolTable() {
                             ))}
                         </Form.Select>
                         <Form.Select
-                            style={{marginLeft:8}}
+                            style={{marginLeft: 8}}
                             aria-label="Default select example"
                             name="subarea"
                             value={patrol.subarea}
@@ -178,7 +179,7 @@ export default function PatrolTable() {
                     <div className="d-flex justify-content-end align-items-center">
                         <Button
                             className={'mt-3 w-100'}
-                            variant="primary"
+                            variant="contained"
                             type="submit"
                             disabled={!patrol.area || !patrol.subarea || !patrol.summary} // 중분류 추가
                         >

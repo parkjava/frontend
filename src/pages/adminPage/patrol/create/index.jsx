@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {Table, Container, Form, Button, Alert} from 'react-bootstrap';
-import {Link, useNavigate} from 'react-router-dom';
+import {Container, Form, Button, Alert} from 'react-bootstrap';
+import {useNavigate} from 'react-router-dom';
 import axiosInstance from '../../../../common/components/axiosinstance';
+import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 
 // 대분류와 중분류의 매핑을 정의
 const subareasByArea = {
@@ -154,6 +155,7 @@ export default function PatrolTable() {
             <Container>
                 <h1 className={'patrolH1'}>순찰내역작성</h1>
 
+
                 <Form onSubmit={handleSubmit}>
                     <h4 className={'d-flex align-items-center justify-content-sm-end'}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
@@ -175,29 +177,62 @@ export default function PatrolTable() {
                         {time}
                     </h4>
                     <div className={'createPatrolContainer'}>
-                        <Form.Select
-                            aria-label="Default select example"
-                            name="area"
-                            value={patrol.area}
-                            onChange={handleInputChange}
-                        >
-                            <option value="">관할 구</option>
-                            {Object.keys(subareasByArea).map((area) => (
-                                <option key={area} value={area}>{area}</option>
-                            ))}
-                        </Form.Select>
-                        <Form.Select
-                            aria-label="Default select example"
-                            name="subarea"
-                            value={patrol.subarea}
-                            onChange={handleInputChange}
-                            disabled={!patrol.area} // 대분류가 선택되지 않으면 중분류 비활성화
-                        >
-                            <option value="">관할 동</option>
-                            {subareas.map((subarea) => (
-                                <option key={subarea} value={subarea}>{subarea}</option>
-                            ))}
-                        </Form.Select>
+                        <FormControl fullWidth onSubmit={handleSubmit}>
+                            <InputLabel id="demo-simple-select-label">관할구</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                name="area"
+                                value={patrol.area}
+                                label={"관할구"}
+                                onChange={handleInputChange}
+                            >
+                                {Object.keys(subareasByArea).map((area) => (
+                                    <MenuItem key={area} value={area}>{area}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <FormControl fullWidth onSubmit={handleSubmit} className={'mh-200'}>
+                            <InputLabel id="demo-simple-select-label" >관할동</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                name="subarea"
+                                value={patrol.subarea}
+                                label={"관할동"}
+
+
+                                onChange={handleInputChange}
+                                disabled={!patrol.area} // 대분류가 선택되지 않으면 중분류 비활성화
+                            >
+                                {subareas.map((subarea) => (
+                                    <MenuItem key={subarea} value={subarea} >{subarea}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        {/*<Form.Select*/}
+                        {/*    aria-label="Default select example"*/}
+                        {/*    name="area"*/}
+                        {/*    value={patrol.area}*/}
+                        {/*    onChange={handleInputChange}*/}
+                        {/*>*/}
+                        {/*    <option value="">관할 구</option>*/}
+                        {/*    {Object.keys(subareasByArea).map((area) => (*/}
+                        {/*        <option key={area} value={area}>{area}</option>*/}
+                        {/*    ))}*/}
+                        {/*</Form.Select>*/}
+                        {/*<Form.Select*/}
+                        {/*    aria-label="Default select example"*/}
+                        {/*    name="subarea"*/}
+                        {/*    value={patrol.subarea}*/}
+                        {/*    onChange={handleInputChange}*/}
+                        {/*    disabled={!patrol.area} // 대분류가 선택되지 않으면 중분류 비활성화*/}
+                        {/*>*/}
+                        {/*    <option value="">관할 동</option>*/}
+                        {/*    {subareas.map((subarea) => (*/}
+                        {/*        <option key={subarea} value={subarea}>{subarea}</option>*/}
+                        {/*    ))}*/}
+                        {/*</Form.Select>*/}
                     </div>
                     <Form.Control
                         as="textarea"
