@@ -24,7 +24,7 @@ li {
     list-style-type: none;
 }
 
-th{
+th {
     background: #e3e3e3 !important;
 }
 
@@ -673,7 +673,8 @@ thead > tr > th {
     flex-grow: 1; /* 콘텐츠가 남은 공간을 채우도록 설정 */
     /* 추가적인 콘텐츠 스타일을 여기에 추가 */
 }
-.youtubeMain{
+
+.youtubeMain {
     position: relative;
     left: 600px;
 }
@@ -685,7 +686,8 @@ thead > tr > th {
     color: black;
     z-index: 1;
 }
-.carousel{
+
+.carousel {
     bottom: 50px;
 }
 
@@ -724,6 +726,128 @@ thead > tr > th {
     padding-top: 50px;
     padding-right: 50px;
 }
+
+.none {
+
+
+}
+
+.adminContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: background-image 0.5s ease-in-out;
+}
+
+/* 날씨별 배경 이미지 */
+
+.clear-sky {
+    background-image: url('https://cdn.pixabay.com/photo/2016/09/16/19/14/day-1674886_1280.png')!important;
+}
+
+.few-clouds {
+    background-image: url('https://cdn.pixabay.com/photo/2022/11/24/02/28/clouds-7613361_1280.png')!important;
+}
+
+.scattered-clouds {
+    background-image: url('https://cdn.pixabay.com/photo/2022/11/24/02/28/clouds-7613361_1280.png')!important;
+}
+
+.broken-clouds {
+    background-image: url('https://cdn.pixabay.com/photo/2022/11/24/02/28/clouds-7613361_1280.png')!important;
+}
+
+.shower-rain {
+    background-image: url('https://cdn.pixabay.com/photo/2020/05/01/07/11/rain-5115710_1280.png')!important;
+}
+
+.rain {
+    background-image: url('https://cdn.pixabay.com/photo/2020/05/01/07/11/rain-5115710_1280.png')!important;
+}
+
+.thunderstorm {
+    background-image: url('https://cdn.pixabay.com/photo/2020/05/01/07/11/rain-5115710_1280.png')!important;
+}
+
+.snow {
+    background-image: url('https://cdn.pixabay.com/photo/2016/04/01/10/54/christmas-1300089_1280.png')!important;
+}
+
+.mist {
+    background-image: url('https://cdn.pixabay.com/photo/2023/02/07/13/55/forest-7774205_1280.jpg')!important;
+}
+
+.adminHeader {
+    /*display: flex;*/
+    width: 100%;
+    align-items: start;
+    justify-content: space-around;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px #4fd50a solid;
+    background-color: white;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+.adminWelcome {
+    flex: 1;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 20px;
+    border: 1px #4fd50a solid;
+    /*box-sizing: border-box;*/
+}
+
+.weather {
+    flex: 1;
+    background-color: rgb(255, 196, 0);
+    color: black;
+    padding: 20px;
+    border: 1px #4fd50a solid;
+    /*box-sizing: border-box;*/
+}
+
+.adminContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*margin-top: 200px;*/
+    border: 1px #4fd50a solid;
+}
+
+.chartButtons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    border: 1px #4fd50a solid;
+}
+
+.dataGraph {
+    /*width: 100%;*/
+    background-color: #ffffff;
+    /*padding: 20px;*/
+    border: 1px #4fd50a solid;
+    /*box-sizing: border-box;*/
+}
+
+.dataGraph canvas {
+    width: 500px !important;
+    height: 250px !important;
+}
+
+@media (max-width: 800px) {
+    .dataGraph canvas {
+
+    }
+
+}
+
 
 /* pagination */
 .paginationGroup {
@@ -889,12 +1013,12 @@ thead > tr > th {
 .inquiryNew .headline {
     margin: 0;
     padding: 0;
-    border: 0; 
+    border: 0;
 }
 
 .inquiryNew .inquiryNewIcon {
     scale: 4;
-    padding-top: 1.5rem; 
+    padding-top: 1.5rem;
     cursor: pointer;
     color: #000080;
 }
@@ -910,13 +1034,13 @@ thead > tr > th {
     /*height: 500px;*/
 }
 
-.inquiryNewList ul li{
+.inquiryNewList ul li {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.inquiryNewList ul li hr{
+.inquiryNewList ul li hr {
     width: 87rem;
 }
 
@@ -971,18 +1095,20 @@ thead > tr > th {
 }
 
 /* 유저 공지사항 상세페이지*/
-.userNoticeTitle{
-    text-align: left!important;
+.userNoticeTitle {
+    text-align: left !important;
     font-size: 60px;
-    margin: 0!important;
+    margin: 0 !important;
 }
-.userNoticeDate{
-    padding: 10px!important;
+
+.userNoticeDate {
+    padding: 10px !important;
     font-size: 20px;
     font-weight: bolder;
 }
-.userNoticeText{
-    height: 500px!important;
+
+.userNoticeText {
+    height: 500px !important;
 }
 
 .noticeListBtn {
@@ -1000,27 +1126,29 @@ thead > tr > th {
     height: 400px;
     padding-top: 60px;
     margin-left: 0;
-/*    padding-bottom: 20px;*/
+    /*    padding-bottom: 20px;*/
 }
 
-.detailContainer a{
-    color : black !important;
+.detailContainer a {
+    color: black !important;
 }
-.text-center p{
-    text-align: left!important;
+
+.text-center p {
+    text-align: left !important;
 }
 
 /* 관제 페이지 */
 .controlH1 {
     background-image: url("./images/img.png") !important;
     background-size: cover;
-    margin: 0 0 10px 0  !important;
+    margin: 0 0 10px 0 !important;
 
-    padding: 50px 0 50px 0 ;
+    padding: 50px 0 50px 0;
     color: white;
     font-weight: bold;
     font-size: 50px;
 }
+
 .controlInfo {
     display: flex;
     justify-content: center;
@@ -1044,7 +1172,8 @@ thead > tr > th {
     min-width: 290px;
     text-align: center;
 }
-.penaltyList h3{
+
+.penaltyList h3 {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1113,24 +1242,25 @@ thead > tr > th {
     width: 100%;
 }
 
-.createPatrolModal{
+.createPatrolModal {
     display: flex;
     margin: 0 0 15px 0;
 }
 
 
 /* 순찰내역 페이지 */
-.adminPatrolTitle{
-    margin: 5px 0!important;
-    text-align: left!important;
+.adminPatrolTitle {
+    margin: 5px 0 !important;
+    text-align: left !important;
     font-size: 30px;
     border-top: 1px solid;
-    padding: 37px 27px 30px; 
-    background-color: #f9f9f9; 
-    color: #333; 
+    padding: 37px 27px 30px;
+    background-color: #f9f9f9;
+    color: #333;
     font-weight: bold;
 }
-.adminPatrolDate, .adminPenaltyDate{
+
+.adminPatrolDate, .adminPenaltyDate {
     font-size: 12px;
     margin: 0px;
     font-weight: bolder;
@@ -1138,8 +1268,9 @@ thead > tr > th {
     text-align: end;
     padding-right: 5px;
 }
-.adminPatrolText{
-    height: 400px!important;
+
+.adminPatrolText {
+    height: 400px !important;
 }
 
 
@@ -1174,13 +1305,14 @@ thead > tr > th {
     background-color: rgb(176, 217, 255) !important;
     border: #d3f0ff !important;
 }
+
 /* 순찰내역작성 페이지 */
-.createPatrolContainer{
+.createPatrolContainer {
     display: flex;
     margin: 0 0 30px 0;
 }
 
-.css-6hp17o-MuiList-root-MuiMenu-list{
+.css-6hp17o-MuiList-root-MuiMenu-list {
     max-height: 200px !important;
     z-index: 9999;
 }
@@ -1195,14 +1327,15 @@ thead > tr > th {
     font-size: 50px;
 }
 
-.adminPenaltyCash{
+.adminPenaltyCash {
     font-size: 12px;
     text-align: end;
     font-weight: bold;
     padding-right: 10px;
     margin-bottom: 7px;
 }
-.cardText{
+
+.cardText {
     display: flex;
     justify-content: left;
     justify-items: left;
@@ -1210,9 +1343,10 @@ thead > tr > th {
     padding-left: 50px;
 
 }
-.imageTable{
+
+.imageTable {
     background-color: #e6fde6 !important;
-    height: 400px!important;
+    height: 400px !important;
 }
 
 /* 관리자 공지사항 페이지 */
@@ -1244,20 +1378,21 @@ thead > tr > th {
 .table th.view-column, .table td.view-column {
     width: 20%; /* 예: 조회수 열의 넓이를 20%로 설정 */
 }
-.adminNoticeTitle{
-    margin: 5px 0!important;
-    text-align: left!important;
+
+.adminNoticeTitle {
+    margin: 5px 0 !important;
+    text-align: left !important;
     font-size: 30px;
     border-top: 1px solid;
-    padding: 37px 27px 30px; 
-    background-color: #f9f9f9; 
-    color: #333; 
+    padding: 37px 27px 30px;
+    background-color: #f9f9f9;
+    color: #333;
     font-weight: bold;
 }
 
-.adminNoticeText{
-    text-align: start!important;
-    height: 400px!important;
+.adminNoticeText {
+    text-align: start !important;
+    height: 400px !important;
 }
 
 .adminNoticeDate {
@@ -1267,7 +1402,7 @@ thead > tr > th {
 }
 
 .adminNoticeView {
-    float: left!important;
+    float: left !important;
     font-size: 12px;
     margin-right: 25px;
     margin-top: 0px;
