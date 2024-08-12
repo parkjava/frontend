@@ -161,6 +161,7 @@ export default function Index() {
                                         name="phone"
                                         value={inquiryList.phone || ''}
                                         onChange={handleChange}
+                                        autocomplete="off"
                                     />
                                     <label htmlFor='inquiryPhoneInput'>전화번호를 입력하세요</label>
                                     <div className='inquiryIconBox'>
@@ -281,16 +282,7 @@ export default function Index() {
                                                       style={{whiteSpace: 'pre-line'}}
                                         />
                                     </Form.Group>
-                                    {/*<Form.Group className="mb-3" controlId="formGridDate">*/}
-                                    {/*    <Form.Label className={'formLabel'}>문의일자</Form.Label>*/}
-                                    {/*    <Form.Control className={'formControl'}*/}
-                                    {/*                    type="date"*/}
-                                    {/*                    name="date"*/}
-                                    {/*                    value={inquiryText.date}*/}
-                                    {/*                    disabled={true}*/}
-                                    {/*                    onChange={handleChange}*/}
-                                    {/*    />*/}
-                                    {/*</Form.Group>*/}
+                                    
                                     <div className={'buttonContainer'}>
                                         <Button className='inquiryButton text-white' variant="primary" type="submit"
                                                 disabled={!isFormValid}>

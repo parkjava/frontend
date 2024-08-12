@@ -49,19 +49,21 @@ export default function Index() {
 
     return (
         <>
-            <Container>
+            <Container className='inquiryAnswerContainer'>
                 <Form onSubmit={handleUpdate}>
-                    <hr/>
-                    <h2 className={'mb-5'}>문의 답변하기</h2>
+                    <h2 className={'mb-4 mt-4'} style={{textAlign: 'center'}}>문의 답변</h2>
                     <Form.Group controlId="inquiryAnswer" >
                         <Form.Control
                             as="textarea"
                             rows={3}
-                            placeholder="Enter content"
+                            placeholder="답변을 입력하세요"
                             name="inquiryAnswer"
                             onChange={handleInputChange}
                         />
-                        <Button variant="primary" type="submit" className={'answerBtn'}>
+                        <Button 
+                            variant="primary" 
+                            type="submit" 
+                            className={'answerBtn'}>
                             등록
                         </Button>
                     </Form.Group>

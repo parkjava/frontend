@@ -210,6 +210,7 @@ thead > tr > th {
 .pageMove ul li {
     width: 100%;
     border-bottom: 1px solid #e3e3e3;
+    padding: 7px 0 7px 0;
 }
 
 .pageMove ul li span {
@@ -645,6 +646,27 @@ thead > tr > th {
 
 }
 
+@media (max-width: 344px) {
+    .groupChild1 {
+        font-size: 15px;
+        padding: 20px 30px 20px 30px;
+        border: 1px solid #ff5900;
+        border-radius: 8px;
+        color: rgb(255, 174, 97);
+        width: 224px;
+        height: 199px;
+    }
+
+    .groupChild2 {
+        font-size: 20px;
+        padding: 20px 30px 20px 30px;
+        border: 1px solid #0017ff;
+        border-radius: 8px;
+        width: 224px;
+        height: 199px;
+    }
+}
+
 /* 사용자 메인페이지 */
 .mainBackground :before {
     content: "";
@@ -1055,6 +1077,11 @@ thead > tr > th {
     cursor: pointer;
 }
 
+.inquiryDetailBtn {
+    position: relative;
+    float: right;
+}
+
 /* 유저 공지사항 페이지*/
 
 .noticeContainer {
@@ -1094,6 +1121,13 @@ thead > tr > th {
     font-weight: bold;
 }
 
+@media (max-width: 990px) {
+    .userNoticeInput {
+        display: flex;
+        float: right;
+        width: 300px;
+    }
+}
 /* 유저 공지사항 상세페이지*/
 .userNoticeTitle {
     text-align: left !important;
@@ -1106,9 +1140,12 @@ thead > tr > th {
     font-size: 20px;
     font-weight: bolder;
 }
-
-.userNoticeText {
-    height: 500px !important;
+.userNoticeDateDiv p{
+    padding: 0;
+}
+.userNoticeText{
+    height: 400px!important;
+    text-align: start;
 }
 
 .noticeListBtn {
@@ -1124,7 +1161,6 @@ thead > tr > th {
 
 .detailContainer {
     height: 400px;
-    padding-top: 60px;
     margin-left: 0;
     /*    padding-bottom: 20px;*/
 }
@@ -1135,6 +1171,40 @@ thead > tr > th {
 
 .text-center p {
     text-align: left !important;
+}
+
+.userNoticeTitle{
+    margin: 5px 0!important;
+    text-align: left!important;
+    font-size: 30px;
+    border-top: 1px solid;
+    padding: 37px 27px 30px; 
+    background-color: #f9f9f9; 
+    color: #333; 
+    font-weight: bold;
+}
+
+.userNoticeDate {
+    float: right;
+    font-size: 12px;
+    margin: 0;
+}
+
+.userNoticeTitle{
+    margin: 5px 0!important;
+    text-align: left!important;
+    font-size: 30px;
+    border-top: 1px solid;
+    padding: 37px 27px 30px; 
+    background-color: #f9f9f9; 
+    color: #333; 
+    font-weight: bold;
+}
+
+.userNoticeDate {
+    float: right;
+    font-size: 12px;
+    margin: 0;
 }
 
 /* 관제 페이지 */
@@ -1464,4 +1534,30 @@ thead > tr > th {
     font-size: 50px;
 }
 
+.adminInquiryContainer{
+    height: 400px;
+    padding-top: 60px;
+    margin-left: 0;
+}
+
+.adminInquiryContainer .adminInquiryTitle{
+    margin: 5px 0!important;
+    text-align: left!important;
+    font-size: 30px;
+    border-top: 1px solid;
+    padding: 37px 27px 30px; 
+    background-color: #f9f9f9; 
+    color: #333; 
+    font-weight: bold;
+}
+
+.adminInquiryDate {
+    float: right;
+    font-size: 12px;
+    margin: 0 0 3px 13px;
+}
+.adminInquiryPhone, .adminInquiryEmail {
+    font-size: 12px;
+    margin-right: 10px;
+}
 

@@ -57,7 +57,7 @@ export default function Index() {
     return (
         <div className={'commonContainer'}>
             <Container className='detailContainer' style={{height: '100vh', borderRadius: '20px'}}>
-                    <Button className='noticeListBtn' onClick={handleSubmit} style={{position: 'relative', bottom: '40px', float: 'right'}}>목록으로</Button>
+                <h1>단속 내역</h1>
                 <p className={'adminPatrolTitle'}>
                     {penalty.penaltyCarNumber}
                 </p>
@@ -70,7 +70,7 @@ export default function Index() {
                 <p className={'adminPenaltyCash'}>
                     {formatNumber(penalty.penaltyCash)}원
                 </p>
-                <Table className={'adminDetailTable'} bordered>
+                <Table className={'adminDetailTable'} style={{marginBottom: '0'}} bordered>
                     <tbody>
                     <tr>
                         <td className={'imageTable'} colSpan={8} style={{height: '600px'}}>
@@ -84,26 +84,27 @@ export default function Index() {
                             </p>
                         </td>
                     </tr>
-                    </tbody>
+                    </tbody>                    
+                    </Table>
                     <div className='pageMove'>
                         <ul>
                             <li>
                             {prevPenalty === null ? (
                                 <><FontAwesomeIcon icon={faSquareCaretUp} /><span>이전글이 없습니다.</span></>
-                                ) :  (<Link to={`/admin/penalty/${prevPenalty}`}><FontAwesomeIcon icon={faSquareCaretUp} />
-                                <span>이전 글</span>
-                            </Link>)}
+                                ) :  (<><Link to={`/admin/penalty/${prevPenalty}`}><FontAwesomeIcon icon={faSquareCaretUp} />
+                                <span>이전 글</span></Link>
+                                <span style={{paddingLeft: '15%'}}>{penalties[currentPenaltyIndex+1].penaltyCarNumber}</span></>)}
                             </li>
 
                             <li>
                             {nextPenalty === null ? (<><FontAwesomeIcon icon={faSquareCaretDown} /><span>다음글이 없습니다.</span></>
-                                ) : (<Link to={`/admin/penalty/${nextPenalty}`}><FontAwesomeIcon icon={faSquareCaretDown} />
-                                <span>다음 글</span>
-                            </Link>)}
+                                ) : (<><Link to={`/admin/penalty/${nextPenalty}`}><FontAwesomeIcon icon={faSquareCaretDown} />
+                                <span>다음 글</span></Link>
+                                <span style={{paddingLeft: '15%'}}>{penalties[currentPenaltyIndex-1].penaltyCarNumber}</span></>)}
                             </li>
                         </ul>
                     </div>
-                    </Table>
+                    <Button className='noticeListBtn' onClick={handleSubmit} style={{position: 'relative', float: 'right'}}>목록으로</Button>
             </Container>
         </div>
     );
