@@ -40,7 +40,7 @@ export default function Index() {
             .then(response => setInquiry(response))
             .catch(error => console.error('Error updating inquiry:', error));
         alert('답변이 완료되었습니다.');
-        navigate(`/admin/inquiry`,{replace: true});
+        navigate(`/admin/inquiry`, {replace: true});
     };
 
     if (!inquiry) {

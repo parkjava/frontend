@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import ROSLIB from 'roslib';
-import {Image, Button, Form, Container, Spinner} from "react-bootstrap";
+import {Image, Form, Container, Spinner} from "react-bootstrap";
 import '../../../static/common.css'
 import {getDownloadURL, ref, listAll, deleteObject, getStorage} from "firebase/storage";
 import {storage} from "../../../firebase";
@@ -8,7 +8,9 @@ import axiosInstance from "../../../common/components/axiosinstance";
 import {TransformWrapper, TransformComponent} from "react-zoom-pan-pinch";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faXmark} from "@fortawesome/free-solid-svg-icons";
+import {Tooltip, Button, IconButton} from "@mui/material";
 import CreatePatrol from "./patrolModal/patrolModal"
+import {Delete, HelpOutline, SaveAlt} from "@mui/icons-material";
 
 
 export default function Index() {
@@ -35,36 +37,35 @@ export default function Index() {
         }
     };
 
+    const fetchImages = async () => {
+        try {
+            // Storage에서 디렉토리 참조를 생성합니다.
+            const imagesRef = ref(storage, "/");
+
+            // 디렉토리의 모든 파일 목록을 가져옵니다.
+            const result = await listAll(imagesRef);
+
+            // 모든 파일에 대해 다운로드 URL과 이름을 가져옵니다.
+            const imagePromises = result.items.map(async (itemRef) => {
+                const url = await getDownloadURL(itemRef);
+                return {name: itemRef.name, url};
+            });
+
+            // 모든 이미지 정보를 가져옵니다.
+            const images = await Promise.all(imagePromises);
+
+            // 상태에 이미지 정보를 저장합니다.
+            setImages(images);
+        } catch (error) {
+            console.error("Error fetching images:", error);
+        }
+    };
 
     useEffect(() => {
         console.log(images)
-        setInterval(async () => {
-            // console.log('렌더링했당')
-            const fetchImages = async () => {
-                try {
-                    // Storage에서 디렉토리 참조를 생성합니다.
-                    const imagesRef = ref(storage, "/");
-
-                    // 디렉토리의 모든 파일 목록을 가져옵니다.
-                    const result = await listAll(imagesRef);
-
-                    // 모든 파일에 대해 다운로드 URL과 이름을 가져옵니다.
-                    const imagePromises = result.items.map(async (itemRef) => {
-                        const url = await getDownloadURL(itemRef);
-                        return {name: itemRef.name, url};
-                    });
-
-                    // 모든 이미지 정보를 가져옵니다.
-                    const images = await Promise.all(imagePromises);
-
-                    // 상태에 이미지 정보를 저장합니다.
-                    setImages(images);
-                } catch (error) {
-                    console.error("Error fetching images:", error);
-                }
-            };
-            fetchImages();
-        }, 3000)
+        // setInterval(async () => {
+        fetchImages();
+        // }, )
     }, []);
 
     const ros = new ROSLIB.Ros({
@@ -195,9 +196,7 @@ export default function Index() {
 
 
     const handleKeyPress = (key) => {
-
         const keyMap = {
-
             'w': {ButtonName: '↑', functionCall: () => document.getElementById('go').click()}, // 앞으로
             'ㅈ': {ButtonName: '↑', functionCall: () => document.getElementById('go').click()}, // 앞으로
             's': {ButtonName: '↓', functionCall: () => document.getElementById('back').click()}, // 뒤로
@@ -221,9 +220,10 @@ export default function Index() {
 
         if (key in keyMap) {
             keyMap[key].functionCall();
-            // console.log(key)
+
             return `입력키: ${keyMap[key].ButtonName}`;
         }
+        console.log(key)
         return null;
     };
 
@@ -237,7 +237,7 @@ export default function Index() {
         setCheckState(prevState =>
             prevState.map((item, i) => (i === index ? !item : item))
         );
-
+        console.log(index)
     }
 
     const handleSubmit = (e) => {
@@ -265,35 +265,32 @@ export default function Index() {
                 });
         })
         alert('저장되었습니다.')
+        fetchImages();
     }
 
 
     const handleDelete = (e) => {
         e.preventDefault()
-
         const selectImages = images.filter((_, index) => checkState[index])
-
         const storage = getStorage();
-
         // Create a reference to the file to delete
+        console.log(selectImages)
         const desertRef = ref(storage, `gs://parkjavastorage.appspot.com/${selectImages[0].name}`);
-
+        console.log(selectImages)
         const ok = window.confirm('정말 삭제하시겠습니까?')
-
         if (ok) {
             try {
                 // 파일 삭제를 수행합니다.
                 deleteObject(desertRef);
-                window.location.href = '/admin/control'
             } catch (error) {
                 console.error('Error deleting file:', error);
                 alert('파일 삭제 중 오류가 발생했습니다.');
             }
         }
+        fetchImages();
     }
 
     useEffect(() => {
-
         if (modalOpen) {
             document.body.style.overflow = 'hidden';
         } else {
@@ -303,48 +300,48 @@ export default function Index() {
 
     return (<>
         <div className={'commonContainer'}>
+            <h1 className={'controlH1'}>관제센터</h1>
             <Container>
-                <h1 className={'controlH1'}>관제센터</h1>
                 <div className={'controlInfo'}>
                     <div>
                         <div>
-                            <Button id={'leftgo'} className={'controlBtn'} variant="outline-warning"
+                            <Button id={'leftgo'} variant="contained"
                                     onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'leftgo')}
                                     title={'좌회전'}>↖
                             </Button>
-                            <Button id={'go'} className={'controlBtn'} variant="outline-warning"
+                            <Button id={'go'} className={'controlBtn'} variant="contained"
                                     onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'go')}
                                     title={'전진'}>↑
                             </Button>
-                            <Button id={'rightgo'} className={'controlBtn'} variant="outline-warning"
+                            <Button id={'rightgo'} className={'controlBtn'} variant="contained"
                                     onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'rightgo')}
                                     title={'우회전'}>↗
                             </Button>
                         </div>
                         <div>
-                            <Button id={'left'} className={'controlBtn'} variant="outline-warning"
+                            <Button id={'left'} className={'controlBtn'} variant="contained"
                                     onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'left')}
                                     title={'좌측 턴'}>←
                             </Button>
-                            <Button id={'stop'} className={'controlBtn'} variant="outline-danger"
+                            <Button id={'stop'} className={'controlBtn'} variant="contained"
                                     onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'stop')}
                                     title={'정지'}>■
                             </Button>
-                            <Button id={'right'} className={'controlBtn'} variant="outline-warning"
+                            <Button id={'right'} className={'controlBtn'} variant="contained"
                                     onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'right')}
                                     title={'우측 턴'}>→
                             </Button>
                         </div>
                         <div>
-                            <Button id={'leftback'} className={'controlBtn'} variant="outline-warning"
+                            <Button id={'leftback'} className={'controlBtn'} variant="contained"
                                     onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'leftback')}
                                     title={'좌로 후진'}>↙
                             </Button>
-                            <Button id={'back'} className={'controlBtn'} variant="outline-warning"
+                            <Button id={'back'} className={'controlBtn'} variant="contained"
                                     onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'back')}
                                     title={'후진'}>↓
                             </Button>
-                            <Button id={'rightback'} className={'controlBtn'} variant="outline-warning"
+                            <Button id={'rightback'} className={'controlBtn'} variant="contained"
                                     onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'rightback')}
                                     title={'우로 후진'}>↘
                             </Button>
@@ -363,8 +360,10 @@ export default function Index() {
                                 label={''}
                                 onChange={handleSwitchChange}
                             />
-                            <span className={'battery'}>
-                                Battery : {voltage || 'Loading..'}</span>
+                            <div className={'battery'}>
+                                Battery : {voltage || <Spinner animation="border" role="status" variant={'primary'}>
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner>}</div>
                             <button className="button" id={'speedDown'}
                                     onClick={() => handleSpeedChange(Math.max(40, currentSpeed - 10))}>
                                 -
@@ -376,10 +375,15 @@ export default function Index() {
                             </button>
                         </div>
                     </div>
-
-
                     <div className={'penaltyList'}>
-                        <h3>차량번호 검출리스트</h3>
+                        <h3>
+                            🚔 불법주차 차량번호
+                            <Tooltip title="검출된 차량과 사진의 차량번호가 일치하다면 체크 후, 저장 및 삭제를 수행합니다." placement="top">
+                                <IconButton>
+                                    <HelpOutline/>
+                                </IconButton>
+                            </Tooltip>
+                        </h3>
                         <ul className={'penaltyUl'}>
                             {images.length > 0 ? (images.map((image, index) => (
                                 <div key={index}>
@@ -401,23 +405,35 @@ export default function Index() {
                                         </div>
                                         <p className={'carNumber'}>{image.name}</p>
                                     </li>
-                                </div>))) : <Spinner animation="border" role="status">
+                                </div>))) : <Spinner animation="border" role="status" variant={'primary'}>
                                 <span className="visually-hidden">Loading...</span>
                             </Spinner>}
                         </ul>
+                        <Button
+                            onClick={handleSubmit}
+                            variant="contained"
+                            color="success"
+                            endIcon={<SaveAlt/>}
+                        >
+                            저장
+                        </Button>
+                        <Button
+                            onClick={handleDelete}
+                            variant="contained"
+                            color="error"
+                            endIcon={<Delete/>}>
+                            삭제
+                        </Button>
+                        <Button onClick={() => setModalOpen(true)}
+                                variant="outlined">
+                            순찰내역작성
+                        </Button>
                     </div>
                 </div>
             </Container>
-            <Button className={'btn-success controlBtn'}
-                    onClick={handleSubmit}>
-                저장
-            </Button>
-            <Button className={'btn-danger controlBtn'}
-                    onClick={handleDelete}>
-                삭제
-            </Button>
+
         </div>
-        <Button onClick={() => setModalOpen(true)}>순찰내역작성</Button>
+
         {
             modalOpen &&
             <div className={'modalContainer'} ref={modalBackground} onClick={e => {
