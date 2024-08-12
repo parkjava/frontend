@@ -1,16 +1,17 @@
-import { Table, Container, Form, Button, Dropdown, Alert } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import {Table, Container, Form, Button, Dropdown, Alert} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
 import Pagination from "../../../../common/components/pagination2"
 import axiosInstance from '../../../../common/components/axiosinstance';
+import {Mobile, PC} from '../../../../common/components/responsive';
 
-export default function CarCheck(){
+export default function CarCheck() {
     const [penalties, setPenalties] = useState([]);
     const [penaltyTitle, setPenaltyTitle] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [searchOption, setSearchOption] = useState('carnumber'); // 검색 옵션 상태 추가
     const [noResultsMessage, setNoResultsMessage] = useState(''); // 검색 결과가 없을 때 메시지 상태 추가
-    
+
     const [postsPerPage, setPostsPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -20,16 +21,16 @@ export default function CarCheck(){
 
     function penaltyApi() {
         axiosInstance
-          .get('/api/penalty/desc')
-          .then((res) => {
-            setPenalties(res)   
-          })
-          .catch((err) => console.log(err));
-      }
+            .get('/api/penalty/desc')
+            .then((res) => {
+                setPenalties(res)
+            })
+            .catch((err) => console.log(err));
+    }
 
-      useEffect(() => {
+    useEffect(() => {
         penaltyApi();
-      }, []);
+    }, []);
 
     const handleInputChange = (e) => {
         setPenaltyTitle(e.target.value);
@@ -38,7 +39,7 @@ export default function CarCheck(){
             setNoResultsMessage('');
         }
     };
-    
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (penaltyTitle.trim() === '') {
@@ -76,7 +77,7 @@ export default function CarCheck(){
     };
 
     const handlePenaltyCount = (option) => {
-        if ( option === 'ten') {
+        if (option === 'ten') {
             setPostsPerPage(10);
         } else if (option === 'fifteen') {
             setPostsPerPage(15);
@@ -92,82 +93,91 @@ export default function CarCheck(){
     const searchOptionLabel = searchOption === 'carnumber' ? '차량 번호' : '날짜';
     const postsPerPageLabel = postsPerPage === 10 ? '10개' : '15개';
 
-    return (
-        <div className={'commonContainer'}>
-        <Container>
-            <h1 className={'penaltyH1'}>단속 차량 목록</h1>
-            <Container className="d-flex justify-content-end align-items-center pb-2">
-                <Dropdown onSelect={handlePenaltyCount}>
-                    <Dropdown.Toggle  className={'dropDownToggle'}>
-                        데이터 개수: {postsPerPageLabel}
-                    </Dropdown.Toggle>
+    return (<>
 
-                    <Dropdown.Menu  className={'dropDownToggle'}>
-                        <Dropdown.Item eventKey="ten">10개</Dropdown.Item>
-                        <Dropdown.Item eventKey="fifteen">15개</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
-            </Container>
+            <PC>
+                <div className={'commonContainer'}>
+                    <Container>
+                        <h1 className={'penaltyH1'}>단속 차량 목록</h1>
+                        <Container className="d-flex justify-content-end align-items-center pb-2">
+                            <Dropdown onSelect={handlePenaltyCount}>
+                                <Dropdown.Toggle className={'dropDownToggle'}>
+                                    데이터 개수: {postsPerPageLabel}
+                                </Dropdown.Toggle>
 
-            <Container className="d-flex justify-content-end align-items-center">
-                <Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">
-                    <Dropdown.Toggle className={'dropDownToggle'} variant="secondary" id="dropdown-basic">
-                        검색 옵션: {searchOptionLabel}
-                    </Dropdown.Toggle>
+                                <Dropdown.Menu className={'dropDownToggle'}>
+                                    <Dropdown.Item eventKey="ten">10개</Dropdown.Item>
+                                    <Dropdown.Item eventKey="fifteen">15개</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Container>
 
-                    <Dropdown.Menu>
-                        <Dropdown.Item eventKey="carnumber">차량 번호</Dropdown.Item>
-                        <Dropdown.Item eventKey="date">날짜</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
-                <Form onSubmit={handleSubmit} className="d-flex pb-2" style={{ width: '300px' }}>
-                    <Form.Control
-                        type="text"
-                        placeholder="검색"
-                        name="penalty"
-                        value={penaltyTitle}
-                        onChange={handleInputChange}
-                        className="me-2"
-                    />
-                    <Button className={"searchButton"} variant="primary" type="submit"  style={{ width: '100px' }}>
-                        검색
-                    </Button>
-                </Form>
-            </Container>
+                        <Container className="d-flex justify-content-end align-items-center">
+                            <Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">
+                                <Dropdown.Toggle className={'dropDownToggle'} variant="secondary" id="dropdown-basic">
+                                    검색 옵션: {searchOptionLabel}
+                                </Dropdown.Toggle>
 
-            {noResultsMessage ? (
-                <Alert variant="warning">{noResultsMessage}</Alert>
-            ) : (
-                <Table  hover variant="white">
-                    <thead>
-                        <tr>
-                            <th>NO</th>
-                            <th>차량 번호</th>
-                            <th>과태료</th>
-                            <th>날짜</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item eventKey="carnumber">차량 번호</Dropdown.Item>
+                                    <Dropdown.Item eventKey="date">날짜</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                            <Form onSubmit={handleSubmit} className="d-flex pb-2" style={{width: '300px'}}>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="검색"
+                                    name="penalty"
+                                    value={penaltyTitle}
+                                    onChange={handleInputChange}
+                                    className="me-2"
+                                />
+                                <Button className={"searchButton"} variant="primary" type="submit"
+                                        style={{width: '100px'}}>
+                                    검색
+                                </Button>
+                            </Form>
+                        </Container>
 
-                    {currentPosts.map(penalty => (
-                        <tr key={penalty.penaltyIndex}>
-                            <td>{penalty.penaltyIndex}</td>
-                            <td><Link to={`/admin/penalty/${penalty.penaltyIndex}`}>{penalty.penaltyCarNumber}</Link></td>
-                            <td>{formatNumber(penalty.penaltyCash)}원</td>
-                            <td>{new Date(penalty.penaltyDate).toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\./g, '-').replace(/\s+/g, '').split('-').slice(0, 3).join('-')}</td>
-                        </tr>
-                    ))}
+                        {noResultsMessage ? (
+                            <Alert variant="warning">{noResultsMessage}</Alert>
+                        ) : (
+                            <Table hover variant="white">
+                                <thead>
+                                <tr>
+                                    <th>NO</th>
+                                    <th>차량 번호</th>
+                                    <th>과태료</th>
+                                    <th>날짜</th>
+                                </tr>
+                                </thead>
+                                <tbody>
 
-                    </tbody>
-                </Table>
-            )}
-            
-            <Pagination
-                postsPerPage={postsPerPage}
-                totalPosts={penalties.length}
-                paginate={setCurrentPage}></Pagination>
+                                {currentPosts.map(penalty => (
+                                    <tr key={penalty.penaltyIndex}>
+                                        <td>{penalty.penaltyIndex}</td>
+                                        <td><Link
+                                            to={`/admin/penalty/${penalty.penaltyIndex}`}>{penalty.penaltyCarNumber}</Link>
+                                        </td>
+                                        <td>{formatNumber(penalty.penaltyCash)}원</td>
+                                        <td>{new Date(penalty.penaltyDate).toLocaleDateString('ko-KR', {
+                                            year: 'numeric',
+                                            month: '2-digit',
+                                            day: '2-digit'
+                                        }).replace(/\./g, '-').replace(/\s+/g, '').split('-').slice(0, 3).join('-')}</td>
+                                    </tr>
+                                ))}
 
-            {/* <Pagination>
+                                </tbody>
+                            </Table>
+                        )}
+
+                        <Pagination
+                            postsPerPage={postsPerPage}
+                            totalPosts={penalties.length}
+                            paginate={setCurrentPage}></Pagination>
+
+                        {/* <Pagination>
                 <Pagination.First/>
                 <Pagination.Prev/>
                 <Pagination.Item>{1}</Pagination.Item>
@@ -184,7 +194,9 @@ export default function CarCheck(){
                 <Pagination.Next />
                 <Pagination.Last />
             </Pagination> */}
-        </Container>
-        </div>
+                    </Container>
+                </div>
+            </PC>
+        </>
     )
 }

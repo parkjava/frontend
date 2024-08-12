@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import React, {useState, useEffect} from 'react';
 import Pagination from "../../../common/components/pagination2"
 import axiosInstance from '../../../common/components/axiosinstance';
+import {Mobile, PC} from "../../../common/components/responsive";
 
 export default function Index() {
     const [penalties, setPenalties] = useState([]);
@@ -93,86 +94,88 @@ export default function Index() {
     const postsPerPageLabel = postsPerPage === 10 ? '10개' : '15개';
 
     return (
-        <div className={'commonContainer'}>
-            <Container>
-                <h1 className={'penaltyH1'}>단속 차량 목록</h1>
-                <hr/>
-                <Container className="d-flex justify-content-center align-items-center">
-                    {/*<Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">*/}
-                    {/*    <Dropdown.Toggle className={'dropDownToggle'} id="dropdown-basic">*/}
-                    {/*        검색 옵션: {searchOptionLabel}*/}
-                    {/*    </Dropdown.Toggle>*/}
-                    {/*    <Dropdown.Menu>*/}
-                    {/*        <Dropdown.Item eventKey="carnumber">차량 번호</Dropdown.Item>*/}
-                    {/*        <Dropdown.Item eventKey="date">날짜</Dropdown.Item>*/}
-                    {/*    </Dropdown.Menu>*/}
-                    {/*</Dropdown>*/}
-                    <Form onSubmit={handleSubmit} className="d-flex pb-2" style={{width: '300px'}}>
-                        <Form.Control
-                            type="text"
-                            placeholder="차량번호 검색"
-                            name="penalty"
-                            value={penaltyTitle}
-                            onChange={handleInputChange}
-                            className="me-2"
-                        />
-                        <Button className={"searchButton"} variant="primary" type="submit" style={{width: '100px'}}>
-                            검색
-                        </Button>
-                    </Form>
-                </Container>
-                <Container className="d-flex justify-content-end align-items-center pb-2">
-                    <Dropdown onSelect={handlePenaltyCount}>
-                        <Dropdown.Toggle className={'dropDownToggle'}>
-                            노출 설정 : {postsPerPageLabel}
-                        </Dropdown.Toggle>
+        <><PC>
+            <div className={'commonContainer'}>
+                <Container>
+                    <h1 className={'penaltyH1'}>단속 차량 목록</h1>
+                    <hr/>
+                    <Container className="d-flex justify-content-center align-items-center">
+                        {/*<Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">*/}
+                        {/*    <Dropdown.Toggle className={'dropDownToggle'} id="dropdown-basic">*/}
+                        {/*        검색 옵션: {searchOptionLabel}*/}
+                        {/*    </Dropdown.Toggle>*/}
+                        {/*    <Dropdown.Menu>*/}
+                        {/*        <Dropdown.Item eventKey="carnumber">차량 번호</Dropdown.Item>*/}
+                        {/*        <Dropdown.Item eventKey="date">날짜</Dropdown.Item>*/}
+                        {/*    </Dropdown.Menu>*/}
+                        {/*</Dropdown>*/}
+                        <Form onSubmit={handleSubmit} className="d-flex pb-2" style={{width: '300px'}}>
+                            <Form.Control
+                                type="text"
+                                placeholder="차량번호 검색"
+                                name="penalty"
+                                value={penaltyTitle}
+                                onChange={handleInputChange}
+                                className="me-2"
+                            />
+                            <Button className={"searchButton"} variant="primary" type="submit" style={{width: '100px'}}>
+                                검색
+                            </Button>
+                        </Form>
+                    </Container>
+                    <Container className="d-flex justify-content-end align-items-center pb-2">
+                        <Dropdown onSelect={handlePenaltyCount}>
+                            <Dropdown.Toggle className={'dropDownToggle'}>
+                                노출 설정 : {postsPerPageLabel}
+                            </Dropdown.Toggle>
 
-                        <Dropdown.Menu className={'dropDownToggle'}>
-                            <Dropdown.Item eventKey="ten">10</Dropdown.Item>
-                            <Dropdown.Item eventKey="fifteen">15</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </Container>
+                            <Dropdown.Menu className={'dropDownToggle'}>
+                                <Dropdown.Item eventKey="ten">10</Dropdown.Item>
+                                <Dropdown.Item eventKey="fifteen">15</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </Container>
 
 
-                {noResultsMessage ? (
-                    <Alert variant="warning">{noResultsMessage}</Alert>
-                ) : (
-                    <Table hover variant="white">
-                        <thead>
-                        <tr>
-                            <th>NO</th>
-                            <th>차량 번호</th>
-                            <th>과태료</th>
-                            <th>날짜</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        {currentPosts.map(penalty => (
-                            <tr key={penalty.penaltyIndex}>
-                                <td>{penalty.penaltyIndex}</td>
-                                <td><Link
-                                    to={`/admin/penalty/${penalty.penaltyIndex}`}>{penalty.penaltyCarNumber}</Link></td>
-                                <td>{formatNumber(penalty.penaltyCash)}원</td>
-                                <td>{new Date(penalty.penaltyDate).toLocaleDateString('ko-KR', {
-                                    year: 'numeric',
-                                    month: '2-digit',
-                                    day: '2-digit'
-                                }).replace(/\./g, '-').replace(/\s+/g, '').split('-').slice(0, 3).join('-')}</td>
+                    {noResultsMessage ? (
+                        <Alert variant="warning">{noResultsMessage}</Alert>
+                    ) : (
+                        <Table hover variant="white">
+                            <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>차량 번호</th>
+                                <th>과태료</th>
+                                <th>날짜</th>
                             </tr>
-                        ))}
+                            </thead>
+                            <tbody>
 
-                        </tbody>
-                    </Table>
-                )}
+                            {currentPosts.map(penalty => (
+                                <tr key={penalty.penaltyIndex}>
+                                    <td>{penalty.penaltyIndex}</td>
+                                    <td><Link
+                                        to={`/admin/penalty/${penalty.penaltyIndex}`}>{penalty.penaltyCarNumber}</Link>
+                                    </td>
+                                    <td>{formatNumber(penalty.penaltyCash)}원</td>
+                                    <td>{new Date(penalty.penaltyDate).toLocaleDateString('ko-KR', {
+                                        year: 'numeric',
+                                        month: '2-digit',
+                                        day: '2-digit'
+                                    }).replace(/\./g, '-').replace(/\s+/g, '').split('-').slice(0, 3).join('-')}</td>
+                                </tr>
+                            ))}
 
-                <Pagination
-                    postsPerPage={postsPerPage}
-                    totalPosts={penalties.length}
-                    paginate={setCurrentPage}></Pagination>
+                            </tbody>
+                        </Table>
+                    )}
 
-                {/* <Pagination>
+                    <Pagination
+                        postsPerPage={postsPerPage}
+                        totalPosts={penalties.length}
+                        paginate={setCurrentPage}></Pagination>
+
+                    {/* <Pagination>
                 <Pagination.First/>
                 <Pagination.Prev/>
                 <Pagination.Item>{1}</Pagination.Item>
@@ -189,7 +192,101 @@ export default function Index() {
                 <Pagination.Next />
                 <Pagination.Last />
             </Pagination> */}
-            </Container>
-        </div>
+                </Container>
+            </div>
+        </PC>
+            <Mobile>
+                <div className={'commonContainer'}>
+                    <Container className={'penaltyCont'}>
+                        <h1 className={''}>단속 차량 목록</h1>
+                        <Container className="d-flex justify-content-center align-items-center">
+                            <Form onSubmit={handleSubmit} className="d-flex pb-2" style={{width: '300px'}}>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="차량번호 검색"
+                                    name="penalty"
+                                    value={penaltyTitle}
+                                    onChange={handleInputChange}
+                                    className="me-2"
+                                />
+                                <Button className={"searchButton"} variant="primary" type="submit"
+                                        style={{width: '100px'}}>
+                                    검색
+                                </Button>
+                            </Form>
+                        </Container>
+
+
+
+                        {noResultsMessage ? (
+                            <Alert variant="warning">{noResultsMessage}</Alert>
+                        ) : (
+                            <Table className={'penaltyTable'} hover variant="white">
+                                <thead>
+                                <tr className={'penaltyTr'}>
+                                    {/*<th className={'penaltyTh'}>NO</th>*/}
+                                    <th className={'penaltyTh'}>차량 번호</th>
+                                    <th className={'penaltyTh'}>과태료</th>
+                                    <th className={'penaltyTh'}>날짜</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {currentPosts.map(penalty => (
+                                    <tr key={penalty.penaltyIndex}>
+                                        {/*<td className={'penaltyTd'}>{penalty.penaltyIndex}</td>*/}
+                                        <td className={'penaltyTd'}><Link
+                                            to={`/admin/penalty/${penalty.penaltyIndex}`}>{penalty.penaltyCarNumber}</Link>
+                                        </td>
+                                        <td className={'penaltyTd'}>{formatNumber(penalty.penaltyCash)}원</td>
+                                        <td className={'penaltyDate'}>{new Date(penalty.penaltyDate).toLocaleDateString('ko-KR', {
+                                            year: 'numeric',
+                                            month: '2-digit',
+                                            day: '2-digit'
+                                        }).replace(/\./g, '-').replace(/\s+/g, '').split('-').slice(0, 3).join('-')}</td>
+                                    </tr>
+                                ))}
+
+                                </tbody>
+                            </Table>
+                        )}
+                        <Container className="d-flex justify-content-end align-items-center pb-2">
+                            <Dropdown onSelect={handlePenaltyCount}>
+                                <Dropdown.Toggle className={'dropDownToggle'}>
+                                    노출 설정 : {postsPerPageLabel}
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu className={'dropDownToggle'}>
+                                    <Dropdown.Item eventKey="ten">10</Dropdown.Item>
+                                    <Dropdown.Item eventKey="fifteen">15</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Container>
+
+                        <Pagination
+                            postsPerPage={postsPerPage}
+                            totalPosts={penalties.length}
+                            paginate={setCurrentPage}></Pagination>
+
+                        {/* <Pagination>
+                <Pagination.First/>
+                <Pagination.Prev/>
+                <Pagination.Item>{1}</Pagination.Item>
+                <Pagination.Ellipsis />
+
+                <Pagination.Item>{10}</Pagination.Item>
+                <Pagination.Item>{11}</Pagination.Item>
+                <Pagination.Item>{12}</Pagination.Item>
+                <Pagination.Item>{13}</Pagination.Item>
+                <Pagination.Item>{14}</Pagination.Item>
+
+                <Pagination.Ellipsis />
+                <Pagination.Item>{20}</Pagination.Item>
+                <Pagination.Next />
+                <Pagination.Last />
+            </Pagination> */}
+                    </Container>
+                </div>
+            </Mobile>
+        </>
     )
 }

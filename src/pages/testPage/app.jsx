@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Mobile, PC} from "../../common/components/responsive";
 
 export default function App() {
@@ -52,8 +52,12 @@ export default function App() {
     // };
 
     return (<>
-            <Mobile> mobile </Mobile>
-            <PC> pc </PC>dfsdfdfd
+            <Mobile>
+cccc
+            </Mobile>
+            <PC>
+cc
+            </PC>
         </>
         // <div style={{ height: '100vh' }}>
         //     <h1>Sign In</h1>
