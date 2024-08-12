@@ -48,7 +48,7 @@ export default function PetrolList() {
     return (
         <div className={'commonContainer'}>
             <Container>
-                <h1 className={'patrolH1'}>순찰내역</h1>
+                <h1 className={'patrolH1'}>순찰목록</h1>
                 <hr/>
                 <Container className="d-flex justify-content-end align-items-center pb-2">
                     <Dropdown onSelect={handlePenaltyCount}>
@@ -66,7 +66,7 @@ export default function PetrolList() {
                     <thead>
                     <tr className={'trTitle'}>
                         <th>NO</th>
-                        <th>순찰요약</th>
+                        <th>순찰내역</th>
                         <th>관할구역</th>
                         <th>순찰자</th>
                         <th>날짜</th>

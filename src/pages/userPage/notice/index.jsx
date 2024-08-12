@@ -118,16 +118,7 @@ export default function Index() {
                     <h1 className={'userNoticeH1'}>공지사항</h1>
                     <hr/>
                     <Container className="d-lg-flex justify-content-end align-items-center">
-                        {/*<Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">*/}
-                        {/*    <Dropdown.Toggle className={'dropDownToggle'} variant="secondary" id="dropdown-basic">*/}
-                        {/*        검색 옵션: {searchOptionLabel === 'title' ? '제목' : '작성자'}*/}
-                        {/*    </Dropdown.Toggle>*/}
-                        {/*    <Dropdown.Menu>*/}
-                        {/*        <Dropdown.Item eventKey="title">제목</Dropdown.Item>*/}
-                        {/*        <Dropdown.Item eventKey="admin">작성자</Dropdown.Item>*/}
-                        {/*    </Dropdown.Menu>*/}
-                        {/*</Dropdown>*/}
-                        <Form onSubmit={handleSubmit} className="d-lg-flex justify-content-end align-items-center mb-3">
+                        <Form onSubmit={handleSubmit} className="d-lg-flex justify-content-end align-items-center mb-3 userNoticeInput">
                             <Form.Control
                                 type="text"
                                 placeholder="제목으로 검색"
@@ -135,6 +126,7 @@ export default function Index() {
                                 value={noticeTitle}
                                 onChange={handleInputChange}
                                 className="me-2"
+                                autocomplete="off"
                             />
                             <Button variant="primary" type="submit" style={{width: '100px'}}>
                                 검색
