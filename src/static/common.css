@@ -1348,6 +1348,33 @@ thead > tr > th {
     background-color: #e6fde6 !important;
     height: 400px !important;
 }
+@media(max-width: 768px){
+    .penaltyH1 {
+        background-image: url("./images/background-75.jpg") !important;
+        background-size: cover;
+        padding: 10px;
+        color: white;
+        font-weight: bold;
+        font-size: 40px;
+        margin: 0!important;
+    }
+    .penaltyCont{
+        padding: 0!important;
+    }
+    .d-flex{
+
+    }
+    .penaltyTh{
+        background-color: white!important;
+    }
+    .penaltyTd{
+
+    }
+    .penaltyDate{
+        font-size: 12px;
+        width: 90px;
+    }
+}
 
 /* 관리자 공지사항 페이지 */
 .table th, .table td {

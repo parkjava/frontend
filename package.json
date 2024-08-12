@@ -29,6 +29,7 @@
     "react-icons": "^5.2.1",
     "react-js-pagination": "^3.0.3",
     "react-pull-to-refresh": "^2.0.1",
+    "react-responsive": "^10.0.0",
     "react-router-dom": "^6.24.1",
     "react-scripts": "5.0.1",
     "react-youtube": "^10.1.0",
