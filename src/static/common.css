@@ -24,7 +24,7 @@ li {
     list-style-type: none;
 }
 
-th{
+th {
     background: #e3e3e3 !important;
 }
 
@@ -673,7 +673,8 @@ thead > tr > th {
     flex-grow: 1; /* 콘텐츠가 남은 공간을 채우도록 설정 */
     /* 추가적인 콘텐츠 스타일을 여기에 추가 */
 }
-.youtubeMain{
+
+.youtubeMain {
     position: relative;
     left: 600px;
 }
@@ -685,7 +686,8 @@ thead > tr > th {
     color: black;
     z-index: 1;
 }
-.carousel{
+
+.carousel {
     bottom: 50px;
 }
 
@@ -889,12 +891,12 @@ thead > tr > th {
 .inquiryNew .headline {
     margin: 0;
     padding: 0;
-    border: 0; 
+    border: 0;
 }
 
 .inquiryNew .inquiryNewIcon {
     scale: 4;
-    padding-top: 1.5rem; 
+    padding-top: 1.5rem;
     cursor: pointer;
     color: #000080;
 }
@@ -910,13 +912,13 @@ thead > tr > th {
     /*height: 500px;*/
 }
 
-.inquiryNewList ul li{
+.inquiryNewList ul li {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.inquiryNewList ul li hr{
+.inquiryNewList ul li hr {
     width: 87rem;
 }
 
@@ -971,18 +973,20 @@ thead > tr > th {
 }
 
 /* 유저 공지사항 상세페이지*/
-.userNoticeTitle{
-    text-align: left!important;
+.userNoticeTitle {
+    text-align: left !important;
     font-size: 60px;
-    margin: 0!important;
+    margin: 0 !important;
 }
-.userNoticeDate{
-    padding: 10px!important;
+
+.userNoticeDate {
+    padding: 10px !important;
     font-size: 20px;
     font-weight: bolder;
 }
-.userNoticeText{
-    height: 500px!important;
+
+.userNoticeText {
+    height: 500px !important;
 }
 
 .noticeListBtn {
@@ -1000,27 +1004,55 @@ thead > tr > th {
     height: 400px;
     padding-top: 60px;
     margin-left: 0;
-/*    padding-bottom: 20px;*/
+    /*    padding-bottom: 20px;*/
 }
 
-.detailContainer a{
-    color : black !important;
+.detailContainer a {
+    color: black !important;
 }
-.text-center p{
-    text-align: left!important;
+
+.text-center p {
+    text-align: left !important;
+}
+
+/* 유저 공지사항 모바일 */
+.userNoticeMH1 {
+    padding: 10px;
+    color: black;
+    font-weight: bold;
+    font-size: 40px;
+    margin: 50px 50px !important;
+}
+
+.noticeMobileContainer {
+    padding: 0 !important;
+}
+
+.userNoticeTh {
+    background-color: white !important;
+}
+
+.noticeDate {
+    font-size: 15px;
+    width: 120px;
+}
+
+.userNoticeSearch {
+
 }
 
 /* 관제 페이지 */
 .controlH1 {
     background-image: url("./images/img.png") !important;
     background-size: cover;
-    margin: 0 0 10px 0  !important;
+    margin: 0 0 10px 0 !important;
 
-    padding: 50px 0 50px 0 ;
+    padding: 50px 0 50px 0;
     color: white;
     font-weight: bold;
     font-size: 50px;
 }
+
 .controlInfo {
     display: flex;
     justify-content: center;
@@ -1044,7 +1076,8 @@ thead > tr > th {
     min-width: 290px;
     text-align: center;
 }
-.penaltyList h3{
+
+.penaltyList h3 {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1113,24 +1146,25 @@ thead > tr > th {
     width: 100%;
 }
 
-.createPatrolModal{
+.createPatrolModal {
     display: flex;
     margin: 0 0 15px 0;
 }
 
 
 /* 순찰내역 페이지 */
-.adminPatrolTitle{
-    margin: 5px 0!important;
-    text-align: left!important;
+.adminPatrolTitle {
+    margin: 5px 0 !important;
+    text-align: left !important;
     font-size: 30px;
     border-top: 1px solid;
-    padding: 37px 27px 30px; 
-    background-color: #f9f9f9; 
-    color: #333; 
+    padding: 37px 27px 30px;
+    background-color: #f9f9f9;
+    color: #333;
     font-weight: bold;
 }
-.adminPatrolDate, .adminPenaltyDate{
+
+.adminPatrolDate, .adminPenaltyDate {
     font-size: 12px;
     margin: 0px;
     font-weight: bolder;
@@ -1138,8 +1172,9 @@ thead > tr > th {
     text-align: end;
     padding-right: 5px;
 }
-.adminPatrolText{
-    height: 400px!important;
+
+.adminPatrolText {
+    height: 400px !important;
 }
 
 
@@ -1165,22 +1200,44 @@ thead > tr > th {
     justify-content: flex-end !important;
 }
 
-/*.crButton {*/
-/*    background-color: #ef8484 !important;*/
-/*    border: #ef8484 !important;*/
-/*}*/
-
 .dropDown {
     background-color: rgb(176, 217, 255) !important;
     border: #d3f0ff !important;
 }
+
+/* 순찰내역 모바일 */
+
+.patrolMobileCont {
+    padding: 0 !important;
+}
+
+.patrolMH1 {
+    padding: 50px;
+    margin: 30px 30px !important;
+    width: 300px;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.pmtd1 {
+    width: 30px !important;
+}
+
+.pmtd2 {
+    width: 70px !important;
+}
+
+.rowTitle {
+    background-color: white !important;
+}
+
 /* 순찰내역작성 페이지 */
-.createPatrolContainer{
+.createPatrolContainer {
     display: flex;
     margin: 0 0 30px 0;
 }
 
-.css-6hp17o-MuiList-root-MuiMenu-list{
+.css-6hp17o-MuiList-root-MuiMenu-list {
     max-height: 200px !important;
     z-index: 9999;
 }
@@ -1195,14 +1252,15 @@ thead > tr > th {
     font-size: 50px;
 }
 
-.adminPenaltyCash{
+.adminPenaltyCash {
     font-size: 12px;
     text-align: end;
     font-weight: bold;
     padding-right: 10px;
     margin-bottom: 7px;
 }
-.cardText{
+
+.cardText {
     display: flex;
     justify-content: left;
     justify-items: left;
@@ -1210,33 +1268,38 @@ thead > tr > th {
     padding-left: 50px;
 
 }
-.imageTable{
+
+.imageTable {
     background-color: #e6fde6 !important;
-    height: 400px!important;
+    height: 400px !important;
 }
-@media(max-width: 768px){
-    .penaltyH1 {
-        background-image: url("./images/background-75.jpg") !important;
-        background-size: cover;
+
+@media (max-width: 768px) {
+    .penaltyH11 {
         padding: 10px;
-        color: white;
+        color: black;
         font-weight: bold;
         font-size: 40px;
-        margin: 0!important;
+        margin: 50px 50px !important;
     }
-    .penaltyCont{
-        padding: 0!important;
+
+    .penaltyCont {
+        padding: 0 !important;
     }
-    .d-flex{
+
+    .d-flex {
 
     }
-    .penaltyTh{
-        background-color: white!important;
+
+    .penaltyTh {
+        background-color: white !important;
     }
-    .penaltyTd{
+
+    .penaltyTd {
 
     }
-    .penaltyDate{
+
+    .penaltyDate {
         font-size: 12px;
         width: 90px;
     }
@@ -1271,20 +1334,21 @@ thead > tr > th {
 .table th.view-column, .table td.view-column {
     width: 20%; /* 예: 조회수 열의 넓이를 20%로 설정 */
 }
-.adminNoticeTitle{
-    margin: 5px 0!important;
-    text-align: left!important;
+
+.adminNoticeTitle {
+    margin: 5px 0 !important;
+    text-align: left !important;
     font-size: 30px;
     border-top: 1px solid;
-    padding: 37px 27px 30px; 
-    background-color: #f9f9f9; 
-    color: #333; 
+    padding: 37px 27px 30px;
+    background-color: #f9f9f9;
+    color: #333;
     font-weight: bold;
 }
 
-.adminNoticeText{
-    text-align: start!important;
-    height: 400px!important;
+.adminNoticeText {
+    text-align: start !important;
+    height: 400px !important;
 }
 
 .adminNoticeDate {
@@ -1294,7 +1358,7 @@ thead > tr > th {
 }
 
 .adminNoticeView {
-    float: left!important;
+    float: left !important;
     font-size: 12px;
     margin-right: 25px;
     margin-top: 0px;
@@ -1308,16 +1372,24 @@ thead > tr > th {
     margin-bottom: 30px;
 }
 
-/*.noticeCreateBtn {*/
-/*    background-color: #ef8484 !important;*/
-/*    border: #ef8484 !important;*/
-/*}*/
+/* 관리자 공지사항 모바일 */
+.adminNoticeMH1 {
+    margin: 30px !important;
+}
 
-/* 드롭다운, 검색버튼 */
-/*.dataDropdown, .dropDownToggle, .searchButton {*/
-/*    background-color: #45a3ff !important;*/
-/*    border: #45a3ff !important;*/
-/*}*/
+.title-column {
+    width: 150px !important;
+    background-color: white !important;
+}
+
+.date-column {
+    width: 200px !important;
+    background-color: white !important;
+}
+
+.view-column {
+    background-color: white !important;
+}
 
 /* 관리자 문의사항 페이지 */
 .adminInquiryH1 {
@@ -1327,6 +1399,40 @@ thead > tr > th {
     font-weight: bold;
     padding: 50px;
     font-size: 50px;
+}
+
+/* 관리자 문의목록 모바일 */
+.adminInquiryMH1 {
+    margin: 50px !important;
+}
+
+.inquiryTitle {
+    background-color: white !important;
+    font-size: 16px;
+    width: 20% !important;
+
+}
+
+.inquiryAnswer {
+    font-size: 14px;
+    background-color: white !important;
+    width: 50% !important;
+
+}
+
+.inquiryDate {
+    font-size: 14px;
+    background-color: white !important;
+    width: 30% !important;
+
+}
+
+.answerNeed {
+    padding: 0 !important;
+}
+
+.answerComplete {
+    padding: 0 !important;
 }
 
 
