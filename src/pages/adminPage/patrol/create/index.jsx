@@ -154,8 +154,6 @@ export default function PatrolTable() {
         <div className={'commonContainer'}>
             <Container>
                 <h1 className={'patrolH1'}>순찰내역작성</h1>
-
-
                 <Form onSubmit={handleSubmit}>
                     <h4 className={'d-flex align-items-center justify-content-sm-end'}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
@@ -193,7 +191,7 @@ export default function PatrolTable() {
                             </Select>
                         </FormControl>
                         <FormControl fullWidth onSubmit={handleSubmit} className={'mh-200'}>
-                            <InputLabel id="demo-simple-select-label" >관할동</InputLabel>
+                            <InputLabel id="demo-simple-select-label">관할동</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -206,7 +204,7 @@ export default function PatrolTable() {
                                 disabled={!patrol.area} // 대분류가 선택되지 않으면 중분류 비활성화
                             >
                                 {subareas.map((subarea) => (
-                                    <MenuItem key={subarea} value={subarea} >{subarea}</MenuItem>
+                                    <MenuItem key={subarea} value={subarea}>{subarea}</MenuItem>
                                 ))}
                             </Select>
                         </FormControl>
@@ -263,6 +261,8 @@ export default function PatrolTable() {
                     </div>
                 </Form>
             </Container>
+
         </div>
+
     );
 }
