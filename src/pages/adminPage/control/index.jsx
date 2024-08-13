@@ -1,27 +1,26 @@
 import React, {useState, useEffect, useRef} from 'react';
 import ROSLIB from 'roslib';
-import {Image, Form, Container, Spinner} from "react-bootstrap";
+import {Image, Form, Spinner} from "react-bootstrap";
 import '../../../static/common.css'
 import {getDownloadURL, ref, listAll, deleteObject, getStorage} from "firebase/storage";
 import {storage} from "../../../firebase";
 import axiosInstance from "../../../common/components/axiosinstance";
-import {TransformWrapper, TransformComponent} from "react-zoom-pan-pinch";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faXmark} from "@fortawesome/free-solid-svg-icons";
-import {Tooltip, Button, IconButton} from "@mui/material";
+import {Tooltip, Button, IconButton, Slider, CircularProgress} from "@mui/material";
 import CreatePatrol from "./patrolModal/patrolModal"
 import {Delete, HelpOutline, SaveAlt} from "@mui/icons-material";
-
+import {GaugeContainer, GaugeReferenceArc, GaugeValueArc, useGaugeState} from "@mui/x-charts";
 
 export default function Index() {
     const [currentSpeed, setCurrentSpeed] = useState(40);
+    const [time, setTime] = useState('')
     const [voltage, setVoltage] = useState('');
     const [isChecked, setIsChecked] = useState(true);
     const [buttonInfo, setButtonInfo] = useState('');
     const [images, setImages] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [checkState, setCheckState] = useState(new Array(images.length).fill(false))
-
 
     const handleSwitchChange = (e) => {
         setIsChecked(e.target.checked);
@@ -62,7 +61,7 @@ export default function Index() {
     };
 
     useEffect(() => {
-        console.log(images)
+        // console.log(images)
         // setInterval(async () => {
         fetchImages();
         // }, )
@@ -194,6 +193,30 @@ export default function Index() {
         // Replace with appropriate speed functions
     };
 
+    function GaugePointer() {
+        const {valueAngle, outerRadius, cx, cy} = useGaugeState();
+
+        if (valueAngle === null) {
+            // No value to display
+            return null;
+        }
+
+        const target = {
+            x: cx + outerRadius * Math.sin(valueAngle),
+            y: cy - outerRadius * Math.cos(valueAngle),
+        };
+        return (
+            <g>
+                <circle cx={cx} cy={cy} r={5} fill="red"/>
+                <path
+                    d={`M ${cx} ${cy} L ${target.x} ${target.y}`}
+                    stroke="red"
+                    strokeWidth={3}
+                />
+            </g>
+        );
+    }
+
 
     const handleKeyPress = (key) => {
         const keyMap = {
@@ -298,117 +321,149 @@ export default function Index() {
         }
     }, [modalOpen]);
 
+    function timeApi() {
+        const date = new Date().toLocaleString('ko-KR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false,
+            // second: '2-digit',
+        }).replace(/\./g, '').replace(/\s/g, '-').replace(/-/g, (match, offset) => offset === 4 || offset === 7 ? '-' : ' ').slice(0, 20);
+        setTime(date);
+    }
+
+
+    useEffect(() => {
+        setInterval(timeApi, 60000);
+    }, [setTime, time]);
+
+    const backGround = "http://192.168.0.12:8080/stream?topic=/csi_cam_1/image_raw";
+
     return (<>
         <div className={'commonContainer'}>
             <h1 className={'controlH1'}>관제센터</h1>
-            <Container>
-                <div className={'controlInfo'}>
-                    <div>
-                        <div>
-                            <Button id={'leftgo'} variant="contained"
-                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'leftgo')}
-                                    title={'좌회전'}>↖
-                            </Button>
-                            <Button id={'go'} className={'controlBtn'} variant="contained"
-                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'go')}
-                                    title={'전진'}>↑
-                            </Button>
-                            <Button id={'rightgo'} className={'controlBtn'} variant="contained"
-                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'rightgo')}
-                                    title={'우회전'}>↗
-                            </Button>
-                        </div>
-                        <div>
-                            <Button id={'left'} className={'controlBtn'} variant="contained"
-                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'left')}
-                                    title={'좌측 턴'}>←
-                            </Button>
-                            <Button id={'stop'} className={'controlBtn'} variant="contained"
-                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'stop')}
-                                    title={'정지'}>■
-                            </Button>
-                            <Button id={'right'} className={'controlBtn'} variant="contained"
-                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'right')}
-                                    title={'우측 턴'}>→
-                            </Button>
-                        </div>
-                        <div>
-                            <Button id={'leftback'} className={'controlBtn'} variant="contained"
-                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'leftback')}
-                                    title={'좌로 후진'}>↙
-                            </Button>
-                            <Button id={'back'} className={'controlBtn'} variant="contained"
-                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'back')}
-                                    title={'후진'}>↓
-                            </Button>
-                            <Button id={'rightback'} className={'controlBtn'} variant="contained"
-                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'rightback')}
-                                    title={'우로 후진'}>↘
-                            </Button>
-                        </div>
-
+            <div className={'controlInfo'}>
+                <div className={'controlVideo'}
+                     style={{background: `url(${backGround})`}}>
+                    <div className={'text-end m-2'} style={{color: "#19ff00"}}>
+                        {voltage ||
+                            <CircularProgress style={{width: 20, height: 20}}/>}<br/>
+                        {time}
                     </div>
-                    <div className={'controlVideo'}>
-                        <Image src={'http://192.168.0.12:8080/stream?topic=/csi_cam_1/image_raw'} width={1024}
-                               height={768}/>
-                        <div className={'controlInfo'}>
-                            {isChecked ? "AutoMode" : "PilotMode"}
+                    <div className={'gauge float-start text-center position-absolute fw-bold'}
+                         style={{}}>
+                        SPEED : {currentSpeed}
+                        <GaugeContainer
+                            width={100}
+                            height={100}
+                            startAngle={-110}
+                            endAngle={110}
+                            value={currentSpeed}
+                        >
+                            <GaugeReferenceArc/>
+                            <GaugeValueArc/>
+                            <GaugePointer/>
+                        </GaugeContainer>
+                        <Button id={'speedUp'} variant={'contained'} className={'m-1'}
+                                onClick={() => handleSpeedChange(Math.min(100, currentSpeed + 10))}>
+                            +
+                        </Button>
+                        <Button id={'speedDown'} variant={'contained'} color={'error'} className={'m-1'}
+                                onClick={() => handleSpeedChange(Math.max(40, currentSpeed - 10))}>
+                            -
+                        </Button>
+                    </div>
+                    <div className={'controlBtnGroup position-absolute'}>
+                        <div className={'d-flex align-items-center justify-content-center mb-1'}
+                             style={{color: "#17efc7"}}>
                             <Form.Check
                                 type="switch"
                                 id="toggleSwitch"
                                 checked={isChecked}
-                                label={''}
+                                label={isChecked ? "Auto" : "Drive️"}
                                 onChange={handleSwitchChange}
                             />
-                            <div className={'battery'}>
-                                Battery : {voltage || <Spinner animation="border" role="status" variant={'primary'}>
-                                <span className="visually-hidden">Loading...</span>
-                            </Spinner>}</div>
-                            <button className="button" id={'speedDown'}
-                                    onClick={() => handleSpeedChange(Math.max(40, currentSpeed - 10))}>
-                                -
-                            </button>
-                            <span id="speedValue">{currentSpeed}</span>
-                            <button className="button" id={'speedUp'}
-                                    onClick={() => handleSpeedChange(Math.min(100, currentSpeed + 10))}>
-                                +
-                            </button>
+                        </div>
+                        <div className={"d-flex"}>
+                            <Button id={'leftgo'} variant="contained" className={'controlBtn'} color={'success'}
+                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'leftgo')}
+                                    title={'좌회전'}>↖
+                            </Button>
+                            <Button id={'go'} className={'controlBtn'} variant="contained" color={'success'}
+                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'go')}
+                                    title={'전진'}>↑
+                            </Button>
+                            <Button id={'rightgo'} className={'controlBtn'} variant="contained"
+                                    color={'success'}
+                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'rightgo')}
+                                    title={'우회전'}>↗
+                            </Button>
+                        </div>
+                        <div className={"d-flex"}>
+                            <Button id={'left'} className={'controlBtn'} variant="contained" color={'success'}
+                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'left')}
+                                    title={'좌측 턴'}>←
+                            </Button>
+                            <Button id={'stop'} className={'controlBtn'} variant="contained" color={'error'}
+                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'stop')}
+                                    title={'정지'}>■
+                            </Button>
+                            <Button id={'right'} className={'controlBtn'} variant="contained" color={'success'}
+                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'right')}
+                                    title={'우측 턴'}>→
+                            </Button>
+                        </div>
+                        <div className={"d-flex"}>
+                            <Button id={'leftback'} className={'controlBtn'} variant="contained"
+                                    color={'success'}
+                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'leftback')}
+                                    title={'좌로 후진'}>↙
+                            </Button>
+                            <Button id={'back'} className={'controlBtn'} variant="contained" color={'success'}
+                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'back')}
+                                    title={'후진'}>↓
+                            </Button>
+                            <Button id={'rightback'} className={'controlBtn'} variant="contained"
+                                    color={'success'}
+                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'rightback')}
+                                    title={'우로 후진'}>↘
+                            </Button>
                         </div>
                     </div>
-                    <div className={'penaltyList'}>
-                        <h3>
-                            🚔 불법주차 차량번호
-                            <Tooltip title="검출된 차량과 사진의 차량번호가 일치하다면 체크 후, 저장 및 삭제를 수행합니다." placement="top">
-                                <IconButton>
-                                    <HelpOutline/>
-                                </IconButton>
-                            </Tooltip>
-                        </h3>
-                        <ul className={'penaltyUl'}>
-                            {images.length > 0 ? (images.map((image, index) => (
-                                <div key={index}>
-                                    <li className={'penaltyLi'}>
-                                        <div className={'divArea'}>
-                                            <input
-                                                className="form-check-input"
-                                                type="checkbox"
-                                                checked={checkState[index] || false}
-                                                onChange={() => handleCheckBoxChange(index)}
-                                                id={`defaultCheck1${index}`}
-                                            />
-                                            <TransformWrapper initialScale={1} minScale={1} maxScale={5}>
-                                                <TransformComponent>
-                                                    <Image src={image.url} alt={image.name}
-                                                           className={'carNumberImg'}/>
-                                                </TransformComponent>
-                                            </TransformWrapper>
-                                        </div>
-                                        <p className={'carNumber'}>{image.name}</p>
-                                    </li>
-                                </div>))) : <Spinner animation="border" role="status" variant={'primary'}>
-                                <span className="visually-hidden">Loading...</span>
-                            </Spinner>}
-                        </ul>
+                </div>
+                <div className={'penaltyList'}>
+                    <h3>
+                        🚔 불법주차 차량번호
+                        <Tooltip title="검출된 차량과 사진의 차량번호가 일치하다면 체크 후, 저장 및 삭제를 수행합니다." placement="top">
+                            <IconButton>
+                                <HelpOutline/>
+                            </IconButton>
+                        </Tooltip>
+                    </h3>
+                    <ul className={'penaltyUl'}>
+                        {images.length > 0 ? (images.map((image, index) => (
+                            <div key={index}>
+                                <li className={'penaltyLi'}>
+                                    <Image src={image.url} alt={image.name}
+                                           className={'carNumberImg'}/>
+                                    <div className={'carNumber'}>
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            checked={checkState[index] || false}
+                                            onChange={() => handleCheckBoxChange(index)}
+                                            id={`defaultCheck1${index}`}
+                                        />{image.name}
+                                    </div>
+                                </li>
+                            </div>))) : <Spinner animation="border" role="status" variant={'primary'}>
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>}
+
+                    </ul>
+                    <div>
                         <Button
                             onClick={handleSubmit}
                             variant="contained"
@@ -418,22 +473,21 @@ export default function Index() {
                             저장
                         </Button>
                         <Button
+
                             onClick={handleDelete}
                             variant="contained"
                             color="error"
                             endIcon={<Delete/>}>
                             삭제
                         </Button>
-                        <Button onClick={() => setModalOpen(true)}
-                                variant="outlined">
-                            순찰내역작성
-                        </Button>
                     </div>
                 </div>
-            </Container>
-
+            </div>
         </div>
-
+        <Button onClick={() => setModalOpen(true)}
+                variant="outlined">
+            순찰내역작성
+        </Button>
         {
             modalOpen &&
             <div className={'modalContainer'} ref={modalBackground} onClick={e => {
@@ -448,5 +502,6 @@ export default function Index() {
                 </div>
             </div>
         }
+
     </>);
 };
