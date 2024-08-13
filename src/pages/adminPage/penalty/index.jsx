@@ -235,10 +235,10 @@ export default function Index() {
                                 {currentPosts.map(penalty => (
                                     <tr key={penalty.penaltyIndex}>
                                         {/*<td className={'penaltyTd'}>{penalty.penaltyIndex}</td>*/}
-                                        <td className={'penaltyTd'}><Link
+                                        <td className={'penaltyNum'}><Link
                                             to={`/admin/penalty/${penalty.penaltyIndex}`}>{penalty.penaltyCarNumber}</Link>
                                         </td>
-                                        <td className={'penaltyTd'}>{formatNumber(penalty.penaltyCash)}원</td>
+                                        <td className={'penaltyCash'}>{formatNumber(penalty.penaltyCash)}원</td>
                                         <td className={'penaltyDate'}>{new Date(penalty.penaltyDate).toLocaleDateString('ko-KR', {
                                             year: 'numeric',
                                             month: '2-digit',
