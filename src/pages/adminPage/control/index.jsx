@@ -22,6 +22,17 @@ export default function Index() {
     const [modalOpen, setModalOpen] = useState(false);
     const [checkState, setCheckState] = useState(new Array(images.length).fill(false))
 
+    const [penalties, setPenalties] = useState([])
+
+    function penaltyApi() {
+        axiosInstance
+            .get('/api/penalty/desc')
+            .then((res) => {
+                setPenalties(res)
+            })
+            .catch((err) => console.log(err));
+    }
+
 
     const handleSwitchChange = (e) => {
         setIsChecked(e.target.checked);
@@ -56,15 +67,21 @@ export default function Index() {
 
             // 상태에 이미지 정보를 저장합니다.
             setImages(images);
+            // for (let i; i< images.length; i++){
+            //     if (images[i].name === penalties)
+            // }
+            console.log(images[0].name)
         } catch (error) {
             console.error("Error fetching images:", error);
         }
     };
 
+
     useEffect(() => {
-        console.log(images)
         // setInterval(async () => {
         fetchImages();
+        penaltyApi()
+        console.log("images: ",images)
         // }, )
     }, []);
 
@@ -274,9 +291,7 @@ export default function Index() {
         const selectImages = images.filter((_, index) => checkState[index])
         const storage = getStorage();
         // Create a reference to the file to delete
-        console.log(selectImages)
         const desertRef = ref(storage, `gs://parkjavastorage.appspot.com/${selectImages[0].name}`);
-        console.log(selectImages)
         const ok = window.confirm('정말 삭제하시겠습니까?')
         if (ok) {
             try {
