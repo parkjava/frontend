@@ -214,7 +214,7 @@ export default function Index() {
                         {noResultsMessage ? (
                             <Alert variant="warning">{noResultsMessage}</Alert>
                         ) : (
-                            <Table bordered hover variant="white">
+                            <Table className={'userNoticeTableMobile'} bordered hover variant="white">
                                 <thead>
                                 <tr>
                                     {/*<th onClick={() => handleSort('noticeIndex')}>NO</th>*/}

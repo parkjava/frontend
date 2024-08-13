@@ -515,6 +515,13 @@ span{
     }
 }
 
+/* 프로젝트 소개 페이지 모바일 */
+.projectInfoMobile {
+    margin: 0 10px 0 10px;
+    text-align: center;
+    font-size: 20px;
+}
+
 
 /* 메인 페이지 */
 .mainGroup {
@@ -1163,21 +1170,15 @@ span{
 }
 
 /* 유저 공지사항 모바일 */
+
 .userNoticeMH1 {
     padding: 10px;
     color: black;
+    font-weight: bold!important;
 }
-.userNoticeTitle {
-    margin: 5px 0 !important;
-    text-align: left !important;
-    font-size: 30px;
-    border-top: 1px solid;
-    padding: 37px 27px 30px;
-    background-color: #f9f9f9;
-    color: #333;
-    font-weight: bold;
+.userNoticeTableMobile{
+    width: 100%!important;
 }
-
 .userNoticeDate {
     float: right;
     font-size: 12px;
@@ -1194,7 +1195,7 @@ span{
     color: #333;
     font-weight: bold;
     font-size: 40px;
-    margin: 50px 50px !important;
+    margin: 50px 0 !important;
 }
 
 .noticeMobileContainer {
@@ -1391,6 +1392,7 @@ span{
 
 .patrolMobileCont {
     padding: 0 !important;
+    text-align: center!important;
 }
 .patrolTableM{
 
@@ -1399,18 +1401,21 @@ span{
 .patrolMH1 {
     padding: 50px;
     margin: 30px 30px !important;
-    width: 300px;
-    font-size: 50px;
+    width: 100% !important;
+    font-size: 40px;
     font-weight: bold;
 }
 
 .pmtd1 {
-    width: 30px !important;
+    width: 30% !important;
 
 }
 
 .pmtd2 {
-    width: 70px !important;
+    width: 30% !important;
+}
+.pmtd3 {
+    width: 40% !important;
 }
 
 .rowTitle {
@@ -1469,17 +1474,18 @@ span{
 
 
 @media (max-width: 768px) {
+
     .penaltyH11 {
         padding: 10px;
-        color: white;
+        color: black;
         font-weight: bold;
         font-size: 40px;
         margin: 0 !important;
-        margin: 50px 50px !important;
+        margin: 50px 0 !important;
     }
 
     .penaltyCont {
-        padding: 0 !important;
+        align-items: center!important;
     }
 
     .d-flex {
@@ -1490,13 +1496,14 @@ span{
         background-color: white !important;
     }
 
-    .penaltyTd {
-
+    .penaltyNum {
+        width: 40%;
     }
-
+    .penaltyCash{
+        width: 20%;
+    }
     .penaltyDate {
-        font-size: 12px;
-        width: 90px;
+        width: 40%;
     }
 }
 
@@ -1563,7 +1570,6 @@ span{
     font-size: 12px;
     margin-right: 25px;
     margin-top: 0px;
-
 }
 
 .noticeH1 {
@@ -1576,6 +1582,8 @@ span{
 /* 관리자 공지사항 모바일 */
 .adminNoticeMH1 {
     margin: 30px !important;
+    font-weight: bold;
+    font-size: 50px;
 }
 
 .title-column {
@@ -1605,6 +1613,8 @@ span{
 /* 관리자 문의목록 모바일 */
 .adminInquiryMH1 {
     margin: 50px !important;
+    font-weight: bold;
+    font-size: 50px;
 }
 .adminInquiryContainer {
     height: 400px;
@@ -1645,13 +1655,3 @@ span{
     font-size: 12px;
     margin-right: 10px;
 }
-
-.answerNeed {
-    padding: 0 !important;
-}
-
-.answerComplete {
-    padding: 0 !important;
-}
-
-
