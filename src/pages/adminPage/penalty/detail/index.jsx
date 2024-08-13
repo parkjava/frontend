@@ -5,7 +5,7 @@ import {Table, Container, Button} from "react-bootstrap";
 import axiosInstance from "../../../../common/components/axiosinstance";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faScrewdriverWrench, faCalendarPlus, faSquareCaretUp, faSquareCaretDown} from "@fortawesome/free-solid-svg-icons";
-
+import {Mobile, PC} from "../../../../common/components/responsive";
 export default function Index() {
     const {penaltyIndex} = useParams();
     const [penalty, setPenalty] = useState('');
@@ -55,9 +55,11 @@ export default function Index() {
 
     // 이전 글, 다음 글 계산
     return (
+        <>
+            <PC>
         <div className={'commonContainer'}>
             <Container className='detailContainer' style={{height: '100vh', borderRadius: '20px'}}>
-                <h1>단속 내역</h1>
+                    <Button className='noticeListBtn' onClick={handleSubmit} style={{position: 'relative', bottom: '40px', float: 'right'}}>목록으로</Button>
                 <p className={'adminPatrolTitle'}>
                     {penalty.penaltyCarNumber}
                 </p>
@@ -70,7 +72,7 @@ export default function Index() {
                 <p className={'adminPenaltyCash'}>
                     {formatNumber(penalty.penaltyCash)}원
                 </p>
-                <Table className={'adminDetailTable'} style={{marginBottom: '0'}} bordered>
+                <Table className={'adminDetailTable'} bordered>
                     <tbody>
                     <tr>
                         <td className={'imageTable'} colSpan={8} style={{height: '600px'}}>
@@ -84,28 +86,82 @@ export default function Index() {
                             </p>
                         </td>
                     </tr>
-                    </tbody>                    
-                    </Table>
+                    </tbody>
                     <div className='pageMove'>
                         <ul>
                             <li>
                             {prevPenalty === null ? (
                                 <><FontAwesomeIcon icon={faSquareCaretUp} /><span>이전글이 없습니다.</span></>
-                                ) :  (<><Link to={`/admin/penalty/${prevPenalty}`}><FontAwesomeIcon icon={faSquareCaretUp} />
-                                <span>이전 글</span></Link>
-                                <span style={{paddingLeft: '15%'}}>{penalties[currentPenaltyIndex+1].penaltyCarNumber}</span></>)}
+                                ) :  (<Link to={`/admin/penalty/${prevPenalty}`}><FontAwesomeIcon icon={faSquareCaretUp} />
+                                <span>이전 글</span>
+                            </Link>)}
                             </li>
 
                             <li>
                             {nextPenalty === null ? (<><FontAwesomeIcon icon={faSquareCaretDown} /><span>다음글이 없습니다.</span></>
-                                ) : (<><Link to={`/admin/penalty/${nextPenalty}`}><FontAwesomeIcon icon={faSquareCaretDown} />
-                                <span>다음 글</span></Link>
-                                <span style={{paddingLeft: '15%'}}>{penalties[currentPenaltyIndex-1].penaltyCarNumber}</span></>)}
+                                ) : (<Link to={`/admin/penalty/${nextPenalty}`}><FontAwesomeIcon icon={faSquareCaretDown} />
+                                <span>다음 글</span>
+                            </Link>)}
                             </li>
                         </ul>
                     </div>
-                    <Button className='noticeListBtn' onClick={handleSubmit} style={{position: 'relative', float: 'right'}}>목록으로</Button>
+                    </Table>
             </Container>
         </div>
+            </PC>
+            <Mobile>
+                <div className={'commonContainer'}>
+                    <Container className='detailContainer' style={{height: '100vh', borderRadius: '20px'}}>
+                        <Button className='noticeListBtn' onClick={handleSubmit} style={{position: 'relative', bottom: '40px', float: 'right'}}>목록으로</Button>
+                        <p className={'adminPatrolTitle'}>
+                            {penalty.penaltyCarNumber}
+                        </p>
+                        <div style={{margin: '10px 5px 10px'}}>
+                            <p className={'adminPenaltyDate'}>
+                                <FontAwesomeIcon icon={faCalendarPlus} style={{marginRight: '6px'}} />
+                                {penalty.penaltyDate.slice(0,10)}
+                            </p>
+                        </div>
+                        <p className={'adminPenaltyCash'}>
+                            {formatNumber(penalty.penaltyCash)}원
+                        </p>
+                        <Table className={'adminDetailTable'} bordered>
+                            <tbody>
+                            <tr>
+                                <td className={'imageTableMobile'} colSpan={8} style={{height: '600px'}}>
+                                    <p className='cardTextMobile'>
+                                        {penalty.penaltyImageUrl ? (
+                                            <Image className='penaltyImageMobile' src={penalty.penaltyImageUrl}/>
+                                        ) : (
+                                            <Image className='penaltyImageMobile'
+                                                   src={'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo-available_87543-11093.jpg'}/>
+                                        )}
+                                    </p>
+                                </td>
+                            </tr>
+                            </tbody>
+                            <div className='pageMoveMobile'>
+                                <ul>
+                                    <li>
+                                        {prevPenalty === null ? (
+                                            <><FontAwesomeIcon icon={faSquareCaretUp} /><span>이전글이 없습니다.</span></>
+                                        ) :  (<Link to={`/admin/penalty/${prevPenalty}`}><FontAwesomeIcon icon={faSquareCaretUp} />
+                                            <span>이전 글</span>
+                                        </Link>)}
+                                    </li>
+
+                                    <li>
+                                        {nextPenalty === null ? (<><FontAwesomeIcon icon={faSquareCaretDown} /><span>다음글이 없습니다.</span></>
+                                        ) : (<Link to={`/admin/penalty/${nextPenalty}`}><FontAwesomeIcon icon={faSquareCaretDown} />
+                                            <span>다음 글</span>
+                                        </Link>)}
+                                    </li>
+                                </ul>
+                            </div>
+                        </Table>
+                    </Container>
+                </div>
+            </Mobile>
+        </>
     );
 }
