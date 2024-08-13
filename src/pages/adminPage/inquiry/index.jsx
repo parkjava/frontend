@@ -143,9 +143,9 @@ export default function Index() {
                                     </td>
                                     <td>
                                         {inquiry.inquiryAnswer === null ?
-                                            <span className={'answerNeed'}>답변 필요</span>
+                                            <span className={'answerNeed'}>X</span>
                                             :
-                                            <span className={'answerComplete'}>답변 완료</span>}
+                                            <span className={'answerComplete'}>O</span>}
                                     </td>
                                     {/*<td>*/}
                                     {/*    {inquiry.inquiryWriter}*/}
