@@ -1126,7 +1126,7 @@ span{
 
 .userNoticeText {
     height: 500px !important;
-
+}
 .userNoticeDateDiv p {
     padding: 0;
 }
@@ -1166,6 +1166,7 @@ span{
 .userNoticeMH1 {
     padding: 10px;
     color: black;
+}
 .userNoticeTitle {
     margin: 5px 0 !important;
     text-align: left !important;
@@ -1391,6 +1392,9 @@ span{
 .patrolMobileCont {
     padding: 0 !important;
 }
+.patrolTableM{
+
+}
 
 .patrolMH1 {
     padding: 50px;
@@ -1402,6 +1406,7 @@ span{
 
 .pmtd1 {
     width: 30px !important;
+
 }
 
 .pmtd2 {
@@ -1459,6 +1464,8 @@ span{
     .penaltyH1 {
         background-image: url("./images/background-75.jpg") !important;
         background-size: cover;
+    }
+}
 
 
 @media (max-width: 768px) {
@@ -1598,6 +1605,7 @@ span{
 /* 관리자 문의목록 모바일 */
 .adminInquiryMH1 {
     margin: 50px !important;
+}
 .adminInquiryContainer {
     height: 400px;
     padding-top: 60px;
@@ -1608,7 +1616,7 @@ span{
     background-color: white !important;
     font-size: 16px;
     width: 20% !important;
-
+}
 .adminInquiryContainer .adminInquiryTitle {
     margin: 5px 0 !important;
     text-align: left !important;
@@ -1631,7 +1639,7 @@ span{
     font-size: 14px;
     background-color: white !important;
     width: 30% !important;
-
+}
 
 .adminInquiryPhone, .adminInquiryEmail {
     font-size: 12px;

@@ -1,22 +1,27 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {useParams, useNavigate, Link} from 'react-router-dom';
-import {Container, Button} from 'react-bootstrap';
+import {Container, Button, Table, Alert, Image} from 'react-bootstrap';
 import axiosInstance from "../../../../common/components/axiosinstance";
 import Update from "../update/index";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faScrewdriverWrench,
     faCalendarPlus,
     faSquareCaretUp,
-    faSquareCaretDown
+    faSquareCaretDown,
+    faXmark,
+    faPhone,
+    faMailBulk
 } from "@fortawesome/free-solid-svg-icons";
-import {Mobile, PC} from "../../../../common/components/responsive";
 
 export default function Index() {
     const {inquiryIndex} = useParams();
     const [inquiry, setInquiry] = useState(null);
     const [inquiries, setInquiries] = useState([]); // 전체 데이터
     const navigate = useNavigate();
+
+    const [modalOpen, setModalOpen] = useState(false);
+    const modalBackground = useRef();
+    const [showMessage, setShowMessage] = useState(false); // 상태 추가
 
     function inquiryApi() {
         axiosInstance
@@ -71,113 +76,107 @@ export default function Index() {
     }
 
     return (
-        <>
-            <PC>
-                <div className={'commonContainer'}>
-                    <Container>
-                        <h1>문의 상세 내역</h1>
+        <div className={'commonContainer'}>
+            <Container className='adminInquiryContainer' style={{height: '100vh'}}>
+                <h1>문의 상세 내역</h1>
 
-                        <div className={'d-flex align-items-center justify-content-around'}>
-                            <span>문의제목 : {inquiry.inquiryTitle}</span>
-                            <span>문의일자: {new Date(inquiry.inquiryDate).toLocaleDateString()}</span>
-                        </div>
-                        <div className={'d-flex align-items-center justify-content-around'}>
-                            <span>전화번호 : {inquiry.inquiryPhone}</span>
-                            <span>이메일 : {inquiry.inquiryEmail}</span>
-                        </div>
-                        <p>문의내용 : {inquiry.inquiryContent}<Button className='patrolListBtn' onClick={handleSubmit}
-                                                                  style={{
-                                                                      position: 'relative',
-                                                                      bottom: '40px',
-                                                                      float: 'right'
-                                                                  }}>목록으로</Button></p>
-                        <p>문의답변 : {inquiry.inquiryAnswer === null ?
-                            <span className={'answerNeed'}>답변 필요</span>
-                            :
-                            <span>{inquiry.inquiryAnswer}</span>}</p>
-                        <Button className={'float-end'} variant="danger" size="md" onClick={handleDelete}>문의삭제</Button>
-                    </Container>
-                    {/*<Button variant="primary" size="md" onClick={handleUpdate}>*/}
-                    {/*    답변 달기*/}
-                    {/*</Button>*/}
+                <p className={'adminInquiryTitle'}>
+                    {inquiry.inquiryTitle}
+                </p>
 
-                    <Update/>
-
-                    <div className='pageMove' style={{padding: '13px 20px 0 111px', width: '93%'}}>
-                        <ul>
-                            <li>
-                                {prevPatrol === null ? <><FontAwesomeIcon
-                                        icon={faSquareCaretUp}/><span>이전글이 없습니다.</span></> :
-                                    <Link to={`/admin/inquiry/${prevPatrol}`}><FontAwesomeIcon icon={faSquareCaretUp}/>
-                                        <span>이전 글</span>
-                                    </Link>}
-                            </li>
-
-                            <li>
-                                {nextPatrol === null ? <><FontAwesomeIcon
-                                        icon={faSquareCaretDown}/><span>다음글이 없습니다.</span></> :
-                                    <Link to={`/admin/inquiry/${nextPatrol}`}><FontAwesomeIcon
-                                        icon={faSquareCaretDown}/>
-                                        <span>다음 글</span>
-                                    </Link>}
-                            </li>
-                        </ul>
-                    </div>
+                <div style={{margin: '10px 5px 10px'}}>
+                    <span className={'adminInquiryDate'}>
+                        <FontAwesomeIcon icon={faCalendarPlus} style={{marginRight: '5px'}}/>
+                        {inquiry.inquiryDate.slice(0, 10)}
+                    </span>
+                    <span className={'adminInquiryPhone'}>
+                        <FontAwesomeIcon icon={faPhone} style={{marginRight: '5px'}}/>
+                        {inquiry.inquiryPhone}
+                    </span>
+                    <span className={'adminInquiryEmail'}>
+                        <FontAwesomeIcon icon={faMailBulk} style={{marginRight: '5px'}}/>
+                        {inquiry.inquiryEmail}
+                    </span>
                 </div>
-            </PC>
-            <Mobile>
-                <div className={'commonContainer'}>
-                    <Container>
-                        <h1 className={'inquiryDetailH1Mobile'}>문의 상세 내역</h1>
 
-                        <div className={'d-flex align-items-center justify-content-around'}>
-                            <span>문의제목 : {inquiry.inquiryTitle}</span>
-                            <span>문의일자: {new Date(inquiry.inquiryDate).toLocaleDateString()}</span>
-                        </div>
-                        <div className={'d-flex align-items-center justify-content-around'}>
-                            <span>전화번호 : {inquiry.inquiryPhone}</span>
-                            <span>이메일 : {inquiry.inquiryEmail}</span>
-                        </div>
-                        <p>문의내용 : {inquiry.inquiryContent}<Button className='patrolListBtn' onClick={handleSubmit}
-                                                                  style={{
-                                                                      position: 'relative',
-                                                                      bottom: '40px',
-                                                                      float: 'right'
-                                                                  }}>목록으로</Button></p>
-                        <p>문의답변 : {inquiry.inquiryAnswer === null ?
-                            <span className={'answerNeed'}>답변 필요</span>
-                            :
-                            <span>{inquiry.inquiryAnswer}</span>}</p>
-                        <Button className={'float-end'} variant="danger" size="md" onClick={handleDelete}>문의삭제</Button>
-                    </Container>
-                    {/*<Button variant="primary" size="md" onClick={handleUpdate}>*/}
-                    {/*    답변 달기*/}
-                    {/*</Button>*/}
+                <Table className={'adminDetailTable'} style={{margin: '0', padding: '0'}} bordered>
+                    <tbody>
+                    <tr>
+                        <td className={'adminPatrolText'} colSpan={8} style={{height: '600px', textAlign: 'start'}}>
+                            <p style={{paddingTop: '10px'}}>{inquiry.inquiryContent}</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </Table>
 
-                    <Update/>
+                <div className='pageMove'>
+                    <ul>
+                        <li style={{padding: '8px'}}>
+                            {prevPatrol === null ? <><FontAwesomeIcon
+                                    icon={faSquareCaretUp}/><span>이전글이 없습니다.</span></> :
+                                <Link to={`/admin/inquiry/${prevPatrol}`}><FontAwesomeIcon icon={faSquareCaretUp}/>
+                                    <span>이전 글</span>
+                                </Link>}
+                        </li>
 
-                    <div className='pageMove' style={{padding: '13px 20px 0 111px', width: '93%'}}>
-                        <ul>
-                            <li>
-                                {prevPatrol === null ? <><FontAwesomeIcon
-                                        icon={faSquareCaretUp}/><span>이전글이 없습니다.</span></> :
-                                    <Link to={`/admin/inquiry/${prevPatrol}`}><FontAwesomeIcon icon={faSquareCaretUp}/>
-                                        <span>이전 글</span>
-                                    </Link>}
-                            </li>
-
-                            <li>
-                                {nextPatrol === null ? <><FontAwesomeIcon
-                                        icon={faSquareCaretDown}/><span>다음글이 없습니다.</span></> :
-                                    <Link to={`/admin/inquiry/${nextPatrol}`}><FontAwesomeIcon
-                                        icon={faSquareCaretDown}/>
-                                        <span>다음 글</span>
-                                    </Link>}
-                            </li>
-                        </ul>
-                    </div>
+                        <li style={{padding: '8px'}}>
+                            {nextPatrol === null ? <><FontAwesomeIcon
+                                    icon={faSquareCaretDown}/><span>다음글이 없습니다.</span></> :
+                                <Link to={`/admin/inquiry/${nextPatrol}`}><FontAwesomeIcon icon={faSquareCaretDown}/>
+                                    <span>다음 글</span>
+                                </Link>}
+                        </li>
+                    </ul>
                 </div>
-            </Mobile>
-        </>
+
+                <p>문의답변 : {inquiry.inquiryAnswer === null ?
+                    <span className={'answerNeed'}>답변 필요</span>
+                    :
+                    <span>{inquiry.inquiryAnswer}</span>}</p>
+
+                <section>
+
+                    <div className=''>
+                        <Button onClick={() => setModalOpen(true)}>
+                            답변하기
+                        </Button>
+                    </div>
+
+                    {
+                        modalOpen &&
+                        <div className={'modalContainer'} ref={modalBackground} onClick={e => {
+                            if (e.target === modalBackground.current) {
+                                setModalOpen(false);
+                            }
+                        }}>
+                            <div className={'inquiryForm'}>
+                                <div style={{padding: 0, margin: 0}}>
+                                    <FontAwesomeIcon className='modalCloseBtn' icon={faXmark}
+                                                     onClick={() => setModalOpen(false)}/>
+
+                                </div>
+
+                                <Update/>
+
+                                {showMessage && (
+                                    <Alert variant="success" className="mt-3">
+                                        문의가 완료되었습니다
+                                    </Alert>
+                                )}
+                            </div>
+                        </div>
+                    }
+
+                </section>
+                <div className={'inquiryDetailBtn'}>
+                    <Button className='' style={{marginRight: '4px'}} onClick={handleSubmit}>목록으로</Button>
+                    <Button className={''} variant="danger" onClick={handleDelete}>문의삭제</Button>
+                </div>
+
+            </Container>
+            {/*<Button variant="primary" size="md" onClick={handleUpdate}>*/}
+            {/*    답변 달기*/}
+            {/*</Button>*/}
+        </div>
     );
 }

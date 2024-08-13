@@ -114,7 +114,8 @@ export default function PetrolList() {
                             </Dropdown>
                         </Container>
 
-                        <Table hover variant="white" className={'patrolTableM'}>
+                        <div className={'m-2'}>
+                        <Table hover variant="white">
                             <thead>
                             <tr>
                                 {/*<th>NO</th>*/}
@@ -137,6 +138,7 @@ export default function PetrolList() {
                             ))}
                             </tbody>
                         </Table>
+                        </div>
                         <div className={'createButton'}>
                             <Button className={'crButton'} onClick={handleCreateClick}>
                                 순찰내역작성
