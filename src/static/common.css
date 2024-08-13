@@ -210,6 +210,7 @@ thead > tr > th {
 .pageMove ul li {
     width: 100%;
     border-bottom: 1px solid #e3e3e3;
+    padding: 7px 0 7px 0;
 }
 
 .pageMove ul li span {
@@ -645,6 +646,27 @@ thead > tr > th {
 
 }
 
+@media (max-width: 344px) {
+    .groupChild1 {
+        font-size: 15px;
+        padding: 20px 30px 20px 30px;
+        border: 1px solid #ff5900;
+        border-radius: 8px;
+        color: rgb(255, 174, 97);
+        width: 224px;
+        height: 199px;
+    }
+
+    .groupChild2 {
+        font-size: 20px;
+        padding: 20px 30px 20px 30px;
+        border: 1px solid #0017ff;
+        border-radius: 8px;
+        width: 224px;
+        height: 199px;
+    }
+}
+
 /* 사용자 메인페이지 */
 .mainBackground :before {
     content: "";
@@ -726,6 +748,128 @@ thead > tr > th {
     padding-top: 50px;
     padding-right: 50px;
 }
+
+.none {
+
+
+}
+
+.adminContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: background-image 0.5s ease-in-out;
+}
+
+/* 날씨별 배경 이미지 */
+
+.clear-sky {
+    background-image: url('https://cdn.pixabay.com/photo/2016/09/16/19/14/day-1674886_1280.png')!important;
+}
+
+.few-clouds {
+    background-image: url('https://cdn.pixabay.com/photo/2022/11/24/02/28/clouds-7613361_1280.png')!important;
+}
+
+.scattered-clouds {
+    background-image: url('https://cdn.pixabay.com/photo/2022/11/24/02/28/clouds-7613361_1280.png')!important;
+}
+
+.broken-clouds {
+    background-image: url('https://cdn.pixabay.com/photo/2022/11/24/02/28/clouds-7613361_1280.png')!important;
+}
+
+.shower-rain {
+    background-image: url('https://cdn.pixabay.com/photo/2020/05/01/07/11/rain-5115710_1280.png')!important;
+}
+
+.rain {
+    background-image: url('https://cdn.pixabay.com/photo/2020/05/01/07/11/rain-5115710_1280.png')!important;
+}
+
+.thunderstorm {
+    background-image: url('https://cdn.pixabay.com/photo/2020/05/01/07/11/rain-5115710_1280.png')!important;
+}
+
+.snow {
+    background-image: url('https://cdn.pixabay.com/photo/2016/04/01/10/54/christmas-1300089_1280.png')!important;
+}
+
+.mist {
+    background-image: url('https://cdn.pixabay.com/photo/2023/02/07/13/55/forest-7774205_1280.jpg')!important;
+}
+
+.adminHeader {
+    /*display: flex;*/
+    width: 100%;
+    align-items: start;
+    justify-content: space-around;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px #4fd50a solid;
+    background-color: white;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+.adminWelcome {
+    flex: 1;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 20px;
+    border: 1px #4fd50a solid;
+    /*box-sizing: border-box;*/
+}
+
+.weather {
+    flex: 1;
+    background-color: rgb(255, 196, 0);
+    color: black;
+    padding: 20px;
+    border: 1px #4fd50a solid;
+    /*box-sizing: border-box;*/
+}
+
+.adminContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*margin-top: 200px;*/
+    border: 1px #4fd50a solid;
+}
+
+.chartButtons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    border: 1px #4fd50a solid;
+}
+
+.dataGraph {
+    /*width: 100%;*/
+    background-color: #ffffff;
+    /*padding: 20px;*/
+    border: 1px #4fd50a solid;
+    /*box-sizing: border-box;*/
+}
+
+.dataGraph canvas {
+    width: 500px !important;
+    height: 250px !important;
+}
+
+@media (max-width: 800px) {
+    .dataGraph canvas {
+
+    }
+
+}
+
 
 /* pagination */
 .paginationGroup {
@@ -933,6 +1077,11 @@ thead > tr > th {
     cursor: pointer;
 }
 
+.inquiryDetailBtn {
+    position: relative;
+    float: right;
+}
+
 /* 유저 공지사항 페이지*/
 
 .noticeContainer {
@@ -972,6 +1121,13 @@ thead > tr > th {
     font-weight: bold;
 }
 
+@media (max-width: 990px) {
+    .userNoticeInput {
+        display: flex;
+        float: right;
+        width: 300px;
+    }
+}
 /* 유저 공지사항 상세페이지*/
 .userNoticeTitle {
     text-align: left !important;
@@ -984,9 +1140,12 @@ thead > tr > th {
     font-size: 20px;
     font-weight: bolder;
 }
-
-.userNoticeText {
-    height: 500px !important;
+.userNoticeDateDiv p{
+    padding: 0;
+}
+.userNoticeText{
+    height: 400px!important;
+    text-align: start;
 }
 
 .noticeListBtn {
@@ -1002,7 +1161,6 @@ thead > tr > th {
 
 .detailContainer {
     height: 400px;
-    padding-top: 60px;
     margin-left: 0;
     /*    padding-bottom: 20px;*/
 }
@@ -1015,30 +1173,38 @@ thead > tr > th {
     text-align: left !important;
 }
 
-/* 유저 공지사항 모바일 */
-.userNoticeMH1 {
-    padding: 10px;
-    color: black;
+.userNoticeTitle{
+    margin: 5px 0!important;
+    text-align: left!important;
+    font-size: 30px;
+    border-top: 1px solid;
+    padding: 37px 27px 30px; 
+    background-color: #f9f9f9; 
+    color: #333; 
     font-weight: bold;
-    font-size: 40px;
-    margin: 50px 50px !important;
 }
 
-.noticeMobileContainer {
-    padding: 0 !important;
+.userNoticeDate {
+    float: right;
+    font-size: 12px;
+    margin: 0;
 }
 
-.userNoticeTh {
-    background-color: white !important;
+.userNoticeTitle{
+    margin: 5px 0!important;
+    text-align: left!important;
+    font-size: 30px;
+    border-top: 1px solid;
+    padding: 37px 27px 30px; 
+    background-color: #f9f9f9; 
+    color: #333; 
+    font-weight: bold;
 }
 
-.noticeDate {
-    font-size: 15px;
-    width: 120px;
-}
-
-.userNoticeSearch {
-
+.userNoticeDate {
+    float: right;
+    font-size: 12px;
+    margin: 0;
 }
 
 /* 관제 페이지 */
@@ -1200,35 +1366,14 @@ thead > tr > th {
     justify-content: flex-end !important;
 }
 
+/*.crButton {*/
+/*    background-color: #ef8484 !important;*/
+/*    border: #ef8484 !important;*/
+/*}*/
+
 .dropDown {
     background-color: rgb(176, 217, 255) !important;
     border: #d3f0ff !important;
-}
-
-/* 순찰내역 모바일 */
-
-.patrolMobileCont {
-    padding: 0 !important;
-}
-
-.patrolMH1 {
-    padding: 50px;
-    margin: 30px 30px !important;
-    width: 300px;
-    font-size: 50px;
-    font-weight: bold;
-}
-
-.pmtd1 {
-    width: 30px !important;
-}
-
-.pmtd2 {
-    width: 70px !important;
-}
-
-.rowTitle {
-    background-color: white !important;
 }
 
 /* 순찰내역작성 페이지 */
@@ -1273,33 +1418,29 @@ thead > tr > th {
     background-color: #e6fde6 !important;
     height: 400px !important;
 }
-
-@media (max-width: 768px) {
-    .penaltyH11 {
+@media(max-width: 768px){
+    .penaltyH1 {
+        background-image: url("./images/background-75.jpg") !important;
+        background-size: cover;
         padding: 10px;
-        color: black;
+        color: white;
         font-weight: bold;
         font-size: 40px;
-        margin: 50px 50px !important;
+        margin: 0!important;
     }
-
-    .penaltyCont {
-        padding: 0 !important;
+    .penaltyCont{
+        padding: 0!important;
     }
-
-    .d-flex {
+    .d-flex{
 
     }
-
-    .penaltyTh {
-        background-color: white !important;
+    .penaltyTh{
+        background-color: white!important;
     }
-
-    .penaltyTd {
+    .penaltyTd{
 
     }
-
-    .penaltyDate {
+    .penaltyDate{
         font-size: 12px;
         width: 90px;
     }
@@ -1372,24 +1513,16 @@ thead > tr > th {
     margin-bottom: 30px;
 }
 
-/* 관리자 공지사항 모바일 */
-.adminNoticeMH1 {
-    margin: 30px !important;
-}
+/*.noticeCreateBtn {*/
+/*    background-color: #ef8484 !important;*/
+/*    border: #ef8484 !important;*/
+/*}*/
 
-.title-column {
-    width: 150px !important;
-    background-color: white !important;
-}
-
-.date-column {
-    width: 200px !important;
-    background-color: white !important;
-}
-
-.view-column {
-    background-color: white !important;
-}
+/* 드롭다운, 검색버튼 */
+/*.dataDropdown, .dropDownToggle, .searchButton {*/
+/*    background-color: #45a3ff !important;*/
+/*    border: #45a3ff !important;*/
+/*}*/
 
 /* 관리자 문의사항 페이지 */
 .adminInquiryH1 {
@@ -1401,38 +1534,30 @@ thead > tr > th {
     font-size: 50px;
 }
 
-/* 관리자 문의목록 모바일 */
-.adminInquiryMH1 {
-    margin: 50px !important;
+.adminInquiryContainer{
+    height: 400px;
+    padding-top: 60px;
+    margin-left: 0;
 }
 
-.inquiryTitle {
-    background-color: white !important;
-    font-size: 16px;
-    width: 20% !important;
-
+.adminInquiryContainer .adminInquiryTitle{
+    margin: 5px 0!important;
+    text-align: left!important;
+    font-size: 30px;
+    border-top: 1px solid;
+    padding: 37px 27px 30px; 
+    background-color: #f9f9f9; 
+    color: #333; 
+    font-weight: bold;
 }
 
-.inquiryAnswer {
-    font-size: 14px;
-    background-color: white !important;
-    width: 50% !important;
-
+.adminInquiryDate {
+    float: right;
+    font-size: 12px;
+    margin: 0 0 3px 13px;
 }
-
-.inquiryDate {
-    font-size: 14px;
-    background-color: white !important;
-    width: 30% !important;
-
+.adminInquiryPhone, .adminInquiryEmail {
+    font-size: 12px;
+    margin-right: 10px;
 }
-
-.answerNeed {
-    padding: 0 !important;
-}
-
-.answerComplete {
-    padding: 0 !important;
-}
-
 

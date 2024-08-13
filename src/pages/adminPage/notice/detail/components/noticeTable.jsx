@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, useNavigate, Link} from 'react-router-dom';
-import {Table, Container, Card, Row, Col} from 'react-bootstrap';
+import {Table, Container} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import '../../../../../static/common.css'
 import axiosInstance from "../../../../../common/components/axiosinstance";
@@ -62,9 +62,9 @@ export default function NoticeTable() {
 
     return (
         <>
-            <div className={'commonContainer'}>
+            <div className={'commonContainer'} style={{paddingTop: '0'}}>
                 <Container className='detailContainer' style={{height: '100vh', borderRadius: '20px'}}>
-                <Button className='noticeListBtn' onClick={handleSubmit} style={{position: 'relative', bottom: '40px', float: 'right'}}>목록으로</Button>
+                    <h1>공지 내역</h1>
                     <p className={'adminNoticeTitle'}>
                         {notice.noticeTitle}
                     </p>
@@ -84,34 +84,36 @@ export default function NoticeTable() {
                         </p> }
                         </div>
                     </div>
-                    <Table className={'adminDetailTable'} bordered>
+                    <Table className={'adminDetailTable'} style={{marginBottom: '0'}} bordered>
                         <tbody>
                         <tr>
                             <td className={'adminNoticeText'} colSpan={8} style={{height: '600px'}}>
                                 {notice.noticeContent}
                             </td>
                         </tr>
-                        </tbody>
-                        <div className='pageMove'>
-                            <ul>
-                                <li>
-                                {prevPatrol === null ? <><FontAwesomeIcon icon={faSquareCaretUp} /><span>이전글이 없습니다.</span></> :  <Link to={`/admin/notice/${prevPatrol}`}><FontAwesomeIcon icon={faSquareCaretUp} />
-                                    <span>이전 글</span>
-                                </Link>}
-                                </li>
-
-                                <li>
-                                {nextPatrol === null ? <><FontAwesomeIcon icon={faSquareCaretDown} /><span>다음글이 없습니다.</span></> : <Link to={`/admin/notice/${nextPatrol}`}><FontAwesomeIcon icon={faSquareCaretDown} />
-                                    <span>다음 글</span>
-                                </Link>}
-                                </li>
-                            </ul>
-                        </div>
+                        </tbody>                        
                     </Table>
+                    <div className='pageMove'>
+                        <ul>
+                            <li>
+                            {prevPatrol === null ? (<><FontAwesomeIcon icon={faSquareCaretUp} /><span>이전글이 없습니다.</span></>) :  (<>
+                                <Link to={`/admin/notice/${prevPatrol}`}><FontAwesomeIcon icon={faSquareCaretUp} /><span>이전 글</span></Link>
+                                <span style={{paddingLeft: '15%'}}>{notices[currentNoticeIndex+1].noticeTitle}</span>
+                                </>)}
+                            </li>
 
+                            <li>
+                            {nextPatrol === null ? <><FontAwesomeIcon icon={faSquareCaretDown} /><span>다음글이 없습니다.</span></> : (<>
+                                <Link to={`/admin/notice/${nextPatrol}`}><FontAwesomeIcon icon={faSquareCaretDown} /><span>다음 글</span></Link>
+                                <span style={{paddingLeft: '15%'}}>{notices[currentNoticeIndex-1].noticeTitle}</span>
+                                </>)}
+                            </li>
+                        </ul>
+                    </div>
                     <div className={'noticeDetailBtn'}>
                         <Button variant="primary" onClick={handleUpdate} className="w-30" style={{marginRight:'5px'}}>수정</Button>
                         <Button variant="danger" onClick={handleDelete} className="w-30" style={{marginRight:'5px'}}>삭제</Button>
+                        <Button className='noticeListBtn' onClick={handleSubmit} style={{position: 'relative', float: 'right'}}>목록으로</Button>
                     </div>
                 </Container>
             </div>

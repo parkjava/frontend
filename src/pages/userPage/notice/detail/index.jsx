@@ -1,12 +1,24 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Container, Table} from "react-bootstrap";
-import {Link, useParams} from "react-router-dom";
+import {Link, useParams, useNavigate} from "react-router-dom";
 import axiosInstance from "../../../../common/components/axiosinstance";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faSquareCaretUp, faSquareCaretDown, faCalendarPlus} from "@fortawesome/free-solid-svg-icons";
 
 export default function Index() {
     const {noticeIndex} = useParams();
     const [notice, setNotice] = useState();
+    const [notices, setNotices] = useState([]); // 전체 데이터
+    const navigate = useNavigate();
 
+    function noticeApi() {
+        axiosInstance
+            .get('/api/notice')
+            .then((res) => {
+                setNotices(res)
+            })
+            .catch((err) => console.log(err));
+    }
 
     function noticeDetailApi() {
         axiosInstance
@@ -17,61 +29,65 @@ export default function Index() {
             .catch((err) => console.log(err));
     }
 
-    useEffect(() => {
+    useEffect(() => {        
         noticeDetailApi();
+        noticeApi();
     }, [noticeIndex]);
 
     if (!notice) {
         return <Container>Loading...</Container>;
     }
 
+    const currentNoticeIndex = notices.findIndex((item) => item.noticeIndex === parseInt(noticeIndex))
+
+    const prevNotice = currentNoticeIndex < notices.length - 1 ? notices[currentNoticeIndex + 1].noticeIndex : null
+    const nextNotice = currentNoticeIndex > 0 ? notices[currentNoticeIndex - 1].noticeIndex : null
+
+    const handleSubmit = () => {
+        navigate(`../user/notice`);
+    }
 
     return (
         <>
             <div className={'commonContainer'}>
-                <Container className='detailContainer' style={{height: '100vh', borderRadius: '20px'}}>
-                    <h1 className={'userNoticeTitle'}>
+                <Container className='detailContainer' style={{height: '150vh', borderRadius: '20px'}}>
+                    <h1>공지 사항</h1>
+                    <p className={'userNoticeTitle'}>
                         {notice.noticeTitle}
-                    </h1>
-                    <p className={'userNoticeDate'}>
-                        {new Date(notice.createDate).toLocaleDateString('ko-KR')}
                     </p>
-                    <Table className={'detailTable'} bordered>
-                        {/*<thead>*/}
-                        {/*<tr>*/}
-                        {/*    /!*<th rowSpan={2} style={{width: '60px', verticalAlign: 'middle'}}>제목</th>*!/*/}
-                        {/*    /!*<th colSpan={2} style={{width: '60px'}}>일자</th>*!/*/}
-                        {/*    /!*<th className={'userNoticeDate'} colSpan={4} style={{width: '300px'}}>*!/*/}
-                        {/*    /!*    {new Date(notice.createDate).toLocaleDateString('ko-KR')}*!/*/}
-                        {/*    /!*</th>*!/*/}
-                        {/*</tr>*/}
-                        {/*</thead>*/}
+                    <div className='userNoticeDateDiv'>
+                        <p className={'userNoticeDate'}>
+                            <FontAwesomeIcon icon={faCalendarPlus} style={{marginRight: '6px'}} />
+                            {notice.createDate}
+                        </p>
+                    </div>
+                    <Table className={'detailTable'} style={{marginBottom: '0'}} bordered>
                         <tbody>
-                        <tr>
-                            <td className={'userNoticeText'} colSpan={8} style={{height: '600px'}}>
-                                {notice.noticeContent}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colSpan={4} className="text-center">
-                                {/*{prevIndex >= 0 && ( // 이전 글 링크를 조건에 따라 렌더링*/}
-                                <p>
-                                    <Link to={`/user/notice/${parseInt(noticeIndex) - 1}`}>이전 글▲</Link>
-                                </p>
-                                {/*// )}*/}
-                                {/*{nextIndex <= penalties.length && ( // 다음 글 링크를 조건에 따라 렌더링*/}
-                                <p>
-                                    <Link to={`/user/notice/${parseInt(noticeIndex) + 1}`}>다음 글▼</Link>
-                                </p>
-                                {/*// )}*/}
-                            </td>
-                        </tr>
+                            <tr>
+                                <td className={'userNoticeText'}>
+                                    {notice.noticeContent}
+                                </td>
+                            </tr>
                         </tbody>
                     </Table>
-                    <div className={'noticeDetailBtn'}>
-                        <Button className='noticeListBtn'><Link
-                            to={'../user/notice'}>목록으로</Link></Button>
+                    <div className='pageMove' >
+                        <ul>
+                            <li>
+                            {prevNotice === null ? <><FontAwesomeIcon icon={faSquareCaretUp} /><span>이전글이 없습니다.</span></> :  
+                                <><Link to={`/user/notice/${prevNotice}`}><FontAwesomeIcon icon={faSquareCaretUp} /><span>이전 글</span>
+                            </Link><span style={{paddingLeft: '5%'}}>{notices[currentNoticeIndex+1].noticeTitle}</span></>}
+                            </li>
 
+                            <li>
+                            {nextNotice === null ? <><FontAwesomeIcon icon={faSquareCaretDown} /><span>다음글이 없습니다.</span></> : 
+                                <><Link to={`/user/notice/${nextNotice}`}><FontAwesomeIcon icon={faSquareCaretDown} /><span>다음 글</span>
+                            </Link><span style={{paddingLeft: '5%'}}>{notices[currentNoticeIndex-1].noticeTitle}</span></>}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div className={'noticeDetailBtn'} style={{float:'right'}}>
+                        <Button className='noticeListBtn' onClick={handleSubmit}>목록으로</Button>
                     </div>
                 </Container>
             </div>
