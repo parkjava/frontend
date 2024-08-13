@@ -177,8 +177,6 @@ export default function Index() {
                         totalPosts={notices.length}
                         paginate={setCurrentPage}></Pagination>
                 </Container>
-
-
             </div>
 
         </>
