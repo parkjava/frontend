@@ -3,6 +3,7 @@ import {Table, Container, Form, Button, Dropdown, Alert} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import Pagination from '../../../common/components/pagination2';
 import axiosInstance from '../../../common/components/axiosinstance';
+import {Mobile, PC} from "../../../common/components/responsive";
 
 export default function Index() {
     const [notices, setNotices] = useState([]);
@@ -113,92 +114,188 @@ export default function Index() {
 
 
     return (
-        <div className={'commonContainer'}>
-            <Container>
-                <h1 className={'adminNoticeH1'}>공지사항</h1>
-                <hr/>
-                <Container className="d-flex justify-content-center align-items-center">
-                    {/*<Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">*/}
-                    {/*    <Dropdown.Toggle className={'dropDownToggle'} variant="secondary" id="dropdown-basic">*/}
-                    {/*        검색 옵션: {searchOptionLabel}*/}
-                    {/*    </Dropdown.Toggle>*/}
+        <>
+            <PC>
+                <div className={'commonContainer'}>
+                    <Container>
+                        <h1 className={'adminNoticeH1'}>공지사항</h1>
+                        <hr/>
+                        <Container className="d-flex justify-content-center align-items-center">
+                            {/*<Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">*/}
+                            {/*    <Dropdown.Toggle className={'dropDownToggle'} variant="secondary" id="dropdown-basic">*/}
+                            {/*        검색 옵션: {searchOptionLabel}*/}
+                            {/*    </Dropdown.Toggle>*/}
 
-                    {/*    <Dropdown.Menu>*/}
-                    {/*        <Dropdown.Item eventKey="title">공지제목</Dropdown.Item>*/}
-                    {/*        <Dropdown.Item eventKey="admin">작성자</Dropdown.Item>*/}
-                    {/*    </Dropdown.Menu>*/}
-                    {/*</Dropdown>*/}
-                    <Form onSubmit={handleSubmit} className="d-flex pb-2" style={{width: '300px'}}>
-                        <Form.Control
-                            type="text"
-                            placeholder="제목으로 검색"
-                            name="notice"
-                            value={noticeTitle}
-                            onChange={handleInputChange}
-                            className="me-2"
-                        />
-                        <Button variant="primary" type="submit" className={"searchButton"} style={{width: '100px'}}>
-                            검색
-                        </Button>
-                    </Form>
-                </Container>
-
-
-                <Container className="d-flex justify-content-end align-items-center pb-2">
-                    <Dropdown onSelect={handleNoticeCount}>
-                        <Dropdown.Toggle className={'dropDownToggle'}>
-                            노출 설정 : {postsPerPage}개
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu>
-                            <Dropdown.Item eventKey="ten">10</Dropdown.Item>
-                            <Dropdown.Item eventKey="thirty">30</Dropdown.Item>
-                            <Dropdown.Item eventKey="fifty">50</Dropdown.Item>
-
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </Container>
+                            {/*    <Dropdown.Menu>*/}
+                            {/*        <Dropdown.Item eventKey="title">공지제목</Dropdown.Item>*/}
+                            {/*        <Dropdown.Item eventKey="admin">작성자</Dropdown.Item>*/}
+                            {/*    </Dropdown.Menu>*/}
+                            {/*</Dropdown>*/}
+                            <Form onSubmit={handleSubmit} className="d-flex pb-2" style={{width: '300px'}}>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="제목으로 검색"
+                                    name="notice"
+                                    value={noticeTitle}
+                                    onChange={handleInputChange}
+                                    className="me-2"
+                                />
+                                <Button variant="primary" type="submit" className={"searchButton"}
+                                        style={{width: '100px'}}>
+                                    검색
+                                </Button>
+                            </Form>
+                        </Container>
 
 
-                {noResultsMessage ? (
-                    <Alert variant="warning">{noResultsMessage}</Alert>
-                ) : (
+                        <Container className="d-flex justify-content-end align-items-center pb-2">
+                            <Dropdown onSelect={handleNoticeCount}>
+                                <Dropdown.Toggle className={'dropDownToggle'}>
+                                    노출 설정 : {postsPerPage}개
+                                </Dropdown.Toggle>
 
-                    <Table hover variant={'white'} className="table">
-                        <thead>
-                        <tr>
-                            <th className="no-column" onClick={() => handleSort('noticeIndex')}>NO</th>
-                            <th className="title-column" onClick={() => handleSort('noticeTitle')}>제목</th>
-                            <th className="date-column" onClick={() => handleSort('createDate')}>게시일</th>
-                            <th className="view-column" onClick={() => handleSort('noticeView')}>조회수</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {currentPosts.map(notice => (
-                            <tr key={notice.noticeIndex}>
-                                <td className="no-column">{notice.noticeIndex}</td>
-                                <td className="title-column">
-                                    <Link to={`/admin/notice/${notice.noticeIndex}`}>{notice.noticeTitle}</Link>
-                                </td>
-                                <td className="date-column">{notice.createDate}</td>
-                                <td className="view-column" style={{textAlign: 'center'}}>{notice.noticeView}</td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </Table>
-                )}
-                <Container className={'d-flex justify-content-end align-items-center mt-4'}>
-                    <Link to="/admin/notice/create">
-                        <Button>
-                            공지사항작성
-                        </Button>
-                    </Link>
-                </Container>
-                <Pagination
-                    postsPerPage={postsPerPage}
-                    totalPosts={notices.length}
-                    paginate={setCurrentPage}></Pagination>
-            </Container>
-        </div>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item eventKey="ten">10</Dropdown.Item>
+                                    <Dropdown.Item eventKey="thirty">30</Dropdown.Item>
+                                    <Dropdown.Item eventKey="fifty">50</Dropdown.Item>
+
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Container>
+
+
+                        {noResultsMessage ? (
+                            <Alert variant="warning">{noResultsMessage}</Alert>
+                        ) : (
+
+                            <Table hover variant={'white'} className="table">
+                                <thead>
+                                <tr>
+                                    <th className="no-column" onClick={() => handleSort('noticeIndex')}>NO</th>
+                                    <th className="title-column" onClick={() => handleSort('noticeTitle')}>제목</th>
+                                    <th className="date-column" onClick={() => handleSort('createDate')}>게시일</th>
+                                    <th className="view-column" onClick={() => handleSort('noticeView')}>조회수</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {currentPosts.map(notice => (
+                                    <tr key={notice.noticeIndex}>
+                                        <td className="no-column">{notice.noticeIndex}</td>
+                                        <td className="title-column">
+                                            <Link to={`/admin/notice/${notice.noticeIndex}`}>{notice.noticeTitle}</Link>
+                                        </td>
+                                        <td className="date-column">{notice.createDate}</td>
+                                        <td className="view-column"
+                                            style={{textAlign: 'center'}}>{notice.noticeView}</td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </Table>
+                        )}
+                        <Container className={'d-flex justify-content-end align-items-center mt-4'}>
+                            <Link to="/admin/notice/create">
+                                <Button>
+                                    공지사항작성
+                                </Button>
+                            </Link>
+                        </Container>
+                        <Pagination
+                            postsPerPage={postsPerPage}
+                            totalPosts={notices.length}
+                            paginate={setCurrentPage}></Pagination>
+                    </Container>
+                </div>
+            </PC>
+            <Mobile>
+                <div className={'commonContainer'}>
+                    <Container>
+                        <h1 className={'adminNoticeMH1'}>공지사항</h1>
+                        <Container className="d-flex justify-content-center align-items-center">
+                            {/*<Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">*/}
+                            {/*    <Dropdown.Toggle className={'dropDownToggle'} variant="secondary" id="dropdown-basic">*/}
+                            {/*        검색 옵션: {searchOptionLabel}*/}
+                            {/*    </Dropdown.Toggle>*/}
+
+                            {/*    <Dropdown.Menu>*/}
+                            {/*        <Dropdown.Item eventKey="title">공지제목</Dropdown.Item>*/}
+                            {/*        <Dropdown.Item eventKey="admin">작성자</Dropdown.Item>*/}
+                            {/*    </Dropdown.Menu>*/}
+                            {/*</Dropdown>*/}
+                            <Form onSubmit={handleSubmit} className="d-flex pb-2" style={{width: '300px'}}>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="제목으로 검색"
+                                    name="notice"
+                                    value={noticeTitle}
+                                    onChange={handleInputChange}
+                                    className="me-2"
+                                />
+                                <Button variant="primary" type="submit" className={"searchButton"}
+                                        style={{width: '100px'}}>
+                                    검색
+                                </Button>
+                            </Form>
+                        </Container>
+
+
+                        <Container className="d-flex justify-content-end align-items-center pb-2">
+                            <Dropdown onSelect={handleNoticeCount}>
+                                <Dropdown.Toggle className={'dropDownToggle'}>
+                                    노출 설정 : {postsPerPage}개
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu>
+                                    <Dropdown.Item eventKey="ten">10</Dropdown.Item>
+                                    <Dropdown.Item eventKey="thirty">30</Dropdown.Item>
+                                    <Dropdown.Item eventKey="fifty">50</Dropdown.Item>
+
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Container>
+
+
+                        {noResultsMessage ? (
+                            <Alert variant="warning">{noResultsMessage}</Alert>
+                        ) : (
+
+                            <Table hover variant={'white'} className="table">
+                                <thead>
+                                <tr>
+                                    {/*<th className="no-column" onClick={() => handleSort('noticeIndex')}>NO</th>*/}
+                                    <th className="title-column" onClick={() => handleSort('noticeTitle')}>제목</th>
+                                    <th className="date-column" onClick={() => handleSort('createDate')}>게시일</th>
+                                    <th className="view-column" onClick={() => handleSort('noticeView')}>조회수</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {currentPosts.map(notice => (
+                                    <tr key={notice.noticeIndex}>
+                                        {/*<td className="no-column">{notice.noticeIndex}</td>*/}
+                                        <td className="title-column">
+                                            <Link to={`/admin/notice/${notice.noticeIndex}`}>{notice.noticeTitle}</Link>
+                                        </td>
+                                        <td className="date-column">{notice.createDate}</td>
+                                        <td className="view-column"
+                                            style={{textAlign: 'center'}}>{notice.noticeView}</td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </Table>
+                        )}
+                        <Container className={'d-flex justify-content-end align-items-center mt-4'}>
+                            <Link to="/admin/notice/create">
+                                <Button>
+                                    공지사항작성
+                                </Button>
+                            </Link>
+                        </Container>
+                        <Pagination
+                            postsPerPage={postsPerPage}
+                            totalPosts={notices.length}
+                            paginate={setCurrentPage}></Pagination>
+                    </Container>
+                </div>
+            </Mobile>
+        </>
     );
 }

@@ -348,6 +348,14 @@ thead > tr > th {
     }
 }
 
+/* 문의 상세페이지 모바일 */
+.inquiryDetailH1Mobile{
+    margin: 50px 50px!important;
+}
+span{
+    font-size: 14px;
+}
+
 
 /* 프로젝트 소개 페이지 */
 .projectInfo {
@@ -644,27 +652,6 @@ thead > tr > th {
     }
 
 
-}
-
-@media (max-width: 344px) {
-    .groupChild1 {
-        font-size: 15px;
-        padding: 20px 30px 20px 30px;
-        border: 1px solid #ff5900;
-        border-radius: 8px;
-        color: rgb(255, 174, 97);
-        width: 224px;
-        height: 199px;
-    }
-
-    .groupChild2 {
-        font-size: 20px;
-        padding: 20px 30px 20px 30px;
-        border: 1px solid #0017ff;
-        border-radius: 8px;
-        width: 224px;
-        height: 199px;
-    }
 }
 
 /* 사용자 메인페이지 */
@@ -1077,11 +1064,6 @@ thead > tr > th {
     cursor: pointer;
 }
 
-.inquiryDetailBtn {
-    position: relative;
-    float: right;
-}
-
 /* 유저 공지사항 페이지*/
 
 .noticeContainer {
@@ -1142,6 +1124,9 @@ thead > tr > th {
     font-weight: bolder;
 }
 
+.userNoticeText {
+    height: 500px !important;
+}
 .userNoticeDateDiv p {
     padding: 0;
 }
@@ -1164,6 +1149,7 @@ thead > tr > th {
 
 .detailContainer {
     height: 400px;
+    padding-top: 60px;
     margin-left: 0;
     /*    padding-bottom: 20px;*/
 }
@@ -1176,6 +1162,11 @@ thead > tr > th {
     text-align: left !important;
 }
 
+/* 유저 공지사항 모바일 */
+.userNoticeMH1 {
+    padding: 10px;
+    color: black;
+}
 .userNoticeTitle {
     margin: 5px 0 !important;
     text-align: left !important;
@@ -1202,12 +1193,25 @@ thead > tr > th {
     background-color: #f9f9f9;
     color: #333;
     font-weight: bold;
+    font-size: 40px;
+    margin: 50px 50px !important;
 }
 
-.userNoticeDate {
-    float: right;
-    font-size: 12px;
-    margin: 0;
+.noticeMobileContainer {
+    padding: 0 !important;
+}
+
+.userNoticeTh {
+    background-color: white !important;
+}
+
+.noticeDate {
+    font-size: 15px;
+    width: 120px;
+}
+
+.userNoticeSearch {
+
 }
 
 /* 관제 페이지 */
@@ -1378,14 +1382,39 @@ thead > tr > th {
     justify-content: flex-end !important;
 }
 
-/*.crButton {*/
-/*    background-color: #ef8484 !important;*/
-/*    border: #ef8484 !important;*/
-/*}*/
-
 .dropDown {
     background-color: rgb(176, 217, 255) !important;
     border: #d3f0ff !important;
+}
+
+/* 순찰내역 모바일 */
+
+.patrolMobileCont {
+    padding: 0 !important;
+}
+.patrolTableM{
+
+}
+
+.patrolMH1 {
+    padding: 50px;
+    margin: 30px 30px !important;
+    width: 300px;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.pmtd1 {
+    width: 30px !important;
+
+}
+
+.pmtd2 {
+    width: 70px !important;
+}
+
+.rowTitle {
+    background-color: white !important;
 }
 
 /* 순찰내역작성 페이지 */
@@ -1435,11 +1464,18 @@ thead > tr > th {
     .penaltyH1 {
         background-image: url("./images/background-75.jpg") !important;
         background-size: cover;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .penaltyH11 {
         padding: 10px;
         color: white;
         font-weight: bold;
         font-size: 40px;
         margin: 0 !important;
+        margin: 50px 50px !important;
     }
 
     .penaltyCont {
@@ -1462,6 +1498,12 @@ thead > tr > th {
         font-size: 12px;
         width: 90px;
     }
+}
+
+/* 단속차량 상세페이지 모바일 */
+.imageTableMobile{
+    width: 100% !important;
+    height: 300px !important;
 }
 
 /* 관리자 공지사항 페이지 */
@@ -1531,16 +1573,24 @@ thead > tr > th {
     margin-bottom: 30px;
 }
 
-/*.noticeCreateBtn {*/
-/*    background-color: #ef8484 !important;*/
-/*    border: #ef8484 !important;*/
-/*}*/
+/* 관리자 공지사항 모바일 */
+.adminNoticeMH1 {
+    margin: 30px !important;
+}
 
-/* 드롭다운, 검색버튼 */
-/*.dataDropdown, .dropDownToggle, .searchButton {*/
-/*    background-color: #45a3ff !important;*/
-/*    border: #45a3ff !important;*/
-/*}*/
+.title-column {
+    width: 150px !important;
+    background-color: white !important;
+}
+
+.date-column {
+    width: 200px !important;
+    background-color: white !important;
+}
+
+.view-column {
+    background-color: white !important;
+}
 
 /* 관리자 문의사항 페이지 */
 .adminInquiryH1 {
@@ -1552,12 +1602,21 @@ thead > tr > th {
     font-size: 50px;
 }
 
+/* 관리자 문의목록 모바일 */
+.adminInquiryMH1 {
+    margin: 50px !important;
+}
 .adminInquiryContainer {
     height: 400px;
     padding-top: 60px;
     margin-left: 0;
 }
 
+.inquiryTitle {
+    background-color: white !important;
+    font-size: 16px;
+    width: 20% !important;
+}
 .adminInquiryContainer .adminInquiryTitle {
     margin: 5px 0 !important;
     text-align: left !important;
@@ -1569,14 +1628,30 @@ thead > tr > th {
     font-weight: bold;
 }
 
-.adminInquiryDate {
-    float: right;
-    font-size: 12px;
-    margin: 0 0 3px 13px;
+.inquiryAnswer {
+    font-size: 14px;
+    background-color: white !important;
+    width: 50% !important;
+
+}
+
+.inquiryDate {
+    font-size: 14px;
+    background-color: white !important;
+    width: 30% !important;
 }
 
 .adminInquiryPhone, .adminInquiryEmail {
     font-size: 12px;
     margin-right: 10px;
 }
+
+.answerNeed {
+    padding: 0 !important;
+}
+
+.answerComplete {
+    padding: 0 !important;
+}
+
 
