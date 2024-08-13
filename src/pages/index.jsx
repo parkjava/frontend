@@ -16,11 +16,9 @@ export default function Index() {
         <div className={'commonContainer'}>
             <div className={'welcome'} data-aos="fade-right" data-aos-duration="1500">
                 <p>
-                    <Image src={MainImage}
-                           className={'mainImg'}/>
+                    <Image src={MainImage} className={'mainImg'}/>
                 </p>
-                <span id="maintitle">WELCOME&nbsp;</span>
-                <span>ParkJAVA</span>&nbsp;&nbsp;
+                WELCOME&nbsp;ParkJAVA&nbsp;&nbsp;
                 <FontAwesomeIcon icon={faGear} spin/>
             </div>
             <div className={'descriptionArea'}>
