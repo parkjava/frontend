@@ -4,8 +4,9 @@ import {Link, useParams, useNavigate} from "react-router-dom";
 import {Table, Container, Button} from "react-bootstrap";
 import axiosInstance from "../../../../common/components/axiosinstance";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faScrewdriverWrench, faCalendarPlus, faSquareCaretUp, faSquareCaretDown} from "@fortawesome/free-solid-svg-icons";
+import { faCalendarPlus, faSquareCaretUp, faSquareCaretDown} from "@fortawesome/free-solid-svg-icons";
 import {Mobile, PC} from "../../../../common/components/responsive";
+
 export default function Index() {
     const {penaltyIndex} = useParams();
     const [penalty, setPenalty] = useState('');

@@ -7,20 +7,95 @@ import {storage} from "../../../firebase";
 import axiosInstance from "../../../common/components/axiosinstance";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faXmark} from "@fortawesome/free-solid-svg-icons";
-import {Tooltip, Button, IconButton, Slider, CircularProgress} from "@mui/material";
-import CreatePatrol from "./patrolModal/patrolModal"
+import {Tooltip, Button, IconButton, CircularProgress} from "@mui/material";
+import CreatePatrol from "./component/patrolModal"
 import {Delete, HelpOutline, SaveAlt} from "@mui/icons-material";
 import {GaugeContainer, GaugeReferenceArc, GaugeValueArc, useGaugeState} from "@mui/x-charts";
+import {Line} from "react-chartjs-2";
+import PatrolList from "./component/patrolList"
+import {Mobile, PC} from "../../../common/components/responsive";
+import Time from '../../../common/components/time'
 
 export default function Index() {
     const [currentSpeed, setCurrentSpeed] = useState(40);
-    const [time, setTime] = useState('')
     const [voltage, setVoltage] = useState('');
-    const [isChecked, setIsChecked] = useState(true);
+    const [isChecked, setIsChecked] = useState(false);
     const [buttonInfo, setButtonInfo] = useState('');
     const [images, setImages] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [checkState, setCheckState] = useState(new Array(images.length).fill(false))
+    const [chartData, setChartData] = useState({
+        labels: [],
+        datasets: []
+    });
+
+
+    // 백엔드 데이터 가져오기
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axiosInstance.get('/api/penalty/countDate'); // 엔드포인트 수정
+                const data = response;
+
+
+                // console.log('PenaltyData:', data);
+
+                // 데이터가 배열인지 확인
+                if (!Array.isArray(data)) {
+                    throw new Error('응답 데이터가 배열이 아닙니다.');
+                }
+
+                // 데이터 구조에 맞게 변환
+                const labels = data.map(item => item.penaltyDate); // X축 레이블
+                // console.log("labels============================="+labels)
+
+                const dataset1 = data.map(item => item.count);
+                // console.log("dataset================"+dataset1)
+                // const dataset2 = data.map(item => Number(item.patrolArea));
+
+
+                setChartData({
+                    labels,
+                    datasets: [
+                        {
+                            label: '일별 단속 내역 개수',
+                            data: dataset1,
+                            borderColor: "#0059bf",
+                            backgroundColor: "rgba(0,110,255,0.2)",
+                            borderWidth: 1,
+                            borderDash: [5, 5],
+                            borderDashOffset: 2,
+                            fill: true,
+                        }
+                        // ,
+                        // {
+                        //     label: 'Patrol Area',
+                        //     data: dataset2,
+                        //     borderColor: "black",
+                        //     backgroundColor: "rgba(255, 192, 203, 0.2)",
+                        //     fill: true,
+                        // }
+                    ]
+                });
+            } catch (error) {
+                console.error("데이터를 가져오는 중 오류 발생:", error);
+            }
+        };
+
+        fetchData();
+    }, []); // 빈 배열을 넣어 컴포넌트 마운트 시 한 번만 호출되게 함
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+            },
+        },
+    };
+
 
     const [penalties, setPenalties] = useState([])
 
@@ -108,6 +183,32 @@ export default function Index() {
             const voltage = message.Voltage;
             const percentage = Math.round((voltage / 12.5) * 100);
             setVoltage(`${percentage}%`);
+        });
+    }, [ros]);
+
+    useEffect(() => {
+        ros.on('connection', () => {
+        });
+        ros.on('error', (error) => {
+            console.log('Error connecting to websocket server: ', error);
+        });
+
+        ros.on('close', () => {
+            console.log('Connection to websocket server closed.');
+        });
+
+        const modeStateListener = new ROSLIB.Topic({
+            ros: ros, name: '/data', messageType: 'jetbotmini_msgs/ModeState',
+        });
+
+        modeStateListener.subscribe((message) => {
+            const mode = message.modestate;
+            if (mode === true) {
+                setIsChecked(true);
+            } else if (mode === false) {
+                setIsChecked(false);
+            }
+
         });
     }, [ros]);
 
@@ -203,6 +304,10 @@ export default function Index() {
 
         // console.log(message)
     };
+
+    useEffect(() => {
+        publishMessage();
+    }, []);
 
     const modalBackground = useRef();
 
@@ -337,187 +442,184 @@ export default function Index() {
         }
     }, [modalOpen]);
 
-    function timeApi() {
-        const date = new Date().toLocaleString('ko-KR', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false,
-            // second: '2-digit',
-        }).replace(/\./g, '').replace(/\s/g, '-').replace(/-/g, (match, offset) => offset === 4 || offset === 7 ? '-' : ' ').slice(0, 20);
-        setTime(date);
-    }
-
-
-    useEffect(() => {
-        setInterval(timeApi, 60000);
-    }, [setTime, time]);
-
     const backGround = "http://192.168.0.12:8080/stream?topic=/csi_cam_1/image_raw";
 
     return (<>
-        <div className={'commonContainer'}>
-            <h1 className={'controlH1'}>관제센터</h1>
-            <div className={'controlInfo'}>
-                <div className={'controlVideo'}
-                     style={{background: `url(${backGround})`}}>
-                    <div className={'text-end m-2'} style={{color: "#19ff00"}}>
-                        {voltage ||
-                            <CircularProgress style={{width: 20, height: 20}}/>}<br/>
-                        {time}
-                    </div>
-                    <div className={'gauge float-start text-center position-absolute fw-bold'}
-                         style={{}}>
-                        SPEED : {currentSpeed}
-                        <GaugeContainer
-                            width={100}
-                            height={100}
-                            startAngle={-110}
-                            endAngle={110}
-                            value={currentSpeed}
-                        >
-                            <GaugeReferenceArc/>
-                            <GaugeValueArc/>
-                            <GaugePointer/>
-                        </GaugeContainer>
-                        <Button id={'speedUp'} variant={'contained'} className={'m-1'}
-                                onClick={() => handleSpeedChange(Math.min(100, currentSpeed + 10))}>
-                            +
-                        </Button>
-                        <Button id={'speedDown'} variant={'contained'} color={'error'} className={'m-1'}
-                                onClick={() => handleSpeedChange(Math.max(40, currentSpeed - 10))}>
-                            -
-                        </Button>
-                    </div>
-                    <div className={'controlBtnGroup position-absolute'}>
-                        <div className={'d-flex align-items-center justify-content-center mb-1'}
-                             style={{color: "#17efc7"}}>
-                            <Form.Check
-                                type="switch"
-                                id="toggleSwitch"
-                                checked={isChecked}
-                                label={isChecked ? "Auto" : "Drive️"}
-                                onChange={handleSwitchChange}
-                            />
-                        </div>
-                        <div className={"d-flex"}>
-                            <Button id={'leftgo'} variant="contained" className={'controlBtn'} color={'success'}
-                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'leftgo')}
-                                    title={'좌회전'}>↖
-                            </Button>
-                            <Button id={'go'} className={'controlBtn'} variant="contained" color={'success'}
-                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'go')}
-                                    title={'전진'}>↑
-                            </Button>
-                            <Button id={'rightgo'} className={'controlBtn'} variant="contained"
-                                    color={'success'}
-                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'rightgo')}
-                                    title={'우회전'}>↗
-                            </Button>
-                        </div>
-                        <div className={"d-flex"}>
-                            <Button id={'left'} className={'controlBtn'} variant="contained" color={'success'}
-                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'left')}
-                                    title={'좌측 턴'}>←
-                            </Button>
-                            <Button id={'stop'} className={'controlBtn'} variant="contained" color={'error'}
-                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'stop')}
-                                    title={'정지'}>■
-                            </Button>
-                            <Button id={'right'} className={'controlBtn'} variant="contained" color={'success'}
-                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'right')}
-                                    title={'우측 턴'}>→
-                            </Button>
-                        </div>
-                        <div className={"d-flex"}>
-                            <Button id={'leftback'} className={'controlBtn'} variant="contained"
-                                    color={'success'}
-                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'leftback')}
-                                    title={'좌로 후진'}>↙
-                            </Button>
-                            <Button id={'back'} className={'controlBtn'} variant="contained" color={'success'}
-                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'back')}
-                                    title={'후진'}>↓
-                            </Button>
-                            <Button id={'rightback'} className={'controlBtn'} variant="contained"
-                                    color={'success'}
-                                    onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'rightback')}
-                                    title={'우로 후진'}>↘
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-                <div className={'penaltyList'}>
-                    <h3>
-                        🚔 불법주차 차량번호
-                        <Tooltip title="검출된 차량과 사진의 차량번호가 일치하다면 체크 후, 저장 및 삭제를 수행합니다." placement="top">
-                            <IconButton>
-                                <HelpOutline/>
-                            </IconButton>
-                        </Tooltip>
-                    </h3>
-                    <ul className={'penaltyUl'}>
-                        {images.length > 0 ? (images.map((image, index) => (
-                            <div key={index}>
-                                <li className={'penaltyLi'}>
-                                    <Image src={image.url} alt={image.name}
-                                           className={'carNumberImg'}/>
-                                    <div className={'carNumber'}>
-                                        <input
-                                            className="form-check-input"
-                                            type="checkbox"
-                                            checked={checkState[index] || false}
-                                            onChange={() => handleCheckBoxChange(index)}
-                                            id={`defaultCheck1${index}`}
-                                        />{image.name}
-                                    </div>
-                                </li>
-                            </div>))) : <Spinner animation="border" role="status" variant={'primary'}>
-                            <span className="visually-hidden">Loading...</span>
-                        </Spinner>}
-
-                    </ul>
-                    <div>
+        <Mobile>
+            <div className={'commonContainer'}>
+                <h1>지원하지 않는 해상도입니다.</h1>
+            </div>
+        </Mobile>
+        <PC>
+            <div className={'commonContainer'}>
+                <h1 className={'controlH1'}>관제센터</h1>
+                <div className={'controlInfo'}>
+                    <div className={'controlGraph'}>
+                        <Line data={chartData} options={options}/>
+                        <PatrolList/>
                         <Button
-                            onClick={handleSubmit}
-                            variant="contained"
-                            color="success"
-                            endIcon={<SaveAlt/>}
-                        >
-                            저장
+                            className={'w-100'}
+                            onClick={() => setModalOpen(true)}
+                            variant="outlined">
+                            새 순찰내역 작성
                         </Button>
-                        <Button
+                    </div>
+                    <div className={'controlVideo'}
+                         style={{background: `url(${backGround})`}}>
+                        <div className={'text-end m-2'} style={{color: "#19ff00"}}>
+                            {voltage ||
+                                <CircularProgress style={{width: 20, height: 20}}/>}<br/>
+                            <Time/>
+                        </div>
+                        <div className={'gauge float-start text-center position-absolute fw-bold'}
+                             style={{}}>
+                            SPEED : {currentSpeed}
+                            <GaugeContainer
+                                width={100}
+                                height={100}
+                                startAngle={-110}
+                                endAngle={110}
+                                value={currentSpeed}
+                            >
+                                <GaugeReferenceArc/>
+                                <GaugeValueArc/>
+                                <GaugePointer/>
+                            </GaugeContainer>
+                            <Button id={'speedUp'} variant={'contained'} className={'m-1'}
+                                    onClick={() => handleSpeedChange(Math.min(100, currentSpeed + 10))}
+                                    disabled={isChecked}>
+                                +
+                            </Button>
+                            <Button id={'speedDown'} variant={'contained'} color={'error'} className={'m-1'}
+                                    onClick={() => handleSpeedChange(Math.max(40, currentSpeed - 10))}
+                                    disabled={isChecked}>
+                                -
+                            </Button>
+                        </div>
+                        <div className={'controlBtnGroup position-absolute'}>
+                            <div className={'d-flex align-items-center justify-content-center mb-1'}
+                                 style={{color: "#17efc7"}}>
+                                <Form.Check
+                                    type="switch"
+                                    id="toggleSwitch"
+                                    checked={isChecked}
+                                    label={isChecked ? "Auto" : "Drive️"}
+                                    onChange={handleSwitchChange}
+                                />
+                            </div>
+                            <div className={"d-flex"}>
+                                <Button id={'leftgo'} variant="contained" className={'controlBtn'} color={'success'}
+                                        onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'leftgo')}
+                                        title={'좌회전'} disabled={isChecked}>↖
+                                </Button>
+                                <Button id={'go'} className={'controlBtn'} variant="contained" color={'success'}
+                                        onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'go')}
+                                        title={'전진'} disabled={isChecked}>↑
+                                </Button>
+                                <Button id={'rightgo'} className={'controlBtn'} variant="contained"
+                                        color={'success'}
+                                        onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'rightgo')}
+                                        title={'우회전'} disabled={isChecked}>↗
+                                </Button>
+                            </div>
+                            <div className={"d-flex"}>
+                                <Button id={'left'} className={'controlBtn'} variant="contained" color={'success'}
+                                        onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'left')}
+                                        title={'좌측 턴'} disabled={isChecked}>←
+                                </Button>
+                                <Button id={'stop'} className={'controlBtn'} variant="contained" color={'error'}
+                                        onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'stop')}
+                                        title={'정지'} disabled={isChecked}>■
+                                </Button>
+                                <Button id={'right'} className={'controlBtn'} variant="contained" color={'success'}
+                                        onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'right')}
+                                        title={'우측 턴'} disabled={isChecked}>→
+                                </Button>
+                            </div>
+                            <div className={"d-flex"}>
+                                <Button id={'leftback'} className={'controlBtn'} variant="contained"
+                                        color={'success'}
+                                        onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'leftback')}
+                                        title={'좌로 후진'} disabled={isChecked}>↙
+                                </Button>
+                                <Button id={'back'} className={'controlBtn'} variant="contained" color={'success'}
+                                        onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'back')}
+                                        title={'후진'} disabled={isChecked}>↓
+                                </Button>
+                                <Button id={'rightback'} className={'controlBtn'} variant="contained"
+                                        color={'success'}
+                                        onClick={() => callService('/Motor', 'jetbotmini_msgs/srv/Motor', 'rightback')}
+                                        title={'우로 후진'} disabled={isChecked}>↘
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={'penaltyList'}>
+                        <h3>
+                            🚔 불법주차 차량번호
+                            <Tooltip title="검출된 차량과 사진의 차량번호가 일치하다면 체크 후, 저장 및 삭제를 수행합니다." placement="top">
+                                <IconButton>
+                                    <HelpOutline/>
+                                </IconButton>
+                            </Tooltip>
+                        </h3>
+                        <ul className={'penaltyUl'}>
+                            {images.length > 0 ? (images.map((image, index) => (
+                                <div key={index}>
+                                    <li className={'penaltyLi'}>
+                                        <Image src={image.url} alt={image.name}
+                                               className={'carNumberImg'}/>
+                                        <div className={'carNumber'}>
+                                            <input
+                                                className="form-check-input"
+                                                type="checkbox"
+                                                checked={checkState[index] || false}
+                                                onChange={() => handleCheckBoxChange(index)}
+                                                id={`defaultCheck1${index}`}
+                                            />{image.name}
+                                        </div>
+                                    </li>
+                                </div>))) : <Spinner animation="border" role="status" variant={'primary'}>
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner>}
 
-                            onClick={handleDelete}
-                            variant="contained"
-                            color="error"
-                            endIcon={<Delete/>}>
-                            삭제
-                        </Button>
+                        </ul>
+                        <div>
+                            <Button
+                                onClick={handleSubmit}
+                                variant="contained"
+                                color="success"
+                                endIcon={<SaveAlt/>}
+                            >
+                                저장
+                            </Button>
+                            <Button
+
+                                onClick={handleDelete}
+                                variant="contained"
+                                color="error"
+                                endIcon={<Delete/>}>
+                                삭제
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <Button onClick={() => setModalOpen(true)}
-                variant="outlined">
-            순찰내역작성
-        </Button>
-        {
-            modalOpen &&
-            <div className={'modalContainer'} ref={modalBackground} onClick={e => {
-                if (e.target === modalBackground.current) {
-                    setModalOpen(false);
-                }
-            }}>
-                <div className={'controlModal'}>
-                    <FontAwesomeIcon className='modalCloseBtn' icon={faXmark}
-                                     onClick={() => setModalOpen(false)}/>
-                    <CreatePatrol/>
-                </div>
-            </div>
-        }
 
+            {
+                modalOpen &&
+                <div className={'modalContainer'} ref={modalBackground} onClick={e => {
+                    if (e.target === modalBackground.current) {
+                        setModalOpen(false);
+                    }
+                }}>
+                    <div className={'controlModal'}>
+                        <FontAwesomeIcon className='modalCloseBtn' icon={faXmark}
+                                         onClick={() => setModalOpen(false)}/>
+                        <CreatePatrol/>
+                    </div>
+                </div>
+            }
+        </PC>
     </>);
 };

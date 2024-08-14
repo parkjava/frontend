@@ -199,7 +199,7 @@ export default function Index() {
         loading: true,
     });
 
-    const [backgroundClass, setBackgroundClass] = useState('');
+    // const [backgroundClass, setBackgroundClass] = useState('');
 
     useEffect(() => {
         const cityName = 'Daejeon';
@@ -312,12 +312,12 @@ export default function Index() {
                                 <RadioGroup
                                     className={"none"}
                                     style={{display: "block"}}
-                                    defaultValue="차트데이터"
+                                    defaultValue="단속내역"
                                     name="radio-buttons-group"
                                 >
-                                    <FormControlLabel value="차트데이터" control={<Radio/>} label="차트데이터"
+                                    <FormControlLabel value="단속내역" control={<Radio/>} label="단속내역"
                                                       onClick={() => setActiveData('chart')}/>
-                                    <FormControlLabel value="문의데이터" control={<Radio/>} label="문의데이터"
+                                    <FormControlLabel value="문의내역" control={<Radio/>} label="문의내역"
                                                       onClick={() => setActiveData('inquiry')}/>
                                 </RadioGroup>
                             </FormControl>

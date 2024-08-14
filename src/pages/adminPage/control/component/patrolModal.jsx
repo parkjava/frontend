@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Container, Form, Alert} from 'react-bootstrap';
-import {useNavigate} from 'react-router-dom';
 import axiosInstance from '../../../../common/components/axiosinstance';
-import {FormControl, InputLabel, MenuItem, Select, Button} from "@mui/material";
+import {Button} from "@mui/material";
 
 // 대분류와 중분류의 매핑을 정의
 const subareasByArea = {
@@ -34,7 +33,6 @@ export default function PatrolTable() {
     const [showAlert, setShowAlert] = useState(false);
     const [subareas, setSubareas] = useState([]); // 중분류 상태 추가
     const [name, setName] = useState('');
-    const navigate = useNavigate();
 
     function nameApi() {
         axiosInstance.get('/members/info')
@@ -103,7 +101,6 @@ export default function PatrolTable() {
             patrolSummary: patrol.summary,
             username: name,
             createDate: patrol.date,
-            noticeView: 0,
         };
 
         // console.log("Sending data:", newPatrol); // 전송할 데이터 로그 확인
@@ -168,7 +165,6 @@ export default function PatrolTable() {
                         onChange={handleInputChange}
                         style={{resize: 'none'}}
                     />
-
                     {showAlert && (
                         <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
                             {Object.values(errors).map((error, index) => (

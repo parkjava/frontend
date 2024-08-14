@@ -16,32 +16,32 @@ export default function Index() {
             name: '최영원',
             title: 'Leader',
             image: zeroone,
-            greetings: '안녕하세요!',
-            part: '제가맡은건요',
+            greetings: 'ROS & FullStack',
+            part: '프로젝트의 환경을 구축, 코드 형상관리를 맡았습니다. ROS, FE, BE 가리지 않고 모든 개발에 같이 참여하였습니다.',
             borderColor: '#5475da' // 빨간색
         },
         {
             name: '박현준',
             title: 'Member',
             image: hyunjun,
-            greetings: '하이요',
-            part: '제가맡은건요',
+            greetings: 'ROS & BackEnd',
+            part: 'ROS의 주요 기능들과 OpenCV 개발을 맡았고, 에서는 관리자 페이지의 Chart 부분에 대한 API 및 화면구현을 하였습니다.',
             borderColor: '#f6794b' // 파란색
         },
         {
             name: '이동민',
             title: 'Member',
             image: dongmin,
-            greetings: '하이요',
-            part: '제가맡은건요',
+            greetings: 'FrontEnd',
+            part: 'API 호출, 페이지네이션, Modal 등 공통 모듈을 개발하였고, 조회페이지 별 검색기능을 구현, Firebase 연동을 구현하였습니다.',
             borderColor: '#f5fa59' // 밝은 파란색
         },
         {
             name: '오학균',
             title: 'Member',
             image: hakgyun,
-            greetings: '하이요',
-            part: '제가맡은건요',
+            greetings: 'FrontEnd',
+            part: '페이지 디자인 총괄을 하였으며 반응형 웹 개발을 위한 공통모듈을 제작하였고, 주로 조회 및 상세페이지 개발과 소개페이지 등을 구현하였습니다.',
             borderColor: '#8ffa8f' // 초록색
         }
     ];
@@ -65,7 +65,7 @@ export default function Index() {
                             </div>
                             <h2>{member.name}</h2>
                             <p className="member-title">{member.title}</p>
-                            <p className="hover-text">{member.greetings}</p>
+                            <b><p className="hover-text">{member.greetings}</p></b>
                             <p className="hover-text">{member.part}</p>
                         </div>
                     ))}

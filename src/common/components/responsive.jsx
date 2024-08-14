@@ -16,3 +16,11 @@ export const PC = ({children}) => {
 
     return <>{isPc && children}</>
 }
+
+export const None = ({children}) => {
+    const isNone = useMediaQuery({
+        query: "(max-width:1522px)"
+    });
+
+    return <>{isNone && children}</>
+}
