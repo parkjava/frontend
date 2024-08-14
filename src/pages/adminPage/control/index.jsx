@@ -9,12 +9,13 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faXmark} from "@fortawesome/free-solid-svg-icons";
 import {Tooltip, Button, IconButton, CircularProgress} from "@mui/material";
 import CreatePatrol from "./component/patrolModal"
-import {Delete, HelpOutline, SaveAlt} from "@mui/icons-material";
+import {Battery20, Battery90, BatteryFull, Delete, HelpOutline, SaveAlt} from "@mui/icons-material";
 import {GaugeContainer, GaugeReferenceArc, GaugeValueArc, useGaugeState} from "@mui/x-charts";
 import {Line} from "react-chartjs-2";
 import PatrolList from "./component/patrolList"
 import {Mobile, PC} from "../../../common/components/responsive";
 import Time from '../../../common/components/time'
+import {GiBattery100, GiBattery75} from "react-icons/gi";
 
 export default function Index() {
     const [currentSpeed, setCurrentSpeed] = useState(40);
@@ -450,8 +451,10 @@ export default function Index() {
                     </div>
                     <div className={'controlVideo'}
                          style={{background: `url(${backGround})`}}>
-                        <div className={'text-end m-2'} style={{color: "#19ff00"}}>
-                            {voltage ||
+                        <div className={'text-end m-2 '} style={{color: "#19ff00"}}>
+                            {voltage < 90 ?
+                                <GiBattery75 className={'mw-100 fa-rotate-90'} style={{scale:1.4}}/> : <GiBattery100 className={'fa-rotate-90'} style={{scale:1.4}}/>
+                                ||
                                 <CircularProgress style={{width: 20, height: 20}}/>}<br/>
                             <Time/>
                         </div>
