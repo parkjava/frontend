@@ -161,7 +161,7 @@ export default function Index() {
                                         name="phone"
                                         value={inquiryList.phone || ''}
                                         onChange={handleChange}
-                                        autocomplete="off"
+                                        autoComplete="off"
                                     />
                                     <label htmlFor='inquiryPhoneInput'>전화번호를 입력하세요</label>
                                     <div className='inquiryIconBox'>
@@ -217,72 +217,62 @@ export default function Index() {
                         }}>
                             <div className={'inquiryForm'}>
                                 <div style={{padding: 0, margin: 0}}>
+                                    <Image src={Logo} width={200} />
                                     <FontAwesomeIcon className='modalCloseBtn' icon={faXmark}
                                                      onClick={() => setModalOpen(false)}/>
-                                    <h1 style={{margin: '20px 0 20px 0'}} className={'inquiryTitle'}>
-                                        <Image style={{width: '39%'}} src={Logo}/>
-                                    </h1>
-
                                 </div>
                                 <Form className={'inquiryIndex'} onSubmit={handleSubmit}>
-                                    <Row className="mb-3">
-                                        <Form.Group as={Col} controlId="formGridTitle">
-                                            <Form.Label className={'formLabel'}>제목</Form.Label>
-                                            <Form.Control className={'formControl'}
-                                                          type="text"
-                                                          placeholder="Title"
-                                                          name="title"
-                                                          value={inquiryText.title}
-                                                          onChange={handleChange}
-                                            />
-                                        </Form.Group>
-
+                                    <Row className={'mt-2'}>
                                         <Form.Group as={Col} controlId="formGridName">
-                                            <Form.Label className={'formLabel'}>이름</Form.Label>
                                             <Form.Control className={'inputBox'}
                                                           type="text"
-                                                          placeholder="Name"
+                                                          placeholder="이름"
                                                           name="name"
                                                           value={inquiryText.name}
                                                           onChange={handleChange}
                                             />
                                         </Form.Group>
-                                    </Row>
-                                    <Row>
-                                        <Form.Group as={Col} controlId="formGridEmail">
-                                            <Form.Label className={'formLabel'}>Email</Form.Label>
-                                            <Form.Control className={'formControl'}
-                                                          type="email"
-                                                          placeholder="Email"
-                                                          name="email"
-                                                          value={inquiryText.email}
-                                                          onChange={handleChange}
-                                            />
-                                        </Form.Group>
                                         <Form.Group as={Col} className="mb-3" controlId="formGridPhone">
-                                            <Form.Label className={'formLabel'}>전화번호</Form.Label>
                                             <Form.Control className={'formControl'}
                                                           type="text"
-                                                          placeholder="PhoneNumber"
+                                                          placeholder="전화번호"
                                                           name="phone"
                                                           value={inquiryText.phone}
                                                           onChange={handleChange}
                                             />
                                         </Form.Group>
                                     </Row>
-                                    <Form.Group className="mb-3" controlId="formGridContent">
-                                        <Form.Label className={'formLabel'}>문의내용</Form.Label>
+
+                                    <Form.Group as={Col} controlId="formGridEmail">
                                         <Form.Control className={'formControl'}
+                                                      type="email"
+                                                      placeholder="이메일"
+                                                      name="email"
+                                                      value={inquiryText.email}
+                                                      onChange={handleChange}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group className="mb-3 mt-2" controlId="formGridContent">
+                                        <Form.Group as={Col} controlId="formGridTitle">
+                                            <Form.Control className={'formControl'}
+                                                          type="text"
+                                                          placeholder="문의제목"
+                                                          name="title"
+                                                          value={inquiryText.title}
+                                                          onChange={handleChange}
+                                            />
+                                        </Form.Group>
+                                        <Form.Control className={'formControl mt-2'}
                                                       rows={5}
                                                       as="textarea"
                                                       name="content"
-                                                      placeholder={'Content'}
+                                                      placeholder={'문의내용'}
                                                       value={inquiryText.content}
                                                       onChange={handleChange}
                                                       style={{whiteSpace: 'pre-line'}}
                                         />
                                     </Form.Group>
-                                    
+
                                     <div className={'buttonContainer'}>
                                         <Button className='inquiryButton text-white' variant="primary" type="submit"
                                                 disabled={!isFormValid}>

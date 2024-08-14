@@ -1,12 +1,10 @@
 import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
 
 const Pagination = ({postsPerPage, totalPosts, paginate}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [nowPage, setNowPage] = useState(1);
     const pageNumbers = [];
     const totalPages = Math.ceil(totalPosts / postsPerPage);
-    const navigate = useNavigate()
 
     for (let i = 1; i <= totalPages; i++) {
         pageNumbers.push(i);
@@ -26,13 +24,13 @@ const Pagination = ({postsPerPage, totalPosts, paginate}) => {
             if (!isNaN(page)) {
                 setNowPage(e.target.value);
                 handleClick(page);
-                if (totalPages+1 <= page) {
+                if (totalPages + 1 <= page) {
                     alert(`최대 입력 가능 페이지 수는 ${totalPages}입니다.\n${totalPages} 페이지로 이동합니다.`)
                     setNowPage(totalPages);
                 } else {
 
                 }
-            }else{
+            } else {
                 setNowPage('');
             }
         }
