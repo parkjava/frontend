@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Table, Container, Button, Dropdown} from 'react-bootstrap';
 import {useNavigate, Link} from 'react-router-dom';
-import Pagination from '../../../common/components/pagination2'
+import BasicPagination from '../../../common/components/pagination3';
 import axiosInstance from '../../../common/components/axiosinstance';
 import {Mobile, PC} from "../../../common/components/responsive";
 
@@ -91,10 +91,10 @@ export default function PetrolList() {
                                 순찰내역작성
                             </Button>
                         </div>
-                        <Pagination className={'patrolPagination'}
+                        <BasicPagination className={'patrolPagination'}
                                     postsPerPage={postsPerPage}
                                     totalPosts={patrols.length}
-                                    paginate={setCurrentPage}></Pagination>
+                                    paginate={setCurrentPage}></BasicPagination>
                     </Container>
                 </div>
             </PC>
@@ -144,10 +144,10 @@ export default function PetrolList() {
                                 순찰내역작성
                             </Button>
                         </div>
-                        <Pagination className={'patrolPagination'}
+                        <BasicPagination className={'patrolPagination'}
                                     postsPerPage={postsPerPage}
                                     totalPosts={patrols.length}
-                                    paginate={setCurrentPage}></Pagination>
+                                    paginate={setCurrentPage}></BasicPagination>
                     </Container>
                 </div>
             </Mobile>

@@ -1,10 +1,9 @@
 import {Table, Container, Dropdown} from 'react-bootstrap';
 import {Link} from 'react-router-dom'
 import React, {useState, useEffect} from 'react';
-import Pagination from '../../../common/components/pagination2'
 import axiosInstance from '../../../common/components/axiosinstance';
 import {Mobile, PC} from "../../../common/components/responsive";
-
+import BasicPagination from '../../../common/components/pagination3';
 export default function Index() {
     const [inquiry, setInquiry] = useState([]);
 
@@ -96,10 +95,10 @@ export default function Index() {
                             </tbody>
                         </Table>
 
-                        <Pagination
+                        <BasicPagination
                             postsPerPage={postsPerPage}
                             totalPosts={inquiry.length}
-                            paginate={setCurrentPage}></Pagination>
+                            paginate={setCurrentPage}></BasicPagination>
                     </Container>
                 </div>
             </PC>
@@ -158,10 +157,10 @@ export default function Index() {
                             </tbody>
                         </Table>
 
-                        <Pagination
+                        <BasicPagination
                             postsPerPage={postsPerPage}
                             totalPosts={inquiry.length}
-                            paginate={setCurrentPage}></Pagination>
+                            paginate={setCurrentPage}></BasicPagination>
                     </Container>
                 </div>
             </Mobile>

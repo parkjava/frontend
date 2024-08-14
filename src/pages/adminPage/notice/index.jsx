@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {Table, Container, Form, Button, Dropdown, Alert} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
-import Pagination from '../../../common/components/pagination2';
 import axiosInstance from '../../../common/components/axiosinstance';
 import {Mobile, PC} from "../../../common/components/responsive";
+import {Search} from "@mui/icons-material";
+import BasicPagination from '../../../common/components/pagination3';
 
 export default function Index() {
     const [notices, setNotices] = useState([]);
@@ -142,7 +143,7 @@ export default function Index() {
                                 />
                                 <Button variant="primary" type="submit" className={"searchButton"}
                                         style={{width: '100px'}}>
-                                    검색
+                                    <Search className={'adminNoticeSearchIcon'}/>
                                 </Button>
                             </Form>
                         </Container>
@@ -169,7 +170,7 @@ export default function Index() {
                         ) : (
 
                             <Table hover variant={'white'} className="table">
-                                <thead>
+                                <thead className={'adminNoticeHead'}>
                                 <tr>
                                     <th className="no-column" onClick={() => handleSort('noticeIndex')}>NO</th>
                                     <th className="title-column" onClick={() => handleSort('noticeTitle')}>제목</th>
@@ -185,8 +186,7 @@ export default function Index() {
                                             <Link to={`/admin/notice/${notice.noticeIndex}`}>{notice.noticeTitle}</Link>
                                         </td>
                                         <td className="date-column">{notice.createDate}</td>
-                                        <td className="view-column"
-                                            style={{textAlign: 'center'}}>{notice.noticeView}</td>
+                                        <td className="view-column">{notice.noticeView}</td>
                                     </tr>
                                 ))}
                                 </tbody>
@@ -194,15 +194,15 @@ export default function Index() {
                         )}
                         <Container className={'d-flex justify-content-end align-items-center mt-4'}>
                             <Link to="/admin/notice/create">
-                                <Button>
+                                <Button className={'adminNoticeBtn'}>
                                     공지사항작성
                                 </Button>
                             </Link>
                         </Container>
-                        <Pagination
+                        <BasicPagination
                             postsPerPage={postsPerPage}
                             totalPosts={notices.length}
-                            paginate={setCurrentPage}></Pagination>
+                            paginate={setCurrentPage}></BasicPagination>
                     </Container>
                 </div>
             </PC>
@@ -232,7 +232,7 @@ export default function Index() {
                                 />
                                 <Button variant="primary" type="submit" className={"searchButton"}
                                         style={{width: '100px'}}>
-                                    검색
+                                    <Search className={'adminNoticeSearchIcon'}/>
                                 </Button>
                             </Form>
                         </Container>
@@ -284,15 +284,15 @@ export default function Index() {
                         )}
                         <Container className={'d-flex justify-content-end align-items-center mt-4'}>
                             <Link to="/admin/notice/create">
-                                <Button>
+                                <Button className={'adminNoticeBtn'}>
                                     공지사항작성
                                 </Button>
                             </Link>
                         </Container>
-                        <Pagination
+                        <BasicPagination
                             postsPerPage={postsPerPage}
                             totalPosts={notices.length}
-                            paginate={setCurrentPage}></Pagination>
+                            paginate={setCurrentPage}></BasicPagination>
                     </Container>
                 </div>
             </Mobile>
