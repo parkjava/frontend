@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Table, Container, Form, Button, Dropdown, Alert} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import Pagination from '../../../common/components/pagination2';
+import BasicPagination from '../../../common/components/pagination3';
 import Cookies from "js-cookie";
 import {Mobile, PC} from "../../../common/components/responsive";
 import {Search} from "@mui/icons-material";
@@ -21,7 +21,6 @@ export default function Index() {
     const indexOfLast = currentPage * postsPerPage;
     const indexOfFirst = indexOfLast - postsPerPage;
     const currentPosts = searchResults.length > 0 ? searchResults.slice(indexOfFirst, indexOfLast) : notices.slice(indexOfFirst, indexOfLast);
-
 
     useEffect(() => {
         axios.get(`http://localhost:8080/user/api/notice`, {
@@ -112,6 +111,7 @@ export default function Index() {
         });
     }
 
+
     // const searchOptionLabel = searchOption === 'title' ? '제목' : '작성자';
 
     return (<>
@@ -140,8 +140,9 @@ export default function Index() {
                                     onChange={handleInputChange}
                                     className="me-2"
                                 />
-                                <Button variant="primary" type="submit" style={{width: '100px'}}>
-                                    검색
+                                <Button className={'userNoticeSearch'} variant="primary" type="submit"
+                                        style={{width: '100px'}}>
+                                    <Search className={'userNoticeSearchIcon'}/>
                                 </Button>
                             </Form>
                         </Container>
@@ -151,10 +152,14 @@ export default function Index() {
                             <Table bordered hover variant="white">
                                 <thead>
                                 <tr>
-                                    <th onClick={() => handleSort('noticeIndex')}>NO</th>
-                                    <th onClick={() => handleSort('noticeTitle')}>제목</th>
-                                    <th onClick={() => handleSort('createDate')}>게시일</th>
-                                    <th onClick={() => handleSort('noticeView')}>조회수</th>
+                                    <th className={'userNoticeTableHead'} onClick={() => handleSort('noticeIndex')}>NO
+                                    </th>
+                                    <th className={'userNoticeTableHead'} onClick={() => handleSort('noticeTitle')}>제목
+                                    </th>
+                                    <th className={'userNoticeTableHead'} onClick={() => handleSort('createDate')}>게시일
+                                    </th>
+                                    <th className={'userNoticeTableHead'} onClick={() => handleSort('noticeView')}>조회수
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -173,7 +178,7 @@ export default function Index() {
                             </Table>
                         )}
                         <Container className="d-flex justify-content-end align-items-center pb-2">
-                            <Dropdown onSelect={handleNoticeCount}>
+                            <Dropdown color="primary" exclusive onSelect={handleNoticeCount}>
                                 <Dropdown.Toggle className={'dropDownToggle'}>
                                     글 개수 설정 : {postsPerPage}
                                 </Dropdown.Toggle>
@@ -184,10 +189,10 @@ export default function Index() {
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Container>
-                        <Pagination
+                        <BasicPagination
                             postsPerPage={postsPerPage}
                             totalPosts={notices.length}
-                            paginate={setCurrentPage}></Pagination>
+                            paginate={setCurrentPage}></BasicPagination>
                     </Container>
 
                 </div>
@@ -207,8 +212,9 @@ export default function Index() {
                                     className="me-2 flex-grow-1"
                                 />
                             </Form>
-                            <Button className={'userNoticeSearch'} style={{maxHeight:38}} variant="primary" type="submit">
-                                <Search/>
+                            <Button className={'userNoticeSearch'} style={{maxHeight: 38}} variant="primary"
+                                    type="submit">
+                                <Search className={'userNoticeSearchIcon'}/>
                             </Button>
                         </Container>
                         {noResultsMessage ? (
@@ -250,14 +256,15 @@ export default function Index() {
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Container>
-                        <Pagination
+
+                        <BasicPagination
                             postsPerPage={postsPerPage}
                             totalPosts={notices.length}
-                            paginate={setCurrentPage}></Pagination>
+                            paginate={setCurrentPage}></BasicPagination>
                     </Container>
 
                 </div>
             </Mobile>
-    </>
-);
+        </>
+    );
 }

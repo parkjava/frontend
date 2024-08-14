@@ -25,7 +25,7 @@ li {
 }
 
 th {
-    background: #e3e3e3 !important;
+    background: #e1ebfb !important;
 }
 
 table th,
@@ -49,6 +49,11 @@ table td {
 
 .commonContainer hr {
     margin: 80px 0 80px 0;
+}
+.dropDownToggle{
+    background-color: #e1ebfb!important;
+    border-color: #e1ebfb!important;
+    font-weight: bold!important;
 }
 
 /* 404 */
@@ -866,6 +871,10 @@ span{
 
 
 /* pagination */
+#BasicPagination{
+
+}
+
 .paginationGroup {
     display: flex;
     align-items: center;
@@ -1118,6 +1127,21 @@ span{
     }
 }
 
+.userNoticeSearch {
+    background-color: white!important;
+    width: 50px!important;
+    border-color: #e1ebfb!important;
+}
+.userNoticeSearchIcon{
+    color: #000000;
+
+}
+
+.userNoticeTableHead{
+    /*background-color: bisque!important;*/
+}
+
+
 /* 유저 공지사항 상세페이지*/
 .userNoticeTitle {
     text-align: left !important;
@@ -1212,9 +1236,7 @@ span{
     width: 120px;
 }
 
-.userNoticeSearch {
 
-}
 
 /* 관제 페이지 */
 .controlH1 {
@@ -1388,6 +1410,11 @@ span{
     background-color: rgb(176, 217, 255) !important;
     border: #d3f0ff !important;
 }
+.crButton{
+    border-color: #e1ebfb!important;
+    background-color: #e1ebfb!important;
+    font-weight: bold!important;
+}
 
 /* 순찰내역 모바일 */
 
@@ -1395,14 +1422,14 @@ span{
     padding: 0 !important;
     text-align: center!important;
 }
-.patrolTableM{
-
+.crButton{
+    margin: 5px!important;
 }
 
 .patrolMH1 {
-    padding: 50px;
-    margin: 30px 30px !important;
-    width: 100% !important;
+    padding: 30px;
+    margin: 10px 10px !important;
+    width: 95% !important;
     font-size: 40px;
     font-weight: bold;
 }
@@ -1435,6 +1462,14 @@ span{
 }
 
 /* 단속차량 목록 페이지 */
+
+.searchButton{
+    border-color: #e1ebfb!important;
+    background-color: white!important;
+}
+.adminPenaltySearchIcon{
+    color: black;
+}
 .penaltyH1 {
     background-image: url("./images/background-75.jpg") !important;
     background-size: cover;
@@ -1525,6 +1560,9 @@ span{
 .table th, .table td {
     padding: 8px;
 }
+.adminNoticeSearchIcon{
+    color: black!important;
+}
 
 .adminNoticeH1 {
     background-image: url("./images/blue-background.jpg");
@@ -1534,11 +1572,12 @@ span{
     padding: 50px;
     font-size: 50px;
 }
-
-.table th.no-column, .table td.no-column {
-    width: 10%; /* 예: NO 열의 넓이를 10%로 설정 */
+.title-column{
+    background: #e1ebfb !important
 }
-
+.adminNoticeHead th{
+    background: #e1ebfb !important
+}
 .table th.title-column, .table td.title-column {
     width: 50%; /* 예: 제목 열의 넓이를 50%로 설정 */
 }
@@ -1549,6 +1588,10 @@ span{
 
 .table th.view-column, .table td.view-column {
     width: 20%; /* 예: 조회수 열의 넓이를 20%로 설정 */
+}
+.no-column{
+
+    width: 20% !important;
 }
 
 .adminNoticeTitle {
@@ -1586,6 +1629,11 @@ span{
     width: 100%;
     float: left;
     margin-bottom: 30px;
+}
+.adminNoticeBtn{
+    border-color: #e1ebfb!important;
+    background-color: #e1ebfb!important;
+    font-weight: bold!important;
 }
 
 /* 관리자 공지사항 모바일 */
