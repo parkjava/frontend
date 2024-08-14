@@ -348,6 +348,14 @@ thead > tr > th {
     }
 }
 
+/* 문의 상세페이지 모바일 */
+.inquiryDetailH1Mobile{
+    margin: 50px 50px!important;
+}
+span{
+    font-size: 14px;
+}
+
 
 /* 프로젝트 소개 페이지 */
 .projectInfo {
@@ -646,27 +654,6 @@ thead > tr > th {
 
 }
 
-@media (max-width: 344px) {
-    .groupChild1 {
-        font-size: 15px;
-        padding: 20px 30px 20px 30px;
-        border: 1px solid #ff5900;
-        border-radius: 8px;
-        color: rgb(255, 174, 97);
-        width: 224px;
-        height: 199px;
-    }
-
-    .groupChild2 {
-        font-size: 20px;
-        padding: 20px 30px 20px 30px;
-        border: 1px solid #0017ff;
-        border-radius: 8px;
-        width: 224px;
-        height: 199px;
-    }
-}
-
 /* 사용자 메인페이지 */
 .mainBackground :before {
     content: "";
@@ -769,39 +756,39 @@ thead > tr > th {
 /* 날씨별 배경 이미지 */
 
 .clear-sky {
-    background-image: url('https://cdn.pixabay.com/photo/2016/09/16/19/14/day-1674886_1280.png')!important;
+    background-image: url('https://cdn.pixabay.com/photo/2016/09/16/19/14/day-1674886_1280.png') !important;
 }
 
 .few-clouds {
-    background-image: url('https://cdn.pixabay.com/photo/2022/11/24/02/28/clouds-7613361_1280.png')!important;
+    background-image: url('https://cdn.pixabay.com/photo/2022/11/24/02/28/clouds-7613361_1280.png') !important;
 }
 
 .scattered-clouds {
-    background-image: url('https://cdn.pixabay.com/photo/2022/11/24/02/28/clouds-7613361_1280.png')!important;
+    background-image: url('https://cdn.pixabay.com/photo/2022/11/24/02/28/clouds-7613361_1280.png') !important;
 }
 
 .broken-clouds {
-    background-image: url('https://cdn.pixabay.com/photo/2022/11/24/02/28/clouds-7613361_1280.png')!important;
+    background-image: url('https://cdn.pixabay.com/photo/2022/11/24/02/28/clouds-7613361_1280.png') !important;
 }
 
 .shower-rain {
-    background-image: url('https://cdn.pixabay.com/photo/2020/05/01/07/11/rain-5115710_1280.png')!important;
+    background-image: url('https://cdn.pixabay.com/photo/2020/05/01/07/11/rain-5115710_1280.png') !important;
 }
 
 .rain {
-    background-image: url('https://cdn.pixabay.com/photo/2020/05/01/07/11/rain-5115710_1280.png')!important;
+    background-image: url('https://cdn.pixabay.com/photo/2020/05/01/07/11/rain-5115710_1280.png') !important;
 }
 
 .thunderstorm {
-    background-image: url('https://cdn.pixabay.com/photo/2020/05/01/07/11/rain-5115710_1280.png')!important;
+    background-image: url('https://cdn.pixabay.com/photo/2020/05/01/07/11/rain-5115710_1280.png') !important;
 }
 
 .snow {
-    background-image: url('https://cdn.pixabay.com/photo/2016/04/01/10/54/christmas-1300089_1280.png')!important;
+    background-image: url('https://cdn.pixabay.com/photo/2016/04/01/10/54/christmas-1300089_1280.png') !important;
 }
 
 .mist {
-    background-image: url('https://cdn.pixabay.com/photo/2023/02/07/13/55/forest-7774205_1280.jpg')!important;
+    background-image: url('https://cdn.pixabay.com/photo/2023/02/07/13/55/forest-7774205_1280.jpg') !important;
 }
 
 .adminHeader {
@@ -915,7 +902,7 @@ thead > tr > th {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(225, 225, 225, 0.5);
     z-index: 9999;
 }
 
@@ -1077,11 +1064,6 @@ thead > tr > th {
     cursor: pointer;
 }
 
-.inquiryDetailBtn {
-    position: relative;
-    float: right;
-}
-
 /* 유저 공지사항 페이지*/
 
 .noticeContainer {
@@ -1128,6 +1110,7 @@ thead > tr > th {
         width: 300px;
     }
 }
+
 /* 유저 공지사항 상세페이지*/
 .userNoticeTitle {
     text-align: left !important;
@@ -1140,11 +1123,16 @@ thead > tr > th {
     font-size: 20px;
     font-weight: bolder;
 }
-.userNoticeDateDiv p{
+
+.userNoticeText {
+    height: 500px !important;
+}
+.userNoticeDateDiv p {
     padding: 0;
 }
-.userNoticeText{
-    height: 400px!important;
+
+.userNoticeText {
+    height: 400px !important;
     text-align: start;
 }
 
@@ -1161,6 +1149,7 @@ thead > tr > th {
 
 .detailContainer {
     height: 400px;
+    padding-top: 60px;
     margin-left: 0;
     /*    padding-bottom: 20px;*/
 }
@@ -1173,14 +1162,19 @@ thead > tr > th {
     text-align: left !important;
 }
 
-.userNoticeTitle{
-    margin: 5px 0!important;
-    text-align: left!important;
+/* 유저 공지사항 모바일 */
+.userNoticeMH1 {
+    padding: 10px;
+    color: black;
+}
+.userNoticeTitle {
+    margin: 5px 0 !important;
+    text-align: left !important;
     font-size: 30px;
     border-top: 1px solid;
-    padding: 37px 27px 30px; 
-    background-color: #f9f9f9; 
-    color: #333; 
+    padding: 37px 27px 30px;
+    background-color: #f9f9f9;
+    color: #333;
     font-weight: bold;
 }
 
@@ -1190,21 +1184,34 @@ thead > tr > th {
     margin: 0;
 }
 
-.userNoticeTitle{
-    margin: 5px 0!important;
-    text-align: left!important;
+.userNoticeTitle {
+    margin: 5px 0 !important;
+    text-align: left !important;
     font-size: 30px;
     border-top: 1px solid;
-    padding: 37px 27px 30px; 
-    background-color: #f9f9f9; 
-    color: #333; 
+    padding: 37px 27px 30px;
+    background-color: #f9f9f9;
+    color: #333;
     font-weight: bold;
+    font-size: 40px;
+    margin: 50px 50px !important;
 }
 
-.userNoticeDate {
-    float: right;
-    font-size: 12px;
-    margin: 0;
+.noticeMobileContainer {
+    padding: 0 !important;
+}
+
+.userNoticeTh {
+    background-color: white !important;
+}
+
+.noticeDate {
+    font-size: 15px;
+    width: 120px;
+}
+
+.userNoticeSearch {
+
 }
 
 /* 관제 페이지 */
@@ -1212,7 +1219,6 @@ thead > tr > th {
     background-image: url("./images/img.png") !important;
     background-size: cover;
     margin: 0 0 10px 0 !important;
-
     padding: 50px 0 50px 0;
     color: white;
     font-weight: bold;
@@ -1221,25 +1227,41 @@ thead > tr > th {
 
 .controlInfo {
     display: flex;
-    justify-content: center;
+    margin: 50px 200px 0 200px;
+    justify-content: space-between;
     align-items: center;
 }
 
-.switchArea {
-    text-align: center !important;
+.controlInfo .gauge {
+    margin-top: 240px;
+    color: #fd2626;
+}
+.gauge button{
+    min-width: 10% !important;
+}
+
+.controlBtnGroup{
+    margin-left: 480px;
+    margin-top: 255px;
+}
+
+.controlBtnGroup button {
+    min-width: 45px !important;
+    max-width: 45px !important;
+    margin: 2px;
+
 }
 
 .controlVideo {
-    max-width: 1024px;
-    max-height: 768px;
-    width: 100%;
-    height: 100%;
+    min-width: 640px;
+    min-height: 480px;
     border: 1px solid black;
     margin: 0 50px 0 50px;
+    color: #98ff00;
 }
 
 .penaltyList {
-    min-width: 290px;
+    /*min-width: 290px;*/
     text-align: center;
 }
 
@@ -1251,11 +1273,11 @@ thead > tr > th {
 }
 
 .penaltyUl {
+    background: #ffffff;
     width: 100%;
     height: 100%;
-    max-height: 745px;
-    text-align: center;
-    padding: 10px 15px 10px 15px;
+    max-height: 500px;
+    padding: 15px 22px 15px 15px;
     border: 1px solid #393939;
     overflow-x: scroll;
 }
@@ -1268,26 +1290,26 @@ thead > tr > th {
 }
 
 .penaltyLi input {
-    font-size: 25px;
-    margin: 10px;
-}
-
-.divArea {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 5px;
 }
 
 .carNumberImg {
-    width: 200px;
+    margin: 5px;
+    width: 220px;
     height: 80px;
+
+}
+
+.carNumberImg:hover{
+
 }
 
 .carNumber {
+    display: flex;
+    justify-content: space-around;
     border: 1px solid #656565;
     margin: 10px;
     border-radius: 6px;
-
     letter-spacing: 1px;
 }
 
@@ -1296,11 +1318,6 @@ thead > tr > th {
     justify-content: end;
     position: relative;
     padding-right: 320px;
-}
-
-.controlBtn {
-    width: 80px;
-    margin: 5px 5px 5px 5px;
 }
 
 .controlModal {
@@ -1316,7 +1333,6 @@ thead > tr > th {
     display: flex;
     margin: 0 0 15px 0;
 }
-
 
 /* 순찰내역 페이지 */
 .adminPatrolTitle {
@@ -1366,14 +1382,39 @@ thead > tr > th {
     justify-content: flex-end !important;
 }
 
-/*.crButton {*/
-/*    background-color: #ef8484 !important;*/
-/*    border: #ef8484 !important;*/
-/*}*/
-
 .dropDown {
     background-color: rgb(176, 217, 255) !important;
     border: #d3f0ff !important;
+}
+
+/* 순찰내역 모바일 */
+
+.patrolMobileCont {
+    padding: 0 !important;
+}
+.patrolTableM{
+
+}
+
+.patrolMH1 {
+    padding: 50px;
+    margin: 30px 30px !important;
+    width: 300px;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.pmtd1 {
+    width: 30px !important;
+
+}
+
+.pmtd2 {
+    width: 70px !important;
+}
+
+.rowTitle {
+    background-color: white !important;
 }
 
 /* 순찰내역작성 페이지 */
@@ -1418,32 +1459,51 @@ thead > tr > th {
     background-color: #e6fde6 !important;
     height: 400px !important;
 }
-@media(max-width: 768px){
+
+@media (max-width: 768px) {
     .penaltyH1 {
         background-image: url("./images/background-75.jpg") !important;
         background-size: cover;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .penaltyH11 {
         padding: 10px;
         color: white;
         font-weight: bold;
         font-size: 40px;
-        margin: 0!important;
+        margin: 0 !important;
+        margin: 50px 50px !important;
     }
-    .penaltyCont{
-        padding: 0!important;
+
+    .penaltyCont {
+        padding: 0 !important;
     }
-    .d-flex{
+
+    .d-flex {
 
     }
-    .penaltyTh{
-        background-color: white!important;
+
+    .penaltyTh {
+        background-color: white !important;
     }
-    .penaltyTd{
+
+    .penaltyTd {
 
     }
-    .penaltyDate{
+
+    .penaltyDate {
         font-size: 12px;
         width: 90px;
     }
+}
+
+/* 단속차량 상세페이지 모바일 */
+.imageTableMobile{
+    width: 100% !important;
+    height: 300px !important;
 }
 
 /* 관리자 공지사항 페이지 */
@@ -1513,16 +1573,24 @@ thead > tr > th {
     margin-bottom: 30px;
 }
 
-/*.noticeCreateBtn {*/
-/*    background-color: #ef8484 !important;*/
-/*    border: #ef8484 !important;*/
-/*}*/
+/* 관리자 공지사항 모바일 */
+.adminNoticeMH1 {
+    margin: 30px !important;
+}
 
-/* 드롭다운, 검색버튼 */
-/*.dataDropdown, .dropDownToggle, .searchButton {*/
-/*    background-color: #45a3ff !important;*/
-/*    border: #45a3ff !important;*/
-/*}*/
+.title-column {
+    width: 150px !important;
+    background-color: white !important;
+}
+
+.date-column {
+    width: 200px !important;
+    background-color: white !important;
+}
+
+.view-column {
+    background-color: white !important;
+}
 
 /* 관리자 문의사항 페이지 */
 .adminInquiryH1 {
@@ -1534,30 +1602,56 @@ thead > tr > th {
     font-size: 50px;
 }
 
-.adminInquiryContainer{
+/* 관리자 문의목록 모바일 */
+.adminInquiryMH1 {
+    margin: 50px !important;
+}
+.adminInquiryContainer {
     height: 400px;
     padding-top: 60px;
     margin-left: 0;
 }
 
-.adminInquiryContainer .adminInquiryTitle{
-    margin: 5px 0!important;
-    text-align: left!important;
+.inquiryTitle {
+    background-color: white !important;
+    font-size: 16px;
+    width: 20% !important;
+}
+.adminInquiryContainer .adminInquiryTitle {
+    margin: 5px 0 !important;
+    text-align: left !important;
     font-size: 30px;
     border-top: 1px solid;
-    padding: 37px 27px 30px; 
-    background-color: #f9f9f9; 
-    color: #333; 
+    padding: 37px 27px 30px;
+    background-color: #f9f9f9;
+    color: #333;
     font-weight: bold;
 }
 
-.adminInquiryDate {
-    float: right;
-    font-size: 12px;
-    margin: 0 0 3px 13px;
+.inquiryAnswer {
+    font-size: 14px;
+    background-color: white !important;
+    width: 50% !important;
+
 }
+
+.inquiryDate {
+    font-size: 14px;
+    background-color: white !important;
+    width: 30% !important;
+}
+
 .adminInquiryPhone, .adminInquiryEmail {
     font-size: 12px;
     margin-right: 10px;
 }
+
+.answerNeed {
+    padding: 0 !important;
+}
+
+.answerComplete {
+    padding: 0 !important;
+}
+
 

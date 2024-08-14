@@ -66,7 +66,7 @@ export default function PatrolDetail() {
 
         <div className={'commonContainer'}>
             <Container className='detailContainer' style={{height: '100vh', borderRadius: '20px'}}>
-                <h1>순찰 내역</h1>
+                    <Button className='patrolListBtn' onClick={handleSubmit} style={{position: 'relative', bottom: '40px', float: 'right'}}>목록으로</Button>
                 <p className={'adminPatrolTitle'} >
                     {patrol.patrolArea}
                 </p>
@@ -80,7 +80,7 @@ export default function PatrolDetail() {
                         {patrol.updateDate.slice(0,11)}
                     </p> }
                 </div>
-                <Table className={'adminDetailTable'} style={{margin: '0', padding: '0'}} bordered>
+                <Table className={'adminDetailTable'} bordered>
                     <tbody>
                         <tr>
                             <td className={'adminPatrolText'} colSpan={8} style={{height: '600px', textAlign: 'start'}}>
@@ -88,26 +88,26 @@ export default function PatrolDetail() {
                             </td>
                         </tr>
                     </tbody>
+                        <div className='pageMove'>
+                            <ul>
+                                <li>
+                                {prevPatrol === null ? <><FontAwesomeIcon icon={faSquareCaretUp} /><span>이전글이 없습니다.</span></> :  <Link to={`/admin/patrol/${prevPatrol}`}><FontAwesomeIcon icon={faSquareCaretUp} />
+                                    <span>이전 글</span>
+                                </Link>}
+                                </li>
+
+                                <li>
+                                {nextPatrol === null ? <><FontAwesomeIcon icon={faSquareCaretDown} /><span>다음글이 없습니다.</span></> : <Link to={`/admin/patrol/${nextPatrol}`}><FontAwesomeIcon icon={faSquareCaretDown} />
+                                    <span>다음 글</span>
+                                </Link>}
+                                </li>
+                            </ul>
+                        </div>
+
                 </Table>
-                <div className='pageMove'>
-                    <ul>
-                        <li>
-                        {prevPatrol === null ? <><FontAwesomeIcon icon={faSquareCaretUp} /><span>이전글이 없습니다.</span></> :  <><Link to={`/admin/patrol/${prevPatrol}`}><FontAwesomeIcon icon={faSquareCaretUp} />
-                            <span>이전 글</span></Link><span style={{paddingLeft: '5%'}}>{patrols[currentPatrolIndex+1].patrolArea}</span></>}
-                        </li>
-
-                        <li>
-                        {nextPatrol === null ? <><FontAwesomeIcon icon={faSquareCaretDown} /><span>다음글이 없습니다.</span></> : 
-                            <><Link to={`/admin/patrol/${nextPatrol}`}><FontAwesomeIcon icon={faSquareCaretDown} /><span>다음 글</span></Link>
-                            <span style={{paddingLeft: '5%'}}>{patrols[currentPatrolIndex-1].patrolArea}</span></>}
-                        </li>
-                    </ul>
-                </div>
-
                 <div className={'noticeDetailBtn'}>
                     <Button variant="primary" onClick={handleEdit} className="w-30" style={{marginRight:'5px'}}>수정</Button>
                     <Button variant="danger" onClick={handleDelete} className="w-30"style={{marginRight:'5px'}}>삭제</Button>
-                    <Button className='patrolListBtn' onClick={handleSubmit} style={{position: 'relative', float: 'right'}}>목록으로</Button>
                 </div>
             </Container>
         </div>

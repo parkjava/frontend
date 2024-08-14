@@ -198,7 +198,7 @@ export default function Index() {
             <Mobile>
                 <div className={'commonContainer'}>
                     <Container className={'penaltyCont'}>
-                        <h1 className={''}>단속 차량 목록</h1>
+                        <h1 className={'penaltyH11'}>단속 차량 목록</h1>
                         <Container className="d-flex justify-content-center align-items-center">
                             <Form onSubmit={handleSubmit} className="d-flex pb-2" style={{width: '300px'}}>
                                 <Form.Control
@@ -223,12 +223,12 @@ export default function Index() {
                         ) : (
                             <Table className={'penaltyTable'} hover variant="white">
                                 <thead>
-                                <tr className={'penaltyTr'}>
-                                    {/*<th className={'penaltyTh'}>NO</th>*/}
-                                    <th className={'penaltyTh'}>차량 번호</th>
-                                    <th className={'penaltyTh'}>과태료</th>
-                                    <th className={'penaltyTh'}>날짜</th>
-                                </tr>
+                                {/*<tr className={'penaltyTr'}>*/}
+                                {/*    /!*<th className={'penaltyTh'}>NO</th>*!/*/}
+                                {/*    <th className={'penaltyTh'}>차량 번호</th>*/}
+                                {/*    <th className={'penaltyTh'}>과태료</th>*/}
+                                {/*    <th className={'penaltyTh'}>날짜</th>*/}
+                                {/*</tr>*/}
                                 </thead>
                                 <tbody>
 
