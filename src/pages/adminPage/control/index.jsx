@@ -98,6 +98,18 @@ export default function Index() {
     };
 
 
+    const [penalties, setPenalties] = useState([])
+
+    function penaltyApi() {
+        axiosInstance
+            .get('/api/penalty/desc')
+            .then((res) => {
+                setPenalties(res)
+            })
+            .catch((err) => console.log(err));
+    }
+
+
     const handleSwitchChange = (e) => {
         setIsChecked(e.target.checked);
         if (isChecked === false) {
@@ -131,16 +143,31 @@ export default function Index() {
 
             // 상태에 이미지 정보를 저장합니다.
             setImages(images);
+            
+            console.log(images[0].name)
         } catch (error) {
             console.error("Error fetching images:", error);
         }
     };
 
     useEffect(() => {
-        // console.log(images)
+        const storedCarNumber = penalties.map((i) => i.penaltyCarNumber)
+
+        images.forEach((image, index) => {
+            if (storedCarNumber.includes(image.name)) {
+                const carNumImg = document.querySelectorAll('.carNumberImg')[index]
+                if (carNumImg) {
+                    carNumImg.style.display = 'none'
+                }
+            }
+        })
+    }, [penalties, images])
+
+
+    useEffect(() => {
         // setInterval(async () => {
         fetchImages();
-        // }, )
+        penaltyApi()
     }, []);
 
     const ros = new ROSLIB.Ros({
@@ -403,9 +430,7 @@ export default function Index() {
         const selectImages = images.filter((_, index) => checkState[index])
         const storage = getStorage();
         // Create a reference to the file to delete
-        console.log(selectImages)
         const desertRef = ref(storage, `gs://parkjavastorage.appspot.com/${selectImages[0].name}`);
-        console.log(selectImages)
         const ok = window.confirm('정말 삭제하시겠습니까?')
         if (ok) {
             try {

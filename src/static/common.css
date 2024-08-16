@@ -1721,7 +1721,8 @@ span{
     width: 30% !important;
 }
 
-.adminInquiryPhone, .adminInquiryEmail {
-
+.adminInquiryDate, .adminInquiryPhone, .adminInquiryEmail {
+    float: right;
+    font-size: 12px;
     margin-right: 10px;
 }
