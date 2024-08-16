@@ -43,7 +43,7 @@ table td {
 .commonContainer {
     padding-top: 80px;
     background-color: #ffffff;
-    overflow: hidden;
+    overflow-y: hidden;
 }
 
 .commonContainer h1 {
