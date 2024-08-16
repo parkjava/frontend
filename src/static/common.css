@@ -16,9 +16,10 @@
 
 /* 공통 */
 
-.pagenationMobile{
-    width: 340px!important;
+.pagenationMobile {
+    width: 340px !important;
 }
+
 a {
     text-decoration: none !important;
 
@@ -43,7 +44,14 @@ table td {
 .commonContainer {
     padding-top: 80px;
     background-color: #ffffff;
-    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+    .commonContainer h1 {
+        margin-top: 20px !important;
+    }
+
 }
 
 .commonContainer h1 {
@@ -54,7 +62,8 @@ table td {
 .commonContainer hr {
     margin: 80px 0 80px 0;
 }
-.dropDownToggle{
+
+.dropDownToggle {
     /*background-color: #e1ebfb!important;*/
     /*border-color: #e1ebfb!important;*/
     /*font-weight: bold!important;*/
@@ -255,6 +264,7 @@ thead > tr > th {
     color: #f8f8f8;
     font-weight: bold;
 }
+
 .titleAnswerNeed {
     border: 1px solid #ff5858;
     background-color: #ed7e7e;
@@ -377,10 +387,11 @@ thead > tr > th {
 }
 
 /* 문의 상세페이지 모바일 */
-.inquiryDetailH1Mobile{
-    margin: 50px 50px!important;
+.inquiryDetailH1Mobile {
+    margin: 50px 50px !important;
 }
-span{
+
+span {
     font-size: 14px;
 }
 
@@ -754,8 +765,8 @@ span{
 }
 
 /* 사용자 메인페이지 모바일 */
-.youtubeMainMobile{
-  margin: 5px;
+.youtubeMainMobile {
+    margin: 5px;
 }
 
 /* 관리자 메인페이지 */
@@ -785,7 +796,6 @@ span{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     width: 100%;
     height: 100vh;
     padding: 20px;
@@ -838,85 +848,100 @@ span{
     justify-content: space-around;
     padding: 20px;
     box-sizing: border-box;
-    border: 1px #4fd50a solid;
     background-color: white;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
 }
 
-
+.secondF {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
 .adminWelcome {
+    text-align: center;
     flex: 1;
-    background-color: #ffffff;
+    background-color: #fbfbfb;
     color: #000000;
     padding: 20px;
-    border: 1px #4fd50a solid;
-    /*box-sizing: border-box;*/
 }
 
 .weather {
     flex: 1;
-    background-color: rgb(255, 196, 0);
-    color: black;
+    background-color: rgba(3, 42, 104, 0.83);
+    color: #f9f9f9;
+    font-size: 20px;
+    font-weight: bold;
     padding: 20px;
-    border: 1px #4fd50a solid;
-    /*box-sizing: border-box;*/
+    margin: 20px 10px 20px 10px;
+}
+.boardArea{
+    margin-top: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 .adminContent {
+    width: 100%;
+    margin-top: 30px;
+    padding: 45px;
+    border:1px solid #b1b1b1;
     display: flex;
     flex-direction: column;
+    /*justify-content: space-evenly;*/
     align-items: center;
-    /*margin-top: 200px;*/
-    border: 1px #4fd50a solid;
 }
+
 
 .chartButtons {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
-    border: 1px #4fd50a solid;
+
 }
 
 .dataGraph {
-    /*width: 100%;*/
     background-color: #ffffff;
-    /*padding: 20px;*/
-    border: 1px #4fd50a solid;
-    /*box-sizing: border-box;*/
 }
 
 .dataGraph canvas {
-    width: 500px !important;
-    height: 250px !important;
+    width: 600px !important;
+    height: 300px !important;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
     .dataGraph canvas {
+
+        max-width: 300px;
+        max-height: 150px;
 
     }
 
 }
+
 /* 관리자 메인페이지 모바일 */
-.dataGraphMobile{
-    max-width: 260px!important;
+.dataGraphMobile {
+    max-width: 260px !important;
 }
-.adminWelcomeMobile{
+
+.adminWelcomeMobile {
     flex: 1;
     background-color: #ffffff;
     color: #000000;
     padding: 5px;
     border: 1px #4fd50a solid;
-    width: 150px!important;
+    width: 150px !important;
     font-size: 15px;
 }
-.weatherMobile{
+
+.weatherMobile {
     flex: 1;
-    background-color: rgb(255, 196, 0);
     color: black;
     padding: 5px;
-    border: 1px #4fd50a solid;
+    height: 300px;
 }
-.adminHeaderMobile{
+
+.adminHeaderMobile {
     /*display: flex!important;*/
     /*flex-direction: column!important;*/
     width: 100%;
@@ -924,15 +949,14 @@ span{
     justify-content: space-around;
     padding: 10px;
     box-sizing: border-box;
-    border: 1px #4fd50a solid;
+
     background-color: white;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
 }
 
 
-
 /* pagination */
-#BasicPagination{
+#BasicPagination {
 
 }
 
@@ -1177,16 +1201,17 @@ span{
 }
 
 .userNoticeSearch {
-    background-color: white!important;
-    width: 50px!important;
-    border-color: #e1ebfb!important;
+    background-color: white !important;
+    width: 50px !important;
+    border-color: #e1ebfb !important;
 }
-.userNoticeSearchIcon{
+
+.userNoticeSearchIcon {
     color: #000000;
 
 }
 
-.userNoticeTableHead{
+.userNoticeTableHead {
     /*background-color: bisque!important;*/
 }
 
@@ -1207,6 +1232,7 @@ span{
 .userNoticeText {
     height: 500px !important;
 }
+
 .userNoticeDateDiv p {
     padding: 0;
 }
@@ -1246,10 +1272,11 @@ span{
 .userNoticeMH1 {
     padding: 10px;
     color: black;
-    font-weight: bold!important;
+    font-weight: bold !important;
 }
-.userNoticeTableMobile{
-    width: 100%!important;
+
+.userNoticeTableMobile {
+    width: 100% !important;
 }
 
 .userNoticeDate {
@@ -1285,13 +1312,18 @@ span{
 }
 
 
-
 /* 관제 페이지 */
+.backGround {
+    background-image: url("./images/img.png");
+    background-size: cover;
+}
+
 .controlH1 {
-    background-image: url("./images/img.png") !important;
+    /*background-image: url("./images/img.png") !important;*/
+    background: linear-gradient(90deg, rgb(2, 41, 115) 23%, rgba(255, 242, 0, 1) 100%);
     background-size: cover;
     margin: 0 0 10px 0 !important;
-    padding: 50px 0 50px 0;
+    padding: 10px 0 10px 0;
     color: white;
     font-weight: bold;
     font-size: 50px;
@@ -1299,20 +1331,23 @@ span{
 
 .controlInfo {
     display: flex;
-    margin: 50px 200px 0 200px;
+    margin: 20px;
+    padding: 43px;
     justify-content: space-between;
     align-items: center;
+    background-color: #f8f8f8;
 }
 
 .controlInfo .gauge {
     margin-top: 240px;
     color: #fd2626;
 }
-.gauge button{
+
+.gauge button {
     min-width: 10% !important;
 }
 
-.controlBtnGroup{
+.controlBtnGroup {
     margin-left: 480px;
     margin-top: 255px;
 }
@@ -1372,7 +1407,7 @@ span{
 
 }
 
-.carNumberImg:hover{
+.carNumberImg:hover {
 
 }
 
@@ -1459,20 +1494,22 @@ span{
     background-color: rgb(176, 217, 255) !important;
     border: #d3f0ff !important;
 }
-.crButton{
-    border-color: #e1ebfb!important;
-    background-color: #e1ebfb!important;
-    font-weight: bold!important;
+
+.crButton {
+    border-color: #e1ebfb !important;
+    background-color: #e1ebfb !important;
+    font-weight: bold !important;
 }
 
 /* 순찰내역 모바일 */
 
 .patrolMobileCont {
     padding: 0 !important;
-    text-align: center!important;
+    text-align: center !important;
 }
-.crButton{
-    margin: 5px!important;
+
+.crButton {
+    margin: 5px !important;
 }
 
 .patrolMH1 {
@@ -1491,6 +1528,7 @@ span{
 .pmtd2 {
     width: 30% !important;
 }
+
 .pmtd3 {
     width: 40% !important;
 }
@@ -1512,13 +1550,15 @@ span{
 
 /* 단속차량 목록 페이지 */
 
-.searchButton{
-    border-color: #e1ebfb!important;
-    background-color: white!important;
+.searchButton {
+    border-color: #e1ebfb !important;
+    background-color: white !important;
 }
-.adminPenaltySearchIcon{
+
+.adminPenaltySearchIcon {
     color: black;
 }
+
 .penaltyH1 {
     /*background-image: url("./images/background-75.jpg") !important;*/
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 23%, rgba(151, 151, 151, 0.56) 100%);
@@ -1550,12 +1590,14 @@ span{
 
     height: 400px !important;
 }
+
 .controlGraph {
 
 }
-.controlGraph canvas{
-    width: 500px !important;
+
+.controlGraph canvas {
     margin-bottom: 50px;
+    background-color: #ffffff;
 }
 
 @media (max-width: 768px) {
@@ -1578,7 +1620,7 @@ span{
     }
 
     .penaltyCont {
-        align-items: center!important;
+        align-items: center !important;
     }
 
     .d-flex {
@@ -1592,16 +1634,18 @@ span{
     .penaltyNum {
         width: 40%;
     }
-    .penaltyCash{
+
+    .penaltyCash {
         width: 20%;
     }
+
     .penaltyDate {
         width: 40%;
     }
 }
 
 /* 단속차량 상세페이지 모바일 */
-.imageTableMobile{
+.imageTableMobile {
     width: 100% !important;
     height: 300px !important;
 }
@@ -1610,8 +1654,9 @@ span{
 .table th, .table td {
     padding: 8px;
 }
-.adminNoticeSearchIcon{
-    color: black!important;
+
+.adminNoticeSearchIcon {
+    color: black !important;
 }
 
 .adminNoticeH1 {
@@ -1623,12 +1668,15 @@ span{
     padding: 50px;
     font-size: 50px;
 }
-.title-column{
+
+.title-column {
     background: #e1ebfb !important
 }
-.adminNoticeHead th{
+
+.adminNoticeHead th {
     background: #e1ebfb !important
 }
+
 .table th.title-column, .table td.title-column {
     width: 50%; /* 예: 제목 열의 넓이를 50%로 설정 */
 }
@@ -1640,7 +1688,8 @@ span{
 .table th.view-column, .table td.view-column {
     width: 20%; /* 예: 조회수 열의 넓이를 20%로 설정 */
 }
-.no-column{
+
+.no-column {
 
     width: 20% !important;
 }
@@ -1681,10 +1730,11 @@ span{
     float: left;
     margin-bottom: 30px;
 }
-.adminNoticeBtn{
-    border-color: #e1ebfb!important;
-    background-color: #e1ebfb!important;
-    font-weight: bold!important;
+
+.adminNoticeBtn {
+    border-color: #e1ebfb !important;
+    background-color: #e1ebfb !important;
+    font-weight: bold !important;
 }
 
 /* 관리자 공지사항 모바일 */
@@ -1726,6 +1776,7 @@ span{
     font-weight: bold;
     font-size: 50px;
 }
+
 .adminInquiryContainer {
     height: 400px;
     margin-left: 0;
@@ -1736,6 +1787,7 @@ span{
     font-size: 16px;
     width: 20% !important;
 }
+
 .adminInquiryContainer .adminInquiryTitle {
     display: flex;
     justify-content: start;

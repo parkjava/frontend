@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {Table, Container,} from 'react-bootstrap';
-import axiosInstance from '../../../../common/components/axiosinstance';
-import BasicPagination from "../../../../common/components/pagination3";
+import axiosInstance from '../../../common/components/axiosinstance';
+import BasicPagination from "../../../common/components/pagination3";
+import {Link} from "react-router-dom";
 
 
 export default function PetrolList() {
@@ -29,19 +30,20 @@ export default function PetrolList() {
 
     return (<>
             <Container>
-                <Table striped bordered hover>
+                <h3>새 순찰 목록</h3>
+                <Table striped bordered hovers style={{minWidth: 600}}>
                     <thead>
                     <tr>
-                        <th style={{width: 100}}>관할 구역</th>
                         <th>순찰 요약</th>
+                        <th style={{width: 100}}>관할 구역</th>
                         <th>날짜</th>
                     </tr>
                     </thead>
                     <tbody>
                     {currentPosts.map((patrol) => (
                         <tr key={patrol.patrolIndex}>
+                            <td><Link to={`/admin/patrol/${patrol.patrolIndex}`}>{patrol.patrolSummary}</Link></td>
                             <td>{patrol.patrolArea}</td>
-                            <td>{patrol.patrolSummary}</td>
                             <td>{patrol.createDate}</td>
                         </tr>
                     ))}

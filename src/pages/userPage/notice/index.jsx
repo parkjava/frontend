@@ -199,8 +199,8 @@ export default function Index() {
             </PC>
             <Mobile>
                 <div className={'commonContainer'}>
-                    <Container className={'noticeMobileContainer'}>
-                        <h1 className={'userNoticeMH1'}>공지사항</h1>
+                    <Container>
+                        <h1 className={'adminNoticeH1'}>📢<br/>공지사항</h1>
                         <Container className="d-flex justify-content-center align-items-center wd-100 mb-4 ">
                             <Form onSubmit={handleSubmit}>
                                 <Form.Control

@@ -16,6 +16,7 @@ import PatrolList from "./component/patrolList"
 import {Mobile, PC} from "../../../common/components/responsive";
 import Time from '../../../common/components/time'
 import {GiBattery0, GiBattery100, GiBattery50, GiBattery75, GiBatteryMinus} from "react-icons/gi";
+import pngFile from '../../../static/images/img.png'
 
 export default function Index() {
     const [currentSpeed, setCurrentSpeed] = useState(40);
@@ -155,9 +156,9 @@ export default function Index() {
 
         images.forEach((image, index) => {
             if (storedCarNumber.includes(image.name)) {
-                const carNumImg = document.querySelectorAll('.carNumberImg')[index]
-                if (carNumImg) {
-                    carNumImg.style.display = 'none'
+                const penaltyLi = document.querySelectorAll('.penaltyLi')[index]
+                if (penaltyLi) {
+                    penaltyLi.style.display = 'none'
                 }
             }
         })
@@ -461,7 +462,7 @@ export default function Index() {
             </div>
         </Mobile>
         <PC>
-            <div className={'commonContainer'}>
+            <div className={'commonContainer backGround'}>
                 <h1 className={'controlH1'}>관제센터</h1>
                 <div className={'controlInfo'}>
                     <div className={'controlGraph'}>
