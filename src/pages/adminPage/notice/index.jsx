@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {Table, Container, Form, Button, Dropdown, Alert} from 'react-bootstrap';
+import {Table, Container, Form, Dropdown, Alert} from 'react-bootstrap';
+import {Button} from '@mui/material'
 import {Link} from 'react-router-dom';
 import axiosInstance from '../../../common/components/axiosinstance';
 import {Mobile, PC} from "../../../common/components/responsive";
@@ -119,7 +120,7 @@ export default function Index() {
             <PC>
                 <div className={'commonContainer'}>
                     <Container>
-                        <h1 className={'adminNoticeH1'}>공지사항</h1>
+                        <h1 className={'adminNoticeH1'}>📢&nbsp;공지사항</h1>
                         <hr/>
                         <Container className="d-flex justify-content-center align-items-center">
                             {/*<Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">*/}
@@ -152,14 +153,12 @@ export default function Index() {
                         <Container className="d-flex justify-content-end align-items-center pb-2">
                             <Dropdown onSelect={handleNoticeCount}>
                                 <Dropdown.Toggle className={'dropDownToggle'}>
-                                    노출 설정 : {postsPerPage}개
+                                     글 개수 : {postsPerPage}
                                 </Dropdown.Toggle>
-
                                 <Dropdown.Menu>
                                     <Dropdown.Item eventKey="ten">10</Dropdown.Item>
                                     <Dropdown.Item eventKey="thirty">30</Dropdown.Item>
                                     <Dropdown.Item eventKey="fifty">50</Dropdown.Item>
-
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Container>
@@ -194,8 +193,8 @@ export default function Index() {
                         )}
                         <Container className={'d-flex justify-content-end align-items-center mt-4'}>
                             <Link to="/admin/notice/create">
-                                <Button className={'adminNoticeBtn'}>
-                                    공지사항작성
+                                <Button variant={'outlined'} color={'primary'}>
+                                    새 공지사항
                                 </Button>
                             </Link>
                         </Container>
@@ -209,7 +208,7 @@ export default function Index() {
             <Mobile>
                 <div className={'commonContainer'}>
                     <Container>
-                        <h1 className={'adminNoticeMH1'}>공지사항</h1>
+                        <h1 className={'adminNoticeH1'}>📢<br/>공지사항</h1>
                         <Container className="d-flex justify-content-center align-items-center">
                             {/*<Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">*/}
                             {/*    <Dropdown.Toggle className={'dropDownToggle'} variant="secondary" id="dropdown-basic">*/}
@@ -241,7 +240,7 @@ export default function Index() {
                         <Container className="d-flex justify-content-end align-items-center pb-2">
                             <Dropdown onSelect={handleNoticeCount}>
                                 <Dropdown.Toggle className={'dropDownToggle'}>
-                                    노출 설정 : {postsPerPage}개
+                                    글 개수 : {postsPerPage}개
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
@@ -284,8 +283,8 @@ export default function Index() {
                         )}
                         <Container className={'d-flex justify-content-end align-items-center mt-4'}>
                             <Link to="/admin/notice/create">
-                                <Button className={'adminNoticeBtn'}>
-                                    공지사항작성
+                                <Button variant={'outlined'} color={'primary'}>
+                                    새 공지사항
                                 </Button>
                             </Link>
                         </Container>

@@ -9,13 +9,13 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faXmark} from "@fortawesome/free-solid-svg-icons";
 import {Tooltip, Button, IconButton, CircularProgress} from "@mui/material";
 import CreatePatrol from "./component/patrolModal"
-import {Battery20, Battery90, BatteryFull, Delete, HelpOutline, SaveAlt} from "@mui/icons-material";
+import {Delete, HelpOutline, SaveAlt} from "@mui/icons-material";
 import {GaugeContainer, GaugeReferenceArc, GaugeValueArc, useGaugeState} from "@mui/x-charts";
 import {Line} from "react-chartjs-2";
 import PatrolList from "./component/patrolList"
 import {Mobile, PC} from "../../../common/components/responsive";
 import Time from '../../../common/components/time'
-import {GiBattery100, GiBattery75} from "react-icons/gi";
+import {GiBattery0, GiBattery100, GiBattery50, GiBattery75, GiBatteryMinus} from "react-icons/gi";
 
 export default function Index() {
     const [currentSpeed, setCurrentSpeed] = useState(40);
@@ -191,8 +191,8 @@ export default function Index() {
 
         batteryLevelListener.subscribe((message) => {
             const voltage = message.Voltage;
-            const percentage = Math.round((voltage / 12.5) * 100);
-            setVoltage(`${percentage}%`);
+            const volt = Math.round((voltage / 12.5) * 100);
+            setVoltage(volt);
         });
     }, [ros]);
 
@@ -477,14 +477,24 @@ export default function Index() {
                     <div className={'controlVideo'}
                          style={{background: `url(${backGround})`}}>
                         <div className={'text-end m-2 '} style={{color: "#19ff00"}}>
-                            {voltage < 90 ?
-                                <GiBattery75 className={'mw-100 fa-rotate-90'} style={{scale:1.4}}/> : <GiBattery100 className={'fa-rotate-90'} style={{scale:1.4}}/>
-                                ||
-                                <CircularProgress style={{width: 20, height: 20}}/>}<br/>
+                            {voltage >= 80 && voltage <= 100 ? (
+                                <GiBattery100 className={'fa-rotate-90'} style={{scale: 1.6}}/>
+                            ) : voltage > 60 && voltage < 80 ? (
+                                <GiBattery75 className={'fa-rotate-90'} style={{scale: 1.6}}/>
+                            ) : voltage > 40 && voltage <= 60 ? (
+                                <GiBattery50 className={'fa-rotate-90'} style={{scale: 1.6}}/>
+                            ) : voltage > 20 && voltage <= 40 ? (
+                                <GiBattery0 className={'fa-rotate-90'} style={{scale: 1.6}}/>
+                            ) : voltage > 0 && voltage <= 20 ? (
+                                <GiBatteryMinus className={'fa-rotate-90'} style={{scale: 1.6}}/>
+                            ) : (
+                                <CircularProgress style={{width: 20, height: 20}}/>
+                            )} &nbsp;{voltage}%
+
+                            <br/>
                             <Time/>
                         </div>
-                        <div className={'gauge float-start text-center position-absolute fw-bold'}
-                             style={{}}>
+                        <div className={'gauge float-start text-center position-absolute fw-bold'}>
                             SPEED : {currentSpeed}
                             <GaugeContainer
                                 width={100}

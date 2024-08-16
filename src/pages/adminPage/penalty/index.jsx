@@ -98,7 +98,7 @@ export default function Index() {
         <><PC>
             <div className={'commonContainer'}>
                 <Container>
-                    <h1 className={'penaltyH1'}>단속 차량 목록</h1>
+                    <h1 className={'penaltyH1'}>🚓 단속 차량 목록</h1>
                     <hr/>
                     <Container className="d-flex justify-content-center align-items-center">
                         {/*<Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">*/}
@@ -127,7 +127,7 @@ export default function Index() {
                     <Container className="d-flex justify-content-end align-items-center pb-2">
                         <Dropdown onSelect={handlePenaltyCount}>
                             <Dropdown.Toggle className={'dropDownToggle'}>
-                                노출 설정 : {postsPerPageLabel}
+                                글 개수 : {postsPerPageLabel}
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu className={'dropDownToggle'}>
@@ -199,7 +199,7 @@ export default function Index() {
             <Mobile>
                 <div className={'commonContainer'}>
                     <Container className={'penaltyCont'}>
-                        <h1 className={'penaltyH11'}>단속 차량 목록</h1>
+                        <h1 className={'penaltyH1'}>🚓<br/>단속 목록</h1>
                         <Container className="d-flex justify-content-center align-items-center">
                             <Form onSubmit={handleSubmit} className="d-flex pb-2" style={{width: '300px'}}>
                                 <Form.Control
@@ -216,20 +216,17 @@ export default function Index() {
                                 </Button>
                             </Form>
                         </Container>
-
-
-
                         {noResultsMessage ? (
                             <Alert variant="warning">{noResultsMessage}</Alert>
                         ) : (
-                            <Table className={'penaltyTable'} hover variant="white">
+                            <Table className={'penaltyTable mt-4'} hover variant="white">
                                 <thead>
-                                {/*<tr className={'penaltyTr'}>*/}
-                                {/*    /!*<th className={'penaltyTh'}>NO</th>*!/*/}
-                                {/*    <th className={'penaltyTh'}>차량 번호</th>*/}
-                                {/*    <th className={'penaltyTh'}>과태료</th>*/}
-                                {/*    <th className={'penaltyTh'}>날짜</th>*/}
-                                {/*</tr>*/}
+                                <tr className={'penaltyTr'}>
+                                    {/*    /!*<th className={'penaltyTh'}>NO</th>*!/*/}
+                                    <th className={'penaltyTh'}>차량 번호</th>
+                                    <th className={'penaltyTh'}>과태료</th>
+                                    <th className={'penaltyTh'}>날짜</th>
+                                </tr>
                                 </thead>
                                 <tbody>
 
@@ -254,7 +251,7 @@ export default function Index() {
                         <Container className="d-flex justify-content-end align-items-center pb-2">
                             <Dropdown onSelect={handlePenaltyCount}>
                                 <Dropdown.Toggle className={'dropDownToggle'}>
-                                    노출 설정 : {postsPerPageLabel}
+                                    글 개수 : {postsPerPageLabel}
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu className={'dropDownToggle'}>
                                     <Dropdown.Item eventKey="ten">10</Dropdown.Item>
@@ -262,6 +259,7 @@ export default function Index() {
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Container>
+
 
                         <BasicPagination
                             postsPerPage={postsPerPage}

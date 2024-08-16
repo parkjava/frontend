@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {useParams, useNavigate, Link} from 'react-router-dom';
-import {Container, Button, Table, Alert, Image} from 'react-bootstrap';
+import {Container, Table, Alert} from 'react-bootstrap';
+import {Button} from '@mui/material';
 import axiosInstance from "../../../../common/components/axiosinstance";
 import Update from "../update/index";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -10,8 +11,9 @@ import {
     faSquareCaretDown,
     faXmark,
     faPhone,
-    faMailBulk
+    faUser, faCalendar
 } from "@fortawesome/free-solid-svg-icons";
+import {faEnvelope} from "@fortawesome/free-regular-svg-icons";
 
 export default function Index() {
     const {inquiryIndex} = useParams();
@@ -78,25 +80,33 @@ export default function Index() {
     return (
         <div className={'commonContainer'}>
             <Container className='adminInquiryContainer' style={{height: '100vh'}}>
-                <h1>문의 상세 내역</h1>
-
+                <h1 className={'adminInquiryH1'}>문의 상세 내역</h1>
                 <p className={'adminInquiryTitle'}>
                     {inquiry.inquiryTitle}
+                    {inquiry.inquiryAnswer === null ?
+                        <span className={'titleAnswerNeed'}>답변 필요</span>
+                        :
+                        <span className={'titleAnswerComplete'}>답변 완료</span>}
                 </p>
-
-                <div style={{margin: '10px 5px 10px'}}>
-                    <span className={'adminInquiryDate'}>
-                        <FontAwesomeIcon icon={faCalendarPlus} style={{marginRight: '5px'}}/>
-                        {inquiry.inquiryDate.slice(0, 10)}
+                <div className={'d-flex justify-content-between align-items-center'} style={{margin: '10px 5px 10px'}}>
+                    <span className={'adminInquiryDate'} style={{marginRight: '5px'}}>
+                        <FontAwesomeIcon icon={faUser}/>
+                        &nbsp;
+                        {inquiry.inquiryWriter}
                     </span>
-                    <span className={'adminInquiryPhone'}>
-                        <FontAwesomeIcon icon={faPhone} style={{marginRight: '5px'}}/>
+                    <span className={'adminInquiryPhone'} style={{marginRight: '5px'}}>
+                        <FontAwesomeIcon icon={faPhone}/>&nbsp;
                         {inquiry.inquiryPhone}
                     </span>
-                    <span className={'adminInquiryEmail'}>
-                        <FontAwesomeIcon icon={faMailBulk} style={{marginRight: '5px'}}/>
+                    <span className={'adminInquiryEmail'} style={{marginRight: '5px'}}>
+                        <FontAwesomeIcon icon={faEnvelope} fill={'solid'}/>&nbsp;
                         {inquiry.inquiryEmail}
                     </span>
+                    <span className={'adminInquiryDate'} style={{marginRight: '5px'}}>
+                        <FontAwesomeIcon icon={faCalendar}/>&nbsp;
+                        {inquiry.inquiryDate.slice(0, 10)}
+                    </span>
+
                 </div>
 
                 <Table className={'adminDetailTable'} style={{margin: '0', padding: '0'}} bordered>
@@ -108,12 +118,18 @@ export default function Index() {
                     </tr>
                     </tbody>
                 </Table>
+                <div className={'d-flex justify-content-start align-items-center'}>
+                    <h3>문의답변 </h3>
+                    <p className={'m-5'}>
+                        {inquiry.inquiryAnswer}
+                    </p>
+                </div>
 
                 <div className='pageMove'>
                     <ul>
                         <li style={{padding: '8px'}}>
                             {prevPatrol === null ? <><FontAwesomeIcon
-                                    icon={faSquareCaretUp}/><span>이전글이 없습니다.</span></> :
+                                    icon={faSquareCaretUp}/><span>이전글이 존재하지 않습니다.</span></> :
                                 <Link to={`/admin/inquiry/${prevPatrol}`}><FontAwesomeIcon icon={faSquareCaretUp}/>
                                     <span>이전 글</span>
                                 </Link>}
@@ -121,27 +137,14 @@ export default function Index() {
 
                         <li style={{padding: '8px'}}>
                             {nextPatrol === null ? <><FontAwesomeIcon
-                                    icon={faSquareCaretDown}/><span>다음글이 없습니다.</span></> :
+                                    icon={faSquareCaretDown}/><span>다음글이 존재하지 않습니다.</span></> :
                                 <Link to={`/admin/inquiry/${nextPatrol}`}><FontAwesomeIcon icon={faSquareCaretDown}/>
                                     <span>다음 글</span>
                                 </Link>}
                         </li>
                     </ul>
                 </div>
-
-                <p>문의답변 : {inquiry.inquiryAnswer === null ?
-                    <span className={'answerNeed'}>답변 필요</span>
-                    :
-                    <span>{inquiry.inquiryAnswer}</span>}</p>
-
                 <section>
-
-                    <div className=''>
-                        <Button onClick={() => setModalOpen(true)}>
-                            답변하기
-                        </Button>
-                    </div>
-
                     {
                         modalOpen &&
                         <div className={'modalContainer'} ref={modalBackground} onClick={e => {
@@ -166,13 +169,17 @@ export default function Index() {
                             </div>
                         </div>
                     }
-
                 </section>
-                <div className={'inquiryDetailBtn'}>
-                    <Button className='' style={{marginRight: '4px'}} onClick={handleSubmit}>목록으로</Button>
-                    <Button className={''} variant="danger" onClick={handleDelete}>문의삭제</Button>
+                <div className={'d-flex justify-content-between align-items-center'}>
+                    <div className={'d-flex justify-content-start align-items-center'}>
+                        <Button variant={'outlined'} style={{marginRight: '4px'}} onClick={handleSubmit}>목록으로</Button>
+                    </div>
+                    <div className={'d-flex justify-content-end align-items-center'}>
+                        <Button variant={'outlined'} color={'success'}
+                                onClick={() => setModalOpen(true)}>문의답변</Button>
+                        <Button variant={'outlined'} color={'warning'} onClick={handleDelete}>문의삭제</Button>
+                    </div>
                 </div>
-
             </Container>
             {/*<Button variant="primary" size="md" onClick={handleUpdate}>*/}
             {/*    답변 달기*/}
