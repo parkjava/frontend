@@ -1,9 +1,10 @@
 import {Table, Container, Form, Button, Dropdown, Alert} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import React, {useState, useEffect} from 'react';
-import Pagination from "../../../common/components/pagination2"
+import BasicPagination from '../../../common/components/pagination3';
 import axiosInstance from '../../../common/components/axiosinstance';
 import {Mobile, PC} from "../../../common/components/responsive";
+import {Search} from "@mui/icons-material";
 
 export default function Index() {
     const [penalties, setPenalties] = useState([]);
@@ -119,7 +120,7 @@ export default function Index() {
                                 className="me-2"
                             />
                             <Button className={"searchButton"} variant="primary" type="submit" style={{width: '100px'}}>
-                                검색
+                                <Search className={'adminPenaltySearchIcon'}/>
                             </Button>
                         </Form>
                     </Container>
@@ -170,10 +171,10 @@ export default function Index() {
                         </Table>
                     )}
 
-                    <Pagination
+                    <BasicPagination
                         postsPerPage={postsPerPage}
                         totalPosts={penalties.length}
-                        paginate={setCurrentPage}></Pagination>
+                        paginate={setCurrentPage}></BasicPagination>
 
                     {/* <Pagination>
                 <Pagination.First/>
@@ -209,9 +210,9 @@ export default function Index() {
                                     onChange={handleInputChange}
                                     className="me-2"
                                 />
-                                <Button className={"searchButton"} variant="primary" type="submit"
+                                <Button className={"searchButton"} type="submit"
                                         style={{width: '100px'}}>
-                                    검색
+                                    <Search className={'adminPenaltySearchIcon'}/>
                                 </Button>
                             </Form>
                         </Container>
@@ -262,10 +263,10 @@ export default function Index() {
                             </Dropdown>
                         </Container>
 
-                        <Pagination
+                        <BasicPagination
                             postsPerPage={postsPerPage}
                             totalPosts={penalties.length}
-                            paginate={setCurrentPage}></Pagination>
+                            paginate={setCurrentPage}></BasicPagination>
 
                         {/* <Pagination>
                 <Pagination.First/>
