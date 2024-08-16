@@ -118,7 +118,7 @@ export default function Index() {
             <PC>
                 <div className={'commonContainer'}>
                     <Container className={'userNoticeContainer'}>
-                        <h1 className={'userNoticeH1'}>공지사항</h1>
+                        <h1 className={'adminNoticeH1'}>📢&nbsp;공지사항</h1>
                         <hr/>
                         <Container className="d-lg-flex justify-content-end align-items-center">
                             {/*<Dropdown onSelect={handleSearchOptionSelect} className="me-2 pb-2">*/}

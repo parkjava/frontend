@@ -43,12 +43,12 @@ export default function Index() {
             <PC>
                 <div className={'commonContainer'}>
                     <Container>
-                        <h1 className={'adminInquiryH1'}>문의 목록</h1>
+                        <h1 className={'adminInquiryH1'}>📝&nbsp;문의 목록</h1>
                         <hr/>
                         <Container className="d-flex justify-content-end align-items-center pb-2">
                             <Dropdown onSelect={handlePenaltyCount}>
                                 <Dropdown.Toggle className={'dropDownToggle'}>
-                                    노출 설정 : {postsPerPageLabel}
+                                    글 개수 : {postsPerPageLabel}
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
                                     <Dropdown.Item eventKey="ten">10</Dropdown.Item>
@@ -105,12 +105,11 @@ export default function Index() {
             <Mobile>
                 <div className={'commonContainer'}>
                     <Container>
-                        <h1 className={'adminInquiryMH1'}>문의 목록</h1>
-
+                        <h1 className={'adminInquiryH1'}>📝<br/>문의 목록</h1>
                         <Container className="d-flex justify-content-end align-items-center pb-2">
                             <Dropdown onSelect={handlePenaltyCount}>
                                 <Dropdown.Toggle className={'dropDownToggle'}>
-                                    노출 설정 : {postsPerPageLabel}
+                                    글 개수 : {postsPerPageLabel}
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
                                     <Dropdown.Item eventKey="ten">10</Dropdown.Item>
@@ -118,7 +117,7 @@ export default function Index() {
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Container>
-                        <Table hover variant="white" className={'inquiryTable'}>
+                        <Table hover variant="white" className={'inquiryTable mt-4'}>
                             <thead>
                             <tr>
                                 {/*<th>No.</th>*/}

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
-import {Container, Form, Button} from 'react-bootstrap';
+import {Container, Form} from 'react-bootstrap';
+import {Button} from '@mui/material'
 import axiosInstance from "../../../../common/components/axiosinstance";
 
 export default function Index() {
@@ -52,18 +53,20 @@ export default function Index() {
             <Container className='inquiryAnswerContainer'>
                 <Form onSubmit={handleUpdate}>
                     <h2 className={'mb-4 mt-4'} style={{textAlign: 'center'}}>문의 답변</h2>
-                    <Form.Group controlId="inquiryAnswer" >
+                    <Form.Group controlId="inquiryAnswer">
                         <Form.Control
                             as="textarea"
-                            rows={3}
+                            rows={9}
                             placeholder="답변을 입력하세요"
                             name="inquiryAnswer"
+
                             onChange={handleInputChange}
                         />
-                        <Button 
-                            variant="primary" 
-                            type="submit" 
-                            className={'answerBtn'}>
+                        <Button
+                            variant={"outlined"}
+                            color={'primary'}
+                            type="submit"
+                            className={'answerBtn mt-4'}>
                             등록
                         </Button>
                     </Form.Group>
