@@ -1,34 +1,35 @@
 import React, {useState, useEffect} from 'react';
 import {Table, Container,} from 'react-bootstrap';
-import axiosInstance from '../../../../common/components/axiosinstance';
-import BasicPagination from "../../../../common/components/pagination3";
+import axiosInstance from '../../../common/components/axiosinstance';
+import BasicPagination from "../../../common/components/pagination3";
 
 
-export default function PetrolList() {
-    const [patrols, setPatrols] = useState([]);
+export default function PenaltyList() {
+    const [penaltys, setPenaltys] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
     const [postsPerPage, setPostsPerPage] = useState(4);
     const [currentPage, setCurrentPage] = useState(1);
 
     const indexOfLast = currentPage * postsPerPage;
     const indexOfFirst = indexOfLast - postsPerPage;
-    const currentPosts = searchResults.length > 0 ? searchResults.slice(indexOfFirst, indexOfLast) : patrols.slice(indexOfFirst, indexOfLast);
+    const currentPosts = searchResults.length > 0 ? searchResults.slice(indexOfFirst, indexOfLast) : penaltys.slice(indexOfFirst, indexOfLast);
 
-    function patrolApi() {
+    function penaltyApi() {
         axiosInstance
-            .get('/api/patrol')
+            .get('/api/penalty')
             .then((res) => {
-                setPatrols(res)
+                setPenaltys(res)
             })
             .catch((err) => console.log(err));
     }
 
     useEffect(() => {
-        patrolApi();
+        penaltyApi();
     }, []);
 
     return (<>
             <Container>
+                <h3>새 문의 목록</h3>
                 <Table striped bordered hover>
                     <thead>
                     <tr>
@@ -38,18 +39,17 @@ export default function PetrolList() {
                     </tr>
                     </thead>
                     <tbody>
-                    {currentPosts.map((patrol) => (
-                        <tr key={patrol.patrolIndex}>
-                            <td>{patrol.patrolArea}</td>
-                            <td>{patrol.patrolSummary}</td>
-                            <td>{patrol.createDate}</td>
+                    {currentPosts.map((penalty) => (
+                        <tr key={penalty.penaltyIndex}>
+                            <td>{penalty.penaltyCarNumber}</td>
+                            <td>{penalty.penaltyDate}</td>
                         </tr>
                     ))}
                     </tbody>
                 </Table>
                 <BasicPagination className={'patrolPagination'}
                                  postsPerPage={postsPerPage}
-                                 totalPosts={patrols.length}
+                                 totalPosts={penaltys.length}
                                  paginate={setCurrentPage}></BasicPagination>
             </Container>
 

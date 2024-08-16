@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import React, {useState, useEffect} from 'react';
 import Pagination from "../../../../common/components/pagination2"
 import axiosInstance from '../../../../common/components/axiosinstance';
-import {Mobile, PC} from '../../../../common/components/responsive';
+import {PC} from '../../../../common/components/responsive';
 
 export default function CarCheck() {
     const [penalties, setPenalties] = useState([]);
