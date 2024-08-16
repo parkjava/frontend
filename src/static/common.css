@@ -15,6 +15,10 @@
 
 
 /* 공통 */
+
+.pagenationMobile{
+    width: 340px!important;
+}
 a {
     text-decoration: none !important;
 
@@ -730,6 +734,11 @@ span{
     margin-bottom: 0;
 }
 
+/* 사용자 메인페이지 모바일 */
+.youtubeMainMobile{
+  margin: 5px;
+}
+
 /* 관리자 메인페이지 */
 .graph {
     width: 500px;
@@ -868,6 +877,39 @@ span{
     }
 
 }
+/* 관리자 메인페이지 모바일 */
+.dataGraphMobile{
+    max-width: 260px!important;
+}
+.adminWelcomeMobile{
+    flex: 1;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 5px;
+    border: 1px #4fd50a solid;
+    width: 150px!important;
+    font-size: 15px;
+}
+.weatherMobile{
+    flex: 1;
+    background-color: rgb(255, 196, 0);
+    color: black;
+    padding: 5px;
+    border: 1px #4fd50a solid;
+}
+.adminHeaderMobile{
+    /*display: flex!important;*/
+    /*flex-direction: column!important;*/
+    width: 100%;
+    align-items: start;
+    justify-content: space-around;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px #4fd50a solid;
+    background-color: white;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+}
+
 
 
 /* pagination */
@@ -1698,14 +1740,14 @@ span{
 .inquiryAnswer {
     font-size: 14px;
     background-color: white !important;
-    width: 50% !important;
+    width: 40% !important;
 
 }
 
 .inquiryDate {
     font-size: 14px;
     background-color: white !important;
-    width: 30% !important;
+    width: 40% !important;
 }
 
 .adminInquiryPhone, .adminInquiryEmail {

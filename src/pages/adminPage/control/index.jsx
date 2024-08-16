@@ -9,7 +9,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faXmark} from "@fortawesome/free-solid-svg-icons";
 import {Tooltip, Button, IconButton, CircularProgress} from "@mui/material";
 import CreatePatrol from "./component/patrolModal"
-import {Battery20, Battery90, BatteryFull, Delete, HelpOutline, SaveAlt} from "@mui/icons-material";
+import {Delete, HelpOutline, SaveAlt} from "@mui/icons-material";
 import {GaugeContainer, GaugeReferenceArc, GaugeValueArc, useGaugeState} from "@mui/x-charts";
 import {Line} from "react-chartjs-2";
 import PatrolList from "./component/patrolList"

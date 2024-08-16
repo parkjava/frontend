@@ -17,7 +17,7 @@ export default function BasicPagination({postsPerPage, totalPosts, paginate}) {
     return (<>
             <PC>
                 <Stack
-                    className={'d-flex align-items-center justify-content-center mt-3 mb-3'}
+                    className={' paginationPc d-flex align-items-center justify-content-center mt-3 mb-3'}
                     spacing={2}>
                     <Pagination count={totalPages} page={page} onChange={handleChange} color="primary" showFirstButton
                                 showLastButton/>
@@ -25,13 +25,15 @@ export default function BasicPagination({postsPerPage, totalPosts, paginate}) {
             </PC>
             <Mobile>
                 <Stack
-                    className={'d-flex align-items-center justify-content-center mt-3 mb-3 '}
+                    className={'pagenationMobile d-flex justify-content-center align-items-center mt-3 mb-3'}
                     spacing={2}>
                     <Pagination
                         sx={{
                             '& .MuiPaginationItem-root': {
-                                margin: '0 2px', // 좌우 간격을 줄임
-                                padding: '2px 4px', }
+                                margin: '0 2px',
+                                padding: '2px 2px',
+
+                            }
                             ,}}
                         count={totalPages} page={page} onChange={handleChange} color="primary" showFirstButton
                                 showLastButton siblingCount={0}/>
