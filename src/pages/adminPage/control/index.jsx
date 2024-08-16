@@ -15,7 +15,7 @@ import {Line} from "react-chartjs-2";
 import PatrolList from "./component/patrolList"
 import {Mobile, PC} from "../../../common/components/responsive";
 import Time from '../../../common/components/time'
-import {GiBattery100, GiBattery75} from "react-icons/gi";
+import {GiBattery0, GiBattery100, GiBattery50, GiBattery75, GiBatteryMinus} from "react-icons/gi";
 
 export default function Index() {
     const [currentSpeed, setCurrentSpeed] = useState(40);
@@ -98,6 +98,18 @@ export default function Index() {
     };
 
 
+    const [penalties, setPenalties] = useState([])
+
+    function penaltyApi() {
+        axiosInstance
+            .get('/api/penalty/desc')
+            .then((res) => {
+                setPenalties(res)
+            })
+            .catch((err) => console.log(err));
+    }
+
+
     const handleSwitchChange = (e) => {
         setIsChecked(e.target.checked);
         if (isChecked === false) {
@@ -131,16 +143,31 @@ export default function Index() {
 
             // 상태에 이미지 정보를 저장합니다.
             setImages(images);
+            
+            console.log(images[0].name)
         } catch (error) {
             console.error("Error fetching images:", error);
         }
     };
 
     useEffect(() => {
-        // console.log(images)
+        const storedCarNumber = penalties.map((i) => i.penaltyCarNumber)
+
+        images.forEach((image, index) => {
+            if (storedCarNumber.includes(image.name)) {
+                const carNumImg = document.querySelectorAll('.carNumberImg')[index]
+                if (carNumImg) {
+                    carNumImg.style.display = 'none'
+                }
+            }
+        })
+    }, [penalties, images])
+
+
+    useEffect(() => {
         // setInterval(async () => {
         fetchImages();
-        // }, )
+        penaltyApi()
     }, []);
 
     const ros = new ROSLIB.Ros({
@@ -164,8 +191,8 @@ export default function Index() {
 
         batteryLevelListener.subscribe((message) => {
             const voltage = message.Voltage;
-            const percentage = Math.round((voltage / 12.5) * 100);
-            setVoltage(`${percentage}%`);
+            const volt = Math.round((voltage / 12.5) * 100);
+            setVoltage(volt);
         });
     }, [ros]);
 
@@ -403,9 +430,7 @@ export default function Index() {
         const selectImages = images.filter((_, index) => checkState[index])
         const storage = getStorage();
         // Create a reference to the file to delete
-        console.log(selectImages)
         const desertRef = ref(storage, `gs://parkjavastorage.appspot.com/${selectImages[0].name}`);
-        console.log(selectImages)
         const ok = window.confirm('정말 삭제하시겠습니까?')
         if (ok) {
             try {
@@ -452,14 +477,24 @@ export default function Index() {
                     <div className={'controlVideo'}
                          style={{background: `url(${backGround})`}}>
                         <div className={'text-end m-2 '} style={{color: "#19ff00"}}>
-                            {voltage < 90 ?
-                                <GiBattery75 className={'mw-100 fa-rotate-90'} style={{scale:1.4}}/> : <GiBattery100 className={'fa-rotate-90'} style={{scale:1.4}}/>
-                                ||
-                                <CircularProgress style={{width: 20, height: 20}}/>}<br/>
+                            {voltage >= 80 && voltage <= 100 ? (
+                                <GiBattery100 className={'fa-rotate-90'} style={{scale: 1.6}}/>
+                            ) : voltage > 60 && voltage < 80 ? (
+                                <GiBattery75 className={'fa-rotate-90'} style={{scale: 1.6}}/>
+                            ) : voltage > 40 && voltage <= 60 ? (
+                                <GiBattery50 className={'fa-rotate-90'} style={{scale: 1.6}}/>
+                            ) : voltage > 20 && voltage <= 40 ? (
+                                <GiBattery0 className={'fa-rotate-90'} style={{scale: 1.6}}/>
+                            ) : voltage > 0 && voltage <= 20 ? (
+                                <GiBatteryMinus className={'fa-rotate-90'} style={{scale: 1.6}}/>
+                            ) : (
+                                <CircularProgress style={{width: 20, height: 20}}/>
+                            )} &nbsp;{voltage}%
+
+                            <br/>
                             <Time/>
                         </div>
-                        <div className={'gauge float-start text-center position-absolute fw-bold'}
-                             style={{}}>
+                        <div className={'gauge float-start text-center position-absolute fw-bold'}>
                             SPEED : {currentSpeed}
                             <GaugeContainer
                                 width={100}

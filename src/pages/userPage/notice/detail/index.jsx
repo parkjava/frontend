@@ -73,13 +73,13 @@ export default function Index() {
                     <div className='pageMove' >
                         <ul>
                             <li>
-                            {prevNotice === null ? <><FontAwesomeIcon icon={faSquareCaretUp} /><span>이전글이 없습니다.</span></> :  
+                            {prevNotice === null ? <><FontAwesomeIcon icon={faSquareCaretUp} /><span>이전글이 존재하지 않습니다.</span></> :  
                                 <><Link to={`/user/notice/${prevNotice}`}><FontAwesomeIcon icon={faSquareCaretUp} /><span>이전 글</span>
                             </Link><span style={{paddingLeft: '5%'}}>{notices[currentNoticeIndex+1].noticeTitle}</span></>}
                             </li>
 
                             <li>
-                            {nextNotice === null ? <><FontAwesomeIcon icon={faSquareCaretDown} /><span>다음글이 없습니다.</span></> : 
+                            {nextNotice === null ? <><FontAwesomeIcon icon={faSquareCaretDown} /><span>다음글이 존재하지 않습니다.</span></> : 
                                 <><Link to={`/user/notice/${nextNotice}`}><FontAwesomeIcon icon={faSquareCaretDown} /><span>다음 글</span>
                             </Link><span style={{paddingLeft: '5%'}}>{notices[currentNoticeIndex-1].noticeTitle}</span></>}
                             </li>
