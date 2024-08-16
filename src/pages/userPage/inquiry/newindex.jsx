@@ -217,7 +217,7 @@ export default function Index() {
                         }}>
                             <div className={'inquiryForm'}>
                                 <div style={{padding: 0, margin: 0}}>
-                                    <Image src={Logo} width={200} />
+                                    <Image src={Logo} width={200}/>
                                     <FontAwesomeIcon className='modalCloseBtn' icon={faXmark}
                                                      onClick={() => setModalOpen(false)}/>
                                 </div>
@@ -230,6 +230,7 @@ export default function Index() {
                                                           name="name"
                                                           value={inquiryText.name}
                                                           onChange={handleChange}
+                                                          autoComplete="off"
                                             />
                                         </Form.Group>
                                         <Form.Group as={Col} className="mb-3" controlId="formGridPhone">
@@ -239,6 +240,7 @@ export default function Index() {
                                                           name="phone"
                                                           value={inquiryText.phone}
                                                           onChange={handleChange}
+                                                          autoComplete="off"
                                             />
                                         </Form.Group>
                                     </Row>
@@ -250,6 +252,7 @@ export default function Index() {
                                                       name="email"
                                                       value={inquiryText.email}
                                                       onChange={handleChange}
+                                                      autoComplete="off"
                                         />
                                     </Form.Group>
                                     <Form.Group className="mb-3 mt-2" controlId="formGridContent">
@@ -260,6 +263,7 @@ export default function Index() {
                                                           name="title"
                                                           value={inquiryText.title}
                                                           onChange={handleChange}
+                                                          autoComplete="off"
                                             />
                                         </Form.Group>
                                         <Form.Control className={'formControl mt-2'}
@@ -270,6 +274,7 @@ export default function Index() {
                                                       value={inquiryText.content}
                                                       onChange={handleChange}
                                                       style={{whiteSpace: 'pre-line'}}
+                                                      autoComplete="off"
                                         />
                                     </Form.Group>
 

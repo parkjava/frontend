@@ -155,9 +155,9 @@ export default function Index() {
 
         images.forEach((image, index) => {
             if (storedCarNumber.includes(image.name)) {
-                const carNumImg = document.querySelectorAll('.carNumberImg')[index]
-                if (carNumImg) {
-                    carNumImg.style.display = 'none'
+                const penaltyLi = document.querySelectorAll('.penaltyLi')[index]
+                if (penaltyLi) {
+                    penaltyLi.style.display = 'none'
                 }
             }
         })
