@@ -199,7 +199,7 @@ export default function Index() {
             <Mobile>
                 <div className={'commonContainer'}>
                     <Container className={'penaltyCont'}>
-                        <h1 className={'penaltyH1'}>🚓<br/> 단속 차량 상세 목록</h1>
+                        <h1 className={'penaltyH1'}>🚓<br/>단속 목록</h1>
                         <Container className="d-flex justify-content-center align-items-center">
                             <Form onSubmit={handleSubmit} className="d-flex pb-2" style={{width: '300px'}}>
                                 <Form.Control

@@ -102,7 +102,7 @@ export default function PetrolList() {
             <Mobile>
                 <div className={'commonContainer'}>
                     <Container className={'patrolMobileCont'}>
-                        <h1 className={'patrolH1'}>🚨 순찰내역</h1>
+                        <h1 className={'patrolH1'}>🚨<br/>순찰내역</h1>
                         <Container className="d-flex justify-content-end align-items-center pb-2">
                             <Dropdown onSelect={handlePenaltyCount}>
                                 <Dropdown.Toggle className={'dropDownToggle'}>

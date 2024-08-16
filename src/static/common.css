@@ -1560,7 +1560,7 @@ span{
 
 @media (max-width: 768px) {
     .penaltyH1 {
-        background-image: url("./images/background-75.jpg") !important;
+        /*background-image: url("./images/background-75.jpg") !important;*/
         background-size: cover;
     }
 }
