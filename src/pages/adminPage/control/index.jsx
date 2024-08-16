@@ -143,22 +143,31 @@ export default function Index() {
 
             // 상태에 이미지 정보를 저장합니다.
             setImages(images);
-            // for (let i; i< images.length; i++){
-            //     if (images[i].name === penalties)
-            // }
+            
             console.log(images[0].name)
         } catch (error) {
             console.error("Error fetching images:", error);
         }
     };
 
+    useEffect(() => {
+        const storedCarNumber = penalties.map((i) => i.penaltyCarNumber)
+
+        images.forEach((image, index) => {
+            if (storedCarNumber.includes(image.name)) {
+                const carNumImg = document.querySelectorAll('.carNumberImg')[index]
+                if (carNumImg) {
+                    carNumImg.style.display = 'none'
+                }
+            }
+        })
+    }, [penalties, images])
+
 
     useEffect(() => {
         // setInterval(async () => {
         fetchImages();
         penaltyApi()
-        console.log("images: ",images)
-        // }, )
     }, []);
 
     const ros = new ROSLIB.Ros({
