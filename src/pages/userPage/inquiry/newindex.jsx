@@ -1,4 +1,4 @@
-import {Form, Row, Col, Button, Alert, Image} from 'react-bootstrap';
+import {Form, Row, Col, Button, Alert, Image, Container} from 'react-bootstrap';
 import React, {useState, useRef, useEffect} from "react";
 import '../../../static/common.css'
 import axios from 'axios';
@@ -143,154 +143,157 @@ export default function Index() {
     return (
         <>
             <div className={'commonContainer'}>
-                <section>
-                    <h1 style={{paddingTop: '100px'}}>
-                        Contact US &nbsp;
-                        <FontAwesomeIcon icon={faComment} bounce style={{color: 'rgba(255,0,250,0.49)'}}/>
-                    </h1>
-                </section>
-                <section>
-                    <div className='outBox' style={{display: 'flex', justifyContent: 'center'}}>
-                        <Form onSubmit={handleGet} style={{width: '354px', position: 'relative', top: '5px'}}>
-                            <div className='inputBox'>
-                                <Form.Group style={{width: '100%'}}>
-                                    <Form.Control
-                                        className=''
-                                        id='inquiryPhoneInput'
-                                        type="text"
-                                        name="phone"
-                                        value={inquiryList.phone || ''}
-                                        onChange={handleChange}
-                                        autoComplete="off"
-                                    />
-                                    <label htmlFor='inquiryPhoneInput'>전화번호를 입력하세요</label>
-                                    <div className='inquiryIconBox'>
-                                        <FontAwesomeIcon className='inquiryIcon' onClick={handleGet}
-                                                         icon={faMagnifyingGlass}/>
+                <Container>
+                    <section>
+                        <h1 className={'adminInquiryH1'}>
+                            Contact US &nbsp;
+                            <FontAwesomeIcon icon={faComment} bounce style={{color: 'rgba(255,0,250,0.49)'}}/>
+                        </h1>
+                    </section>
+                    <section>
+                        <div className='outBox' style={{display: 'flex', justifyContent: 'center'}}>
+                            <Form onSubmit={handleGet} style={{width: '354px', position: 'relative', top: '5px'}}>
+                                <p style={{fontSize:18}}><b>문의하신 적이 있으신가요?</b></p>
+                                <div className='inputBox'>
+                                    <Form.Group style={{width: '100%'}}>
 
-                                    </div>
-                                </Form.Group>
-                            </div>
-                        </Form>
-                    </div>
-                    {inquiryList.length > 0 && (
-                        <div className="inquiryNewList">
-                            <ul>
-                                {inquiryList &&
-                                    inquiryList.map((inquiry, index) => (
-                                        <li key={index}>
-                                            <hr style={{width: '87rem'}}/>
-                                            <p>제목: {inquiry.inquiryTitle}</p>
-                                            <p>작성자: {inquiry.inquiryWriter}</p>
-                                            <p>전화번호: {inquiry.inquiryPhone}</p>
-                                            <p>문의내용: {inquiry.inquiryContent}</p>
-                                            <p>문의답변: {inquiry.inquiryAnswer}</p>
-                                            <p>문의일자: {inquiry.inquiryDate.split('T')[0]}</p>
-                                        </li>
-                                    ))}
-                            </ul>
-                        </div>
-                    )}
-                </section>
+                                        <Form.Control
+                                            className=''
+                                            id='inquiryPhoneInput'
+                                            type="text"
+                                            name="phone"
+                                            value={inquiryList.phone || ''}
+                                            onChange={handleChange}
+                                            autoComplete="off"
+                                        />
+                                        <label htmlFor='inquiryPhoneInput'>전화번호를 입력하세요</label>
+                                        <div className='inquiryIconBox'>
+                                            <FontAwesomeIcon className='inquiryIcon' onClick={handleGet}
+                                                             icon={faMagnifyingGlass}/>
 
-                <section>
-
-                    <div className='inquiryNew'>
-                        <div>
-                            <hr style={{width: '87rem'}}/>
-                            <h2 className='headline'>
-                                문의하기
-                            </h2>
-
-                            <FontAwesomeIcon icon={faComments} onClick={() => setModalOpen(true)}
-                                             style={{scale: '3', paddingTop: '1.5rem', cursor: 'pointer'}}/>
-                        </div>
-                    </div>
-                    <SpaceBox $paddingbottom='16px' $marginbottom='32px'></SpaceBox>
-
-                    {
-                        modalOpen &&
-                        <div className={'modalContainer'} ref={modalBackground} onClick={e => {
-                            if (e.target === modalBackground.current) {
-                                setModalOpen(false);
-                            }
-                        }}>
-                            <div className={'inquiryForm'}>
-                                <div style={{padding: 0, margin: 0}}>
-                                    <Image src={Logo} width={200} />
-                                    <FontAwesomeIcon className='modalCloseBtn' icon={faXmark}
-                                                     onClick={() => setModalOpen(false)}/>
+                                        </div>
+                                    </Form.Group>
                                 </div>
-                                <Form className={'inquiryIndex'} onSubmit={handleSubmit}>
-                                    <Row className={'mt-2'}>
-                                        <Form.Group as={Col} controlId="formGridName">
-                                            <Form.Control className={'inputBox'}
-                                                          type="text"
-                                                          placeholder="이름"
-                                                          name="name"
-                                                          value={inquiryText.name}
-                                                          onChange={handleChange}
-                                            />
-                                        </Form.Group>
-                                        <Form.Group as={Col} className="mb-3" controlId="formGridPhone">
-                                            <Form.Control className={'formControl'}
-                                                          type="text"
-                                                          placeholder="전화번호"
-                                                          name="phone"
-                                                          value={inquiryText.phone}
-                                                          onChange={handleChange}
-                                            />
-                                        </Form.Group>
-                                    </Row>
+                            </Form>
+                        </div>
+                        {inquiryList.length > 0 && (
+                            <div className="inquiryNewList">
+                                <ul>
+                                    {inquiryList &&
+                                        inquiryList.map((inquiry, index) => (
+                                            <li key={index}>
+                                                <hr style={{width: '87rem'}}/>
+                                                <p>제목: {inquiry.inquiryTitle}</p>
+                                                <p>작성자: {inquiry.inquiryWriter}</p>
+                                                <p>전화번호: {inquiry.inquiryPhone}</p>
+                                                <p>문의내용: {inquiry.inquiryContent}</p>
+                                                <p>문의답변: {inquiry.inquiryAnswer}</p>
+                                                <p>문의일자: {inquiry.inquiryDate.split('T')[0]}</p>
+                                            </li>
+                                        ))}
+                                </ul>
+                            </div>
+                        )}
+                    </section>
 
-                                    <Form.Group as={Col} controlId="formGridEmail">
-                                        <Form.Control className={'formControl'}
-                                                      type="email"
-                                                      placeholder="이메일"
-                                                      name="email"
-                                                      value={inquiryText.email}
-                                                      onChange={handleChange}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3 mt-2" controlId="formGridContent">
-                                        <Form.Group as={Col} controlId="formGridTitle">
-                                            <Form.Control className={'formControl'}
-                                                          type="text"
-                                                          placeholder="문의제목"
-                                                          name="title"
-                                                          value={inquiryText.title}
-                                                          onChange={handleChange}
-                                            />
-                                        </Form.Group>
-                                        <Form.Control className={'formControl mt-2'}
-                                                      rows={5}
-                                                      as="textarea"
-                                                      name="content"
-                                                      placeholder={'문의내용'}
-                                                      value={inquiryText.content}
-                                                      onChange={handleChange}
-                                                      style={{whiteSpace: 'pre-line'}}
-                                        />
-                                    </Form.Group>
+                    <section>
 
-                                    <div className={'buttonContainer'}>
-                                        <Button className='inquiryButton text-white' variant="primary" type="submit"
-                                                disabled={!isFormValid}>
-                                            문의등록
-                                        </Button>
-                                    </div>
-                                </Form>
-                                {showMessage && (
-                                    <Alert variant="success" className="mt-3">
-                                        문의가 완료되었습니다
-                                    </Alert>
-                                )}
+                        <div className='inquiryNew'>
+                            <div>
+                                <hr style={{width: '87rem'}}/>
+                                <h2 className='headline'>
+                                    문의하기
+                                </h2>
+
+                                <FontAwesomeIcon icon={faComments} onClick={() => setModalOpen(true)}
+                                                 style={{scale: '3', paddingTop: '1.5rem', cursor: 'pointer'}}/>
                             </div>
                         </div>
-                    }
+                        <SpaceBox $paddingbottom='16px' $marginbottom='32px'></SpaceBox>
 
-                </section>
+                        {
+                            modalOpen &&
+                            <div className={'modalContainer'} ref={modalBackground} onClick={e => {
+                                if (e.target === modalBackground.current) {
+                                    setModalOpen(false);
+                                }
+                            }}>
+                                <div className={'inquiryForm'}>
+                                    <div style={{padding: 0, margin: 0}}>
+                                        <Image src={Logo} width={200}/>
+                                        <FontAwesomeIcon className='modalCloseBtn' icon={faXmark}
+                                                         onClick={() => setModalOpen(false)}/>
+                                    </div>
+                                    <Form className={'inquiryIndex'} onSubmit={handleSubmit}>
+                                        <Row className={'mt-2'}>
+                                            <Form.Group as={Col} controlId="formGridName">
+                                                <Form.Control className={'inputBox'}
+                                                              type="text"
+                                                              placeholder="이름"
+                                                              name="name"
+                                                              value={inquiryText.name}
+                                                              onChange={handleChange}
+                                                />
+                                            </Form.Group>
+                                            <Form.Group as={Col} className="mb-3" controlId="formGridPhone">
+                                                <Form.Control className={'formControl'}
+                                                              type="text"
+                                                              placeholder="전화번호"
+                                                              name="phone"
+                                                              value={inquiryText.phone}
+                                                              onChange={handleChange}
+                                                />
+                                            </Form.Group>
+                                        </Row>
 
+                                        <Form.Group as={Col} controlId="formGridEmail">
+                                            <Form.Control className={'formControl'}
+                                                          type="email"
+                                                          placeholder="이메일"
+                                                          name="email"
+                                                          value={inquiryText.email}
+                                                          onChange={handleChange}
+                                            />
+                                        </Form.Group>
+                                        <Form.Group className="mb-3 mt-2" controlId="formGridContent">
+                                            <Form.Group as={Col} controlId="formGridTitle">
+                                                <Form.Control className={'formControl'}
+                                                              type="text"
+                                                              placeholder="문의제목"
+                                                              name="title"
+                                                              value={inquiryText.title}
+                                                              onChange={handleChange}
+                                                />
+                                            </Form.Group>
+                                            <Form.Control className={'formControl mt-2'}
+                                                          rows={5}
+                                                          as="textarea"
+                                                          name="content"
+                                                          placeholder={'문의내용'}
+                                                          value={inquiryText.content}
+                                                          onChange={handleChange}
+                                                          style={{whiteSpace: 'pre-line'}}
+                                            />
+                                        </Form.Group>
+
+                                        <div className={'buttonContainer'}>
+                                            <Button className='inquiryButton text-white' variant="primary" type="submit"
+                                                    disabled={!isFormValid}>
+                                                문의등록
+                                            </Button>
+                                        </div>
+                                    </Form>
+                                    {showMessage && (
+                                        <Alert variant="success" className="mt-3">
+                                            문의가 완료되었습니다
+                                        </Alert>
+                                    )}
+                                </div>
+                            </div>
+                        }
+
+                    </section>
+                </Container>
             </div>
         </>
     )
