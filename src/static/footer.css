@@ -29,15 +29,21 @@
 }
 
 .footerArea{
+    color: #454545;
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 18px;
-    margin: 40px 200px 30px 200px;
+    margin: 40px 150px 30px 150px;
 }
 
 .footerArea a:hover{
     text-decoration: underline !important;
+}
+
+.address{
+    font-size: 14px;
+    color: #454545;
 }
 
 @media(max-width:768px){
@@ -56,11 +62,11 @@
 
     }
     .footerLogo img{
-        min-width: 80px;
-        max-width: 200px;
-        width: 88%;
-        margin: 5px;
+        display: none;
 
+    }
+    .address{
+        display: none;
     }
 
 

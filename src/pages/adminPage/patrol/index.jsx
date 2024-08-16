@@ -101,7 +101,7 @@ export default function PetrolList() {
             </PC>
             <Mobile>
                 <div className={'commonContainer'}>
-                    <Container className={'patrolMobileCont'}>
+                    <Container>
                         <h1 className={'patrolH1'}>🚨<br/>순찰내역</h1>
                         <Container className="d-flex justify-content-end align-items-center pb-2">
                             <Dropdown onSelect={handlePenaltyCount}>

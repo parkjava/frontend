@@ -30,6 +30,17 @@ export default function Footer() {
                             <p><Link to={'/user/notice'}>Notice</Link></p>
                             <p><Link to={'user/inquiry'}>ContactUs</Link></p>
                         </div>
+                        <div className={'footerLink'}>
+                            <div className={'footerLogo'}>
+                                <Image src={ParkjavaLogo}/>
+                                <Link to={'https://mcea.co.kr/'} target={"_blank"}>
+                                    <Image src={EducationLogo}/>
+                                </Link>
+                            </div>
+                            <div className={'text-center address'}>
+                                대전시 서구 계룡로 491번길 86 (둔산동 1221번지) ∣ 전화번호: 042-471-9222 ∣ 팩스: 042-471-9223 ∣ 이메일: mcea@mcea.co.kr
+                            </div>
+                        </div>
                         <div className={'footerLink2'}>
                             <p><Link to={'https://github.com/parkjava'}>
                                 <b>GitHub</b></Link>&nbsp;&nbsp;
@@ -53,12 +64,6 @@ export default function Footer() {
 
                             </p>
                         </div>
-                    </div>
-                    <div className={'footerLogo'}>
-                        <Image src={ParkjavaLogo}/>
-                        <Link to={'https://mcea.co.kr/'} target={"_blank"}>
-                            <Image src={EducationLogo}/>
-                        </Link>
                     </div>
                 </div>
                 : null

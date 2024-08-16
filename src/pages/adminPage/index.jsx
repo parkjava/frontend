@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import Form from 'react-bootstrap/Form';
-import {Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@mui/material";
+import {FormControl, FormControlLabel, Radio, RadioGroup} from "@mui/material";
 import {Mobile, PC} from "../../common/components/responsive";
 import {
     Chart as ChartJS,
@@ -17,6 +16,10 @@ import {Line} from 'react-chartjs-2';
 import axiosInstance from '../../../src/common/components/axiosinstance';
 import axios from "axios";
 import '../../static/common.css'
+import PatrolList from './components/patrolList'
+import PenaltyList from './components/penaltyList'
+import InquiryList from './components/inquiryList'
+import {Link} from "react-router-dom";
 
 // Chart.js 컴포넌트 등록
 ChartJS.register(
@@ -223,18 +226,11 @@ export default function Index() {
 
     const imgSrc = `https://openweathermap.com/img/w/${weatherData.icon}.png`;
     const [activeData, setActiveData] = useState('chart');
-    const currentDate = new Date().toLocaleDateString();
-    // const weatherCodes = {
-    //     'clear sky' : '맑음',
-    //     'few clouds' : '구름조금',
-    //     'scrattered clouds' : '구름많음',
-    //     'broken clouds' : '흐림',
-    //     'shower rain' : '소나기',
-    //     'rain' : '비',
-    //     'thunderstorm' : '천둥번개',
-    //     'snow' : '눈',
-    //     'mist' : '안개'
-    // }
+    const currentDate = new Date().toLocaleString('ko-KR', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+    }).replace(/\./g, '').replace(/\s/g, '-').replace(/-/g, (match, offset) => offset === 4 || offset === 7 ? '-' : ' ').slice(0, 16);
     const getKoreanDescription = (description) => {
         const lowerCaseDesc = description.toLowerCase();
 
@@ -277,34 +273,33 @@ export default function Index() {
     const weatherClass = getWeatherClass(weatherData.desc);
 
     return (
-        <>
+        <div className={'commonContainer'}>
             <PC>
                 <div className={`adminContainer ${weatherClass}`}>
                     <div className={'adminHeader'}>
-                        <div className={'1F'} style={{display: 'flex', alignContent: 'space-between'}}>
-                            <div className={'adminWelcome'}>
-                                <br/>
-                                반갑습니다 {userName} 님! <br/>
-                                이곳에선 실시간 단속영상 및 문의사항 등을 확인할 수 있고,<br/>
-                                공지사항을 작성할 수 있습니다.<br/>
-                            </div>
-                            <div className={'weather'}>
-                                {!weatherData.loading && (
-                                    <>
-                                        <img src={imgSrc} alt="weather icon"/>
-                                        <div>{(weatherData.temp - 273.15).toFixed(0)}°</div>
-                                        <div>{(weatherData.desc)}</div>
-                                        <div>{getKoreanDescription(weatherData.desc)}</div>
-                                        <div>최고: {(weatherData.temp_max - 273.15).toFixed(0)}°
+                        <div className={'weather'}>
+                            {!weatherData.loading && (
+                                <div className={'d-flex justify-content-between align-items-center'}>
+                                    <div>
+                                        {currentDate}
+                                    </div>
+                                    <div>
+                                        <p>
+                                            <img src={imgSrc}
+                                                 alt="weather icon"/>{getKoreanDescription(weatherData.desc)}
+                                        </p>
+                                        <span>
+                                            최고: {(weatherData.temp_max - 273.15).toFixed(0)}°
                                             최저: {(weatherData.temp_min - 273.15).toFixed(0)}°
-                                        </div>
-                                        <div>{currentDate}</div>
-                                    </>
-                                )}
-                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                            )}
                         </div>
-                        <br/>
-                        <div className={'2F'}>
+                        <div className={'adminWelcome'}>
+                            <h2>{userName} 님, ParkJAVA 관리자 페이지에 오신 것을 환영합니다.</h2>
+                        </div>
+                        <div className={'secondF'}>
                             <div className={'adminContent'}>
                                 <FormControl>
                                     <RadioGroup
@@ -324,58 +319,54 @@ export default function Index() {
                                 </div>
                             </div>
                         </div>
+                        <div className={'boardArea'}>
+                            <div>
+                                <PatrolList/>
+                            </div>
+                            <div>
+                                <InquiryList/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </PC>
             <Mobile>
                 <div className={`adminContainer ${weatherClass}`}>
-                    <div className={'adminHeaderMobile'}>
-                        <div className={'1F'} style={{display: 'flex', alignContent: 'space-between'}}>
-                            <div className={'adminWelcomeMobile'}>
-                                <br/>
-                                반갑습니다{userName}님! <br/>
-                                이곳은 관리자 페이지입니다.
-                            </div>
-                            <div className={'weatherMobile'}>
-                                {!weatherData.loading && (
-                                    <>
-                                        <img src={imgSrc} alt="weather icon"/>
-                                        <div>{(weatherData.temp - 273.15).toFixed(0)}°</div>
-                                        <div>{(weatherData.desc)}</div>
-                                        <div>{getKoreanDescription(weatherData.desc)}</div>
-                                        <div>최고: {(weatherData.temp_max - 273.15).toFixed(0)}°<br/>
-                                            최저: {(weatherData.temp_min - 273.15).toFixed(0)}°
-                                        </div>
-                                        <div>{currentDate}</div>
-                                    </>
-                                )}
-                            </div>
-                        </div>
-                        <br/>
-                        <div className={'2F'}>
-                            <div className={'adminContent'}>
-                                <FormControl>
-                                    <RadioGroup
-                                        className={"none"}
-                                        style={{display: "block"}}
-                                        defaultValue="단속내역"
-                                        name="radio-buttons-group"
-                                    >
-                                        <FormControlLabel value="단속내역" control={<Radio/>} label="단속내역"
-                                                          onClick={() => setActiveData('chart')}/>
-                                        <FormControlLabel value="문의내역" control={<Radio/>} label="문의내역"
-                                                          onClick={() => setActiveData('inquiry')}/>
-                                    </RadioGroup>
-                                </FormControl>
-                                {/*</div>*/}
-                                <div className={"dataGraphMobile"}>
-                                    <Line data={activeData === 'chart' ? chartData : inquiryData} options={options}/>
+                    <div className={'adminHeader'}>
+                        <div className={'weather'}>
+                            {!weatherData.loading && (
+                                <div className={''}>
+                                    {currentDate}<br/>
+                                    <img src={imgSrc}
+                                         alt="weather icon"/>{getKoreanDescription(weatherData.desc)}<br/>
+                                    최고: {(weatherData.temp_max - 273.15).toFixed(0)}°
+                                    최저: {(weatherData.temp_min - 273.15).toFixed(0)}°
                                 </div>
+                            )}
+                        </div>
+                        <div className={'weatherMobile'}>
+                            <FormControl>
+                                <RadioGroup
+                                    className={"none"}
+                                    style={{display: "block"}}
+                                    defaultValue="단속내역"
+                                    name="radio-buttons-group"
+                                >
+                                    <FormControlLabel value="단속내역" control={<Radio/>} label="단속내역"
+                                                      onClick={() => setActiveData('chart')}/>
+                                    <FormControlLabel value="문의내역" control={<Radio/>} label="문의내역"
+                                                      onClick={() => setActiveData('inquiry')}/>
+                                </RadioGroup>
+                            </FormControl>
+                            <div className={"dataGraphMobile"}>
+                                <Line data={activeData === 'chart' ? chartData : inquiryData} options={options}/>
                             </div>
                         </div>
+
                     </div>
                 </div>
+
             </Mobile>
-        </>
+        </div>
     );
 }
