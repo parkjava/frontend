@@ -398,9 +398,12 @@ span {
 
 /* 프로젝트 소개 페이지 */
 .projectInfo {
-    margin: 0 400px 0 400px;
-    text-align: center;
-    font-size: 30px;
+    /* margin: 0 400px 0 400px; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.5em;
 }
 
 .infoStart {
@@ -413,62 +416,59 @@ span {
 }
 
 .infoStart2 {
-
     display: flex;
+    font-weight: 600;
     justify-content: center;
     align-items: center;
-    margin-top: 200px;
-    margin-bottom: 400px;
+    max-width: 1000px;
+    flex-direction : column;
+    padding-bottom: 10%;
+    text-align: center;
 }
 
-.infoAreaLeft {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 300px;
-}
-
-.infoAreaRight {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    margin-bottom: 300px;
+.infoStart2Area {
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+    max-width: 1000px;
+    padding: 15% 0 15% 0;
 }
 
 .jetbotArea {
     color: rgb(34, 34, 34);
-    padding: 0 50px 0 50px;
     width: 100%;
-    height: 100%;
     font-weight: 600;
     display: flex;
-    align-items: center;
     justify-content: center;
-
+    text-align: center;
+    max-width: 1000px;
+    padding: 15% 0 15% 0;
 }
 
 .reactArea {
     color: rgb(57, 218, 249);
     padding: 0 50px 0 50px;
     width: 100%;
-    height: 100%;
     font-weight: 600;
     display: flex;
     align-items: center;
     justify-content: center;
-
+    max-width: 884px;
+    text-align: center;
+    padding: 15% 0 15% 0;
 }
 
 .springArea {
     color: rgb(95, 179, 75);
-    padding: 0 50px 0 50px;
+    padding: 0;
     width: 100%;
-    height: 100%;
     font-weight: 600;
     display: flex;
     align-items: center;
     justify-content: center;
-
+    text-align: center;
+    max-width: 1000px;
+    padding: 15% 0 15% 0;
 }
 
 .IDEArea {
@@ -476,12 +476,12 @@ span {
     color: transparent;
     -webkit-background-clip: text;
     font-weight: 600;
-    width: 100%;
-    height: 100%;
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 0 50px 0 50px;
+    width: 100%;
+    text-align: center;
+    flex-direction : row;
+    padding: 15% 0 15% 0;
 }
 
 .wheel {

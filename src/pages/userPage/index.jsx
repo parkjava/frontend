@@ -15,7 +15,7 @@ export default function Index() {
                     <div className={'mainBackground'}>
                         <div className={'mainPage'}>
                             <YouTube className={'youtubeMain'}
-                                     videoId="1QYXjT1o-1w" //동영상 주소
+                                     videoId="N6n9KsH-vBM" //동영상 주소
                                      opts={{
                                          width: "600px",
                                          height: "400px",
@@ -24,7 +24,7 @@ export default function Index() {
                                              autoplay: 1, //자동 재생 여부
                                              modestbranding: 1, //컨트롤 바에 유튜브 로고 표시 여부
                                              loop: 1, //반복 재생
-                                             playlist: "1QYXjT1o-1w", //반복 재생으로 재생할 플레이 리스트
+                                             playlist: "N6n9KsH-vBM", //반복 재생으로 재생할 플레이 리스트
                                          },
                                      }}
                                      onReady={(e) => {
