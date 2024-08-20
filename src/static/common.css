@@ -44,7 +44,7 @@ table td {
 .commonContainer {
     padding-top: 80px;
     background-color: #ffffff;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 @media (max-width: 768px) {

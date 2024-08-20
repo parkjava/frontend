@@ -462,7 +462,7 @@ export default function Index() {
             </div>
         </Mobile>
         <PC>
-            <div className={'commonContainer backGround'}>
+            <div className={'commonContainer backGround vh-100'}>
                 <h1 className={'controlH1'}>관제센터</h1>
                 <div className={'controlInfo'}>
                     <div className={'controlGraph'}>

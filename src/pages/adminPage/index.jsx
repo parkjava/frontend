@@ -267,16 +267,16 @@ export default function Index() {
         if (description.includes('thunderstorm')) return 'thunderstorm';
         if (description.includes('snow')) return 'snow';
         if (description.includes('mist')) return 'mist';
-        return '';
+        else return 'few-clouds';
     };
 
     const weatherClass = getWeatherClass(weatherData.desc);
 
     return (
-        <div className={'commonContainer'}>
+        <div className={`commonContainer ${weatherClass}`}>
             <PC>
-                <div className={`adminContainer ${weatherClass}`}>
-                    <div className={'adminHeader'}>
+                <div className={`adminContainer`}>
+                    <div className={`adminHeader `}>
                         <div className={'weather'}>
                             {!weatherData.loading && (
                                 <div className={'d-flex justify-content-between align-items-center'}>

@@ -63,7 +63,7 @@ export default function Index() {
                             <div className="member-image" style={{borderColor: member.borderColor}}>
                                 <img src={member.image} alt={member.name}/>
                             </div>
-                            <h2>{member.name}</h2>
+                            <h2 className={'mt-4'}>{member.name}</h2>
                             <p className="member-title">{member.title}</p>
                             <b><p className="hover-text">{member.greetings}</p></b>
                             <p className="hover-text">{member.part}</p>
