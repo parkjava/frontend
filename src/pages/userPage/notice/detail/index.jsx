@@ -51,12 +51,12 @@ export default function Index() {
         <>
             <div className={'commonContainer'}>
                 <Container className='detailContainer' style={{height: '150vh', borderRadius: '20px'}}>
-                    <h1>공지 사항</h1>
-                    <p className={'userNoticeTitle'}>
+                <h1 className={'adminNoticeH1'}>공지 상세</h1>
+                    <p className={'adminNoticeTitle'}>
                         {notice.noticeTitle}
                     </p>
-                    <div className='userNoticeDateDiv'>
-                        <p className={'userNoticeDate'}>
+                    <div style={{margin: '10px 5px 10px'}}>
+                        <p className={'adminNoticeDate'}>
                             <FontAwesomeIcon icon={faCalendarPlus} style={{marginRight: '6px'}} />
                             {notice.createDate}
                         </p>
